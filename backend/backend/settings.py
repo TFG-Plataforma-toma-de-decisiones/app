@@ -24,12 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+lthx701mph&xwun-q6kfw&*^h99&8uc$!i@35uaflf8!@*obh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 env = environ.Env(
     # Definimos valores por defecto por si no existen en el .env
     DEBUG=(bool, False)
 )
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+DEBUG = env.bool("DEBUG",default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
 DATABASES={
     "default":env.db(),
@@ -91,12 +92,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
 
 
 # Password validation
@@ -116,16 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nombre_de_tu_base_de_datos',
-        'USER': 'tu_usuario_de_postgres',
-        'PASSWORD': 'tu_contraseña_de_postgres',
-        'HOST': 'localhost',  
-        'PORT': '5432',      
-    }
-}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
