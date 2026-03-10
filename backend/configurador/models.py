@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class Project(models.Model):
     
-    name=models.CharField(max_length=255,blank=False,unique=True)
+    name=models.CharField(max_length=255,blank=False)
     description=models.TextField(blank=False)
     language=models.CharField(max_length=100,blank=False)
     TYPE_CHOICES = (
