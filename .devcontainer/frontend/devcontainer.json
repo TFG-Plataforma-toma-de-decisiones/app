@@ -11,5 +11,8 @@
                 "dsznajder.es7-react-js-snippets"
             ]
         }
-    }
+    },
+    "mounts": [
+    "source=vscode-server-frontend,target=/root/.vscode-server,type=volume"
+]
 }
