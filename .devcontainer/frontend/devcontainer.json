@@ -1,0 +1,15 @@
+{
+    "name": "TFG - Frontend (React)",
+    "dockerComposeFile": ["../../docker/docker-compose-dev.yml"],
+    "service": "frontend",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "dsznajder.es7-react-js-snippets"
+            ]
+        }
+    }
+}

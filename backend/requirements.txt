@@ -5,3 +5,4 @@ psycopg==3.3.3
 django-environ==0.13.0
 flamapy==2.5.0
 redis==7.3.0
+django-cors-headers==4.7.0

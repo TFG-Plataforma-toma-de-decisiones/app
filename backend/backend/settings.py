@@ -43,8 +43,9 @@ CACHES = {
     }
 }
 # Application definition
-
+CORS_ALLOWED_ORIGINS =env.list("CORS_ALLOWED_ORIGINS")
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'django.contrib.admin',
@@ -60,6 +61,7 @@ REST_FRAMEWORK = {
     )
 }
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
