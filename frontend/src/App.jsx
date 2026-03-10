@@ -1,18 +1,25 @@
-import Navbar from './components/Navbar';
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Projects from './projects/Projects';
-import Home from './home/HomePage';
+import Navbar from './components/Navbar';
+import Home from './HomePage';
+import './App.css';
 
 function App() {
   return (
-    <>
+    <div className="app-container">
       <Navbar />
-      <Routes>
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </>
+      <main className="main-content">
+        <Routes>
+          {/* Rutas Públicas */}
+          <Route path="/" element={<Home />} />
+          <Route path="/recomendador" element={<div>Página del Recomendador (En construcción)</div>} />
+          <Route path="/login" element={<div>Página de Login</div>} />
+
+          {/* Rutas de Administrador */}
+          <Route path="/uvl-model" element={<div>Gestión del Modelo UVL</div>} />
+          <Route path="/project/:id" element={<div>Detalle del Proyecto</div>} /> 
+        </Routes>
+      </main>
+    </div>
   );
 }
 

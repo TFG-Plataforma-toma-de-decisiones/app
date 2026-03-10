@@ -1,0 +1,82 @@
+/* =========================================
+   Contenedor de la Tarjeta (ProjectCard.css)
+   ========================================= */
+.project-card {
+  background-color: var(--bg-card);     /* Usando variable */
+  border: 1px solid var(--border-color); /* Usando variable */
+  border-radius: 12px;       
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;                 
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;           
+}
+
+.project-card:hover {
+  border-color: var(--border-hover);     /* Usando variable */
+}
+
+/* =========================================
+   Título y Descripción
+   ========================================= */
+.project-title {
+  color: var(--text-main);               /* Usando variable */
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.project-description {
+  color: var(--text-muted);              /* Usando variable */
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* =========================================
+   Contenedor de Etiquetas (Badges)
+   ========================================= */
+.label-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;     
+  display: inline-block;
+  /* Eliminados los bordes para imitar exactamente la captura original */
+}
+
+/* =========================================
+   Aplicando los colores mediante variables
+   ========================================= */
+.badge-language {
+  background-color: var(--badge-lang-bg);
+  color: var(--badge-lang-text);
+}
+
+.badge-backend {
+  background-color: var(--badge-backend-bg);
+  color: var(--badge-backend-text);
+}
+
+.badge-frontend {
+  background-color: var(--badge-frontend-bg);
+  color: var(--badge-frontend-text);
+}
+
+/* Ojo con el nombre de la clase generada por el JS: "Full Stack" -> "full-stack" */
+.badge-full-stack {
+  background-color: var(--badge-fullstack-bg);
+  color: var(--badge-fullstack-text);
+}
+
+.badge-library {
+  background-color: var(--badge-library-bg);
+  color: var(--badge-library-text);
+}
