@@ -2,9 +2,13 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './HomePage';
 import './App.css';
-
+import AuthProvider from './context/AuthContext'
+import ErrorProvider from './context/ErrorContext';
 function App() {
+ 
   return (
+    <AuthProvider>
+    <ErrorProvider>
     <div className="app-container">
       <Navbar />
       <main className="main-content">
@@ -20,6 +24,8 @@ function App() {
         </Routes>
       </main>
     </div>
+    </ErrorProvider>
+    </AuthProvider>
   );
 }
 
