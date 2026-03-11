@@ -1,13 +1,10 @@
 import ProjectCard from './components/ProjectCard';
 import useAxios from './hooks/useAxios';
-import useUVLModel from './hooks/useUVLModel';
 import { Container, Typography, Grid, Box } from '@mui/material';
-import './App.css'; // Aseguramos que los estilos globales se carguen
+import './App.css'; 
 
 function Home() {
   const { data: projects } = useAxios("/projects", []);
-  const { uvlModel } = useUVLModel();
-  console.log(uvlModel);
 
   return (
     <Container maxWidth="lg" className="home-container">
@@ -25,7 +22,7 @@ function Home() {
 
       <Grid container spacing={3}>
         {projects.map(proj => (
-          <Grid item key={proj.id} xs={12} sm={6} md={4}>
+          <Grid key={proj.id} size={{xs:12,sm:6,md:3}} >
             <ProjectCard project={proj} />
           </Grid>
         ))}

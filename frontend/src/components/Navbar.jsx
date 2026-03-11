@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
-
+import { useAuth } from '../hooks/useAuth';
 function Navbar() {
+  const {isAuthenticated,setToken}=useAuth()
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -32,12 +33,15 @@ function Navbar() {
             </NavLink>
           </li>
           <li className="nav-item">
+            {isAuthenticated?
+            <p className="nav-link login-btn" onClick={()=>setToken(null)}>Log out</p>:
             <NavLink 
               to="/login" 
               className={({ isActive }) => `nav-link login-btn ${isActive ? 'active' : ''}`}
             >
               Acceder
             </NavLink>
+            }
           </li>
         </ul>
       </div>
