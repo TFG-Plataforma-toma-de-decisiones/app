@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { useAuth } from '../hooks/useAuth';
 function Navbar() {
-  const {isAuthenticated,setToken}=useAuth()
+  const {isAuthenticated,logout}=useAuth()
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -34,7 +34,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             {isAuthenticated?
-            <p className="nav-link login-btn" onClick={()=>setToken(null)}>Log out</p>:
+            <p className="nav-link login-btn" onClick={()=>logout()}>Log out</p>:
             <NavLink 
               to="/login" 
               className={({ isActive }) => `nav-link login-btn ${isActive ? 'active' : ''}`}

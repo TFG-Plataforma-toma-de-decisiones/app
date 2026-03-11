@@ -24,7 +24,7 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/login",TokenObtainPairView.as_view(), name='login'),
-    path('api/token/refresh', TokenRefreshView.as_view(), name='refresh'),
+    path('api/v1/refresh', TokenRefreshView.as_view(), name='refresh'),
     path("api/v1/model",views.get_uvl_model),
     path("api/v1/projects",views.get_projects)
 ]

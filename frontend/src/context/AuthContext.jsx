@@ -6,7 +6,7 @@ export default function AuthProvider({ children }) {
   const login =(token)=>{
     setToken(token.access)
     sessionStorage.setItem('access_token',token.access)
-    sessionStorage.setItem('refresh_token',token.access)
+    sessionStorage.setItem('refresh_token',token.refresh)
   }
   const logout =()=>{
     setToken(null)
