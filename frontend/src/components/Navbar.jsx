@@ -1,51 +1,60 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import "./Navbar.css";
+import { AppBar, Toolbar, Typography, Button, Container, Stack } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { useAuth } from '../hooks/useAuth';
-function Navbar() {
-  const {isAuthenticated,logout}=useAuth()
-  return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        {/* Lado izquierdo: Logo / Título */}
-        <Link to="/" className="navbar-brand">
-          <span className="logo-icon">🚀</span>
-          <span className="logo-text">OSS Configurator</span>
-        </Link>
+const LogoLink = styled(Typography)(({ theme }) => ({
+  flexGrow: 1, 
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
+  fontWeight: 700,
+}));
+const ActionButton = styled(Button)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+}));
 
-        {/* Lado derecho: Enlaces */}
-        <ul className="navbar-links">
-          <li className="nav-item">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              end
-            >
+function Navbar() {
+  const { isAuthenticated, logout } = useAuth();
+
+  return (
+    <AppBar position="sticky">
+      <Container maxWidth="lg">
+        <Toolbar disableGutters>
+          
+          {/* Usamos nuestro componente estilizado */}
+          <LogoLink variant="h6" component={Link} to="/">
+            <span>🚀</span> OSS Configurator
+          </LogoLink>
+
+          {/* <Stack> de MUI reemplaza a flexbox. Alinea todo horizontalmente con un espacio (spacing) */}
+          <Stack direction="row" spacing={1} alignItems="center">
+            
+            <Button component={NavLink} to="/" end>
               Inicio
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink 
-              to="/recomendador" 
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-            >
+            </Button>
+
+            <Button component={NavLink} to="/recomendador">
               Recomendador
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            {isAuthenticated?
-            <p className="nav-link login-btn" onClick={()=>logout()}>Log out</p>:
-            <NavLink 
-              to="/login" 
-              className={({ isActive }) => `nav-link login-btn ${isActive ? 'active' : ''}`}
-            >
-              Acceder
-            </NavLink>
-            }
-          </li>
-        </ul>
-      </div>
-    </nav>
+            </Button>
+
+            {isAuthenticated ? (
+              // Usamos nuestro botón estilizado para la acción final
+              <ActionButton variant="outlined" onClick={logout}>
+                Log out
+              </ActionButton>
+            ) : (
+              <ActionButton component={NavLink} to="/login" >
+                Acceder
+              </ActionButton>
+            )}
+
+          </Stack>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }
 
