@@ -1,7 +1,12 @@
+/* =========================================
+   Estilos Globales y Layout
+   ========================================= */
 .app-container {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-height: 100vh;
+  background-color: var(--bg-main);
 }
 
 .main-content {
@@ -12,57 +17,38 @@
   width: 100%;
 }
 
-/* Textos principales tipo "Open Source Stack Explorer" */
-.hero-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+/* =========================================
+   Estilos de Home Page
+   ========================================= */
+.home-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-.hero-title .highlight {
-  color: var(--accent-color);
+.home-header {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.hero-highlight {
+  color: var(--primary-main);
+  font-weight: 700;
 }
 
 .hero-subtitle {
   color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
 }
 
-/* Grid para las tarjetas */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* Estilo exacto de las tarjetas de tu imagen */
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: border-color 0.2s;
-}
-
-.card:hover {
-  border-color: var(--text-muted); /* Ilumina el borde al pasar el ratón */
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: var(--text-main);
-}
-
-.card-description {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-top: 1rem;
-}
 
 /* Etiquetas (Badges) como las que dicen "Backend", "Python", etc. */
 .badge-container {

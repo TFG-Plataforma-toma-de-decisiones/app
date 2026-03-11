@@ -1,34 +1,45 @@
-import './ErrorModal.css'; // Los estilos que te pongo abajo
+import { Modal, Box, Typography, Button, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import './ErrorModal.css';
+
 function ErrorModal({ isOpen, onClose, title = "Ocurrió un error", errorMessage }) {
-  // Si no está abierto, no renderizamos nada
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      {/* Detenemos la propagación para que al hacer clic dentro de la caja no se cierre */}
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        
-        <div className="modal-header">
-          <h3 className="modal-title">
-            <span className="modal-icon">⚠️</span> {title}
-          </h3>
-          <button className="modal-close-btn" onClick={onClose}>
-            &times;
-          </button>
-        </div>
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      <Box className="modal-box">
+        {/* Header */}
+        <Box className="modal-header">
+          <Typography id="modal-title" variant="h6" component="h2" className="modal-title">
+            <WarningAmberIcon />
+            {title}
+          </Typography>
+          <IconButton onClick={onClose} aria-label="close" className="modal-close-icon-btn">
+            <CloseIcon />
+          </IconButton>
+        </Box>
 
-        <div className="modal-body">
-          <p>{errorMessage || "Error desconocido de conexión."}</p>
-        </div>
+        {/* Body */}
+        <Box className="modal-body">
+          <Typography id="modal-description" className="modal-text">
+            {errorMessage || "Error desconocido de conexión."}
+          </Typography>
+        </Box>
 
-        <div className="modal-footer">
-          <button className="btn-modal-primary" onClick={onClose}>
+        {/* Footer */}
+        <Box className="modal-footer">
+          <Button variant="contained" onClick={onClose} className="modal-btn-confirm">
             Entendido
-          </button>
-        </div>
-        
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </Box>
+    </Modal>
   );
 }
 

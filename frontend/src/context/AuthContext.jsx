@@ -1,12 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
-
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   // 1. Inicialización "Perezosa" (Lazy initialization)
   // Al cargar la app, miramos si ya había un token de antes del F5.
   const [token, setToken] = useState(() => sessionStorage.getItem('access_token'));
-
   // 2. Sincronización automática
   // Si el estado 'token' cambia (al hacer login o logout), actualizamos la memoria del navegador.
   useEffect(() => {
@@ -17,21 +15,15 @@ export default function AuthProvider({ children }) {
     }
   }, [token]);
 
-  // 3. Funciones de ayuda
-  const login = (newToken) => {
-    setToken(newToken);
-  };
 
-  const logout = () => {
-    setToken(null);
-  };
+
+
 
   // 4. Lo que exponemos al resto de la app
   const value = {
     token,
     isAuthenticated: !!token, // Devuelve true si hay token, false si no
-    login,
-    logout
+    setToken
   };
 
   return (

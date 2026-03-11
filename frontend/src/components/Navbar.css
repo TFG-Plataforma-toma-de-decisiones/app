@@ -58,6 +58,6 @@
 
 /* Estado activo: texto verde y fondo oscuro */
 .nav-link.active {
-  color: var(--accent-color);
+  color: var(--primary-main);
   background-color: var(--accent-bg);
 }

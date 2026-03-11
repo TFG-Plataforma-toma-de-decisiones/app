@@ -4,11 +4,13 @@ import Home from './HomePage';
 import './App.css';
 import AuthProvider from './context/AuthContext'
 import ErrorProvider from './context/ErrorContext';
+import Login from './components/Login';
 function App() {
  
   return (
-    <AuthProvider>
     <ErrorProvider>
+    <AuthProvider>
+    
     <div className="app-container">
       <Navbar />
       <main className="main-content">
@@ -16,7 +18,7 @@ function App() {
           {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
           <Route path="/recomendador" element={<div>Página del Recomendador (En construcción)</div>} />
-          <Route path="/login" element={<div>Página de Login</div>} />
+          <Route path="/login" element={<Login/>} />
 
           {/* Rutas de Administrador */}
           <Route path="/uvl-model" element={<div>Gestión del Modelo UVL</div>} />
@@ -24,8 +26,8 @@ function App() {
         </Routes>
       </main>
     </div>
-    </ErrorProvider>
     </AuthProvider>
+    </ErrorProvider>
   );
 }
 

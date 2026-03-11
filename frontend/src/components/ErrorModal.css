@@ -1,94 +1,78 @@
-/* El fondo oscuro translúcido que tapa toda la pantalla */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); /* Negro con 60% de opacidad */
-  backdrop-filter: blur(4px); /* Efecto cristal desenfocado súper moderno */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* Por encima del Navbar */
-}
+/* Estilos para el componente MUI Modal cuando se usan clases */
 
-/* La caja del modal */
-.modal-content {
-  background-color: var(--bg-card); /* Usamos las variables globales que ya teníamos */
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+/* La caja principal del modal */
+.modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 90%;
   max-width: 450px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-  animation: modalFadeIn 0.2s ease-out;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  outline: none; /* Quitar el borde azul por defecto de enfoque */
 }
 
-/* Animación de entrada suave */
-@keyframes modalFadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Cabecera */
+/* Header del modal */
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .modal-title {
-  margin: 0;
-  color: #f87171; /* Rojo/salmón para indicar error */
-  font-size: 1.15rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--error-main);
+  font-weight: 600;
+  margin: 0;
 }
 
-.modal-close-btn {
-  background: none;
-  border: none;
+/* Botón de cerrar (icono X) */
+.modal-close-icon-btn {
   color: var(--text-muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-  line-height: 1;
-  transition: color 0.2s;
 }
 
-.modal-close-btn:hover {
+.modal-close-icon-btn:hover {
+  background-color: var(--border-color);
   color: var(--text-main);
 }
 
-/* Cuerpo */
+/* Cuerpo del modal */
 .modal-body {
   padding: 1.5rem;
-  color: var(--text-main);
-  font-size: 0.95rem;
-  line-height: 1.5;
 }
 
-/* Pie y botón */
+.modal-text {
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+/* Footer del modal */
 .modal-footer {
-  padding: 1.25rem 1.5rem;
-  border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--border-color);
 }
 
-.btn-modal-primary {
-  background-color: var(--bg-input);
+.modal-btn-confirm {
+  background-color: var(--bg-main);
   color: var(--text-main);
+  text-transform: none;
+  font-weight: 600;
+  box-shadow: none;
   border: 1px solid var(--border-color);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
-.btn-modal-primary:hover {
-  background-color: #374151; /* Un gris un poco más claro al pasar el ratón */
+.modal-btn-confirm:hover {
+  background-color: var(--border-color);
+  box-shadow: none;
 }

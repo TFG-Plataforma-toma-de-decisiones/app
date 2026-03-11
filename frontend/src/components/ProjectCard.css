@@ -1,20 +1,27 @@
 /* =========================================
    Contenedor de la Tarjeta (ProjectCard.css)
    ========================================= */
-.project-card {
+/* Apuntamos a la clase que pondremos en el componente Card de MUI */
+.project-card-root {
   background-color: var(--bg-card);     /* Usando variable */
   border: 1px solid var(--border-color); /* Usando variable */
   border-radius: 12px;       
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;                 
   transition: border-color 0.2s ease, transform 0.2s ease;
   cursor: pointer;           
+  height: 100%;
 }
 
-.project-card:hover {
-  border-color: var(--border-hover);     /* Usando variable */
+.project-card-root:hover {
+  border-color: var(--primary-main);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card-content-flex {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* =========================================
@@ -22,35 +29,31 @@
    ========================================= */
 .project-title {
   color: var(--text-main);               /* Usando variable */
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
 .project-description {
   color: var(--text-muted);              /* Usando variable */
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 0;
+  flex-grow: 1;
+  margin-top: 1rem;
 }
 
 /* =========================================
    Contenedor de Etiquetas (Badges)
    ========================================= */
-.label-container {
+.tags-container {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.badge {
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.2rem 0.6rem;
-  border-radius: 9999px;     
-  display: inline-block;
-  /* Eliminados los bordes para imitar exactamente la captura original */
-}
+/* Nota: MUI Chip genera sus propias clases, pero podemos ayudar con colores si es necesario.
+   Sin embargo, como usamos el prop `color` de MUI en el JSX, 
+   MUI manejará los colores de fondo basados en nuestro theme.js 
+   o las variables por defecto.
+*/
 
 /* =========================================
    Aplicando los colores mediante variables

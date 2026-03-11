@@ -1,10 +1,8 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
-  const location = useLocation();
-
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -17,28 +15,29 @@ function Navbar() {
         {/* Lado derecho: Enlaces */}
         <ul className="navbar-links">
           <li className="nav-item">
-            <Link 
+            <NavLink 
               to="/" 
-              className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              end
             >
               Inicio
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link 
+            <NavLink 
               to="/recomendador" 
-              className={`nav-link ${location.pathname === '/recomendador' ? 'active' : ''}`}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
               Recomendador
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link 
+            <NavLink 
               to="/login" 
-              className={`nav-link login-btn ${location.pathname === '/login' ? 'active' : ''}`}
+              className={({ isActive }) => `nav-link login-btn ${isActive ? 'active' : ''}`}
             >
               Acceder
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
