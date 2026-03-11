@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
-    const { setToken } = useAuth();
+    const { login } = useAuth();
     const { showError } = useGlobalError();
     const [form, setForm] = useState({
         username: "",
@@ -19,7 +19,7 @@ export default function Login() {
         e.preventDefault(); // Prevenir recarga del formulario
         try {
             const { data } = await apiClient.post("/login", form);
-            setToken(data.access);
+            login(data);
             navigate("/");
         } catch (error) {
             showError(error.response?.data?.detail || "Error while logging in");
