@@ -26,5 +26,6 @@ urlpatterns = [
     path("api/v1/login",TokenObtainPairView.as_view(), name='login'),
     path('api/v1/refresh', TokenRefreshView.as_view(), name='refresh'),
     path("api/v1/model",views.get_uvl_model),
-    path("api/v1/projects",views.get_projects)
+    path("api/v1/projects",views.get_projects),
+    path("api/v1/projects/<int:id>",views.ProjectView.as_view())
 ]

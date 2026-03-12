@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import useAxios from '../hooks/useAxios';
 export const UVLContext = createContext();
 
-export default function UVLProvider({ children }) {
+export default function UVLProvider({ children,readOnly }) {
   const {data} =useAxios("/model",{})
   const [features,setFeatures]=useState([])
   function subtreeFeatures(feature){
@@ -26,22 +26,25 @@ export default function UVLProvider({ children }) {
     }
   }
   function handleRadioChange(alternativeGroup, feature) {
-  
+    console.log(alternativeGroup)
+    console.log(feature)
+    console.log(features)
     if (features.includes(feature.name)) {
       removeFeature(feature)
     } else {
       const activeFeature=alternativeGroup.find(f=>features.includes(f.name))
+      console.log(activeFeature)
       if (activeFeature!=null){
 
         removeFeature(activeFeature)
       }
-      setFeatures([...features,feature.name])
+      setFeatures(prevFeatures=>[...prevFeatures,feature.name])
     }
   }
   function isActive(feature){
     return features.includes(feature)
   }
-  const value={uvlModel:data,handleToggle,handleRadioChange,isActive,features,setFeatures}
+  const value={uvlModel:data,handleToggle,handleRadioChange,isActive,features,setFeatures,readOnly}
   return (
     <UVLContext.Provider value={value}>
       {children}

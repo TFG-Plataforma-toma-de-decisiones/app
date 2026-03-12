@@ -48,7 +48,7 @@ const GROUPS = [
     );
   }
 export default function FeatureNode({ node }) {
-    const { isActive, handleToggle, handleRadioChange } = useUVLModel();
+    const { isActive, handleToggle, handleRadioChange,readOnly } = useUVLModel();
   
     if (!node.children || node.children.length === 0) return null;
   
@@ -97,12 +97,13 @@ export default function FeatureNode({ node }) {
                         size="small"
                         color={color}
                         checked={active}
+                        disabled={readOnly}
                         onClick={() => handleRadioChange(children, child)}
                       />
                     );
                   } else if (controlType === 'checkbox') {
                     const checkedCount = children.filter(c => isActive(c.name)).length;
-                    const disabled = controlType === 'checkbox' && key === 'OR' && active && checkedCount === 1;
+                    const disabled = controlType === 'checkbox' && key === 'OR' && active && checkedCount === 1 || readOnly;
   
                     control = (
                       <Checkbox

@@ -7,43 +7,54 @@ import {
   import { styled } from '@mui/material/styles';
 import { useUVLModel } from '../hooks/useUVLModel';
 import FeatureNode from './FeatureNode';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import apiClient from '../services/api';
+import { useGlobalError } from '../hooks/useGlobalError';
+import { useState } from 'react';
 const FormContainer = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(4),
     backgroundColor: theme.palette.background.paper,
     borderRadius: '16px',
   }));
 export default function Project() {
-    const {uvlModel,features} =useUVLModel()
-    
-  
-    
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // Generamos el listado final para el backend
+    const {uvlModel,features,setFeatures} =useUVLModel()
+    const {id}=useParams()
+    const [project,setProject]=useState({})
+    const {showError} =useGlobalError()
+    useEffect(()=> {
+      async function fetchProject(){
+        try{
+          const project=await apiClient.get(`/projects/${id}`)
+          setFeatures(project.data.features)
+          setProject(project.data)
+          
+        }
+        catch(error){
+          showError(error.response?.data?.detail || "Error al cargar los datos.");
+        }
+
+      }
+      fetchProject()
       
-      console.log("Configuración a guardar:", features);
-    };
+    },[id,setFeatures,showError])
+    
   
+   
     return (
-      <FormContainer elevation={0} component="form" onSubmit={handleSubmit}>
+      <FormContainer elevation={0} component="form" >
         <Typography variant="h5" fontWeight="bold" gutterBottom sx={{ color: 'primary.main' }}>
-          Proyecto
+          {project.name}
         </Typography>
         
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          Configura los módulos de tu proyecto seleccionando las opciones deseadas.
+         {project.description}
         </Typography>
   
         <FeatureNode 
           node={uvlModel}
         />
   
-        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
-          <Button type="submit" variant="contained" color="primary" size="large">
-            Guardar Configuración
-          </Button>
-        </Box>
       </FormContainer>
     );
   }
