@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, Typography, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 const getChipColor = (category) => {
   if (!category) return 'default';
   const cat = category.toLowerCase();
@@ -56,10 +57,11 @@ const ProjectDescription = styled(Typography)(({ theme }) => ({
 // ==========================================
 
 function ProjectCard({ project }) {
+  const navigate =useNavigate()
   return (
     <StyledCard variant="outlined">
       {/* Al tener el hover y ripple effect en el ActionArea, toda la tarjeta es clicable */}
-      <StyledActionArea>
+      <StyledActionArea onClick={()=>navigate(`/projects/${project.id}`)}>
         <CardContent>
           
           <ProjectTitle variant="h6" component="h2">

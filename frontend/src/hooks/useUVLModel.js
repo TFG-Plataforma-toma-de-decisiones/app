@@ -1,5 +1,7 @@
-import useAxios from "./useAxios" 
-export default function useUVLModel(){
-    const {data,setData} =useAxios("/model",{})
-    return {uvlModel:data,setUVlModel:setData}
+import { useContext } from "react";
+import { UVLContext } from "../context/UVLContext";
+export function useUVLModel(){
+  const context = useContext(UVLContext);
+  if (!context) throw new Error("useUVLModel debe usarse dentro de un UVLProvider");
+  return context;
 }
