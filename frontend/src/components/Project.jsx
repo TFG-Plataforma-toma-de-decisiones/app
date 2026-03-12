@@ -18,7 +18,7 @@ const FormContainer = styled(Paper)(({ theme }) => ({
     borderRadius: '16px',
   }));
 export default function Project() {
-    const {uvlModel,features,setFeatures} =useUVLModel()
+    const {uvlModel,setFeatures} =useUVLModel()
     const {id}=useParams()
     const [project,setProject]=useState({})
     const {showError} =useGlobalError()

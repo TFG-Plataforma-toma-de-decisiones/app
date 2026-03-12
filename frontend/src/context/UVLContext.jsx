@@ -5,16 +5,23 @@ export const UVLContext = createContext();
 export default function UVLProvider({ children,readOnly }) {
   const {data} =useAxios("/model",{})
   const [features,setFeatures]=useState([])
-  function subtreeFeatures(feature){
+  function subtreeFeatures(feature,mandatory){
     let subtree=[feature.name]
     for(const child of feature.children){
-      subtree+=subtree.concat(subtreeFeatures(child));
+      if(!mandatory || child.relationship=="MANDATORY"){
+        subtree=subtree.concat(subtreeFeatures(child,mandatory));
+      }
     }
     return subtree    
   }
+  function addFeature(feature){
+    const mandatoryFeatures=subtreeFeatures(feature,true)
+    console.log(mandatoryFeatures)
+    setFeatures(prevFeatures=>prevFeatures.concat(mandatoryFeatures))
+  }
   function removeFeature(feature){
-    const subtree=subtreeFeatures(feature)
-    setFeatures(features.filter(f => !subtree.includes(f)))
+    const subtree=subtreeFeatures(feature,false)
+    setFeatures(prevFeatures=>prevFeatures.filter(f => !subtree.includes(f)))
   }
   function handleToggle(feature){
    
@@ -22,23 +29,20 @@ export default function UVLProvider({ children,readOnly }) {
         removeFeature(feature)
     }
     else{
-        setFeatures([...features,feature.name])
+        addFeature(feature)
     }
   }
   function handleRadioChange(alternativeGroup, feature) {
-    console.log(alternativeGroup)
-    console.log(feature)
-    console.log(features)
     if (features.includes(feature.name)) {
       removeFeature(feature)
     } else {
       const activeFeature=alternativeGroup.find(f=>features.includes(f.name))
       console.log(activeFeature)
-      if (activeFeature!=null){
+      if (activeFeature){
 
         removeFeature(activeFeature)
       }
-      setFeatures(prevFeatures=>[...prevFeatures,feature.name])
+      addFeature(feature)
     }
   }
   function isActive(feature){

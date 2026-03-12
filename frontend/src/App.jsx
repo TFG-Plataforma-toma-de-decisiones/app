@@ -40,7 +40,7 @@ function App() {
           
           {/* Rutas de Administrador */}
           <Route path="/uvl-model" element={<div>Gestión del Modelo UVL</div>} />
-          <Route path="/projects/:id" element={<UVLProvider readOnly={true}><Project/></UVLProvider>} /> 
+          <Route path="/projects/:id" element={<UVLProvider readOnly={false}><Project/></UVLProvider>} /> 
         </Routes>
       </MainContent>
     </AppWrapper>
