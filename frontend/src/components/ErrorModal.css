@@ -1,78 +1,85 @@
-/* Estilos para el componente MUI Modal cuando se usan clases */
-
-/* La caja principal del modal */
-.modal-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 450px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  outline: none; /* Quitar el borde azul por defecto de enfoque */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
 }
 
-/* Header del modal */
+.modal-box {
+  position: relative;
+  width: 90%;
+  max-width: 450px;
+  background-color: var(--color-background-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  outline: none;
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-bottom: 1px solid var(--color-divider);
 }
 
 .modal-title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--error-main);
+  color: var(--color-warning);
   font-weight: 600;
   margin: 0;
+  font-size: 1.25rem;
 }
 
-/* Botón de cerrar (icono X) */
 .modal-close-icon-btn {
-  color: var(--text-muted);
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .modal-close-icon-btn:hover {
-  background-color: var(--border-color);
-  color: var(--text-main);
+  color: var(--color-text-primary);
 }
 
-/* Cuerpo del modal */
 .modal-body {
   padding: 1.5rem;
 }
 
 .modal-text {
-  color: var(--text-main);
+  color: var(--color-text-primary);
   font-size: 1rem;
 }
 
-/* Footer del modal */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   padding: 1.25rem 1.5rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--color-divider);
 }
 
 .modal-btn-confirm {
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  background-color: var(--color-primary);
+  color: var(--color-background-default);
   text-transform: none;
   font-weight: 600;
   box-shadow: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-primary);
+  padding: 8px 16px;
+  border-radius: var(--border-radius-button);
+  cursor: pointer;
 }
 
 .modal-btn-confirm:hover {
-  background-color: var(--border-color);
-  box-shadow: none;
+  background-color: #26a39a;
 }

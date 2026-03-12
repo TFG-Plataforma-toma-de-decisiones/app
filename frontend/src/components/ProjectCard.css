@@ -1,0 +1,87 @@
+.project-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  transition: transform 0.2s ease-in-out, border-color 0.2s;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  border-color: var(--color-hover-border);
+  transform: translateY(-4px);
+}
+
+.project-card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 16px;
+}
+
+.project-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--border-radius-chip);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.chip.primary {
+  background-color: var(--color-primary);
+  color: var(--color-background-default);
+}
+
+.chip.secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-background-default);
+}
+
+.chip.warning {
+  background-color: var(--color-warning);
+  color: var(--color-background-default);
+}
+
+.chip.info {
+  background-color: var(--color-info);
+  color: var(--color-background-default);
+}
+
+.chip.default {
+  background-color: var(--color-divider);
+  color: var(--color-text-primary);
+}
+
+.chip.outlined {
+  background-color: transparent;
+  border: 1px solid var(--color-divider);
+  color: var(--color-text-secondary);
+}
+
+.project-description {
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.875rem;
+}

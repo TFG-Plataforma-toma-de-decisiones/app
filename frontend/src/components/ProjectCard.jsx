@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardActionArea, CardContent, Typography, Chip } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import './ProjectCard.css';
+
 const getChipColor = (category) => {
   if (!category) return 'default';
   const cat = category.toLowerCase();
@@ -19,81 +19,27 @@ const formatLabel = (label) => {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
-const StyledCard = styled(Card)({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-});
-const StyledActionArea = styled(CardActionArea)({
-  flexGrow: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  justifyContent: 'flex-start',
-});
-const TagsContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: theme.spacing(1), 
-  marginTop: theme.spacing(1.5),
-  marginBottom: theme.spacing(1.5),
-}));
-
-const ProjectTitle = styled(Typography)({
-  fontWeight: 700,
-});
-
-const ProjectDescription = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  display: '-webkit-box',
-  WebkitLineClamp: 3,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-}));
-
-
-// ==========================================
-// 3. EL COMPONENTE PRINCIPAL
-// ==========================================
 
 function ProjectCard({ project }) {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
+
   return (
-    <StyledCard variant="outlined">
-      {/* Al tener el hover y ripple effect en el ActionArea, toda la tarjeta es clicable */}
-      <StyledActionArea onClick={()=>navigate(`/projects/${project.id}`)}>
-        <CardContent>
-          
-          <ProjectTitle variant="h6" component="h2">
-            {project.name}
-          </ProjectTitle>
-          
-          <TagsContainer>
-            {/* Chip principal (Tipo de proyecto) */}
-            <Chip 
-              label={formatLabel(project.type)} 
-              color={getChipColor(project.type)}
-              size="small"
-            />
-            
-            {/* Chips adicionales (Features). He limpiado el código comentado */}
-            {project.features && project.features.map((label) => (
-              <Chip 
-                key={label}
-                label={formatLabel(label)}
-                size="small"
-                variant="outlined"
-              />
-            ))}
-          </TagsContainer>
-
-          <ProjectDescription variant="body2">
-            {project.description}
-          </ProjectDescription>
-
-        </CardContent>
-      </StyledActionArea>
-    </StyledCard>
+    <div className="project-card" onClick={() => navigate(`/projects/${project.id}`)}>
+      <div className="project-card-content">
+        <h2 className="project-title">{project.name}</h2>
+        <div className="tags-container">
+          <span className={`chip ${getChipColor(project.type)}`}>
+            {formatLabel(project.type)}
+          </span>
+          {project.features && project.features.map((label) => (
+            <span key={label} className="chip outlined">
+              {formatLabel(label)}
+            </span>
+          ))}
+        </div>
+        <p className="project-description">{project.description}</p>
+      </div>
+    </div>
   );
 }
 

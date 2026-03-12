@@ -1,60 +1,41 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, Container, Stack } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import './Navbar.css';
 import { useAuth } from '../hooks/useAuth';
-const LogoLink = styled(Typography)(({ theme }) => ({
-  flexGrow: 1, 
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  textDecoration: 'none',
-  color: theme.palette.text.primary,
-  fontWeight: 700,
-}));
-const ActionButton = styled(Button)(({ theme }) => ({
-  marginLeft: theme.spacing(2),
-}));
 
 function Navbar() {
   const { isAuthenticated, logout } = useAuth();
 
   return (
-    <AppBar position="sticky">
-      <Container maxWidth="lg">
-        <Toolbar disableGutters>
-          
-          {/* Usamos nuestro componente estilizado */}
-          <LogoLink variant="h6" component={Link} to="/">
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="toolbar">
+          <Link to="/" className="logo-link">
             <span>🚀</span> OSS Configurator
-          </LogoLink>
+          </Link>
 
-          {/* <Stack> de MUI reemplaza a flexbox. Alinea todo horizontalmente con un espacio (spacing) */}
-          <Stack direction="row" spacing={1} alignItems="center">
-            
-            <Button component={NavLink} to="/" end>
+          <div className="nav-links">
+            <NavLink to="/" end className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
               Inicio
-            </Button>
+            </NavLink>
 
-            <Button component={NavLink} to="/recomendador">
+            <NavLink to="/recomendador" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
               Recomendador
-            </Button>
+            </NavLink>
 
             {isAuthenticated ? (
-              // Usamos nuestro botón estilizado para la acción final
-              <ActionButton variant="outlined" onClick={logout}>
+              <button className="action-button" onClick={logout}>
                 Log out
-              </ActionButton>
+              </button>
             ) : (
-              <ActionButton component={NavLink} to="/login" >
+              <NavLink to="/login" className="action-button">
                 Acceder
-              </ActionButton>
+              </NavLink>
             )}
-
-          </Stack>
-        </Toolbar>
-      </Container>
-    </AppBar>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 

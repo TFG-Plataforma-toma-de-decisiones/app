@@ -1,0 +1,18 @@
+.form-container {
+  padding: 32px;
+  background-color: var(--color-background-paper);
+  border-radius: 16px;
+  border: 1px solid var(--color-divider);
+}
+
+.project-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.project-description {
+  color: var(--color-text-secondary);
+  margin-bottom: 24px;
+}

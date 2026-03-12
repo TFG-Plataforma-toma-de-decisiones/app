@@ -1,45 +1,34 @@
-import { Modal, Box, Typography, Button, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import './ErrorModal.css';
 
 function ErrorModal({ isOpen, onClose, title = "Ocurrió un error", errorMessage }) {
   if (!isOpen) return null;
 
   return (
-    <Modal
-      open={isOpen}
-      onClose={onClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-    >
-      <Box className="modal-box">
-        {/* Header */}
-        <Box className="modal-header">
-          <Typography id="modal-title" variant="h6" component="h2" className="modal-title">
-            <WarningAmberIcon />
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2 id="modal-title" className="modal-title">
+            <span role="img" aria-label="warning">⚠️</span>
             {title}
-          </Typography>
-          <IconButton onClick={onClose} aria-label="close" className="modal-close-icon-btn">
-            <CloseIcon />
-          </IconButton>
-        </Box>
+          </h2>
+          <button onClick={onClose} aria-label="close" className="modal-close-icon-btn">
+            X
+          </button>
+        </div>
 
-        {/* Body */}
-        <Box className="modal-body">
-          <Typography id="modal-description" className="modal-text">
+        <div className="modal-body">
+          <p id="modal-description" className="modal-text">
             {errorMessage || "Error desconocido de conexión."}
-          </Typography>
-        </Box>
+          </p>
+        </div>
 
-        {/* Footer */}
-        <Box className="modal-footer">
-          <Button variant="contained" onClick={onClose} className="modal-btn-confirm">
+        <div className="modal-footer">
+          <button onClick={onClose} className="modal-btn-confirm">
             Entendido
-          </Button>
-        </Box>
-      </Box>
-    </Modal>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 

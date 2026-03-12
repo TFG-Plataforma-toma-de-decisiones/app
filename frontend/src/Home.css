@@ -1,0 +1,56 @@
+/* ==========================================
+   ESTILOS PARA HOME (Sin Material-UI)
+   ========================================== */
+
+   .home-wrapper {
+    padding: 32px 0; /* Sustituye el padding: theme.spacing(4) */
+  }
+  
+  .home-header {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 48px;
+  }
+  
+  .home-title {
+    font-size: 3rem; /* Equivalente al variant="h2" */
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: var(--color-text-primary);
+  }
+  
+  .home-highlight {
+    color: var(--color-primary); /* Tu cyan/teal brillante */
+  }
+  
+  .home-subtitle {
+    font-size: 1.25rem; /* Equivalente al variant="h6" */
+    color: var(--color-text-secondary);
+    margin: 8px 0 0 0;
+    font-weight: 400;
+  }
+  
+  /* Reemplazo del <Grid container spacing={3}> y las columnas xs/sm/md.
+    CSS Grid nativo es mucho más ligero que el de MUI.
+  */
+  .home-grid {
+    display: grid;
+    gap: 24px; /* Equivalente al spacing={3} (3 * 8px) */
+    
+    /* Por defecto: 1 columna (xs: 12) */
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  /* sm: 6 (2 columnas a partir de 600px) */
+  @media (min-width: 600px) {
+    .home-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* md: 3 (4 columnas a partir de 900px) */
+  @media (min-width: 900px) {
+    .home-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
