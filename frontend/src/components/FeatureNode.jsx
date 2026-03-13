@@ -1,7 +1,6 @@
 import './FeatureNode.css';
 import { useUVLModel } from "../hooks/useUVLModel";
 
-// Añadimos controlType: "mandatory" directamente aquí
 const GROUPS = [
   { key: "MANDATORY", title: null, controlType: "mandatory" },
   { key: "ALTERNATIVE", title: "Alternative (Select exactly one)", controlType: "radio" },
@@ -27,8 +26,11 @@ export default function FeatureNode({ node, depth = 0 }) {
         const children = groupedChildren[key];
         if (!children) return null;
 
+        // Si la profundidad es 3 o mayor, forzamos el modo vertical
+        const groupClass = `feature-group ${depth >= 3 ? 'deep-node' : ''}`;
+
         return (
-          <div key={key} className="feature-group">
+          <div key={key} className={groupClass}>
             {title && <h3 className="section-title">{title}</h3>}
             
             {children.map(child => {
@@ -39,7 +41,6 @@ export default function FeatureNode({ node, depth = 0 }) {
 
               let control = null;
 
-              // La lógica del control se basa en el controlType que definimos arriba
               if (isMandatory) {
                 control = (
                   <span className="mandatory-indicator">
@@ -78,7 +79,6 @@ export default function FeatureNode({ node, depth = 0 }) {
                 );
               }
 
-              // Estructura HTML inyectada directamente (Adiós FeatureItem)
               return (
                 <div key={child.name} className={`feature-card ${active ? 'active' : ''} ${isMandatory ? 'mandatory' : ''}`}>
                   <label className="feature-header">
@@ -88,6 +88,7 @@ export default function FeatureNode({ node, depth = 0 }) {
 
                   {active && hasChildren && (
                     <div className="feature-children">
+                      {/* Pasamos depth + 1 para que el hijo sepa en qué nivel está */}
                       <FeatureNode node={child} depth={depth + 1} />
                     </div>
                   )}

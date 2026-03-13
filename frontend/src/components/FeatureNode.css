@@ -1,145 +1,209 @@
-/* Contenedor principal */
-.uvl-configurator {
-  color: var(--color-text-primary);
-  font-family: var(--font-family);
-  font-size: 14px;
-}
-
-/* Títulos de sección */
-.section-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  margin: 16px 0 8px 0;
-  letter-spacing: 0.05em;
-}
-
-/* Tarjeta principal */
-.feature-card {
-  background-color: var(--color-background-paper);
-  border: 1px solid var(--color-divider);
-  border-radius: var(--border-radius-card);
-  margin-bottom: 6px;
-  transition: all 0.2s ease;
-  overflow: hidden;
-  /* Asegura que la tarjeta no crezca más del 100% de su contenedor */
-  max-width: 100%; 
-}
-
-.feature-card.active {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 10px rgba(45, 212, 191, 0.1);
-}
-
-/* Estilos para features obligatorias */
-.feature-card.mandatory {
-  background-color: var(--color-background-default);
-  border-left: 3px solid var(--color-primary);
-}
-
-.mandatory-header {
-  padding: 10px 14px;
-  margin: 0;
-}
-
-.mandatory-name {
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-/* Cabecera de la tarjeta */
-.feature-header {
-  display: flex;
-  align-items: center;
-  padding: 10px 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin: 0;
-  /* Evitar que controles e inputs se aplasten */
-  flex-wrap: nowrap; 
-}
-
-.feature-header:hover {
-  background-color: var(--color-hover-border, #1a232f); 
-}
-
-.feature-name {
-  margin-left: 10px;
-  font-weight: 500;
-  user-select: none;
-  /* IMPORTANTE PARA MÓVILES: Permite que el texto baje de línea si es muy largo */
-  white-space: normal;
-  word-break: break-word;
-  line-height: 1.3;
-}
-
-.feature-card.active > .feature-header .feature-name {
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
 /* =========================================
-   SISTEMA DE INDENTACIÓN RESPONSIVO
+   CONTENEDORES PRINCIPALES
    ========================================= */
 
-/* Por defecto (Pantallas pequeñas / Móviles) */
-.feature-children {
-  padding: 0 8px 8px 12px; /* Rellenos mínimos */
-  border-left: 1px dashed var(--color-divider);
-  margin-left: 8px; /* Sangría sutil para no perder espacio horizontal */
-}
-
-/* Pantallas medianas y grandes (Tablets / Desktop) */
-@media (min-width: 600px) {
-  .feature-children {
-    padding: 0 14px 14px 24px;
-    margin-left: 14px;
+   .uvl-configurator {
+    color: var(--color-text-primary);
+    font-family: var(--font-family);
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
   }
-}
-
-/* =========================================
-   INPUTS PERSONALIZADOS
-   ========================================= */
-.feature-header input {
-  display: none;
-}
-
-.custom-control {
-  /* Evita que el checkbox/radio se encoja si el texto es muy largo */
-  flex-shrink: 0; 
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--color-text-secondary);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.custom-radio { border-radius: 50%; }
-.feature-header input[type="radio"]:checked + .custom-radio { border-color: var(--color-primary); }
-.feature-header input[type="radio"]:checked + .custom-radio::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-}
-
-.custom-checkbox { border-radius: 4px; }
-.feature-header input[type="checkbox"]:checked + .custom-checkbox {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-.feature-header input[type="checkbox"]:checked + .custom-checkbox::after {
-  content: "✓";
-  color: var(--color-background-default);
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.feature-header input:disabled + .custom-control {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+  
+  .section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin: 16px 0 8px 0;
+    letter-spacing: 0.05em;
+    width: 100%;
+  }
+  
+  /* =========================================
+     LAYOUT PRINCIPAL (PC/Tablet grande)
+     ========================================= */
+  
+  .feature-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap; /* Salto de línea natural */
+    width: 100%;
+    padding: 4px 4px 16px 4px;
+    box-sizing: border-box;
+  }
+  
+  .feature-card {
+    background-color: var(--color-background-paper);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--border-radius-card);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    
+    /* Inactivos: Reparten el espacio equitativamente */
+    flex: 1 1 0%; 
+    min-width: min(100%, 140px); /* TRUCO: evita el desbordamiento si el padre es pequeño */
+    max-width: 100%;
+  }
+  
+  .feature-card.active {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(45, 212, 191, 0.15);
+    
+    /* Activos: Ocupan el triple de espacio */
+    flex: 3 1 0%; 
+    min-width: min(100%, 250px); 
+  }
+  
+  .feature-card.mandatory {
+    background-color: var(--color-background-default);
+    border-top: 3px solid var(--color-primary); 
+  }
+  
+  /* =========================================
+     NIVELES PROFUNDOS (A partir de depth=3)
+     ========================================= */
+  .deep-node {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .deep-node > .feature-card {
+    width: 100%;
+    flex: none; /* Quitamos elasticidad para forzar 100% del ancho disponible */
+  }
+  
+  /* =========================================
+     CABECERAS Y TEXTO
+     ========================================= */
+  
+  .feature-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0;
+    flex-wrap: nowrap; 
+  }
+  
+  .feature-header:hover {
+    background-color: var(--color-hover-border, rgba(45, 212, 191, 0.05)); 
+  }
+  
+  .feature-name {
+    margin-left: 10px;
+    font-weight: 500;
+    user-select: none;
+    line-height: 1.3;
+    white-space: normal;
+    word-break: break-word;
+  }
+  
+  .feature-card.active > .feature-header .feature-name {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  
+  /* =========================================
+     CONTENEDOR DE HIJOS Y ANIDAMIENTO
+     ========================================= */
+  
+  .feature-children {
+    padding: 12px 8px; /* Reducimos padding lateral interno para ahorrar espacio */
+    border-top: 1px dashed var(--color-divider);
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Hijos en PC */
+  .feature-children .feature-card {
+    flex: 1 1 0%;
+    min-width: min(100%, 120px);
+  }
+  
+  .feature-children .feature-card.active {
+    flex: 3 1 0%;
+    min-width: min(100%, 200px);
+  }
+  
+  .feature-children .feature-header { padding: 8px 10px; }
+  .feature-children .feature-name { font-size: 13px; }
+  .feature-children .section-title { font-size: 0.65rem; margin: 8px 0 6px 0; }
+  
+  /* =========================================
+     INPUTS PERSONALIZADOS
+     ========================================= */
+  
+  .feature-header input { display: none; }
+  
+  .custom-control {
+    flex-shrink: 0; 
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  
+  .custom-radio { border-radius: 50%; }
+  .feature-header input[type="radio"]:checked + .custom-radio { border-color: var(--color-primary); }
+  .feature-header input[type="radio"]:checked + .custom-radio::after {
+    content: ""; width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-primary);
+  }
+  
+  .custom-checkbox { border-radius: 4px; }
+  .feature-header input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: var(--color-primary); border-color: var(--color-primary);
+  }
+  .feature-header input[type="checkbox"]:checked + .custom-checkbox::after {
+    content: "✓"; color: var(--color-background-paper, #ffffff); font-size: 12px; font-weight: 900;
+  }
+  
+  .feature-header input:disabled + .custom-control { opacity: 0.5; cursor: not-allowed; }
+  
+  .mandatory-indicator { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0; }
+  .mandatory-dot { width: 8px; height: 8px; background-color: var(--color-primary); border-radius: 50%; }
+  
+  .feature-children .custom-control, .feature-children .mandatory-indicator { width: 14px; height: 14px; }
+  .feature-children .mandatory-dot { width: 6px; height: 6px; }
+  
+  /* =========================================
+     MEDIA QUERY: DISEÑO VERTICAL PARA MÓVILES
+     ========================================= */
+  
+  @media (max-width: 768px) {
+    .feature-group {
+      flex-direction: column;
+      padding: 0 0 16px 0;
+      gap: 8px;
+    }
+    
+    .feature-card,
+    .feature-card.active,
+    .feature-children .feature-card,
+    .feature-children .feature-card.active {
+      width: 100%;
+      min-width: unset;
+      flex: none; 
+    }
+  
+    .feature-children {
+      padding: 8px 0 0 12px; 
+      border-top: none;
+      border-left: 2px solid var(--color-divider); 
+      margin-top: 8px;
+    }
+  
+    .feature-header {
+      padding: 10px 12px;
+    }
+  }
