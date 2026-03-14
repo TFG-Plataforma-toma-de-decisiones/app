@@ -116,3 +116,89 @@
   display: flex;
   flex-direction: column;
 }
+/* =========================================
+   RESULTADOS DE RECOMENDACIÓN
+   ========================================= */
+
+/* Contenedor principal de un Tipo de Proyecto (Frontend, Backend...) */
+.type-container {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid var(--color-divider);
+  width: 100%;
+}
+
+/* Título de la sección (ej: "Frontend") */
+.type-container > h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tarjeta individual de cada proyecto recomendado */
+.project-container {
+  background-color: var(--color-background-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover sutil en la tarjeta del proyecto */
+.project-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-text-secondary); /* Un resaltado suave, no tan fuerte como el primario */
+}
+
+/* Título del proyecto recomendado */
+.project-container > h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 16px 0;
+}
+
+/* Contenedor Flex para las etiquetas (chips) de las librerías */
+.libraries-container {
+  display: flex;
+  flex-wrap: wrap; /* Para que bajen de línea si hay muchas */
+  gap: 8px;
+}
+
+/* Etiqueta individual (Chip) para cada librería */
+.libraries-container span {
+  background-color: var(--color-background-default);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-divider);
+  padding: 6px 12px;
+  border-radius: 16px; /* Bordes muy redondeados estilo "pill" */
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+/* Efecto hover opcional en la etiqueta de la librería */
+.libraries-container span:hover {
+  background-color: var(--color-hover-border, rgba(45, 212, 191, 0.1));
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Media Query opcional para ajustar en móviles */
+@media (max-width: 768px) {
+  .project-container {
+    padding: 16px;
+  }
+  
+  .type-container {
+    margin-top: 32px;
+  }
+}

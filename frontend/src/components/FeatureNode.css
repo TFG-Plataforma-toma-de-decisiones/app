@@ -55,8 +55,8 @@
     border-color: var(--color-primary);
     box-shadow: 0 4px 12px rgba(45, 212, 191, 0.15);
     
-    /* Activos: Ocupan el triple de espacio */
-    flex: 3 1 0%; 
+    /* Activos: Ocupan más espacio */
+    flex: 5 1 0%; 
     min-width: min(100%, 250px); 
   }
   

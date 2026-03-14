@@ -26,7 +26,7 @@ const MainContent = styled(Container)(({ theme }) => ({
 
 function App() {
   const { isAuthenticated } = useAuth();
-  const types = ["Backend", "Frontend", "FullStack"];
+  const types = ["Backend", "Frontend", "Full Stack"];
   return (
     <AppWrapper>
       <Navbar />

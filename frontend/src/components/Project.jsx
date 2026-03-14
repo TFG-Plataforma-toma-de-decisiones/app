@@ -12,6 +12,7 @@ export default function Project() {
     const {setTrees,setProperty,getProperty}=useFeatureTrees([{features:[]}])
     const {id}=useParams()
     const {showError} =useGlobalError()
+    const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
     useEffect(()=> {
       async function fetchProject(){
         try{
@@ -30,17 +31,16 @@ export default function Project() {
         <h1 className="project-name">{getProperty(index,"name")}</h1>
         <p className="project-description">{getProperty(index,"description")}</p>
         <div className="language-dropdown-container">
-          <select 
+        <select 
             className="language-select"
             value={getProperty(index,"language")}
             onChange={(e)=>setProperty(index,"language",e.target.value)}
           >
-            <option value="" disabled >Selecciona un lenguaje...</option>
-            <option value="JavaScript">JavaScript / TypeScript</option>
-            <option value="Python">Python</option>
-            <option value="Java">Java</option>
-            <option value="Csharp">C# / .NET</option>
-            <option value="Php">PHP</option>
+            <option value="" >Selecciona un lenguaje...</option>
+            {languages.map(l=>(
+                <option value={l.name}>{l.name}</option>
+            ))}
+            
           </select>
       </div>
         <FeatureNode 

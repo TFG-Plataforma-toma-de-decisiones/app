@@ -6,11 +6,12 @@ import useApi from "../hooks/useApi";
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
-  console.log(trees)
+  const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
+  const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
   const [comments,setComments]=useState()
   const incompatibleTypes = [
-    ["FullStack", "Frontend"], 
-    ["FullStack", "Backend"]
+    ["Full Stack", "Frontend"], 
+    ["Full Stack", "Backend"]
   ];
   function getNode(feature){
     return uvlModel?.children?.find(f => f.name === feature)
@@ -28,6 +29,17 @@ export default function Configurator() {
       handleToggle(index,getNode(type));
     }
   }
+  async function handleSubmit() {
+    const body=trees.filter((t,index)=>isActive(index,getNode(t.type)))
+    refetch({overrideBody:body})
+  }
+  const groupedRecommendations = recommendations.reduce((acc, project) => {
+    const type = project.type;
+    if (!acc[type]) acc[type] = [];
+    acc[type].push(project);
+    return acc;
+  }, {});
+  console.log(groupedRecommendations)
 
   return (
     <div className="uvl-configurator configurator-page">
@@ -39,7 +51,6 @@ export default function Configurator() {
           const type=tree.type
           const node=getNode(type)
           const active = node!=null && isActive(index,node);
-          const displayName = type === "FullStack" ? "Full-Stack" : type.charAt(0).toUpperCase() + type.slice(1);
 
           return (
             <div key={type} className={`feature-card ${active ? 'active' : ''}`}>
@@ -51,7 +62,7 @@ export default function Configurator() {
                   onChange={() => handleRadioChange(index,type)}
                 />
                 <span className="custom-control custom-checkbox"></span>
-                <span className="feature-name">{displayName}</span>
+                <span className="feature-name">{type}</span>
               </label>
               {active && node && (
                 <div className="feature-children root-children">
@@ -62,16 +73,16 @@ export default function Configurator() {
             onChange={(e)=>setProperty(index,"language",e.target.value)}
           >
             <option value="" >Selecciona un lenguaje...</option>
-            <option value="javascript">JavaScript / TypeScript</option>
-            <option value="python">Python</option>
-            <option value="java">Java</option>
-            <option value="csharp">C# / .NET</option>
-            <option value="php">PHP</option>
+            {languages.map(l=>(
+                <option value={l.name}>{l.name}</option>
+            ))}
+            
           </select>
             </div>
                   <FeatureNode
                     node={node}
                     depth={1}
+                    index={index}
                   />
                 </div>
               )}
@@ -83,7 +94,25 @@ export default function Configurator() {
         <label className="label-comments">Comentarios adicionales:</label>
         <input type="text" onChange={(e)=>setComments(e.target.value)} value={comments}/>
       </div>
-      <button className="submit-button">Obtener recomendación</button>
+      <button className="submit-button" onClick={handleSubmit}>Obtener recomendación</button>
+      {Object.entries(groupedRecommendations).map(([type,recommendations])=>(
+        <div className="type-container">
+            <h2>{type}</h2>
+            {recommendations.map(recommendation=>(
+              <div className="project-container">
+                <h2>{recommendation.project}</h2>
+                <div className="libraries-container">
+                  {recommendation.libraries.map(l=>(
+                    <span>
+                      {l}
+                    </span>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+        </div>
+      ))}
     </div>
   );
 }

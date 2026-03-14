@@ -15,17 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from configurador import views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from rest_framework.routers import DefaultRouter
+router = DefaultRouter()
+router.register("languages", views.LanguageViewSet, basename='language')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/login",TokenObtainPairView.as_view(), name='login'),
     path('api/v1/refresh', TokenRefreshView.as_view(), name='refresh'),
     path("api/v1/model",views.get_uvl_model),
     path("api/v1/projects",views.get_projects),
-    path("api/v1/projects/<int:id>",views.ProjectView.as_view())
+    path("api/v1/projects/<int:id>",views.ProjectView.as_view()),
+    path("api/v1/recommend",views.get_recommendation,name="recommend"),
+    path("api/v1/", include(router.urls))
 ]

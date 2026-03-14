@@ -79,7 +79,7 @@ features
 							CSSModules 
 							CSSinJS 
 							FrameworkCSS 
-			FullStack 
+			"Full Stack" 
 				mandatory
 					"RenderingModel-2"
 						alternative
@@ -98,8 +98,7 @@ features
 					AdmninPanel 
 				optional
 					AuthenticationBuiltIn 
-		optional
-			library 
+			"Backend Library" 
 				mandatory
 					DatabaseIntegration 
 						alternative
@@ -118,8 +117,7 @@ features
 						alternative
 							Redis 
 							Memcached 
-		optional
-			frontendLibrary 
+			"Frontend Library" 
 				alternative
 					GlobalState 
 					i18nInternalization 
