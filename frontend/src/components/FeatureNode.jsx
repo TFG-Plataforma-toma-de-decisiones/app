@@ -1,5 +1,5 @@
 import './FeatureNode.css';
-import { useUVLModel } from "../hooks/useUVLModel";
+import { useFeatureTrees } from "../hooks/useFeatureTrees";
 
 const GROUPS = [
   { key: "MANDATORY", title: null, controlType: "mandatory" },
@@ -8,34 +8,30 @@ const GROUPS = [
   { key: "OPTIONAL", title: "Optional Features", controlType: "checkbox" }
 ];
 
-export default function FeatureNode({ node, depth = 0 }) {
-  const { isActive, handleToggle, handleRadioChange, readOnly } = useUVLModel();
-
+export default function FeatureNode({ node, depth = 0,index=0 }) {
+  const { isActive, handleToggle, handleRadioChange, readOnly } = useFeatureTrees();
+  
   if (!node.children?.length) return null;
-
+ 
   const groupedChildren = node.children.reduce((acc, child) => {
     const rel = child.relationship;
     if (!acc[rel]) acc[rel] = [];
     acc[rel].push(child);
     return acc;
   }, {});
-
   return (
     <div className="uvl-configurator">
       {GROUPS.map(({ key, title, controlType }) => {
         const children = groupedChildren[key];
         if (!children) return null;
 
-        // Si la profundidad es 3 o mayor, forzamos el modo vertical
-        const groupClass = `feature-group ${depth >= 3 ? 'deep-node' : ''}`;
-
         return (
-          <div key={key} className={groupClass}>
+          <div key={key} className="feature-group">
             {title && <h3 className="section-title">{title}</h3>}
             
             {children.map(child => {
               const isMandatory = controlType === "mandatory";
-              const active = isMandatory ? true : isActive(child.name);
+              const active = isMandatory ? true : isActive(index,child);
               const hasChildren = child.children?.length > 0;
               const id = `control-${child.name.replace(/\s+/g, '-')}`;
 
@@ -56,13 +52,13 @@ export default function FeatureNode({ node, depth = 0 }) {
                       name={`group-${node.name}`}
                       checked={active}
                       disabled={readOnly}
-                      onChange={() => handleRadioChange(children, child)}
+                      onChange={() => handleRadioChange(index,children, child)}
                     />
                     <span className="custom-control custom-radio"></span>
                   </>
                 );
               } else if (controlType === "checkbox") {
-                const checkedCount = children.filter(c => isActive(c.name)).length;
+                const checkedCount = children.filter(c => isActive(index,c)).length;
                 const disabled = (key === "OR" && active && checkedCount === 1) || readOnly;
 
                 control = (
@@ -72,7 +68,7 @@ export default function FeatureNode({ node, depth = 0 }) {
                       id={id}
                       checked={active}
                       disabled={disabled}
-                      onChange={() => handleToggle(child)}
+                      onChange={() => handleToggle(index,child)}
                     />
                     <span className="custom-control custom-checkbox"></span>
                   </>
@@ -85,11 +81,9 @@ export default function FeatureNode({ node, depth = 0 }) {
                     {control}
                     <span className="feature-name">{child.name}</span>
                   </label>
-
                   {active && hasChildren && (
                     <div className="feature-children">
-                      {/* Pasamos depth + 1 para que el hijo sepa en qué nivel está */}
-                      <FeatureNode node={child} depth={depth + 1} />
+                      <FeatureNode node={child} depth={depth + 1} index={index}/>
                     </div>
                   )}
                 </div>

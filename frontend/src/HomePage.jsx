@@ -1,10 +1,10 @@
 import React from 'react';
 import ProjectCard from './components/ProjectCard';
-import useAxios from './hooks/useAxios';
+import useApi from './hooks/useApi';
 import './Home.css'; // Asegúrate de importar el CSS que creamos
 
 function Home() {
-  const { data: projects } = useAxios("/projects", []);
+  const { data: projects } = useApi({endpoint:"/projects",initialData:[]});
 
   return (
     <div className="home-wrapper">

@@ -1,0 +1,118 @@
+/* =========================================
+   PÁGINA PRINCIPAL CONFIGURADOR
+   ========================================= */
+
+   .configurator-page {
+    padding: 24px;
+    max-width: 1200px; /* Evita que en pantallas gigantes se estire al infinito */
+    margin: 0 auto;    /* Lo centra en la pantalla */
+  }
+  
+  .configurator-main-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--color-divider);
+    padding-bottom: 12px;
+  }
+  
+  /* Opcional: Hacer la cabecera del nivel raíz un poco más grande */
+  .feature-header.root-header {
+    padding: 16px 20px;
+  }
+  
+  .feature-header.root-header .feature-name {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* Ajustar el padding de los hijos del nivel raíz */
+  .feature-children.root-children {
+    padding: 16px;
+  }
+  .label-comments{
+    color:var(--color-text-primary)
+  }
+  /* =========================================
+   SECCIÓN DE COMENTARIOS
+   ========================================= */
+
+.comments-container {
+  margin-top: 32px; /* Separación clara del árbol de opciones */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 800px; /* Evita que el input sea exageradamente largo en PC */
+}
+
+.label-comments {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.comments-container input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Efecto al hacer clic en el input (Focus) */
+.comments-container input[type="text"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15); /* Ese halo cyan tan característico */
+}
+
+/* =========================================
+   BOTÓN DE ENVÍO
+   ========================================= */
+
+.submit-button {
+  margin-top: 24px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font-family);
+  
+  /* Supongo que el primario es brillante (cyan), así que el texto oscuro suele leerse mejor.
+     Si tu primario es oscuro, cambia el color a #ffffff */
+  color: var(--color-background-default, #1a232f); 
+  background-color: var(--color-primary);
+  
+  border: none;
+  border-radius: var(--border-radius-card);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  /* Para que el botón no ocupe todo el ancho de la pantalla, sino que se adapte a su texto */
+  align-self: flex-start;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.submit-button:hover {
+  filter: brightness(1.1); /* Lo hace un poco más brillante al pasar el ratón */
+  transform: translateY(-2px); /* Se levanta un poquito */
+  box-shadow: 0 6px 16px rgba(45, 212, 191, 0.25);
+}
+
+.submit-button:active {
+  transform: translateY(0); /* Vuelve a bajar al hacer clic */
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.2);
+}
+
+/* Ajuste opcional si el padre principal no es flexbox, para asegurar que el botón se coloque a la izquierda (o centro) */
+.configurator-page {
+  display: flex;
+  flex-direction: column;
+}

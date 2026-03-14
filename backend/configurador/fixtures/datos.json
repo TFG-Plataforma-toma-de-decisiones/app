@@ -46,7 +46,7 @@
         "fields": {
             "name": "Proyecto FullStack SSR",
             "description": "Un proyecto fullstack de ejemplo.",
-            "language": "Python/JavaScript",
+            "language": "Python",
             "type": "Backend",
             "features": [
                 "Project",
