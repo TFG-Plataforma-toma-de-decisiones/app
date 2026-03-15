@@ -10,7 +10,7 @@ export default function Configurator() {
   const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
   const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
   const {data:dafo,refetch:fetchDafo,isLoading,setData:setDafo}=useApi({endpoint:"/swot",method:"POST",initialData:null})
-  const [comments,setComments]=useState()
+  const [comments,setComments]=useState("")
   const [isSwotModalOpen, setSwotModalOpen] = useState(false);
 
   const incompatibleTypes = [

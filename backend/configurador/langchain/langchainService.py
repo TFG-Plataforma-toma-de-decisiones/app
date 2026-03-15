@@ -1,28 +1,22 @@
 from django.conf import settings
 from langchain.chat_models import init_chat_model
-from configurador.langchain.prompts import PROMPT_DAFO
-from configurador.langchain.schemas import SWOTAnalisis
+from configurador.langchain.prompts import PROMPT_SWOT,PROMPT_AUTOCOMPLETE
+from configurador.langchain.schemas import SWOTAnalysis,OSSProjectDetails
 class LangchainService:
     def __init__(self):
         pass
-    def generar_analisis_dafo(self,datos_proyecto: dict) -> dict:
-        modelo = init_chat_model(
+    def generate_llm_response(self,data,output_class,prompt):
+        model=init_chat_model(
             model=settings.LLM_MODEL, 
             model_provider=settings.LLM_PROVIDER,
             temperature=settings.LLM_TEMPERATURE
         )
-        modelo_estructurado = modelo.with_structured_output(SWOTAnalisis)
-        cadena = PROMPT_DAFO | modelo_estructurado
-
-        resultado_pydantic = cadena.invoke({
-            "user_features": datos_proyecto.get("user_features"),
-            "user_comments": datos_proyecto.get("user_comments"),
-            "framework_name": datos_proyecto.get("framework_name"),
-            "libraries_list": datos_proyecto.get("libraries_list"),
-            "project_features_details": datos_proyecto.get("project_features_details"),
-            "uvl_model": datos_proyecto.get("uvl_model"),
-            "framework_role": datos_proyecto.get("framework_role")
-        })
-
-        return resultado_pydantic.model_dump()
+        structured_model=model.with_structured_output(output_class)
+        prepared_model=prompt | structured_model
+        pydantic_result=prepared_model.invoke(data)
+        return pydantic_result.model_dump()
+    def generate_swot_analysis(self,project_data):
+        return self.generate_llm_response(project_data,SWOTAnalysis,PROMPT_SWOT)
+    def autocomplete_project(self,project_data):
+        return self.generate_llm_response(project_data,OSSProjectDetails,PROMPT_AUTOCOMPLETE)
 langchain_service=LangchainService()

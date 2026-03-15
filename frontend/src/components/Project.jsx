@@ -6,14 +6,14 @@ import useApi from '../hooks/useApi';
 import { useFeatureTrees } from '../hooks/useFeatureTrees';
 import { useAuth } from '../hooks/useAuth';
 import useAction from '../hooks/useAction';
-
+import { BsMagic } from 'react-icons/bs';
 export default function Project() {
     const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
     const {setTrees,setProperty,getProperty,trees}=useFeatureTrees()
     const {id}=useParams()
     const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
     const {isAdmin}=useAuth()
-    const {run}=useAction()
+    const {run,isLoading}=useAction()
     const isNew = id==="new"
     useEffect(()=> {
       if(isNew){
@@ -30,14 +30,30 @@ export default function Project() {
         navigateURL: "/"
     });
     }
+    async function handleAutocomplete(){
+      await run({
+        endpoint: '/autocomplete',
+        method: "POST",
+        body: trees[0],
+        updateState:(data=>setTrees([data]))
+    });
+    }
     return (
       <div className="form-container">
         <h2 className='project-name'>Project</h2>
         {["name","description"].map(property=>(
           <div className='input-container'>
             <label className='label-input'>{property}</label>
-            <input className="input-text" value={getProperty(index,property) || ""} onChange={(e)=>setProperty(index,property,e.target.value)} disabled={!isAdmin}/>
-
+            <div className="input-wrapper">
+              <input className="input-text" value={getProperty(index,property) || ""} onChange={(e)=>setProperty(index,property,e.target.value)} disabled={!isAdmin}/>
+              {property === 'name' && getProperty(index, 'name') && isAdmin && (
+                <button className="autocompletar-btn" onClick={handleAutocomplete}>
+                <BsMagic className="btn-icon" />
+                <span>Autocompletar</span>
+              </button>
+              )}
+              {isLoading && property==="name" && <label className='label-input'>Cargando...</label>}
+            </div>
           </div>
         ))}      
         <div className="input-container">

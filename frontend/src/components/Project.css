@@ -1,8 +1,10 @@
+
 .form-container {
   padding: 32px;
   background-color: var(--color-background-paper);
   border-radius: 16px;
   border: 1px solid var(--color-divider);
+  position: relative;
 }
 
 .project-name {
@@ -29,4 +31,88 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-secondary);
+}
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-text {
+  flex-grow: 1;
+}
+
+.autocompletar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espaciado moderno entre el icono y el texto */
+  padding: 10px 20px;
+  
+  /* Usamos tus variables de fondo, texto y bordes */
+  background-color: var(--color-background-paper);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-button); /* Quedará redondeado (20px) */
+  
+  /* Tipografía base */
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  
+  /* Transición suave para todos los cambios */
+  transition: all 0.3s ease;
+}
+
+/* El icono de la varita con tu color morado secundario */
+.autocompletar-btn .btn-icon {
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+/* Efecto Hover: se ilumina el borde, levanta un poco y brilla en morado */
+.autocompletar-btn:hover {
+  background-color: var(--color-background-default);
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(192, 132, 252, 0.2); /* Sombra basada en tu color secundario */
+}
+
+/* Un pequeño truco: hacer que la varita se mueva un poco al pasar el ratón */
+.autocompletar-btn:hover .btn-icon {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* Efecto Active (cuando haces clic) */
+.autocompletar-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(192, 132, 252, 0.15);
+}
+
+.language-select{
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-divider);
+  background-color: var(--color-background-default);
+  color: var(--color-text-primary);
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: black;
+  z-index: 10;
+  border-radius: 16px;
 }

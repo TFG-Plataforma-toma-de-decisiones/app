@@ -1,272 +1,272 @@
-[   
-    {
-      "model": "configurador.language",
-      "pk": 1,
-      "fields": {
-        "name": "Python"
-      }
-    },
-    {
-      "model": "configurador.language",
-      "pk": 2,
-      "fields": {
-        "name": "JavaScript"
-      }
-    },
-    {
-      "model": "configurador.language",
-      "pk": 3,
-      "fields": {
-        "name": "TypeScript"
-      }
-    },
-    {
-      "model": "configurador.language",
-      "pk": 4,
-      "fields": {
-        "name": "Java"
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 1,
-      "fields": {
-        "name": "Django",
-        "description": "Framework web de alto nivel para Python que fomenta el desarrollo rápido y el diseño limpio.",
-        "language": 1,
-        "features": [
-          "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "Basic", "ExecutionModel", "Synchronous", "Persistence", "Stateful", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "BSD"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 2,
-      "fields": {
-        "name": "FastAPI",
-        "description": "Framework web moderno y rápido para construir APIs con Python 3.6+ basado en los hints de tipo estándar.",
-        "language": 1,
-        "features": [
-          "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "OAuth2", "ExecutionModel", "EventDriven", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "Kafka-1", "License", "MIT"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 3,
-      "fields": {
-        "name": "React",
-        "description": "Una biblioteca de JavaScript para construir interfaces de usuario.",
-        "language": 2,
-        "features": [
-          "Project", "Frontend", "Platform", "Web", "RenderingModel", "SPA", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 4,
-      "fields": {
-        "name": "Vue.js",
-        "description": "El framework de JavaScript progresivo.",
-        "language": 2,
-        "features": [
-          "Project", "Frontend", "Platform", "Web", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSModules"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 5,
-      "fields": {
-        "name": "Next.js",
-        "description": "El framework de React para la web.",
-        "language": 3,
-        "features": [
-          "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AuthenticationBuiltIn"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 6,
-      "fields": {
-        "name": "Spring Boot",
-        "description": "Framework que facilita la creación de aplicaciones basadas en Spring que puedes simplemente ejecutar.",
-        "language": 4,
-        "features": [
-          "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "Synchronous", "Persistence", "Stateful", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "Apache"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 7,
-      "fields": {
-        "name": "Prisma",
-        "description": "ORM de próxima generación para Node.js y TypeScript.",
-        "language": 3,
-        "features": [
-          "Project", "Backend Library" , "DatabaseIntegration", "ORM", "migrations", "MessageQueueSupport", "Kafka", "CacheSupport", "Redis"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 8,
-      "fields": {
-        "name": "Redux",
-        "description": "Contenedor de estado predecible para aplicaciones JavaScript.",
-        "language": 2,
-        "features": [
-          "Project", "Frontend Library", "GlobalState-02"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 9,
-      "fields": {
-        "name": "i18next",
-        "description": "Framework de internacionalización muy popular para navegadores o cualquier entorno JavaScript.",
-        "language": 2,
-        "features": [
-          "Project", "Frontend Library", "i18nInternalization"
-        ]
-      }
-    },
-    {
-      "model": "configurador.language",
-      "pk": 5,
-      "fields": {
-        "name": "Ruby"
-      }
-    },
-    {
-      "model": "configurador.language",
-      "pk": 6,
-      "fields": {
-        "name": "Dart"
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 10,
-      "fields": {
-        "name": "Django (Full Stack)",
-        "description": "Django utilizado como framework completo, sirviendo plantillas HTML con motor SSR e integrando base de datos y panel de administración.",
-        "language": 1,
-        "features": [
-          "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AdmninPanel", "AuthenticationBuiltIn"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 11,
-      "fields": {
-        "name": "Django REST Framework",
-        "description": "Django utilizado puramente como Backend para crear APIs RESTful.",
-        "language": 1,
-        "features": [
-          "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "Synchronous", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "BSD"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 12,
-      "fields": {
-        "name": "Ruby on Rails (Full Stack)",
-        "description": "Framework web MVC escrito en Ruby que asume por defecto un enfoque Full Stack con renderizado en servidor.",
-        "language": 5,
-        "features": [
-          "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AuthenticationBuiltIn"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 13,
-      "fields": {
-        "name": "Ruby on Rails (API Mode)",
-        "description": "Rails configurado en modo API para actuar únicamente como Backend, sirviendo JSON a clientes frontend o móviles.",
-        "language": 5,
-        "features": [
-          "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "OAuth2", "ExecutionModel", "Synchronous", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "Redis", "License", "MIT"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 14,
-      "fields": {
-        "name": "React Native",
-        "description": "Framework para crear aplicaciones móviles nativas utilizando React y JavaScript.",
-        "language": 2,
-        "features": [
-          "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 15,
-      "fields": {
-        "name": "Flutter",
-        "description": "UI toolkit de Google para crear aplicaciones compiladas de forma nativa para móvil, web y escritorio desde una única base de código.",
-        "language": 6,
-        "features": [
-          "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "BSD-2", "Styling", "FrameworkCSS", "i8nInternalization"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 16,
-      "fields": {
-        "name": "Express.js",
-        "description": "Framework web rápido, minimalista y flexible para Node.js, muy utilizado para crear APIs backend.",
-        "language": 2,
-        "features": [
-          "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "EventDriven", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "MIT"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 17,
-      "fields": {
-        "name": "NestJS",
-        "description": "Framework progresivo de Node.js para construir aplicaciones backend eficientes, fiables y escalables.",
-        "language": 3,
-        "features": [
-          "Project", "Backend", "APIStyle", "GraphQL", "AutomaticAuthentication", "JWT", "ExecutionModel", "Reactive", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "Kafka-1", "License", "MIT"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 18,
-      "fields": {
-        "name": "Hibernate ORM",
-        "description": "Herramienta de mapeo objeto-relacional (ORM) para el lenguaje Java.",
-        "language": 4,
-        "features": [
-          "Project", "Backend Library", "DatabaseIntegration", "ORM", "migrations", "MessageQueueSupport", "Kafka", "CacheSupport", "Redis"
-        ]
-      }
-    },
-    {
-      "model": "configurador.project",
-      "pk": 19,
-      "fields": {
-        "name": "MobX",
-        "description": "Librería de gestión de estado simple y escalable mediante programación reactiva transparente.",
-        "language": 2,
-        "features": [
-          "Project", "Frontend Library", "GlobalState-02"
-        ]
-      }
+[
+  {
+    "model": "configurador.language",
+    "pk": 1,
+    "fields": {
+      "name": "Python"
     }
-  ]
+  },
+  {
+    "model": "configurador.language",
+    "pk": 2,
+    "fields": {
+      "name": "JavaScript"
+    }
+  },
+  {
+    "model": "configurador.language",
+    "pk": 3,
+    "fields": {
+      "name": "TypeScript"
+    }
+  },
+  {
+    "model": "configurador.language",
+    "pk": 4,
+    "fields": {
+      "name": "Java"
+    }
+  },
+  {
+    "model": "configurador.language",
+    "pk": 5,
+    "fields": {
+      "name": "Ruby"
+    }
+  },
+  {
+    "model": "configurador.language",
+    "pk": 6,
+    "fields": {
+      "name": "Dart"
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 1,
+    "fields": {
+      "name": "Django",
+      "description": "Framework web de alto nivel para Python que fomenta el desarrollo rápido y el diseño limpio.",
+      "language": 1,
+      "features": [
+        "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "Basic", "ExecutionModel", "Synchronous", "Persistence", "Stateful", "DatabaseIntegration-1", "ORM-1", "License", "BSD"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 2,
+    "fields": {
+      "name": "FastAPI",
+      "description": "Framework web moderno y rápido para construir APIs con Python 3.6+ basado en los hints de tipo estándar. Es minimalista.",
+      "language": 1,
+      "features": [
+        "Project", "Backend", "APIStyle", "REST", "ExecutionModel", "EventDriven", "Persistence", "Stateless", "License", "MIT"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 3,
+    "fields": {
+      "name": "React",
+      "description": "Una biblioteca de JavaScript para construir interfaces de usuario.",
+      "language": 2,
+      "features": [
+        "Project", "Frontend", "Platform", "Web", "RenderingModel", "SPA", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 4,
+    "fields": {
+      "name": "Vue.js",
+      "description": "El framework de JavaScript progresivo.",
+      "language": 2,
+      "features": [
+        "Project", "Frontend", "Platform", "Web", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSModules"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 5,
+    "fields": {
+      "name": "Next.js",
+      "description": "El framework de React para la web.",
+      "language": 3,
+      "features": [
+        "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AuthenticationBuiltIn"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 6,
+    "fields": {
+      "name": "Spring Boot",
+      "description": "Framework que facilita la creación de aplicaciones basadas en Spring que puedes simplemente ejecutar. (Baterías incluidas)",
+      "language": 4,
+      "features": [
+        "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "Synchronous", "Persistence", "Stateful", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "Apache"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 7,
+    "fields": {
+      "name": "Prisma",
+      "description": "ORM de próxima generación para Node.js y TypeScript.",
+      "language": 3,
+      "features": [
+        "Project", "Backend Library", "DatabaseIntegration", "ORM", "migrations"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 8,
+    "fields": {
+      "name": "Redux",
+      "description": "Contenedor de estado predecible para aplicaciones JavaScript.",
+      "language": 2,
+      "features": [
+        "Project", "Frontend Library", "GlobalState-02"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 9,
+    "fields": {
+      "name": "i18next",
+      "description": "Framework de internacionalización muy popular para navegadores o cualquier entorno JavaScript.",
+      "language": 2,
+      "features": [
+        "Project", "Frontend Library", "i18nInternalization"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 10,
+    "fields": {
+      "name": "Django (Full Stack)",
+      "description": "Django utilizado como framework completo, sirviendo plantillas HTML con motor SSR e integrando base de datos y panel de administración.",
+      "language": 1,
+      "features": [
+        "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AdmninPanel", "AuthenticationBuiltIn"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 11,
+    "fields": {
+      "name": "Django REST Framework",
+      "description": "Django utilizado puramente como Backend para crear APIs RESTful.",
+      "language": 1,
+      "features": [
+        "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "Synchronous", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "License", "BSD"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 12,
+    "fields": {
+      "name": "Ruby on Rails (Full Stack)",
+      "description": "Framework web MVC escrito en Ruby que asume por defecto un enfoque Full Stack con renderizado en servidor.",
+      "language": 5,
+      "features": [
+        "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AuthenticationBuiltIn"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 13,
+    "fields": {
+      "name": "Ruby on Rails (API Mode)",
+      "description": "Rails configurado en modo API para actuar únicamente como Backend, sirviendo JSON a clientes frontend o móviles.",
+      "language": 5,
+      "features": [
+        "Project", "Backend", "APIStyle", "REST", "ExecutionModel", "Synchronous", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "License", "MIT"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 14,
+    "fields": {
+      "name": "React Native",
+      "description": "Framework para crear aplicaciones móviles nativas utilizando React y JavaScript.",
+      "language": 2,
+      "features": [
+        "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 15,
+    "fields": {
+      "name": "Flutter",
+      "description": "UI toolkit de Google para crear aplicaciones compiladas de forma nativa para móvil, web y escritorio desde una única base de código.",
+      "language": 6,
+      "features": [
+        "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "BSD-2", "Styling", "FrameworkCSS", "i8nInternalization"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 16,
+    "fields": {
+      "name": "Express.js",
+      "description": "Framework web rápido, minimalista y flexible para Node.js, muy utilizado para crear APIs backend.",
+      "language": 2,
+      "features": [
+        "Project", "Backend", "APIStyle", "REST", "ExecutionModel", "EventDriven", "Persistence", "Stateless", "License", "MIT"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 17,
+    "fields": {
+      "name": "NestJS",
+      "description": "Framework progresivo de Node.js para construir aplicaciones backend eficientes, fiables y escalables.",
+      "language": 3,
+      "features": [
+        "Project", "Backend", "APIStyle", "GraphQL", "ExecutionModel", "Reactive", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "License", "MIT"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 18,
+    "fields": {
+      "name": "Hibernate ORM",
+      "description": "Herramienta de mapeo objeto-relacional (ORM) para el lenguaje Java.",
+      "language": 4,
+      "features": [
+        "Project", "Backend Library", "DatabaseIntegration", "ORM"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 19,
+    "fields": {
+      "name": "MobX",
+      "description": "Librería de gestión de estado simple y escalable mediante programación reactiva transparente.",
+      "language": 2,
+      "features": [
+        "Project", "Frontend Library", "GlobalState-02"
+      ]
+    }
+  }
+]

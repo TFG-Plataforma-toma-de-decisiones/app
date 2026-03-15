@@ -9,7 +9,7 @@ features
 							GraphQL 
 							RPC 
 							gRPC 
-				mandatory
+				optional
 					AutomaticAuthentication 
 						optional
 							JWT 
@@ -17,9 +17,9 @@ features
 							OAuth2 
 						optional
 							Basic 
-						optional
-							ExecutionModel 
-								alternative
+				mandatory
+					ExecutionModel
+						alternative
 									Synchronous 
 									EventDriven 
 									Reactive 
@@ -29,13 +29,13 @@ features
 						alternative
 							Stateless 
 							Stateful 
-				mandatory
+				optional
 					"DatabaseIntegration-1" 
-						or
+						optional
 							"ORM-1" 
 							"ODMN-1"
 							"OGMN-1" 
-				mandatory
+				optional
 					"MessageQueueSupport-1"
 						optional
 							"Kafka-1"
@@ -99,7 +99,7 @@ features
 				optional
 					AuthenticationBuiltIn 
 			"Backend Library" 
-				mandatory
+				alternative
 					DatabaseIntegration 
 						alternative
 							ORM 
@@ -107,12 +107,10 @@ features
 							OGM 
 						optional
 							migrations 
-				mandatory
 					MessageQueueSupport 
 						alternative
 							Kafka 
 							RabbitMQ 
-				mandatory
 					CacheSupport 
 						alternative
 							Redis 

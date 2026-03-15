@@ -93,9 +93,16 @@ def get_swot(request):
         "framework_role":main_project["type"]
     }
     print(data)
-    swot=langchain_service.generar_analisis_dafo(data)
+    swot=langchain_service.generate_swot_analysis(data)
     return Response(data=swot)
-
-        
+@api_view(["POST"])
+def autocomplete(request):
+    uvl_model=FlamapyService.get_instance().to_dict()
+    data={
+        "admin_input_json":request.data,
+        "uvl_model":uvl_model
+    }
+    project_data=langchain_service.autocomplete_project(data)
+    return Response(data=project_data)
         
 
