@@ -1,10 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 
 export const FeatureTreesContext = createContext();
 
 export default function FeatureTreesProvider({ children, initialTrees = [] }) {
   const [trees, setTrees] = useState(initialTrees);
-
+  useEffect(() => {
+    setTrees(initialTrees);
+  }, [initialTrees]);
 
   function subtreeFeatures(feature,mandatory){
     let subtree=[feature.name]

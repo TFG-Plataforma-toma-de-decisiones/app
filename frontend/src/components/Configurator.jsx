@@ -92,7 +92,7 @@ export default function Configurator() {
       </div>
       <div className="comments-container">
         <label className="label-comments">Comentarios adicionales:</label>
-        <input type="text" onChange={(e)=>setComments(e.target.value)} value={comments}/>
+        <input type="text" onChange={(e)=>setComments(e.target.value)} value={comments} className="input-text"/>
       </div>
       <button className="submit-button" onClick={handleSubmit}>Obtener recomendación</button>
       {Object.entries(groupedRecommendations).map(([type,recommendations])=>(

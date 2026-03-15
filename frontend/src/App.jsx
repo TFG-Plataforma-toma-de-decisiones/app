@@ -34,7 +34,7 @@ function App() {
         <Routes>
           {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
-          <Route path="/recomendador" element={<FeatureTreesProvider readOnly={false} initialTrees={types.map((t)=>({features:[],type:t}))}><Configurator/></FeatureTreesProvider>} />
+          <Route path="/recomendador" element={<FeatureTreesProvider initialTrees={types.map((t)=>({features:[],type:t}))}><Configurator/></FeatureTreesProvider>} />
           
           {!isAuthenticated && (
             <Route path="/login" element={<Login />} />
@@ -42,7 +42,7 @@ function App() {
           
           {/* Rutas de Administrador */}
           <Route path="/uvl-model" element={<div>Gestión del Modelo UVL</div>} />
-          <Route path="/projects/:id" element={<FeatureTreesProvider readOnly={false} initialTrees={[{features:[]}]}><Project/></FeatureTreesProvider>} /> 
+          <Route path="/projects/:id" element={<FeatureTreesProvider initialTrees={[{features:[]}]}><Project/></FeatureTreesProvider>} /> 
         </Routes>
       </MainContent>
     </AppWrapper>

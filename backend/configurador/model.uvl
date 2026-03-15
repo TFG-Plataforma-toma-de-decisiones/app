@@ -37,7 +37,7 @@ features
 							"OGMN-1" 
 				mandatory
 					"MessageQueueSupport-1"
-						or
+						optional
 							"Kafka-1"
 							"RabbitMQ-1"
 				mandatory
@@ -69,7 +69,7 @@ features
 							"Apache-2"
 							"BSD-2"
 				optional
-					GlobalStateNative 
+					"GlobalState-01"
 				optional
 					i8nInternalization 
 				mandatory
@@ -119,5 +119,5 @@ features
 							Memcached 
 			"Frontend Library" 
 				alternative
-					GlobalState 
+					"GlobalState-02" 
 					i18nInternalization 

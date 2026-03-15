@@ -8,8 +8,8 @@ const GROUPS = [
   { key: "OPTIONAL", title: "Optional Features", controlType: "checkbox" }
 ];
 
-export default function FeatureNode({ node, depth = 0,index=0 }) {
-  const { isActive, handleToggle, handleRadioChange, readOnly } = useFeatureTrees();
+export default function FeatureNode({ node, depth = 0,index=0,readOnly }) {
+  const { isActive, handleToggle, handleRadioChange } = useFeatureTrees();
   
   if (!node.children?.length) return null;
  
@@ -83,7 +83,7 @@ export default function FeatureNode({ node, depth = 0,index=0 }) {
                   </label>
                   {active && hasChildren && (
                     <div className="feature-children">
-                      <FeatureNode node={child} depth={depth + 1} index={index}/>
+                      <FeatureNode node={child} depth={depth + 1} index={index} readOnly={readOnly}/>
                     </div>
                   )}
                 </div>

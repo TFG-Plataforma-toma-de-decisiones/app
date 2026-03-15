@@ -32,5 +32,6 @@ urlpatterns = [
     path("api/v1/projects",views.get_projects),
     path("api/v1/projects/<int:id>",views.ProjectView.as_view()),
     path("api/v1/recommend",views.get_recommendation,name="recommend"),
-    path("api/v1/", include(router.urls))
+    path("api/v1/", include(router.urls)),
+    path("api/v1/users/me",views.get_my_user)
 ]

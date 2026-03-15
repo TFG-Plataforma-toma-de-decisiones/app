@@ -7,7 +7,7 @@ import { useGlobalError } from '../hooks/useGlobalError';
 import apiClient from '../services/api';
 
 export default function Login() {
-    const { login } = useAuth();
+    const { login,setUser } = useAuth();
     const { showError } = useGlobalError();
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -17,9 +17,11 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await apiClient.post("/login", form);
-            login(data);
-            navigate("/");
+            const { data:token } = await apiClient.post("/login", form);
+            login(token);
+            const {data:user}=await apiClient.get("/users/me")
+            setUser(user)
+           navigate("/");
         } catch (error) {
             showError(error.response?.data?.detail || "Error while logging in");
         }

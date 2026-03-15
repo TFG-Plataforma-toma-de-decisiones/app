@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from configurador.flamapy.flamapyService import FlamapyService
 from rest_framework.views import APIView
 from configurador.models import Project,Language
-from configurador.serializers import ProjectSerializer,LanguageSerializer
+from configurador.serializers import ProjectSerializer,LanguageSerializer,UserSerializer
 from django.shortcuts import get_object_or_404
 from configurador.utils import features_set_by_name
 from rest_framework import viewsets,mixins
@@ -36,6 +36,9 @@ class LanguageViewSet(mixins.ListModelMixin,
         else:
             permission_classes = [IsAdminUser]
         return [permission() for permission in permission_classes]
+@api_view(['GET'])
+def get_my_user(request):
+    return Response(UserSerializer(request.user).data)
 @api_view(['POST'])
 def get_recommendation(request):
     

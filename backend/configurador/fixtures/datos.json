@@ -62,7 +62,7 @@
         "language": 2,
         "type": "Frontend",
         "features": [
-          "Project", "Frontend", "Platform", "Web", "RenderingModel", "SPA", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalStateNative"
+          "Project", "Frontend", "Platform", "Web", "RenderingModel", "SPA", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
         ]
       }
     },
@@ -127,7 +127,7 @@
         "language": 2,
         "type": "Frontend Library",
         "features": [
-          "Project", "frontendLibrary", "GlobalState"
+          "Project", "frontendLibrary", "GlobalState-02"
         ]
       }
     },
@@ -219,7 +219,7 @@
         "language": 2,
         "type": "Frontend",
         "features": [
-          "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalStateNative"
+          "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
         ]
       }
     },
@@ -284,7 +284,7 @@
         "language": 2,
         "type": "Frontend Library",
         "features": [
-          "Project", "frontendLibrary", "GlobalState"
+          "Project", "frontendLibrary", "GlobalState-02"
         ]
       }
     }

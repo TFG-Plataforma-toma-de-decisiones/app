@@ -6,6 +6,7 @@ import apiClient from '../services/api';
 import { useGlobalError } from '../hooks/useGlobalError';
 import useApi from '../hooks/useApi';
 import { useFeatureTrees } from '../hooks/useFeatureTrees';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Project() {
     const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
@@ -13,6 +14,7 @@ export default function Project() {
     const {id}=useParams()
     const {showError} =useGlobalError()
     const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
+    const {isAdmin}=useAuth()
     useEffect(()=> {
       async function fetchProject(){
         try{
@@ -26,15 +28,26 @@ export default function Project() {
       fetchProject()
     },[id,setTrees,showError])
     const index=0
+    function handleSubmit(){
+
+    }
     return (
       <div className="form-container">
-        <h1 className="project-name">{getProperty(index,"name")}</h1>
-        <p className="project-description">{getProperty(index,"description")}</p>
-        <div className="language-dropdown-container">
+        <h2 className='project-name'>Project</h2>
+        {["name","description"].map(property=>(
+          <div className='input-container'>
+            <label className='label-input'>{property}</label>
+            <input className="input-text" value={getProperty(index,property) || ""} onChange={(e)=>setProperty(index,property,e.target.value)} disabled={!isAdmin}/>
+
+          </div>
+        ))}      
+        <div className="input-container">
+        <label className='label-input'>Language</label>
         <select 
             className="language-select"
             value={getProperty(index,"language")}
             onChange={(e)=>setProperty(index,"language",e.target.value)}
+            disabled={!isAdmin}
           >
             <option value="" >Selecciona un lenguaje...</option>
             {languages.map(l=>(
@@ -45,7 +58,9 @@ export default function Project() {
       </div>
         <FeatureNode 
           node={uvlModel}
+          readOnly={!isAdmin}
         />
+        {isAdmin && <button className="submit-button" onClick={handleSubmit}>Guardar</button>}
       </div>
     );
   }

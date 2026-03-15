@@ -16,3 +16,17 @@
   color: var(--color-text-secondary);
   margin-bottom: 24px;
 }
+.input-container {
+  margin-bottom: 32px; /* Separación clara del árbol de opciones */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 800px; /* Evita que el input sea exageradamente largo en PC */
+}
+
+.label-input {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}

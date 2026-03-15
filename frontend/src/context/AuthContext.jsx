@@ -3,6 +3,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [token, setToken] = useState(() => sessionStorage.getItem('access_token'));
+  const [user,setUser]=useState({})
   const login =(token)=>{
     setToken(token.access)
     sessionStorage.setItem('access_token',token.access)
@@ -12,9 +13,9 @@ export default function AuthProvider({ children }) {
     setToken(null)
     sessionStorage.removeItem('access_token')
     sessionStorage.removeItem('refresh_token')
+    setUser(null)
   }
-
-
+  const isAdmin=user?.is_staff
 
 
   // 4. Lo que exponemos al resto de la app
@@ -22,7 +23,10 @@ export default function AuthProvider({ children }) {
     token,
     isAuthenticated: !!token, // Devuelve true si hay token, false si no
     login,
-    logout
+    logout,
+    user,
+    setUser,
+    isAdmin
   };
 
   return (

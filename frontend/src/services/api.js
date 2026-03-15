@@ -28,7 +28,7 @@ apiClient.interceptors.response.use(
   async (error) => {
     // Guardamos la petición original que acaba de fallar
     const originalRequest = error.config;
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+    if (error.response && error.response.status === 401 && !originalRequest._retry && originalRequest.url!=="/login") {
       originalRequest._retry = true; // Marcamos para no entrar en un bucle infinito
 
       try {
