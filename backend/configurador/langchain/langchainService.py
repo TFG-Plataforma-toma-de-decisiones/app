@@ -1,7 +1,7 @@
 from django.conf import settings
 from langchain.chat_models import init_chat_model
 from configurador.langchain.prompts import PROMPT_DAFO
-from configurador.langchain.schemas import AnalisisDAFO
+from configurador.langchain.schemas import SWOTAnalisis
 class LangchainService:
     def __init__(self):
         pass
@@ -11,7 +11,7 @@ class LangchainService:
             model_provider=settings.LLM_PROVIDER,
             temperature=settings.LLM_TEMPERATURE
         )
-        modelo_estructurado = modelo.with_structured_output(AnalisisDAFO)
+        modelo_estructurado = modelo.with_structured_output(SWOTAnalisis)
         cadena = PROMPT_DAFO | modelo_estructurado
 
         resultado_pydantic = cadena.invoke({
@@ -21,6 +21,7 @@ class LangchainService:
             "libraries_list": datos_proyecto.get("libraries_list"),
             "project_features_details": datos_proyecto.get("project_features_details"),
             "uvl_model": datos_proyecto.get("uvl_model"),
+            "framework_role": datos_proyecto.get("framework_role")
         })
 
         return resultado_pydantic.model_dump()

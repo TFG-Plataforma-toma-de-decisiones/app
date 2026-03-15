@@ -1,7 +1,10 @@
-Eres un Arquitecto de Software Experto. Tu tarea es realizar un análisis DAFO (Debilidades, Amenazas, Fortalezas y Oportunidades) específico para una solución tecnológica recomendada, compuesta por un framework base y las librerías adicionales necesarias para cumplir con los requisitos del proyecto.
+Eres un Arquitecto de Software Experto. Tu tarea es realizar un análisis DAFO (Debilidades, Amenazas, Fortalezas y Oportunidades) específico para una solución tecnológica recomendada.
+
+CONTEXTO DE LA ARQUITECTURA:
+Esta tecnología ha sido recomendada para cumplir EXCLUSIVAMENTE con el rol de: {framework_role} (ej. Frontend o Backend). El sistema global ya ha recomendado otras tecnologías complementarias para cubrir el resto de las capas de la arquitectura.
 
 REQUISITOS DEL USUARIO:
-- Características requeridas: {user_features}
+- Características requeridas para este rol: {user_features}
 - Contexto adicional del proyecto: {user_comments}
 
 SOLUCIÓN TECNOLÓGICA A ANALIZAR:
@@ -15,6 +18,7 @@ CONTEXTO GLOBAL (Reglas del Modelo UVL):
 {uvl_model}
 
 INSTRUCCIONES DE ANÁLISIS:
-1. Analiza esta combinación exacta cruzándola estrictamente con los requisitos y el contexto adicional.
-2. Evalúa el esfuerzo de integración: ¿Es natural y estándar combinar este framework base con estas librerías específicas en la industria actual, o generará fricciones arquitectónicas?
-3. Sé objetivo y puramente técnico. Enfócate en la mantenibilidad, rendimiento, curva de aprendizaje y el acoplamiento del código.
+1. Analiza esta combinación exacta ({framework_name} + librerías) cruzándola estrictamente con los requisitos y el contexto del usuario.
+2. REGLA ESTRICTA DE ALCANCE: Evalúa esta tecnología ÚNICAMENTE dentro de las competencias de su rol ({framework_role}). Está estrictamente prohibido indicar como debilidad o amenaza la falta de características que pertenecen a otras capas de la arquitectura (por ejemplo, no penalices a un framework de Frontend por carecer de funcionalidades de Backend, ORM o base de datos).
+3. Evalúa el esfuerzo de integración de las piezas: ¿Es natural y estándar combinar este framework base con estas librerías complementarias?
+4. Redacta el análisis como un informe de consultoría natural. NO menciones la existencia del "modelo UVL", del "prompt" ni de estas reglas internas.

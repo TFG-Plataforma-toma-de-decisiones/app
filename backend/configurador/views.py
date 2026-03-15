@@ -89,7 +89,8 @@ def get_swot(request):
         "framework_name":main_project["project"],
         "libraries_list":main_project["libraries"],
         "project_features_details":projects_data,
-        "uvl_model":uvl_model
+        "uvl_model":uvl_model,
+        "framework_role":main_project["type"]
     }
     print(data)
     swot=langchain_service.generar_analisis_dafo(data)

@@ -3,13 +3,16 @@ import FeatureNode from "./FeatureNode";
 import "./Configurator.css";
 import { useState } from "react";
 import useApi from "../hooks/useApi";
+import SWOTModal from "./SWOTModal";
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
   const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
   const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
-  const {data:dafo,refetch:fetchDafo,isLoading}=useApi({endpoint:"/swot",method:"POST",initialData:{}})
+  const {data:dafo,refetch:fetchDafo,isLoading,setData:setDafo}=useApi({endpoint:"/swot",method:"POST",initialData:null})
   const [comments,setComments]=useState()
+  const [isSwotModalOpen, setSwotModalOpen] = useState(false);
+
   const incompatibleTypes = [
     ["Full Stack", "Frontend"], 
     ["Full Stack", "Backend"]
@@ -35,8 +38,10 @@ export default function Configurator() {
     refetch({overrideBody:body})
   }
   async function getDafo(recommendation){
+    setDafo(null)
     const body={recommendation,preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
     fetchDafo({overrideBody:body})
+    setSwotModalOpen(true);
   }
   const groupedRecommendations = recommendations.reduce((acc, project) => {
     const type = project.type;
@@ -104,7 +109,7 @@ export default function Configurator() {
         <div className="type-container">
             <h2>{type}</h2>
             {recommendations.map(recommendation=>(
-              <div className="project-container" onClick={()=>getDafo(recommendation)}>
+              <div className="project-container">
                 <h2>{recommendation.project}</h2>
                 <div className="libraries-container">
                   {recommendation.libraries.map(l=>(
@@ -113,11 +118,18 @@ export default function Configurator() {
                     </span>
                   ))}
                 </div>
-
+                <button className="swot-button" onClick={()=>getDafo(recommendation)}>Obtener DAFO</button>
               </div>
             ))}
         </div>
       ))}
+      {isSwotModalOpen && (
+                <SWOTModal 
+                    swot={dafo} 
+                    onClose={() => setSwotModalOpen(false)} 
+                    isLoading={isLoading}
+                />
+            )}
     </div>
   );
 }
