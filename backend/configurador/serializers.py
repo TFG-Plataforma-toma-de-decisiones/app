@@ -11,13 +11,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         if not service.validate(value,True):
             raise serializers.ValidationError("Features not valid")
         return value  
-    def create(self, validated_data):
-        validated_data['type'] = validated_data
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        instance.features = validated_data.get('features', ["default1"])
-        return super().update(instance, validated_data)
     class Meta:
         model = Project
         fields = '__all__'

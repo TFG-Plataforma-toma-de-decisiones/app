@@ -12,7 +12,10 @@ export default function Login() {
     });
     const handleLogin = async (e) => {
         e.preventDefault();
-        await run({endpoint:"/login",body:form,updateState:(token)=>login(token)});
+        const token=await run({endpoint:"/login",body:form,updateState:(token)=>login(token)});
+        if(!token){
+            return ;
+        }
         await(run({endpoint:"/users/me",updateState:(user)=>addUser(user),navigateURL:("/"),method:"GET"}))
     };
     return (

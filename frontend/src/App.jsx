@@ -38,7 +38,7 @@ function App() {
           <Route 
             path="/projects/:id" 
             element={
-              <FeatureTreesProvider initialTrees={[{features: []}]}>
+              <FeatureTreesProvider initialTrees={[{features: ["Project"]}]}>
                 <Project />
               </FeatureTreesProvider>
             } 

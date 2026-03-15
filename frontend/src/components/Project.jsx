@@ -2,7 +2,6 @@ import './Project.css';
 import FeatureNode from './FeatureNode';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGlobalError } from '../hooks/useGlobalError';
 import useApi from '../hooks/useApi';
 import { useFeatureTrees } from '../hooks/useFeatureTrees';
 import { useAuth } from '../hooks/useAuth';
@@ -10,18 +9,26 @@ import useAction from '../hooks/useAction';
 
 export default function Project() {
     const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
-    const {setTrees,setProperty,getProperty,trees}=useFeatureTrees([{features:[]}])
+    const {setTrees,setProperty,getProperty,trees}=useFeatureTrees()
     const {id}=useParams()
-    const {showError} =useGlobalError()
     const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
     const {isAdmin}=useAuth()
     const {run}=useAction()
+    const isNew = id==="new"
     useEffect(()=> {
+      if(isNew){
+        return ;
+      }
       run({endpoint:`/projects/${id}`,method:"GET",updateState:(data)=>setTrees([data])})
-    },[id,setTrees,run])
+    },[id,setTrees,run,isNew])
     const index=0
     async function handleSubmit(){
-      await run({endpoint:`/projects/${id}`,method:"PUT",updateState:(data)=>setTrees([data]),body:trees[0],navigateURL:"/"})
+      await run({
+        endpoint: '/projects' + (isNew ? "" : "/" + id),
+        method: isNew ? "POST" : "PUT",
+        body: trees[0],
+        navigateURL: "/"
+    });
     }
     return (
       <div className="form-container">

@@ -85,3 +85,26 @@
   overflow: hidden;
   font-size: 0.875rem;
 }
+
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.delete-project-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-text-secondary);
+}
+
+.delete-project-btn:hover {
+  color: var(--color-error);
+}
+
+.delete-project-btn span {
+  font-size: 1.25rem;
+}

@@ -7,7 +7,10 @@
   }
   
   .home-header {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
     margin-top: 32px;
     margin-bottom: 48px;
   }
@@ -30,6 +33,22 @@
     font-weight: 400;
   }
   
+  .create-project-btn {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+
+  .create-project-btn:hover {
+    background-color: #26a39a;
+  }
+
   /* Reemplazo del <Grid container spacing={3}> y las columnas xs/sm/md.
     CSS Grid nativo es mucho más ligero que el de MUI.
   */
