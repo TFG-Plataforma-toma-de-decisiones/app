@@ -1,6 +1,6 @@
 import { useFeatureTrees } from "../hooks/useFeatureTrees";
 import FeatureNode from "./FeatureNode";
-import "./Configurator.css"; // (Opcional) Por si quieres separar estilos globales
+import "./Configurator.css";
 import { useState } from "react";
 import useApi from "../hooks/useApi";
 export default function Configurator() {
@@ -8,6 +8,7 @@ export default function Configurator() {
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
   const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
   const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
+  const {data:dafo,refetch:fetchDafo,isLoading}=useApi({endpoint:"/swot",method:"POST",initialData:{}})
   const [comments,setComments]=useState()
   const incompatibleTypes = [
     ["Full Stack", "Frontend"], 
@@ -29,9 +30,13 @@ export default function Configurator() {
       handleToggle(index,getNode(type));
     }
   }
-  async function handleSubmit() {
+  function handleSubmit() {
     const body=trees.filter((t,index)=>isActive(index,getNode(t.type)))
     refetch({overrideBody:body})
+  }
+  async function getDafo(recommendation){
+    const body={recommendation,preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
+    fetchDafo({overrideBody:body})
   }
   const groupedRecommendations = recommendations.reduce((acc, project) => {
     const type = project.type;
@@ -99,7 +104,7 @@ export default function Configurator() {
         <div className="type-container">
             <h2>{type}</h2>
             {recommendations.map(recommendation=>(
-              <div className="project-container">
+              <div className="project-container" onClick={()=>getDafo(recommendation)}>
                 <h2>{recommendation.project}</h2>
                 <div className="libraries-container">
                   {recommendation.libraries.map(l=>(

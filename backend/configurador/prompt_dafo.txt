@@ -1,0 +1,20 @@
+Eres un Arquitecto de Software Experto. Tu tarea es realizar un análisis DAFO (Debilidades, Amenazas, Fortalezas y Oportunidades) específico para una solución tecnológica recomendada, compuesta por un framework base y las librerías adicionales necesarias para cumplir con los requisitos del proyecto.
+
+REQUISITOS DEL USUARIO:
+- Características requeridas: {user_features}
+- Contexto adicional del proyecto: {user_comments}
+
+SOLUCIÓN TECNOLÓGICA A ANALIZAR:
+- Framework Base: {framework_name}
+- Librerías complementarias integradas: {libraries_list}
+
+DETALLES TÉCNICOS (Características del modelo UVL que cubre cada componente):
+{project_features_details}
+
+CONTEXTO GLOBAL (Reglas del Modelo UVL):
+{uvl_model}
+
+INSTRUCCIONES DE ANÁLISIS:
+1. Analiza esta combinación exacta cruzándola estrictamente con los requisitos y el contexto adicional.
+2. Evalúa el esfuerzo de integración: ¿Es natural y estándar combinar este framework base con estas librerías específicas en la industria actual, o generará fricciones arquitectónicas?
+3. Sé objetivo y puramente técnico. Enfócate en la mantenibilidad, rendimiento, curva de aprendizaje y el acoplamiento del código.

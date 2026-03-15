@@ -2,13 +2,12 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from configurador.flamapy.flamapyService import FlamapyService
-from rest_framework.views import APIView
 from configurador.models import Project,Language
 from configurador.serializers import ProjectSerializer,LanguageSerializer,UserSerializer
-from django.shortcuts import get_object_or_404
 from configurador.utils import features_set_by_name
 from rest_framework import viewsets,mixins
-from rest_framework.permissions import IsAdminUser, AllowAny,BasePermission,SAFE_METHODS
+from rest_framework.permissions import BasePermission,SAFE_METHODS
+from configurador.langchain.langchainService import langchain_service
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
@@ -78,7 +77,24 @@ def get_recommendation(request):
             if count_per_type[typeProject] >= 5:
                 break
     return Response(result)
-            
+@api_view(["POST"])
+def get_swot(request):
+    uvl_model=FlamapyService.get_instance().to_dict()
+    main_project=request.data["recommendation"]
+    projects=[main_project["project"]]+main_project["libraries"]
+    projects_data=Project.objects.filter(name__in=projects).values("name","features")
+    data={
+        "user_features":request.data["preferences"],
+        "user_comments":request.data["comments"],
+        "framework_name":main_project["project"],
+        "libraries_list":main_project["libraries"],
+        "project_features_details":projects_data,
+        "uvl_model":uvl_model
+    }
+    print(data)
+    swot=langchain_service.generar_analisis_dafo(data)
+    return Response(data=swot)
+
         
         
 

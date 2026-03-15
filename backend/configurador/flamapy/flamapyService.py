@@ -20,7 +20,6 @@ class FlamapyService:
         operation=PySATSatisfiableConfiguration()
         configuration=Configuration(elements={feature:True for feature in features})
         configuration.set_full(is_full)
-        print({feature:True for feature in features})
         operation.set_configuration(configuration)
         operation.execute(self.fm.sat_model)
         return operation.get_result()

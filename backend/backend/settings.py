@@ -139,3 +139,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LLM_MODEL = env('LLM_MODEL', default='gpt-4o')
+LLM_PROVIDER = env('LLM_PROVIDER', default='openai')
+LLM_TEMPERATURE = env.float('LLM_TEMPERATURE', default=0.2)
