@@ -22,15 +22,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from rest_framework.routers import DefaultRouter
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register("languages", views.LanguageViewSet, basename='language')
+router.register('projects', views.ProjectViewSet, basename='project')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/login",TokenObtainPairView.as_view(), name='login'),
     path('api/v1/refresh', TokenRefreshView.as_view(), name='refresh'),
     path("api/v1/model",views.get_uvl_model),
-    path("api/v1/projects",views.get_projects),
-    path("api/v1/projects/<int:id>",views.ProjectView.as_view()),
     path("api/v1/recommend",views.get_recommendation,name="recommend"),
     path("api/v1/", include(router.urls)),
     path("api/v1/users/me",views.get_my_user)

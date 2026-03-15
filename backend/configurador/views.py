@@ -8,54 +8,48 @@ from configurador.serializers import ProjectSerializer,LanguageSerializer,UserSe
 from django.shortcuts import get_object_or_404
 from configurador.utils import features_set_by_name
 from rest_framework import viewsets,mixins
-from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.permissions import IsAdminUser, AllowAny,BasePermission,SAFE_METHODS
+class IsAdminOrReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        return request.user and request.user.is_staff
 @api_view(['GET'])
 def get_uvl_model(request):
     flamapy_service=FlamapyService.get_instance()
     return JsonResponse(flamapy_service.to_dict(),safe=False)
-@api_view(['GET'])
-def get_projects(request):
-    projets=Project.objects.all()
-    serializer=ProjectSerializer(projets,many=True)
-    return Response(serializer.data)
-class ProjectView(APIView):
-    def get(self, request, id):
-        project = get_object_or_404(Project, pk=id)
-        serializer = ProjectSerializer(project)
-        return Response(serializer.data)
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
 class LanguageViewSet(mixins.ListModelMixin,   
                       mixins.CreateModelMixin, 
                       mixins.DestroyModelMixin,
                       viewsets.GenericViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
-
-    def get_permissions(self):
-        if self.action == 'list':
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [IsAdminUser]
-        return [permission() for permission in permission_classes]
+    permission_classes=[IsAdminOrReadOnly]
 @api_view(['GET'])
 def get_my_user(request):
     return Response(UserSerializer(request.user).data)
 @api_view(['POST'])
 def get_recommendation(request):
-    
     projects = list(Project.objects.all())
     libraries_by_type = {
-        "Frontend": [p for p in projects if p.type == "Frontend Library"],
-        "Backend": [p for p in projects if p.type == "Backend Library"],
-        "Full Stack": [p for p in projects if p.type in ["Backend Library","Frontend Library"]],
+        "Frontend": [p for p in projects if "Frontend Library" in p.features],
+        "Backend": [p for p in projects if "Backend Library" in p.features],
+        "Full Stack": [p for p in projects if any(typeProject in p.features for typeProject in ["Backend Library","Frontend Library"])],
     }
     result = []
     count_per_type = {"Frontend":0, "Backend":0, "Full Stack":0}
     for project_request in request.data:
+        typeProject=project_request["type"]
         requested_features = features_set_by_name(project_request["features"])
         projects_filter = (
-            (lambda p: p.type == project_request["type"] and project_request.get("language") == p.language.name)
+            (lambda p: typeProject in p.features and project_request.get("language") == p.language.name)
             if (project_request.get("language") or "").strip()
-            else (lambda p: p.type == project_request["type"])
+            else (lambda p: project_request["type"] in p.features)
         )   
 
         for project in filter(projects_filter, projects):
@@ -66,7 +60,7 @@ def get_recommendation(request):
                 library = next(
                     filter(
                         lambda p: features_set_by_name(p.features) & missing and p.language==project.language,
-                        libraries_by_type[project.type]
+                        libraries_by_type[typeProject]
                     ),
                     None
                 )
@@ -74,14 +68,14 @@ def get_recommendation(request):
                     break
                 covered_features |= features_set_by_name(library.features)
                 libraries_used.append(library.name)
-            if count_per_type[project.type] < 5 and not missing:
+            if count_per_type[typeProject] < 5 and not missing:
                 result.append({
-                    "type": project.type,
+                    "type": typeProject,
                     "project": project.name,
                     "libraries": libraries_used
                 })
-                count_per_type[project.type] += 1
-            if count_per_type[project.type] >= 5:
+                count_per_type[typeProject] += 1
+            if count_per_type[typeProject] >= 5:
                 break
     return Response(result)
             

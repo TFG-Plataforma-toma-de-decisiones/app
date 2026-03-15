@@ -16,9 +16,11 @@ class FlamapyService:
         uvl_path = base_dir / "configurador" / "model.uvl"
         self.fm=FLAMAFeatureModel(str(uvl_path))
         self.fm._transform_to_sat()
-    def validate(self,features):
+    def validate(self,features,is_full):
         operation=PySATSatisfiableConfiguration()
-        configuration=Configuration({feature:True for feature in features})
+        configuration=Configuration(elements={feature:True for feature in features})
+        configuration.set_full(is_full)
+        print({feature:True for feature in features})
         operation.set_configuration(configuration)
         operation.execute(self.fm.sat_model)
         return operation.get_result()

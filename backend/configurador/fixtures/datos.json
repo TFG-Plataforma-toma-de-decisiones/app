@@ -34,7 +34,6 @@
         "name": "Django",
         "description": "Framework web de alto nivel para Python que fomenta el desarrollo rápido y el diseño limpio.",
         "language": 1,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "Basic", "ExecutionModel", "Synchronous", "Persistence", "Stateful", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "BSD"
         ]
@@ -47,7 +46,6 @@
         "name": "FastAPI",
         "description": "Framework web moderno y rápido para construir APIs con Python 3.6+ basado en los hints de tipo estándar.",
         "language": 1,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "OAuth2", "ExecutionModel", "EventDriven", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "Kafka-1", "License", "MIT"
         ]
@@ -60,7 +58,6 @@
         "name": "React",
         "description": "Una biblioteca de JavaScript para construir interfaces de usuario.",
         "language": 2,
-        "type": "Frontend",
         "features": [
           "Project", "Frontend", "Platform", "Web", "RenderingModel", "SPA", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
         ]
@@ -73,7 +70,6 @@
         "name": "Vue.js",
         "description": "El framework de JavaScript progresivo.",
         "language": 2,
-        "type": "Frontend",
         "features": [
           "Project", "Frontend", "Platform", "Web", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSModules"
         ]
@@ -86,7 +82,6 @@
         "name": "Next.js",
         "description": "El framework de React para la web.",
         "language": 3,
-        "type": "Full Stack",
         "features": [
           "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AuthenticationBuiltIn"
         ]
@@ -99,7 +94,6 @@
         "name": "Spring Boot",
         "description": "Framework que facilita la creación de aplicaciones basadas en Spring que puedes simplemente ejecutar.",
         "language": 4,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "Synchronous", "Persistence", "Stateful", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "Apache"
         ]
@@ -112,9 +106,8 @@
         "name": "Prisma",
         "description": "ORM de próxima generación para Node.js y TypeScript.",
         "language": 3,
-        "type": "Backend Library",
         "features": [
-          "Project", "library", "DatabaseIntegration", "ORM", "migrations", "MessageQueueSupport", "Kafka", "CacheSupport", "Redis"
+          "Project", "Backend Library" , "DatabaseIntegration", "ORM", "migrations", "MessageQueueSupport", "Kafka", "CacheSupport", "Redis"
         ]
       }
     },
@@ -125,9 +118,8 @@
         "name": "Redux",
         "description": "Contenedor de estado predecible para aplicaciones JavaScript.",
         "language": 2,
-        "type": "Frontend Library",
         "features": [
-          "Project", "frontendLibrary", "GlobalState-02"
+          "Project", "Frontend Library", "GlobalState-02"
         ]
       }
     },
@@ -138,9 +130,8 @@
         "name": "i18next",
         "description": "Framework de internacionalización muy popular para navegadores o cualquier entorno JavaScript.",
         "language": 2,
-        "type": "Frontend Library",
         "features": [
-          "Project", "frontendLibrary", "i18nInternalization"
+          "Project", "Frontend Library", "i18nInternalization"
         ]
       }
     },
@@ -165,7 +156,6 @@
         "name": "Django (Full Stack)",
         "description": "Django utilizado como framework completo, sirviendo plantillas HTML con motor SSR e integrando base de datos y panel de administración.",
         "language": 1,
-        "type": "Full Stack",
         "features": [
           "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AdmninPanel", "AuthenticationBuiltIn"
         ]
@@ -178,7 +168,6 @@
         "name": "Django REST Framework",
         "description": "Django utilizado puramente como Backend para crear APIs RESTful.",
         "language": 1,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "Synchronous", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "BSD"
         ]
@@ -191,7 +180,6 @@
         "name": "Ruby on Rails (Full Stack)",
         "description": "Framework web MVC escrito en Ruby que asume por defecto un enfoque Full Stack con renderizado en servidor.",
         "language": 5,
-        "type": "Full Stack",
         "features": [
           "Project", "Full Stack", "RenderingModel-2", "SSR-2", "DatabaseIntegration-2", "ORM-2", "AuthenticationBuiltIn"
         ]
@@ -204,7 +192,6 @@
         "name": "Ruby on Rails (API Mode)",
         "description": "Rails configurado en modo API para actuar únicamente como Backend, sirviendo JSON a clientes frontend o móviles.",
         "language": 5,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "OAuth2", "ExecutionModel", "Synchronous", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "Redis", "License", "MIT"
         ]
@@ -217,7 +204,6 @@
         "name": "React Native",
         "description": "Framework para crear aplicaciones móviles nativas utilizando React y JavaScript.",
         "language": 2,
-        "type": "Frontend",
         "features": [
           "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "MIT-2", "Styling", "CSSinJS", "GlobalState-01"
         ]
@@ -230,7 +216,6 @@
         "name": "Flutter",
         "description": "UI toolkit de Google para crear aplicaciones compiladas de forma nativa para móvil, web y escritorio desde una única base de código.",
         "language": 6,
-        "type": "Frontend",
         "features": [
           "Project", "Frontend", "Platform", "Mobile", "RenderingModel", "CSR", "License-2", "BSD-2", "Styling", "FrameworkCSS", "i8nInternalization"
         ]
@@ -243,7 +228,6 @@
         "name": "Express.js",
         "description": "Framework web rápido, minimalista y flexible para Node.js, muy utilizado para crear APIs backend.",
         "language": 2,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "REST", "AutomaticAuthentication", "JWT", "ExecutionModel", "EventDriven", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "RabbitMQ-1", "License", "MIT"
         ]
@@ -256,7 +240,6 @@
         "name": "NestJS",
         "description": "Framework progresivo de Node.js para construir aplicaciones backend eficientes, fiables y escalables.",
         "language": 3,
-        "type": "Backend",
         "features": [
           "Project", "Backend", "APIStyle", "GraphQL", "AutomaticAuthentication", "JWT", "ExecutionModel", "Reactive", "Persistence", "Stateless", "DatabaseIntegration-1", "ORM-1", "MessageQueueSupport-1", "Kafka-1", "License", "MIT"
         ]
@@ -269,9 +252,8 @@
         "name": "Hibernate ORM",
         "description": "Herramienta de mapeo objeto-relacional (ORM) para el lenguaje Java.",
         "language": 4,
-        "type": "Backend Library",
         "features": [
-          "Project", "library", "DatabaseIntegration", "ORM", "migrations", "MessageQueueSupport", "Kafka", "CacheSupport", "Redis"
+          "Project", "Backend Library", "DatabaseIntegration", "ORM", "migrations", "MessageQueueSupport", "Kafka", "CacheSupport", "Redis"
         ]
       }
     },
@@ -282,9 +264,8 @@
         "name": "MobX",
         "description": "Librería de gestión de estado simple y escalable mediante programación reactiva transparente.",
         "language": 2,
-        "type": "Frontend Library",
         "features": [
-          "Project", "frontendLibrary", "GlobalState-02"
+          "Project", "Frontend Library", "GlobalState-02"
         ]
       }
     }

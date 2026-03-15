@@ -1,30 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import './Login.css';
-
 import { useAuth } from "../hooks/useAuth";
-import { useGlobalError } from '../hooks/useGlobalError';
-import apiClient from '../services/api';
+import useAction from "../hooks/useAction";
 
 export default function Login() {
-    const { login,setUser } = useAuth();
-    const { showError } = useGlobalError();
-    const navigate = useNavigate();
+    const { login,addUser } = useAuth();
+    const {run}=useAction()
     const [form, setForm] = useState({
         username: "",
         password: ""
     });
     const handleLogin = async (e) => {
         e.preventDefault();
-        try {
-            const { data:token } = await apiClient.post("/login", form);
-            login(token);
-            const {data:user}=await apiClient.get("/users/me")
-            setUser(user)
-           navigate("/");
-        } catch (error) {
-            showError(error.response?.data?.detail || "Error while logging in");
-        }
+        await run({endpoint:"/login",body:form,updateState:(token)=>login(token)});
+        await(run({endpoint:"/users/me",updateState:(user)=>addUser(user),navigateURL:("/"),method:"GET"}))
     };
     return (
         <div className="page-container">

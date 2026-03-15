@@ -22,20 +22,16 @@ const formatLabel = (label) => {
 
 function ProjectCard({ project }) {
   const navigate = useNavigate();
-
+  const types=["Backend","Frontend","Full Stack","Backend Library","Frontend Library"]
+  const type=types.find(t=>project.features.includes(t))
   return (
     <div className="project-card" onClick={() => navigate(`/projects/${project.id}`)}>
       <div className="project-card-content">
         <h2 className="project-title">{project.name}</h2>
         <div className="tags-container">
-          <span className={`chip ${getChipColor(project.type)}`}>
-            {formatLabel(project.type)}
+          <span className={`chip ${getChipColor(type)}`}>
+            {formatLabel(type)}
           </span>
-          {project.features && project.features.map((label) => (
-            <span key={label} className="chip outlined">
-              {formatLabel(label)}
-            </span>
-          ))}
         </div>
         <p className="project-description">{project.description}</p>
       </div>
