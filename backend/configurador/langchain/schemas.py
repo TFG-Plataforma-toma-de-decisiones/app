@@ -14,7 +14,12 @@ class OSSProjectDetails(BaseModel):
         description="Descripción técnica, objetiva y detallada del proyecto, orientada a su propósito arquitectónico y ventajas."
     )
     language: str = Field(
-        description="Lenguaje de programación principal en el que está basado o escrito el proyecto (ej. Python, JavaScript, Java)."
+        description=(
+            "Lenguaje de programación principal en el que está escrito el proyecto. "
+            "REGLA DE CONSISTENCIA: Comprueba la lista de 'LENGUAJES EXISTENTES' proporcionada en el contexto. "
+            "Si el lenguaje ya existe en esa lista, DEBES usar esa cadena de texto EXACTA (respetando mayúsculas y minúsculas). "
+            "Solo si el lenguaje no existe en la lista, proporciona el nombre estándar capitalizado (ej. 'Python', 'C#', 'TypeScript')."
+        )
     )
     features: List[str] = Field(
         description=(

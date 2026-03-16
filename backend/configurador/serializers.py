@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from .models import Project,Language,User
 from configurador.flamapy.flamapyService import FlamapyService
+class CreatableSlugRelatedField(serializers.SlugRelatedField):
+    def to_internal_value(self, data):
+        try:
+            return self.get_queryset().get_or_create(**{self.slug_field: data})[0]
+        except (TypeError, ValueError):
+            self.fail('invalid')
 class ProjectSerializer(serializers.ModelSerializer):
-    language = serializers.SlugRelatedField(
+    language = CreatableSlugRelatedField(
         queryset=Language.objects.all(),  
         slug_field='name'             
     )
