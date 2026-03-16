@@ -91,7 +91,21 @@
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(192, 132, 252, 0.15);
 }
+.input-text:disabled {
+  background-color: transparent;
+  border-color: transparent;
+  padding-left: 0; /* Quitamos el padding para que se alinee perfectamente con la etiqueta */
+  color: var(--color-text-primary);
+  font-weight: 500;
+  opacity: 0.9;
+  /* OPCIONAL: Si quieres que tenga una sutil línea debajo para que se note que es un campo */
+  /* border-bottom: 1px dashed var(--color-divider); border-radius: 0; */
+}
 
+/* Ocultar el icono de dropdown del datalist en modo solo lectura */
+.input-text:disabled::-webkit-calendar-picker-indicator {
+  display: none;
+}
 .language-select{
   width: 100%;
   padding: 12px;

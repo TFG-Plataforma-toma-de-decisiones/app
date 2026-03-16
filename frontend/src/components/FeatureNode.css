@@ -252,3 +252,43 @@
       padding: 10px 12px;
     }
   }
+  /* =========================================
+   MODO SOLO LECTURA (READ-ONLY)
+   ========================================= */
+
+/* Quitamos el cursor de la manita y el hover a TODAS las cabeceras */
+.readonly-mode .feature-header {
+  cursor: default;
+}
+
+.readonly-mode .feature-header:hover {
+  background-color: transparent; /* Quitamos el fondo sutil al pasar el ratón */
+}
+
+/* Opción A: Ocultar los controles inactivos y hacer más sutiles las tarjetas.
+  Esto hace que parezca un resumen de datos, no un formulario.
+*/
+
+/* Ocultamos los cuadraditos/círculos de las opciones que NO están seleccionadas */
+.readonly-mode .feature-card:not(.active) .custom-control {
+  display: none;
+}
+
+/* Suavizamos visualmente las tarjetas que no se eligieron */
+.readonly-mode .feature-card:not(.active) {
+  opacity: 0.6;
+  border-color: transparent; /* Quitamos el borde para que se fusione con el fondo */
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Opcional: Si quieres que el texto de las inactivas también sea menos visible */
+.readonly-mode .feature-card:not(.active) .feature-name {
+  color: var(--color-text-secondary);
+}
+
+/* Aseguramos que los controles .disabled no se vean feos (opacos) si están activos */
+.readonly-mode .feature-header input:disabled + .custom-control {
+  opacity: 1; /* Forzamos a que se vean nítidos aunque el HTML diga que están disabled */
+  cursor: default;
+}
