@@ -23,20 +23,21 @@ const TYPE_CONFIG = {
   },
   info: { 
     icon: <MdInfoOutline />, 
-    colorClass: 'type-info'
+    colorClass: 'type-info',
   },
   loading: { 
     icon: <MdSync className="icon-spin" />, 
     colorClass: 'type-info', 
+    colorClassClose:'type-error',
+    close:"Cancelar"
     
   }
 };
 
-export default function GenericModal({ isOpen, onClose, config }) {
-  if (!isOpen || !config) return null;
+export default function GenericModal({onClose, config }) {
+  if (!config) return null;
 
   const typeData = TYPE_CONFIG[config.type]
-  const { icon, colorClass } = typeData;
   const handleClose = () => {
     if (config.onCancel) {
       config.onCancel();
@@ -49,8 +50,8 @@ export default function GenericModal({ isOpen, onClose, config }) {
       <div className="modal-box" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           {/* Combinamos modal-title con la clase de color específica */}
-          <h2 className={`modal-title ${colorClass}`}>
-            <span className="modal-icon-container">{icon}</span>
+          <h2 className={`modal-title ${typeData.colorClass}`}>
+            <span className="modal-icon-container">{typeData.icon}</span>
             {config.title}
           </h2>
           <button onClick={handleClose} className="modal-close-icon-btn" aria-label="Cerrar">
@@ -65,9 +66,8 @@ export default function GenericModal({ isOpen, onClose, config }) {
         </div>
 
         <div className="modal-footer">
-          {/* El botón también recibe la clase de color para el fondo */}
-          <button onClick={handleClose} className={`modal-btn-confirm ${colorClass}-bg`}>
-            Entendido
+          <button onClick={handleClose} className={`modal-btn-confirm ${typeData.colorClassClose || typeData.colorClass}-bg`}>
+            {typeData.close || "Entendido"}
           </button>
         </div>
       </div>

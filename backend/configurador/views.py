@@ -98,9 +98,11 @@ def get_swot(request):
 @api_view(["POST"])
 def autocomplete(request):
     uvl_model=FlamapyService.get_instance().to_dict()
+    languages=Language.objects.all().values_list("name",flat=True)
     data={
         "admin_input_json":request.data,
-        "uvl_model":uvl_model
+        "uvl_model":uvl_model,
+        "existing_languages_list":languages
     }
     project_data=langchain_service.autocomplete_project(data)
     return Response(data=project_data)

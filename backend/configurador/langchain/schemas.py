@@ -32,3 +32,12 @@ class OSSProjectDetails(BaseModel):
             "4. Coherencia estructural: No violes la jerarquía ni la exclusividad del árbol. Prioriza la precisión lógica del modelo UVL sobre la exhaustividad del framework."
         )
     )
+    confidence_score: float = Field(
+        description=(
+            "Nivel de confianza de la predicción, expresado como un valor decimal entre 0.0 y 1.0. "
+            "REGLAS DE PUNTUACIÓN:\n"
+            "- Asigna entre 0.9 y 1.0 SOLO SI los datos iniciales son coherentes entre sí y la identificación es unívoca.\n"
+            "- Asigna entre 0.5 y 0.8 si la entrada es escasa, ambigua, o REGLA CRÍTICA: si existen CONTRADICCIONES EXPLÍCITAS en los datos del usuario . En caso de contradicción, debes autocorregir los datos hacia la opción lógica, pero ESTÁS OBLIGADO a bajar la puntuación a este rango para forzar una revisión humana.\n"
+            "- Asigna un valor MENOR a 0.5 si los datos proporcionados carecen de sentido y te ves obligado a generar datos por defecto."
+        )
+    )

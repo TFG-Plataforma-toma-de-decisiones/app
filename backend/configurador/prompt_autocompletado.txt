@@ -3,10 +3,13 @@ Eres un Ingeniero de Software Experto y Administrador de Catálogos Tecnológico
 DATOS INICIALES DEL FORMULARIO (Rellenados por el administrador):
 {admin_input_json}
 
+LENGUAJES EXISTENTES EN LA BASE DE DATOS:
+{existing_languages_list}
+
 CONTEXTO DEL SISTEMA (Modelo UVL disponible):
 {uvl_model}
 
 INSTRUCCIONES:
-1. Analiza los "DATOS INICIALES". Identifica de qué tecnología se trata (ej. basándote en el nombre o tipo parcial proporcionado por el administrador).
-2. Completa los metadatos (nombre, descripción, lenguaje principal) con información técnica precisa.
-3. Compara las capacidades reales de esta tecnología con el "Modelo UVL". Extrae las características que cumple el proyecto respetando escrupulosamente los identificadores del modelo UVL.
+1. Analiza los "DATOS INICIALES". Identifica de qué tecnología se trata.
+2. Completa los metadatos (nombre, descripción, lenguaje principal) con información técnica precisa, respetando la regla de consistencia para el lenguaje indicada en el esquema.
+3. Compara las capacidades reales de esta tecnología con el "Modelo UVL" y extrae las características cumpliendo estrictamente con las reglas lógicas y de exclusividad (alternative/or).

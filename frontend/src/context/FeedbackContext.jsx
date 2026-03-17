@@ -1,27 +1,38 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useRef } from 'react';
 import GenericModal from '../components/GenericModal';
 
 export const FeedbackContext = createContext();
 
 export default function FeedbackProvider({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [config, setConfig] = useState();
-
-  const showMessage = useCallback((config) => {
-    setConfig(config);
-    setIsOpen(true);
+  const [config, setConfig] = useState(null);
+  const loadingTimeoutRef = useRef(null);
+  const showMessage = useCallback((newConfig) => {
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+      loadingTimeoutRef.current = null;
+    }
+    if (newConfig?.type === 'loading') {
+      loadingTimeoutRef.current = setTimeout(() => {
+        setConfig(newConfig);
+      }, 300);
+    } else {
+      setConfig(newConfig);
+    }
   }, []);
 
   const hideMessage = useCallback(() => {
-    setIsOpen(false);
-    setTimeout(() => setConfig({ title: '', message: '', type: '' }), 200);
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+      loadingTimeoutRef.current = null;
+    }
+    
+    setConfig(null);
   }, []);
 
   return (
-    <FeedbackContext.Provider value={{ showMessage,hideMessage }}>
+    <FeedbackContext.Provider value={{ showMessage, hideMessage }}>
       {children}
       <GenericModal 
-        isOpen={isOpen} 
         onClose={hideMessage} 
         config={config}
       />

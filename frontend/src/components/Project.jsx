@@ -7,6 +7,7 @@ import { useFeatureTrees } from '../hooks/useFeatureTrees';
 import { useAuth } from '../hooks/useAuth';
 import useAction from '../hooks/useAction';
 import { BsMagic } from 'react-icons/bs';
+import { useFeedback } from '../hooks/useFeedback';
 
 export default function Project() {
     const { data: uvlModel } = useApi({ endpoint: "/model", initialData: {} })
@@ -16,7 +17,27 @@ export default function Project() {
     const { isAdmin } = useAuth()
     const { run, isLoading } = useAction()
     const isNew = id === "new"
-
+    const {showMessage}=useFeedback()
+    const CONFIDENCE_THRESHOLDS = [
+      {
+        min: 0.5,
+        max: 0.85,
+        config: {
+          type: 'warning',
+          title: 'Revisión Manual Recomendada',
+          message: 'Los datos iniciales eran ambiguos o escasos. La IA ha deducido la información basándose en el contexto disponible, pero es posible que haya inexactitudes. Por favor, revisa detalladamente las características marcadas.'
+        }
+      },
+      {
+        min: 0.0,
+        max: 0.5,
+        config: {
+          type: 'error',
+          title: 'Baja Fiabilidad',
+          message: 'La información proporcionada no permitía identificar un proyecto real o contenía inconsistencias graves. Los datos generados son genéricos o por defecto. Es obligatorio descartar o reescribir este formulario completamente.'
+        }
+      }
+    ];
     useEffect(() => {
       if(isNew){
         return ;
@@ -37,13 +58,21 @@ export default function Project() {
 
     async function handleAutocomplete() {
       
-      await run({
+      const data=await run({
         endpoint: '/autocomplete',
         method: "POST",
         body: trees[0],
         updateState: (data => setTrees([data])),
         showLoadingModal:true
       })
+      if(!data){
+        return ;
+      }
+      const confScore=data.confidence_score
+      const level=CONFIDENCE_THRESHOLDS.find(s=>confScore>=s.min && confScore<s.max)
+      if(level){
+        showMessage(level.config)
+      }
       
     }
 
