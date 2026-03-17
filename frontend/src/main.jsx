@@ -5,16 +5,16 @@ import './index.css';
 import './styles.css';
 import App from './App.jsx';
 import AuthProvider from './context/AuthContext'
-import ErrorProvider from './context/ErrorContext';
+import FeedbackProvider from './context/FeedbackContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <ErrorProvider>
+      <FeedbackProvider>
         <AuthProvider>
           <App />
         </AuthProvider>
-      </ErrorProvider>
+      </FeedbackProvider>
     </BrowserRouter>
   </StrictMode>
 );

@@ -1,0 +1,89 @@
+/* --- Estructura Base --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
+}
+
+.modal-box {
+  position: relative;
+  width: 90%;
+  max-width: 450px;
+  background-color: var(--color-background-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  outline: none;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.25rem;
+  /* IMPORTANTE: No definir color aquí para que lo herede de la clase de tipo */
+}
+
+.modal-icon-container {
+  display: flex;
+  font-size: 1.6rem;
+  color: inherit; /* Esto obliga al icono a usar el color del h2 (.type-XXX) */
+}
+
+/* --- Clases de Tipo (Colores de Texto e Icono) --- */
+.type-error { color: var(--color-error) !important; }
+.type-success { color: var(--color-success) !important; }
+.type-warning { color: var(--color-warning) !important; }
+.type-info { color: var(--color-info) !important; }
+
+/* --- Botones --- */
+.modal-btn-confirm {
+  color: #ffffff; /* Texto blanco por defecto */
+  text-transform: none;
+  font-weight: 600;
+  padding: 8px 24px;
+  border-radius: var(--border-radius-button);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+/* Clases de Fondo para Botones */
+.type-error-bg { background-color: var(--color-error); }
+.type-success-bg { background-color: var(--color-success); }
+.type-info-bg { background-color: var(--color-info); }
+.type-warning-bg { 
+  background-color: var(--color-warning); 
+  color: #000000; /* Texto negro para legibilidad sobre amarillo */
+}
+
+.modal-btn-confirm:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+/* --- Animación para el Loader --- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon-spin {
+  animation: spin 1.2s linear infinite;
+}

@@ -36,12 +36,15 @@ export default function Project() {
     }
 
     async function handleAutocomplete() {
+      
       await run({
         endpoint: '/autocomplete',
         method: "POST",
         body: trees[0],
-        updateState: (data => setTrees([data]))
-      });
+        updateState: (data => setTrees([data])),
+        showLoadingModal:true
+      })
+      
     }
 
     return (

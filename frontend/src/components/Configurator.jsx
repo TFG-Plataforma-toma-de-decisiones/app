@@ -9,7 +9,7 @@ export default function Configurator() {
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
   const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
   const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
-  const {data:dafo,refetch:fetchDafo,isLoading,setData:setDafo}=useApi({endpoint:"/swot",method:"POST",initialData:null})
+  const {data:dafo,refetch:fetchDafo,setData:setDafo}=useApi({endpoint:"/swot",method:"POST",initialData:null})
   const [comments,setComments]=useState("")
   const [isSwotModalOpen, setSwotModalOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export default function Configurator() {
   async function getDafo(recommendation){
     setDafo(null)
     const body={recommendation,preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
-    fetchDafo({overrideBody:body})
+    fetchDafo({overrideBody:body,showLoadingModal:true})
     setSwotModalOpen(true);
   }
   const groupedRecommendations = recommendations.reduce((acc, project) => {
@@ -127,7 +127,6 @@ export default function Configurator() {
                 <SWOTModal 
                     swot={dafo} 
                     onClose={() => setSwotModalOpen(false)} 
-                    isLoading={isLoading}
                 />
             )}
     </div>

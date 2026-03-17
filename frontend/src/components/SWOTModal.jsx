@@ -1,17 +1,14 @@
 import React from 'react';
 import './SWOTModal.css';
 
-const SWOTModal = ({ swot, onClose, isLoading }) => {
-    if (!isLoading && !swot) return null;
+const SWOTModal = ({ swot, onClose }) => {
+    if (!swot) return null;
 
     return (
         <div className="modal-overlay">
             <div className="modal-content">
                 <button className="close-button" onClick={onClose}>X</button>
                 <h2>Análisis DAFO</h2>
-                {isLoading ? (
-                    <p>Cargando...</p>
-                ) : (
                     <div className="swot-container">
                         <div className="swot-category">
                             <h3>Fortalezas</h3>
@@ -46,7 +43,6 @@ const SWOTModal = ({ swot, onClose, isLoading }) => {
                             </ul>
                         </div>
                     </div>
-                )}
             </div>
         </div>
     );
