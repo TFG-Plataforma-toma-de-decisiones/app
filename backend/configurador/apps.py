@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.conf import settings
 import logging
-
+from django.core.cache import caches
 logger = logging.getLogger(__name__)
 class ConfiguradorConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -13,11 +13,7 @@ class ConfiguradorConfig(AppConfig):
 
         try:
 
-            redis_url = settings.CACHES['default']['LOCATION']
-            
-            redis_client = redis.Redis.from_url(redis_url)
-
-           
-            set_llm_cache(RedisCache(redis_=redis_client))            
+            redis_client = caches['default'].client.get_client(write=True)
+            set_llm_cache(RedisCache(redis_=redis_client))          
         except Exception as e:
             logger.error(f"⚠️ No se pudo inicializar la caché de LangChain en Redis: {e}")
