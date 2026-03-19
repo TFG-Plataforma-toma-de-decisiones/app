@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProjectCard.css';
-import { useAuth } from '../hooks/useAuth';
-import DeleteModal from './DeleteModal';
-import useAction from '../hooks/useAction';
+import { useAuth } from '../../hooks/useAuth';
+import DeleteModal from '../modals/DeleteModal';
+import useAction from '../../hooks/useAction';
 
 const getChipColor = (category) => {
   if (!category) return 'default';

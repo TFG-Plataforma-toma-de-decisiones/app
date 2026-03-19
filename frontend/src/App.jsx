@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import Project from './components/Project';
-import Navbar from './components/Navbar';
+import Project from './components/project/Project';
+import Navbar from './components/layout/Navbar';
 import Home from './HomePage';
-import Login from './components/Login';
+import Login from './components/auth/Login';
 import { useAuth } from './hooks/useAuth';
-import Configurator from './components/Configurator';
+import Configurator from './components/configurator/Configurator';
 import FeatureTreesProvider from './context/FeatureTreesContext';
 import './styles.css'; 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectCard from './components/ProjectCard';
+import ProjectCard from './components/project/ProjectCard';
 import useApi from './hooks/useApi';
 import './Home.css'; // Asegúrate de importar el CSS que creamos
 import { useAuth } from './hooks/useAuth';

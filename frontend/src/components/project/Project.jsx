@@ -1,13 +1,13 @@
 import './Project.css';
-import FeatureNode from './FeatureNode';
+import FeatureNode from '../shared/FeatureNode';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useApi from '../hooks/useApi';
-import { useFeatureTrees } from '../hooks/useFeatureTrees';
-import { useAuth } from '../hooks/useAuth';
-import useAction from '../hooks/useAction';
+import useApi from '../../hooks/useApi';
+import { useFeatureTrees } from '../../hooks/useFeatureTrees';
+import { useAuth } from '../../hooks/useAuth';
+import useAction from '../../hooks/useAction';
 import { BsMagic } from 'react-icons/bs';
-import { useFeedback } from '../hooks/useFeedback';
+import { useFeedback } from '../../hooks/useFeedback';
 
 export default function Project() {
     const { data: uvlModel } = useApi({ endpoint: "/model", initialData: {} })

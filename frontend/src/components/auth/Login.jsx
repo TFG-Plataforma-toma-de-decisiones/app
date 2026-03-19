@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './Login.css';
-import { useAuth } from "../hooks/useAuth";
-import useAction from "../hooks/useAction";
+import { useAuth } from "../../hooks/useAuth";
+import useAction from "../../hooks/useAction";
 
 export default function Login() {
     const { login,addUser } = useAuth();

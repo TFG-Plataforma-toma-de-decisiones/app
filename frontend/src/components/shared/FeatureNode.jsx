@@ -1,5 +1,5 @@
 import './FeatureNode.css';
-import { useFeatureTrees } from "../hooks/useFeatureTrees";
+import { useFeatureTrees } from "../../hooks/useFeatureTrees";
 
 const GROUPS = [
   { key: "MANDATORY", title: null, controlType: "mandatory" },

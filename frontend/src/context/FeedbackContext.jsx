@@ -1,5 +1,5 @@
 import React, { createContext, useState, useCallback, useRef } from 'react';
-import GenericModal from '../components/GenericModal';
+import GenericModal from '../components/modals/GenericModal';
 
 export const FeedbackContext = createContext();
 

@@ -1,9 +1,9 @@
-import { useFeatureTrees } from "../hooks/useFeatureTrees";
-import FeatureNode from "./FeatureNode";
+import { useFeatureTrees } from "../../hooks/useFeatureTrees";
+import FeatureNode from "../shared/FeatureNode";
 import "./Configurator.css";
 import { useState } from "react";
-import useApi from "../hooks/useApi";
-import SWOTModal from "./SWOTModal";
+import useApi from "../../hooks/useApi";
+import SWOTModal from "../modals/SWOTModal";
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
