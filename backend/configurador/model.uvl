@@ -1,79 +1,88 @@
 features
-	Project
+	"Project"
 		alternative
-			Backend
+			"Backend"
 				mandatory
-					APIStyle
+					"APIStyle"
 						or
-							REST
-							GraphQL
-							RPC
-							gRPC
-					ExecutionModel
+							"REST"
+							"GraphQL"
+							"RPC"
+							"gRPC"
+					"ExecutionModel"
 						alternative
-							Synchronous
-							EventDriven
-							Reactive
-							Batch
-					Persistence
+							"Synchronous"
+							"EventDriven"
+							"Reactive"
+							"Batch"
+					"Persistence"
 						alternative
-							Stateless
-							Stateful
-					License
+							"Stateless"
+							"Stateful"
+					"License"
 						alternative
-							MIT
-							GPL
-							Apache
-							BSD
-				alternative
-					si
-					no
-				alternative
-					"si2"
-					"no2"
+							"MIT"
+							"GPL"
+							"Apache"
+							"BSD"
 				optional
-					AutomaticAuthentication
+					"AutomaticAuthentication"
 						optional
-							JWT
-							OAuth2
-							Basic
+							"JWT"
+						optional
+							"OAuth2"
+						optional
+							"Basic"
 					"DatabaseIntegration-1"
 						optional
 							"ORM-1"
+								alternative
+									"Migrations"
+									"SQL"
 							"ODMN-1"
 							"OGMN-1"
 					"MessageQueueSupport-1"
 						optional
 							"Kafka-1"
+						optional
 							"RabbitMQ-1"
-			Frontend
+					"Arquitectura"
+						alternative
+							"Monolítica"
+							"MVC"
+							"Microservicios"
+			"Frontend"
 				mandatory
-					Platform
+					"Platform"
 						alternative
-							Web
-							Mobile
+							"Web"
+							"Mobile"
 							"Web+Mobile"
-					RenderingModel
+				mandatory
+					"RenderingModel"
 						alternative
-							SPA
-							CSR
-							SSR
-							SSG
+							"SPA"
+							"CSR"
+							"SSR"
+							"SSG"
+				mandatory
 					"License-2"
 						alternative
 							"MIT-2"
 							"GPL-2"
 							"Apache-2"
 							"BSD-2"
-					Styling
+				mandatory
+					"Styling"
 						or
-							CSS
-							CSSModules
-							CSSinJS
-							FrameworkCSS
+							"CSS"
+							"CSSModules"
+							"CSSinJS"
+							"FrameworkCSS"
 				optional
 					"GlobalState-01"
-					i8nInternalization
+				optional
+					"i8nInternalization"
 			"Full Stack"
 				mandatory
 					"RenderingModel-2"
@@ -81,32 +90,36 @@ features
 							"SSR-2"
 							"SSG-2"
 							"CSR-2"
+				mandatory
 					"DatabaseIntegration-2"
 						optional
 							"ORM-2"
+						optional
 							"ODM-2"
+						optional
 							"OGM-2"
 				optional
-					AdmninPanel
-					AuthenticationBuiltIn
+					"AdmninPanel"
+				optional
+					"AuthenticationBuiltIn"
 			"Backend Library"
 				alternative
-					DatabaseIntegration
+					"DatabaseIntegration"
 						alternative
-							ORM
-							ODM
-							OGM
+							"ORM"
+							"ODM"
+							"OGM"
 						optional
-							migrations
-					MessageQueueSupport
+							"migrations"
+					"MessageQueueSupport"
 						alternative
-							Kafka
-							RabbitMQ
-					CacheSupport
+							"Kafka"
+							"RabbitMQ"
+					"CacheSupport"
 						alternative
-							Redis
-							Memcached
+							"Redis"
+							"Memcached"
 			"Frontend Library"
 				alternative
 					"GlobalState-02"
-					i18nInternalization
+					"i18nInternalization"

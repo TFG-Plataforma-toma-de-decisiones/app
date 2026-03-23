@@ -8,6 +8,7 @@ import Configurator from './components/configurator/Configurator';
 import FeatureTreesProvider from './context/FeatureTreesContext';
 import './styles.css'; 
 import UVLTreeEditor from './components/model/UVLTreeEditor';
+import ConflictProjects from './components/project/ConflictProjects';
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -42,6 +43,16 @@ function App() {
             } 
           /> 
           {isAdmin && <Route path="/uvl-model" element={<UVLTreeEditor/>} />}
+          {isAdmin && (
+            <Route
+              path="conflicts-projects"
+              element={
+                <FeatureTreesProvider initialTrees={[{features: ["Project"]}]}>
+                  <ConflictProjects />
+                </FeatureTreesProvider>
+              }
+            />
+          )}
         </Routes>
       </main>
     </div>

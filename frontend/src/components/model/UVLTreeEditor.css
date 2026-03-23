@@ -1,199 +1,222 @@
-/* =========================================
-   CONTENEDOR PRINCIPAL
-   ========================================= */
+.uvl-tree-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-   .uvl-tree-editor {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  .uvl-tree-editor h2 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-text-primary);
-    border-bottom: 2px solid var(--color-divider);
-    padding-bottom: 12px;
-    margin: 0;
-  }
-  
+.uvl-tree-editor h2 {
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-divider);
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.editor-container {
+  overflow-x: auto;
+  padding: 16px 24px 16px 12px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  background-color: var(--color-background-paper);
+}
+
+.editable-node {
+  display: flex;
+  flex-direction: column;
+}
+
+.node-header,
+.relation-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.node-header:hover,
+.relation-header:hover {
+  background-color: var(--color-hover-border, rgba(45, 212, 191, 0.05));
+}
+
+.node-name-input {
+  flex: 1;
+  min-width: 180px;
+  max-width: 360px;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: none;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.node-name-input:hover {
+  border-color: var(--color-divider);
+}
+
+.node-name-input:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-background-default);
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.15);
+}
+
+.node-name-input:disabled {
+  color: var(--color-primary);
+  font-weight: 700;
+  cursor: default;
+}
+
+.node-type-select {
+  padding: 4px 8px;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  background-color: var(--color-background-default);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.node-type-select:focus {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.relation-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.relation-badge {
+  min-width: 70px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background-color: var(--color-background-default);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.relation-actions,
+.node-header:hover .node-actions,
+.relation-header:hover .node-actions {
+  opacity: 1;
+}
+
+.spacer {
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background-color: var(--color-divider);
+  color: var(--color-text-primary);
+}
+
+.node-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.add-btn:hover {
+  color: var(--color-primary);
+  background-color: rgba(45, 212, 191, 0.1);
+}
+
+.delete-btn:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.node-children {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 20px;
+  padding-left: 12px;
+  border-left: 1px dashed var(--color-divider);
+}
+
+.relation-children {
+  gap: 4px;
+}
+
+.submit-button {
+  align-self: flex-start;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--border-radius-card);
+  background-color: var(--color-primary);
+  color: var(--color-background-default, #1a232f);
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 212, 191, 0.25);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
   .editor-container {
-    background-color: var(--color-background-paper);
-    border: 1px solid var(--color-divider);
-    border-radius: var(--border-radius-card);
-    padding: 16px 24px 16px 12px;
-    overflow-x: auto; /* Por si el árbol crece mucho en horizontal */
+    padding: 12px;
   }
-  
-  /* =========================================
-     NODO INDIVIDUAL (Fila del árbol)
-     ========================================= */
-  
-  .editable-node {
-    display: flex;
-    flex-direction: column;
+
+  .node-header,
+  .relation-header {
+    flex-wrap: wrap;
   }
-  
-  .node-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-  }
-  
-  /* Efecto hover en toda la fila para resaltar dónde estamos */
-  .node-header:hover {
-    background-color: var(--color-hover-border, rgba(45, 212, 191, 0.05));
-  }
-  
-  /* =========================================
-     INPUTS Y SELECTS (Integrados en el texto)
-     ========================================= */
-  
-  .node-name-input {
-    flex: 1; /* Ocupa el espacio disponible */
-    min-width: 150px;
-    max-width: 300px;
-    background-color: transparent;
-    border: 1px solid transparent; /* Borde invisible por defecto */
-    color: var(--color-text-primary);
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 4px 8px;
-    border-radius: 4px;
-    outline: none;
-    transition: all 0.2s;
-  }
-  
-  /* Solo mostramos el borde si hacen clic o pasan el ratón */
-  .node-name-input:hover {
-    border-color: var(--color-divider);
-  }
-  
-  .node-name-input:focus {
-    border-color: var(--color-primary);
-    background-color: var(--color-background-default);
-    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.15);
-  }
-  
-  .node-name-input:disabled {
-    font-weight: 700;
-    color: var(--color-primary);
-    cursor: default;
-  }
-  
-  .node-type-select {
-    background-color: var(--color-background-default);
-    color: var(--color-text-secondary);
-    border: 1px solid var(--color-divider);
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 12px;
-    font-weight: 600;
-    outline: none;
-    cursor: pointer;
-  }
-  
-  .node-type-select:focus {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  
-  /* =========================================
-     BOTONES E ICONOS
-     ========================================= */
-  
-  .spacer {
-    width: 24px; /* Ocupa el mismo espacio que la flechita para que el texto se alinee */
-    flex-shrink: 0;
-  }
-  
-  .icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: transparent;
-    border: none;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-  
-  .icon-btn:hover {
-    background-color: var(--color-divider);
-    color: var(--color-text-primary);
-  }
-  
-  /* Contenedor de las acciones (+ y Papelera) */
+
   .node-actions {
-    display: flex;
-    gap: 4px;
-    opacity: 0; /* OCULTOS POR DEFECTO para no saturar la vista */
-    transition: opacity 0.2s ease;
-  }
-  
-  /* Aparecen cuando pasas el ratón por la fila */
-  .node-header:hover .node-actions {
     opacity: 1;
   }
-  
-  .add-btn:hover {
-    color: var(--color-primary);
-    background-color: rgba(45, 212, 191, 0.1);
+
+  .node-name-input {
+    max-width: none;
   }
-  
-  .delete-btn:hover {
-    color: #ef4444; /* Rojo para borrar */
-    background-color: rgba(239, 68, 68, 0.1);
+
+  .relation-badge {
+    min-width: auto;
   }
-  
-  /* =========================================
-     JERARQUÍA VISUAL (Hijos y sangría)
-     ========================================= */
-  
-  .node-children {
-    margin-left: 20px; /* Sangría principal */
-    padding-left: 12px;
-    border-left: 1px dashed var(--color-divider); /* Línea conectora estilo árbol */
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  /* =========================================
-     BOTÓN GUARDAR
-     ========================================= */
-  
-  .submit-button {
-    align-self: flex-start;
-    padding: 12px 24px;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: var(--font-family);
-    color: var(--color-background-default, #1a232f); 
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: var(--border-radius-card);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .submit-button:hover {
-    filter: brightness(1.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(45, 212, 191, 0.25);
-  }
-  
-  .submit-button:active {
-    transform: translateY(0);
-  }
+}

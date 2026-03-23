@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import DeleteModal from '../modals/DeleteModal';
 import useAction from '../../hooks/useAction';
 import { FaTrash } from 'react-icons/fa';
+
 const getChipColor = (category) => {
   if (!category) return 'default';
   const cat = category.toLowerCase();
@@ -23,13 +24,22 @@ const formatLabel = (label) => {
     .join(' ');
 };
 
-function ProjectCard({ project,setProjects }) {
+function ProjectCard({
+  project,
+  setProjects,
+  onClick,
+  isSelected = false,
+  deleteEndpoint,
+  onDeleteSuccess,
+  deleteTitle = "Eliminar Proyecto",
+  deleteMessage
+}) {
   const navigate = useNavigate();
-  const types=["Backend","Frontend","Full Stack","Backend Library","Frontend Library"]
-  const type=types.find(t=>project.features.includes(t))
-  const {isAdmin} =useAuth()
+  const types = ["Backend", "Frontend", "Full Stack", "Backend Library", "Frontend Library"];
+  const type = types.find(t => project.features.includes(t));
+  const { isAdmin } = useAuth();
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const {run}=useAction()
+  const { run } = useAction();
 
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -38,8 +48,19 @@ function ProjectCard({ project,setProjects }) {
 
   const confirmDelete = async (e) => {
     e.stopPropagation();
-    await run({endpoint:`projects/${project.id}`,method:"DELETE",
-      updateState:()=>setProjects(projects=>projects.filter(p=>p.id!==project.id))})
+    const data = await run({
+      endpoint: deleteEndpoint || `projects/${project.id}`,
+      method: "DELETE",
+      updateState: !onDeleteSuccess && setProjects
+        ? () => setProjects(projects => projects.filter(p => p.id !== project.id))
+        : null
+    });
+    if (data === undefined) {
+      return;
+    }
+    if (data && onDeleteSuccess) {
+      await onDeleteSuccess(data, project);
+    }
     setDeleteModalOpen(false);
   };
 
@@ -48,13 +69,24 @@ function ProjectCard({ project,setProjects }) {
     setDeleteModalOpen(false);
   };
 
+  const handleCardClick = () => {
+    if (isDeleteModalOpen) {
+      return;
+    }
+    if (onClick) {
+      onClick(project);
+      return;
+    }
+    navigate(`/projects/${project.id}`);
+  };
+
   return (
     <>
-      <div className="project-card" onClick={() => !isDeleteModalOpen && navigate(`/projects/${project.id}`)}>
+      <div className={`project-card ${isSelected ? 'selected' : ''}`} onClick={handleCardClick}>
         <div className="project-card-content">
           <div className="project-card-header">
             <h2 className="project-title">{project.name}</h2>
-            {isAdmin && (
+            {isAdmin && (deleteEndpoint || setProjects) && (
               <button onClick={handleDelete} className="delete-project-btn">
                 <FaTrash />
               </button>
@@ -72,9 +104,9 @@ function ProjectCard({ project,setProjects }) {
         isOpen={isDeleteModalOpen}
         onClose={cancelDelete}
         onConfirm={confirmDelete}
-        title="Eliminar Proyecto"
+        title={deleteTitle}
       >
-        <p>¿Estás seguro de que deseas eliminar el proyecto "{project.name}"? Esta acción no se puede deshacer.</p>
+        <p>{deleteMessage || `¿Estás seguro de que deseas eliminar el proyecto "${project.name}"? Esta acción no se puede deshacer.`}</p>
       </DeleteModal>
     </>
   );

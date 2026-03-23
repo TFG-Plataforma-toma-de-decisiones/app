@@ -1,25 +1,29 @@
 from django.http import JsonResponse
-from rest_framework.response import Response
-from rest_framework.decorators import api_view,permission_classes
+from django.shortcuts import get_object_or_404
+from configurador.draft import DraftService
 from configurador.flamapy.flamapyService import FlamapyService
-from configurador.models import Project,Language
-from configurador.serializers import ProjectSerializer,LanguageSerializer,UserSerializer
-from configurador.utils import features_set_by_name
-from rest_framework import viewsets,mixins
-from rest_framework.permissions import BasePermission,SAFE_METHODS,IsAdminUser
 from configurador.langchain.langchainService import langchain_service
+from configurador.models import Project, Language
+from configurador.serializers import ProjectSerializer, LanguageSerializer, UserSerializer
+from configurador.utils import features_set_by_name
+from rest_framework import mixins, viewsets
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import BasePermission, SAFE_METHODS, IsAdminUser
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.db import transaction
-from django.core.cache import cache
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
             return True
         return request.user and request.user.is_staff
+
+
 @api_view(['GET'])
 def get_uvl_model(request):
     flamapy_service=FlamapyService.get_instance()
     return JsonResponse(flamapy_service.to_dict(),safe=False)
+
+
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -109,84 +113,136 @@ def autocomplete(request):
     }
     project_data=langchain_service.autocomplete_project(data)
     return Response(data=project_data)
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
-from django.core.cache import cache
-from django.db import transaction
 
 class ManageUVLModelView(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes=[IsAdminUser]
     def get(self, request):
-        session_data = cache.get('admin_edit_session')
+        session_data=DraftService.get_session(request.user)
         if session_data is not None:
-            draft_service=session_data["uvl_content"]
-            return Response(data=draft_service.to_dict())
-        else:
-            service=FlamapyService.get_instance()
-            return Response(service.to_dict())
-                
+            try:
+                return Response(data=FlamapyService.create_str(session_data["uvl_content"]).to_dict())
+            except Exception:
+                return Response(data={"detail":"Draft UVL is corrupted"},status=500)
+        return Response(FlamapyService.get_instance().to_dict())
     def put(self, request):
-        uvl_content = FlamapyService.create_str(request.data.get('uvl_content') )
-        session_data = cache.get('admin_edit_session', {}) 
-        pending_fixes = session_data.get('pending_fixes', {})
-        draft_service = FlamapyService.create_str(uvl_content)
-        all_projects = Project.objects.all()
-        invalid_projects = []
-        for project in all_projects:
-            features_to_test = pending_fixes.get(str(project.id), project.features)
-            is_valid = draft_service.validate(features=features_to_test, is_full=True)
-            if not is_valid:
-                invalid_projects.append({
-                    "id": project.id,
-                    "name": project.name,
-                    "current_features": features_to_test
-                })        
-        if not invalid_projects:
-            projects_to_update = []
-            with transaction.atomic():
-                for project in all_projects:
-                    str_id = str(project.id)
-                    if str_id in pending_fixes:
-                        project.features = pending_fixes[str_id]
-                        projects_to_update.append(project)
-                if projects_to_update:
-                    Project.objects.bulk_update(projects_to_update, ['features'])
-                    
-                FlamapyService.publish_new_model(uvl_content)
-                
-            cache.delete('admin_edit_session')
-            return Response(data={"message": "Model updated successfully"}, status=200)
-        else:
-            new_session = {
-                "uvl_content": uvl_content,
-                "pending_fixes": pending_fixes,
-            }
-            cache.set('admin_edit_session', new_session, 86400)
-            return Response(data={
-                "details": "There are invalid projects according to this model.",
-                "invalid_projects": invalid_projects
-            }, status=409)
+        payload=request.data.get("model",request.data)
+        existing_session=DraftService.get_session(request.user)
+        try:
+            uvl_content=FlamapyService.get_uvl_text(payload)
+            next_session=DraftService.build_session(
+                uvl_content,
+                pending_updates=(existing_session or {}).get("pending_updates", {}),
+                pending_deletions=(existing_session or {}).get("pending_deletions", []),
+            )
+        except Exception:
+            return Response(data={"detail":"Invalid UVL model"},status=400)
+        if existing_session is None and not next_session["invalid_projects"] and not next_session["pending_updates"] and not next_session["pending_deletions"]:
+            DraftService.apply_session(next_session)
+            DraftService.delete_session(request.user)
+            return Response(data={"message":"Model updated successfully","invalid_projects":[],"can_confirm":True},status=200)
+        DraftService.set_session(request.user,next_session)
+        has_conflicts=bool(next_session["invalid_projects"])
+        return Response(
+            data={
+                "message":"Draft UVL saved. Resolve invalid projects before confirming." if has_conflicts else "Draft UVL saved. You can confirm the changes.",
+                "invalid_projects":next_session["invalid_projects"],
+                "can_confirm":not has_conflicts,
+            },
+            status=409 if has_conflicts else 200
+        )
+    def post(self, request):
+        session_data=DraftService.get_session(request.user)
+        if not session_data:
+            return Response(data={"detail":"No active draft session found"},status=400)
+        try:
+            refreshed_session=DraftService.build_session(
+                session_data["uvl_content"],
+                pending_updates=session_data.get("pending_updates", {}),
+                pending_deletions=session_data.get("pending_deletions", []),
+            )
+        except Exception:
+            return Response(data={"detail":"Draft UVL is corrupted"},status=500)
+        if refreshed_session["invalid_projects"]:
+            DraftService.set_session(request.user,refreshed_session)
+            return Response(
+                data={"detail":"There are still invalid projects in the draft.","invalid_projects":refreshed_session["invalid_projects"],"can_confirm":False},
+                status=409
+            )
+        DraftService.apply_session(refreshed_session)
+        DraftService.delete_session(request.user)
+        return Response(data={"message":"Draft confirmed successfully"},status=200)
     def delete(self, request):
-        cache.delete('admin_edit_session')
-        return Response(data={"message": "Draft discarded successfully"}, status=200)
-@api_view(["POST"])
-@permission_classes([IsAdminUser]) 
-def update_draft_project(request, id):
-    session_data = cache.get('admin_edit_session') 
+        DraftService.delete_session(request.user)
+        return Response(data={"message":"Draft discarded successfully"},status=200)
+
+
+class DraftProjectView(APIView):
+    permission_classes=[IsAdminUser]
+    def put(self, request, id):
+        session_data=DraftService.get_session(request.user)
+        if not session_data:
+            return Response(data={"detail":"No active draft session found"},status=400)
+        project=get_object_or_404(Project.objects.select_related("language"),id=id)
+        pending_updates=dict(session_data.get("pending_updates", {}))
+        pending_deletions=set(session_data.get("pending_deletions", []))
+        current_state=DraftService.get_project_data(project,pending_updates,pending_deletions)
+        next_state={field: request.data.get(field,current_state[field]) for field in DraftService.editable_fields}
+        validation_errors=DraftService.validate_project_data(next_state)
+        if validation_errors:
+            return Response(data={"detail":"Invalid project payload","errors":validation_errors},status=400)
+        pending_patch=DraftService.get_project_patch(project,DraftService.normalize_project_data(next_state))
+        if pending_patch:
+            pending_updates[str(id)]=pending_patch
+        else:
+            pending_updates.pop(str(id),None)
+        pending_deletions.discard(str(id))
+        try:
+            next_session=DraftService.build_session(
+                session_data["uvl_content"],
+                pending_updates=pending_updates,
+                pending_deletions=list(pending_deletions),
+            )
+        except Exception:
+            return Response(data={"detail":"Draft UVL is corrupted"},status=500)
+        DraftService.set_session(request.user,next_session)
+        return Response(
+            data={
+                "message":"Draft project updated successfully",
+                "project":DraftService.get_project_data(project,next_session["pending_updates"],next_session["pending_deletions"]),
+                "invalid_projects":next_session["invalid_projects"],
+                "can_confirm":not next_session["invalid_projects"],
+            },
+            status=200
+        )
+    def delete(self, request, id):
+        session_data=DraftService.get_session(request.user)
+        if not session_data:
+            return Response(data={"detail":"No active draft session found"},status=400)
+        get_object_or_404(Project,id=id)
+        pending_updates=dict(session_data.get("pending_updates", {}))
+        pending_updates.pop(str(id),None)
+        pending_deletions=set(session_data.get("pending_deletions", []))
+        pending_deletions.add(str(id))
+        try:
+            next_session=DraftService.build_session(
+                session_data["uvl_content"],
+                pending_updates=pending_updates,
+                pending_deletions=list(pending_deletions),
+            )
+        except Exception:
+            return Response(data={"detail":"Draft UVL is corrupted"},status=500)
+        DraftService.set_session(request.user,next_session)
+        return Response(
+            data={"message":"Project marked for deletion in draft","project_id":id,"invalid_projects":next_session["invalid_projects"],"can_confirm":not next_session["invalid_projects"]},
+            status=200
+        )
+@api_view(["GET"])
+@permission_classes([IsAdminUser])
+def get_draft_projects(request):
+    session_data=DraftService.get_session(request.user)
     if not session_data:
-        return Response(data={"details": "No active edit session found"}, status=400)
-    pending_fixes = session_data.get('pending_fixes', {})
-    try:
-        draft_service = FlamapyService.create_str(session_data.get('uvl_content'))
-    except Exception:
-        return Response(data={"details": "Session UVL is corrupted"}, status=500)
-    features = request.data.get("features", [])
-    if not draft_service.validate(features, True):
-        return Response(data={"details": "Invalid features for the current draft"}, status=400)
-    pending_fixes[str(id)] = features
-    session_data['pending_fixes'] = pending_fixes
-    cache.set('admin_edit_session', session_data, 86400)
-    return Response(data={"message": "Project fix saved to draft"}, status=200)
+        return Response(data={"has_draft":False,"invalid_projects":[],"pending_deletions":[],"pending_updates":[],"can_confirm":False},status=200)
+    return Response(data=DraftService.get_summary(session_data),status=200)
+
+
     

@@ -6,7 +6,6 @@ from django.conf import settings
 import os
 import tempfile
 from django.core.cache import cache
-from itertools import groupby
 class FlamapyService:
     _instance = None
     @classmethod
@@ -68,15 +67,14 @@ class FlamapyService:
         cls._instance = cls(uvl_path)
         return True
     @classmethod
-    def get_uvl_text(node):
-        return get_uvl_text_rec(node,0)
+    def get_uvl_text(cls,node):
+        return "features\n"+get_uvl_text_rec(node,1)
     
 def get_uvl_text_rec(node,tabs):
     res="\t"*tabs+'"'+node["name"] +'"'
-    lambda_relationship=lambda child: child["relationship"]
-    for key,group in groupby(sorted(node["children"],key=lambda_relationship),key=lambda_relationship):
-        res += '\n' + '\t' * (tabs+1) + key.lower()
-        for child in group:
+    for relation in node.get("relations", []):
+        res += '\n' + '\t' * (tabs+1) + relation["type"].lower()
+        for child in relation.get("children", []):
             res+='\n'+get_uvl_text_rec(child,tabs+2)
     return res
 def to_str(relation):
