@@ -4,7 +4,7 @@ import './Navbar.css';
 import { useAuth } from '../../hooks/useAuth';
 
 function Navbar() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout,isAdmin } = useAuth();
 
   return (
     <nav className="navbar">
@@ -22,7 +22,9 @@ function Navbar() {
             <NavLink to="/recomendador" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
               Recomendador
             </NavLink>
-
+            {isAdmin && <NavLink to="/uvl-model" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
+              Modelo uvl
+            </NavLink>}
             {isAuthenticated ? (
               <button className="action-button" onClick={logout}>
                 Log out

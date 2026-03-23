@@ -4,16 +4,19 @@ from flamapy.metamodels.configuration_metamodel.models.configuration import Conf
 from pathlib import Path
 from django.conf import settings
 import os
+import tempfile
+from django.core.cache import cache
+from itertools import groupby
 class FlamapyService:
     _instance = None
     @classmethod
-    def get_instance(cls):
-        if cls._instance is None:
-            cls._instance = FlamapyService()
+    def get_instance(cls,reload=False):
+        if cls._instance is None or reload:
+            base_dir = Path(settings.BASE_DIR)
+            uvl_path = base_dir / "configurador" / "model.uvl"
+            cls._instance = cls(uvl_path)
         return cls._instance
-    def __init__(self):
-        base_dir = Path(settings.BASE_DIR)
-        uvl_path = base_dir / "configurador" / "model.uvl"
+    def __init__(self,uvl_path):
         self.fm=FLAMAFeatureModel(str(uvl_path))
         self.fm._transform_to_sat()
     def validate(self,features,is_full):
@@ -33,6 +36,44 @@ class FlamapyService:
         return diccionary
     def to_dict(self):
         return self.to_dict_rec(self.fm.fm_model.root,None)
+    @classmethod
+    def create_str(cls,uvl):
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.uvl', encoding='utf-8', delete=False) as temp_file:
+            temp_file.write(uvl)
+            temp_path = temp_file.name
+        try:
+            flamapy_service=cls(temp_path)
+            return flamapy_service
+        finally:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+    @classmethod
+    def publish_new_model(cls, new_uvl_content):
+        base_dir = Path(settings.BASE_DIR)
+        config_dir = base_dir / "configurador"
+        uvl_path = config_dir / "model.uvl"
+        config_dir.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(mode='w', dir=config_dir, suffix='.tmp', encoding='utf-8', delete=False) as tmp_file:
+            tmp_file.write(new_uvl_content)
+            tmp_path = tmp_file.name
+        os.replace(tmp_path, uvl_path)
+        if cache.get('uvl_model_version') is None:
+            cache.set('uvl_model_version', 1, timeout=None) 
+        new_version = cache.incr('uvl_model_version')
+        cls._instance = cls(uvl_path)
+        return True
+    @classmethod
+    def get_uvl_text(node):
+        return get_uvl_text_rec(node,0)
+    
+def get_uvl_text_rec(node,tabs):
+    res="\t"*tabs+'"'+node["name"] +'"'
+    lambda_relationship=lambda child: child["relationship"]
+    for key,group in groupby(sorted(node["children"],key=lambda_relationship),key=lambda_relationship):
+        res += '\n' + '\t' * (tabs+1) + key.lower()
+        for child in group:
+            res+='\n'+get_uvl_text_rec(child,tabs+2)
+    return res
 def to_str(relation):
     if relation.is_or():
         return "OR"

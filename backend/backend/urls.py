@@ -34,5 +34,7 @@ urlpatterns = [
     path("api/v1/", include(router.urls)),
     path("api/v1/users/me",views.get_my_user),
     path("api/v1/swot",views.get_swot),
-    path("api/v1/autocomplete",views.autocomplete)
+    path("api/v1/autocomplete",views.autocomplete),
+    path("api/v1/manage-uvl",views.ManageUVLModelView.as_view()),
+    path("api/v1/projects/<int:id>/draft",views.update_draft_project)
 ]

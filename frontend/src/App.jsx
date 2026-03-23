@@ -7,11 +7,12 @@ import { useAuth } from './hooks/useAuth';
 import Configurator from './components/configurator/Configurator';
 import FeatureTreesProvider from './context/FeatureTreesContext';
 import './styles.css'; 
+import UVLTreeEditor from './components/model/UVLTreeEditor';
 
 function App() {
   const { isAuthenticated } = useAuth();
   const types = ["Backend", "Frontend", "Full Stack"];
-  
+  const {isAdmin}=useAuth()
   return (
     <div className="app-wrapper">
       <Navbar />
@@ -32,9 +33,6 @@ function App() {
           {!isAuthenticated && (
             <Route path="/login" element={<Login />} />
           )}
-          
-          {/* Rutas de Administrador */}
-          <Route path="/uvl-model" element={<div>Gestión del Modelo UVL</div>} />
           <Route 
             path="/projects/:id" 
             element={
@@ -43,6 +41,7 @@ function App() {
               </FeatureTreesProvider>
             } 
           /> 
+          {isAdmin && <Route path="/uvl-model" element={<UVLTreeEditor/>} />}
         </Routes>
       </main>
     </div>

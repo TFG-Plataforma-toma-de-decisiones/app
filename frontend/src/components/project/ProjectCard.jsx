@@ -4,7 +4,7 @@ import './ProjectCard.css';
 import { useAuth } from '../../hooks/useAuth';
 import DeleteModal from '../modals/DeleteModal';
 import useAction from '../../hooks/useAction';
-
+import { FaTrash } from 'react-icons/fa';
 const getChipColor = (category) => {
   if (!category) return 'default';
   const cat = category.toLowerCase();
@@ -56,7 +56,7 @@ function ProjectCard({ project,setProjects }) {
             <h2 className="project-title">{project.name}</h2>
             {isAdmin && (
               <button onClick={handleDelete} className="delete-project-btn">
-                <span role="img" aria-label="delete">🗑️</span>
+                <FaTrash />
               </button>
             )}
           </div>
