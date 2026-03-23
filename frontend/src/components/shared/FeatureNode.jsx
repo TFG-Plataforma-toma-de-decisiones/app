@@ -1,7 +1,22 @@
 import './FeatureNode.css';
 import { useFeatureTrees } from "../../hooks/useFeatureTrees";
+import { getRelations, hasRelations } from "../../utils/featureModel";
 
-const GROUPS = [
+const RELATION_CONFIG = {
+  MANDATORY: { title: null, controlType: "mandatory" },
+  ALTERNATIVE: { title: "Alternative (Select exactly one)", controlType: "radio" },
+  OR: { title: "OR (Select at least one)", controlType: "checkbox" },
+  OPTIONAL: { title: "Optional Features", controlType: "checkbox" }
+};
+
+const DEFAULT_RELATION_CONFIG = {
+  title: null,
+  controlType: "checkbox"
+};
+
+const MERGEABLE_RELATION_TYPES = new Set(["MANDATORY", "OPTIONAL"]);
+
+const RELATION_ORDER = [
   { key: "MANDATORY", title: null, controlType: "mandatory" },
   { key: "ALTERNATIVE", title: "Alternative (Select exactly one)", controlType: "radio" },
   { key: "OR", title: "OR (Select at least one)", controlType: "checkbox" },
@@ -10,30 +25,59 @@ const GROUPS = [
 
 export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
   const { isActive, handleToggle, handleRadioChange } = useFeatureTrees();
-  
-  if (!node.children?.length) return null;
 
-  const groupedChildren = node.children.reduce((acc, child) => {
-    const rel = child.relationship;
-    if (!acc[rel]) acc[rel] = [];
-    acc[rel].push(child);
-    return acc;
-  }, {});
+  const relations = getRelations(node);
+  if (!relations.length) return null;
+
+  const sortedRelations = [...relations].sort((a, b) => {
+    const firstIndex = RELATION_ORDER.findIndex((relation) => relation.key === a.type);
+    const secondIndex = RELATION_ORDER.findIndex((relation) => relation.key === b.type);
+    const safeFirstIndex = firstIndex === -1 ? RELATION_ORDER.length : firstIndex;
+    const safeSecondIndex = secondIndex === -1 ? RELATION_ORDER.length : secondIndex;
+    return safeFirstIndex - safeSecondIndex;
+  });
+
+  const displayRelations = sortedRelations.reduce((groupedRelations, relation) => {
+    if (!MERGEABLE_RELATION_TYPES.has(relation.type)) {
+      groupedRelations.push(relation);
+      return groupedRelations;
+    }
+
+    const existingRelation = groupedRelations.find(
+      (groupedRelation) => groupedRelation.type === relation.type
+    );
+
+    if (!existingRelation) {
+      groupedRelations.push({
+        ...relation,
+        children: [...(relation.children ?? [])]
+      });
+      return groupedRelations;
+    }
+
+    existingRelation.children = existingRelation.children.concat(relation.children ?? []);
+    return groupedRelations;
+  }, []);
 
   return (
     <div className={`uvl-configurator ${readOnly ? 'readonly-mode' : ''}`}>
-      {GROUPS.map(({ key, title, controlType }) => {
-        const children = groupedChildren[key];
-        if (!children) return null;
+      {displayRelations.map((relation, relationIndex) => {
+        const children = relation.children ?? [];
+        if (!children.length) return null;
+
+        const { title, controlType } = RELATION_CONFIG[relation.type] ?? DEFAULT_RELATION_CONFIG;
 
         return (
-          <div key={key} className="feature-group">
+          <div
+            key={`${node.name}-${relation.type}-${relationIndex}`}
+            className={`feature-group ${depth > 0 ? 'feature-group--nested' : ''} ${depth > 1 ? 'feature-group--deep' : ''}`}
+          >
             {!readOnly && title && <h3 className="section-title">{title}</h3>}
             
             {children.map(child => {
               const isMandatory = controlType === "mandatory";
               const active = isMandatory ? true : isActive(index, child);
-              const hasChildren = child.children?.length > 0;
+              const hasChildren = hasRelations(child);
               const id = `control-${child.name.replace(/\s+/g, '-')}`;
               let control = null;
 
@@ -49,7 +93,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
                     <input
                       type="radio"
                       id={id}
-                      name={`group-${node.name}`}
+                      name={`group-${node.name}-${relationIndex}`}
                       checked={active}
                       disabled={readOnly}
                       onChange={() => handleRadioChange(index, children, child)}
@@ -59,7 +103,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
                 );
               } else if (controlType === "checkbox") {
                 const checkedCount = children.filter(c => isActive(index, c)).length;
-                const disabled = (key === "OR" && active && checkedCount === 1) || readOnly;
+                const disabled = (relation.type === "OR" && active && checkedCount === 1) || readOnly;
 
                 control = (
                   <>

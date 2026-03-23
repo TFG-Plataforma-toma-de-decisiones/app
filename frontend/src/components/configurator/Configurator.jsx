@@ -4,6 +4,7 @@ import "./Configurator.css";
 import { useState } from "react";
 import useApi from "../../hooks/useApi";
 import SWOTModal from "../modals/SWOTModal";
+import { findRootFeatureNode } from "../../utils/featureModel";
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
@@ -18,7 +19,7 @@ export default function Configurator() {
     ["Full Stack", "Backend"]
   ];
   function getNode(feature){
-    return uvlModel?.children?.find(f => f.name === feature)
+    return findRootFeatureNode(uvlModel, feature)
   }
   function handleRadioChange(index,type) {
     if (!isActive(index,getNode(type))) {

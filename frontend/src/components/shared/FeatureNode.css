@@ -1,209 +1,261 @@
-/* =========================================
-   CONTENEDORES PRINCIPALES
-   ========================================= */
+/* Main containers */
 
-   .uvl-configurator {
-    color: var(--color-text-primary);
-    font-family: var(--font-family);
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .section-title {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin: 16px 0 8px 0;
-    letter-spacing: 0.05em;
-    width: 100%;
-  }
-  
-  /* =========================================
-     LAYOUT PRINCIPAL (PC/Tablet grande)
-     ========================================= */
-  
-  .feature-group {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 12px;
-    flex-wrap: wrap; /* Salto de línea natural */
-    width: 100%;
-    padding: 4px 4px 16px 4px;
-    box-sizing: border-box;
-  }
-  
-  .feature-card {
-    background-color: var(--color-background-paper);
-    border: 1px solid var(--color-divider);
-    border-radius: var(--border-radius-card);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    
-    /* Inactivos: Reparten el espacio equitativamente */
-    flex: 1 1 0%; 
-    min-width: min(100%, 140px); /* TRUCO: evita el desbordamiento si el padre es pequeño */
-    max-width: 100%;
-  }
-  
-  .feature-card.active {
-    border-color: var(--color-primary);
-    box-shadow: 0 4px 12px rgba(45, 212, 191, 0.15);
-    
-    /* Activos: Ocupan más espacio */
-    flex: 5 1 0%; 
-    min-width: min(100%, 250px); 
-  }
-  
-  .feature-card.mandatory {
-    background-color: var(--color-background-default);
-    border-top: 3px solid var(--color-primary); 
-  }
-  
-  /* =========================================
-     NIVELES PROFUNDOS (A partir de depth=3)
-     ========================================= */
-  .deep-node {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .deep-node > .feature-card {
-    width: 100%;
-    flex: none; /* Quitamos elasticidad para forzar 100% del ancho disponible */
-  }
-  
-  /* =========================================
-     CABECERAS Y TEXTO
-     ========================================= */
-  
-  .feature-header {
-    display: flex;
-    align-items: center;
-    padding: 12px 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin: 0;
-    flex-wrap: nowrap; 
-  }
-  
-  .feature-header:hover {
-    background-color: var(--color-hover-border, rgba(45, 212, 191, 0.05)); 
-  }
-  
-  .feature-name {
-    margin-left: 10px;
-    font-weight: 500;
-    user-select: none;
-    line-height: 1.3;
-    white-space: normal;
-    word-break: break-word;
-  }
-  
-  .feature-card.active > .feature-header .feature-name {
-    font-weight: 700;
-    color: var(--color-primary);
-  }
-  
-  /* =========================================
-     CONTENEDOR DE HIJOS Y ANIDAMIENTO
-     ========================================= */
-  
-  .feature-children {
-    padding: 12px 8px; /* Reducimos padding lateral interno para ahorrar espacio */
-    border-top: 1px dashed var(--color-divider);
-    background-color: transparent;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Hijos en PC */
-  .feature-children .feature-card {
-    flex: 1 1 0%;
-    min-width: min(100%, 120px);
-  }
-  
-  .feature-children .feature-card.active {
-    flex: 3 1 0%;
-    min-width: min(100%, 200px);
-  }
-  
-  .feature-children .feature-header { padding: 8px 10px; }
-  .feature-children .feature-name { font-size: 13px; }
-  .feature-children .section-title { font-size: 0.65rem; margin: 8px 0 6px 0; }
-  
-  /* =========================================
-     INPUTS PERSONALIZADOS
-     ========================================= */
-  
-  .feature-header input { display: none; }
-  
-  .custom-control {
-    flex-shrink: 0; 
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--color-text-secondary);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-  
-  .custom-radio { border-radius: 50%; }
-  .feature-header input[type="radio"]:checked + .custom-radio { border-color: var(--color-primary); }
-  .feature-header input[type="radio"]:checked + .custom-radio::after {
-    content: ""; width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-primary);
-  }
-  
-  .custom-checkbox { border-radius: 4px; }
-  .feature-header input[type="checkbox"]:checked + .custom-checkbox {
-    background-color: var(--color-primary); border-color: var(--color-primary);
-  }
-  .feature-header input[type="checkbox"]:checked + .custom-checkbox::after {
-    content: "✓"; color: var(--color-background-paper, #ffffff); font-size: 12px; font-weight: 900;
-  }
-  
-  .feature-header input:disabled + .custom-control { opacity: 0.5; cursor: not-allowed; }
-  
-  .mandatory-indicator { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0; }
-  .mandatory-dot { width: 8px; height: 8px; background-color: var(--color-primary); border-radius: 50%; }
-  
-  .feature-children .custom-control, .feature-children .mandatory-indicator { width: 14px; height: 14px; }
-  .feature-children .mandatory-dot { width: 6px; height: 6px; }
-  /* =========================================
-   DROPDOWN DE LENGUAJE (Primer Nivel)
-   ========================================= */
+.uvl-configurator {
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: 14px;
+}
+
+.section-title {
+  width: 100%;
+  margin: 16px 0 8px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Desktop and tablet layout */
+
+.feature-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 4px 4px 16px 4px;
+  box-sizing: border-box;
+}
+
+.feature-group--nested {
+  gap: 10px;
+  padding: 4px 0 12px 0;
+}
+
+.feature-card {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  min-width: min(100%, 140px);
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  background-color: var(--color-background-paper);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card.active {
+  flex: 5 1 0%;
+  min-width: min(100%, 250px);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(45, 212, 191, 0.15);
+}
+
+.feature-card.mandatory {
+  border-top: 3px solid var(--color-primary);
+  background-color: var(--color-background-default);
+}
+
+.feature-group--nested .feature-card {
+  flex: 1 1 170px;
+  min-width: min(100%, 170px);
+}
+
+.feature-group--nested .feature-card.active {
+  flex: 3.5 1 280px;
+  min-width: min(100%, 260px);
+}
+
+.feature-group--deep .feature-card {
+  flex: 1 1 150px;
+  min-width: min(100%, 150px);
+}
+
+.feature-group--deep .feature-card.active {
+  flex: 3 1 240px;
+  min-width: min(100%, 220px);
+}
+
+/* Headers and text */
+
+.feature-header {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-wrap: nowrap;
+}
+
+.feature-header:hover {
+  background-color: var(--color-hover-border, rgba(45, 212, 191, 0.05));
+}
+
+.feature-name {
+  margin-left: 10px;
+  font-weight: 500;
+  line-height: 1.3;
+  user-select: none;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.feature-card.active > .feature-header .feature-name {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Children containers */
+
+.feature-children {
+  width: 100%;
+  padding: 12px 8px;
+  box-sizing: border-box;
+  border-top: 1px dashed var(--color-divider);
+  background-color: transparent;
+}
+
+.feature-children .feature-group {
+  padding-bottom: 10px;
+}
+
+.feature-children .feature-card {
+  flex: 1 1 0%;
+  min-width: min(100%, 120px);
+}
+
+.feature-children .feature-card.active {
+  flex: 3 1 0%;
+  min-width: min(100%, 200px);
+}
+
+.feature-children .feature-header {
+  padding: 8px 10px;
+}
+
+.feature-children .feature-name {
+  font-size: 13px;
+}
+
+.feature-children .section-title {
+  margin: 8px 0 6px 0;
+  font-size: 0.65rem;
+}
+
+/* Custom controls */
+
+.feature-header input {
+  display: none;
+}
+
+.custom-control {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.custom-radio {
+  border-radius: 50%;
+}
+
+.feature-header input[type="radio"]:checked + .custom-radio {
+  border-color: var(--color-primary);
+}
+
+.feature-header input[type="radio"]:checked + .custom-radio::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.custom-checkbox {
+  border-radius: 4px;
+}
+
+.feature-header input[type="checkbox"]:checked + .custom-checkbox {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+}
+
+.feature-header input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: "\2713";
+  color: var(--color-background-paper, #ffffff);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.feature-header input:disabled + .custom-control {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mandatory-indicator {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mandatory-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.feature-children .custom-control,
+.feature-children .mandatory-indicator {
+  width: 14px;
+  height: 14px;
+}
+
+.feature-children .mandatory-dot {
+  width: 6px;
+  height: 6px;
+}
+
+/* Root language select */
 
 .language-dropdown-container {
-  padding: 0 14px 12px 14px; /* Espacio a los lados y por debajo, sin tocar la cabecera */
   width: 100%;
+  padding: 0 14px 12px 14px;
   box-sizing: border-box;
 }
 
 .language-select {
   width: 100%;
   padding: 8px 12px;
-  background-color: var(--color-background-default); /* Un poco más oscuro que la tarjeta para dar profundidad */
-  color: var(--color-text-primary);
   border: 1px solid var(--color-divider);
   border-radius: 4px;
-  font-family: var(--font-family);
-  font-size: 13px;
   outline: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  
-  /* Reset básico para que los selects se vean limpios en todos los navegadores */
-  appearance: none; 
+  appearance: none;
+  background-color: var(--color-background-default);
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 10px top 50%;
   background-size: 10px auto;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: 13px;
+  transition: all 0.2s ease;
 }
 
 .language-select:focus,
@@ -216,79 +268,71 @@
   cursor: not-allowed;
 }
 
-/* Opciones del select (depende del OS, pero le damos una directriz) */
 .language-select option {
-  background-color: var(--color-background-paper);
   color: var(--color-text-primary);
+  background-color: var(--color-background-paper);
 }
-  /* =========================================
-     MEDIA QUERY: DISEÑO VERTICAL PARA MÓVILES
-     ========================================= */
-  
-  @media (max-width: 768px) {
-    .feature-group {
-      flex-direction: column;
-      padding: 0 0 16px 0;
-      gap: 8px;
-    }
-    
-    .feature-card,
-    .feature-card.active,
-    .feature-children .feature-card,
-    .feature-children .feature-card.active {
-      width: 100%;
-      min-width: unset;
-      flex: none; 
-    }
-  
-    .feature-children {
-      padding: 8px 0 0 12px; 
-      border-top: none;
-      border-left: 2px solid var(--color-divider); 
-      margin-top: 8px;
-    }
-  
-    .feature-header {
-      padding: 10px 12px;
-    }
-  }
-  /* =========================================
-   MODO SOLO LECTURA (READ-ONLY)
-   ========================================= */
 
-/* Quitamos el cursor de la manita y el hover a TODAS las cabeceras */
+/* Mobile layout */
+
+@media (max-width: 768px) {
+  .feature-group {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 0 16px 0;
+  }
+
+  .feature-card,
+  .feature-card.active,
+  .feature-group--nested .feature-card,
+  .feature-group--nested .feature-card.active,
+  .feature-group--deep .feature-card,
+  .feature-group--deep .feature-card.active,
+  .feature-children .feature-card,
+  .feature-children .feature-card.active {
+    width: 100%;
+    min-width: unset;
+    flex: none;
+  }
+
+  .feature-children {
+    margin-top: 8px;
+    padding: 8px 0 0 12px;
+    border-top: none;
+    border-left: 2px solid var(--color-divider);
+  }
+
+  .feature-header {
+    padding: 10px 12px;
+  }
+}
+
+/* Read only mode */
+
 .readonly-mode .feature-header {
   cursor: default;
 }
 
 .readonly-mode .feature-header:hover {
-  background-color: transparent; /* Quitamos el fondo sutil al pasar el ratón */
+  background-color: transparent;
 }
 
-/* Opción A: Ocultar los controles inactivos y hacer más sutiles las tarjetas.
-  Esto hace que parezca un resumen de datos, no un formulario.
-*/
-
-/* Ocultamos los cuadraditos/círculos de las opciones que NO están seleccionadas */
 .readonly-mode .feature-card:not(.active) .custom-control {
   display: none;
 }
 
-/* Suavizamos visualmente las tarjetas que no se eligieron */
 .readonly-mode .feature-card:not(.active) {
   opacity: 0.6;
-  border-color: transparent; /* Quitamos el borde para que se fusione con el fondo */
+  border-color: transparent;
   background-color: transparent;
   box-shadow: none;
 }
 
-/* Opcional: Si quieres que el texto de las inactivas también sea menos visible */
 .readonly-mode .feature-card:not(.active) .feature-name {
   color: var(--color-text-secondary);
 }
 
-/* Aseguramos que los controles .disabled no se vean feos (opacos) si están activos */
 .readonly-mode .feature-header input:disabled + .custom-control {
-  opacity: 1; /* Forzamos a que se vean nítidos aunque el HTML diga que están disabled */
+  opacity: 1;
   cursor: default;
 }

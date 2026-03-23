@@ -27,15 +27,20 @@ class FlamapyService:
         operation.set_configuration(configuration)
         operation.execute(self.fm.sat_model)
         return operation.get_result()
-    def to_dict_rec(self,feature,relationship):
-        diccionary={}
-        if relationship:
-            diccionary["relationship"]=relationship
-        diccionary["name"]=feature.name
-        diccionary["children"]=[self.to_dict_rec(child,to_str(relation)) for relation in feature.get_relations() for child in relation.children]
+    def to_dict_rec(self,feature):
+        diccionary = {}
+        diccionary["name"] = feature.name
+        diccionary["relations"] = [
+            {
+                "type": to_str(relation),
+                "children": [self.to_dict_rec(child) for child in relation.children],
+            }
+            for relation in feature.get_relations()
+        ]
         return diccionary
+
     def to_dict(self):
-        return self.to_dict_rec(self.fm.fm_model.root,None)
+        return self.to_dict_rec(self.fm.fm_model.root)
     @classmethod
     def create_str(cls,uvl):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.uvl', encoding='utf-8', delete=False) as temp_file:
