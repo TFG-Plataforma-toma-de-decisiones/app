@@ -131,12 +131,12 @@ class ManageUVLModelView(APIView):
             uvl_content=FlamapyService.get_uvl_text(payload)
             next_session=DraftService.build_session(
                 uvl_content,
-                pending_updates=(existing_session or {}).get("pending_updates", {}),
+                pending_features=DraftService.get_pending_features(existing_session),
                 pending_deletions=(existing_session or {}).get("pending_deletions", []),
             )
         except Exception:
             return Response(data={"detail":"Invalid UVL model"},status=400)
-        if existing_session is None and not next_session["invalid_projects"] and not next_session["pending_updates"] and not next_session["pending_deletions"]:
+        if existing_session is None and not next_session["invalid_projects"] and not next_session["pending_features"] and not next_session["pending_deletions"]:
             DraftService.apply_session(next_session)
             DraftService.delete_session(request.user)
             return Response(data={"message":"Model updated successfully","invalid_projects":[],"can_confirm":True},status=200)
@@ -157,7 +157,7 @@ class ManageUVLModelView(APIView):
         try:
             refreshed_session=DraftService.build_session(
                 session_data["uvl_content"],
-                pending_updates=session_data.get("pending_updates", {}),
+                pending_features=DraftService.get_pending_features(session_data),
                 pending_deletions=session_data.get("pending_deletions", []),
             )
         except Exception:
@@ -183,23 +183,23 @@ class DraftProjectView(APIView):
         if not session_data:
             return Response(data={"detail":"No active draft session found"},status=400)
         project=get_object_or_404(Project.objects.select_related("language"),id=id)
-        pending_updates=dict(session_data.get("pending_updates", {}))
+        pending_features=dict(DraftService.get_pending_features(session_data))
         pending_deletions=set(session_data.get("pending_deletions", []))
-        current_state=DraftService.get_project_data(project,pending_updates,pending_deletions)
-        next_state={field: request.data.get(field,current_state[field]) for field in DraftService.editable_fields}
-        validation_errors=DraftService.validate_project_data(next_state)
+        current_state=DraftService.get_project_data(project,pending_features,pending_deletions)
+        next_features=request.data.get("features",current_state["features"])
+        validation_errors=DraftService.validate_features(next_features)
         if validation_errors:
             return Response(data={"detail":"Invalid project payload","errors":validation_errors},status=400)
-        pending_patch=DraftService.get_project_patch(project,DraftService.normalize_project_data(next_state))
-        if pending_patch:
-            pending_updates[str(id)]=pending_patch
+        pending_patch=DraftService.get_features_patch(project,next_features)
+        if pending_patch is not None:
+            pending_features[str(id)]=pending_patch
         else:
-            pending_updates.pop(str(id),None)
+            pending_features.pop(str(id),None)
         pending_deletions.discard(str(id))
         try:
             next_session=DraftService.build_session(
                 session_data["uvl_content"],
-                pending_updates=pending_updates,
+                pending_features=pending_features,
                 pending_deletions=list(pending_deletions),
             )
         except Exception:
@@ -208,7 +208,7 @@ class DraftProjectView(APIView):
         return Response(
             data={
                 "message":"Draft project updated successfully",
-                "project":DraftService.get_project_data(project,next_session["pending_updates"],next_session["pending_deletions"]),
+                "project":DraftService.get_project_data(project,next_session["pending_features"],next_session["pending_deletions"]),
                 "invalid_projects":next_session["invalid_projects"],
                 "can_confirm":not next_session["invalid_projects"],
             },
@@ -219,14 +219,14 @@ class DraftProjectView(APIView):
         if not session_data:
             return Response(data={"detail":"No active draft session found"},status=400)
         get_object_or_404(Project,id=id)
-        pending_updates=dict(session_data.get("pending_updates", {}))
-        pending_updates.pop(str(id),None)
+        pending_features=dict(DraftService.get_pending_features(session_data))
+        pending_features.pop(str(id),None)
         pending_deletions=set(session_data.get("pending_deletions", []))
         pending_deletions.add(str(id))
         try:
             next_session=DraftService.build_session(
                 session_data["uvl_content"],
-                pending_updates=pending_updates,
+                pending_features=pending_features,
                 pending_deletions=list(pending_deletions),
             )
         except Exception:

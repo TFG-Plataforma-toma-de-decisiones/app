@@ -16,7 +16,7 @@ const EMPTY_DRAFT = {
 
 export default function ConflictProjects() {
   const navigate = useNavigate();
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const { data: uvlModel, isLoading: isLoadingModel } = useApi({ endpoint: "/manage-uvl", initialData: {} });
   const {
     data: draftData,
@@ -24,22 +24,6 @@ export default function ConflictProjects() {
     isLoading: isLoadingDraft
   } = useApi({ endpoint: "/projects/draft", initialData: EMPTY_DRAFT });
   const { run, isLoading } = useAction();
-
-  const invalidProjects = draftData.invalid_projects || [];
-  const selectedProject = useMemo(
-    () => invalidProjects.find(project => project.id === selectedProjectId) || invalidProjects[0] || null,
-    [invalidProjects, selectedProjectId]
-  );
-
-  useEffect(() => {
-    if (!invalidProjects.length) {
-      setSelectedProjectId(null);
-      return;
-    }
-    if (!selectedProjectId || !invalidProjects.some(project => project.id === selectedProjectId)) {
-      setSelectedProjectId(invalidProjects[0].id);
-    }
-  }, [invalidProjects, selectedProjectId]);
 
   async function handleSave(projectData) {
     if (!selectedProject) {
@@ -54,6 +38,12 @@ export default function ConflictProjects() {
       await refetchDraft();
     }
   }
+  useEffect(()=>{
+    if(draftData.invalid_projects.length===0){
+      return ;
+    }
+    setSelectedProject(draftData.invalid_projects[0])
+  },[setSelectedProject,draftData])
 
   async function handleDeleteSuccess() {
     await refetchDraft();
@@ -106,8 +96,8 @@ export default function ConflictProjects() {
         <div>
           <h1 className="conflicts-title">Conflictos del modelo UVL</h1>
           <p className="conflicts-subtitle">
-            {invalidProjects.length
-              ? `Hay ${invalidProjects.length} proyecto(s) inválido(s). Corrige sus features o márcalos para borrar antes de confirmar el borrador.`
+            {draftData.invalid_projects?.length
+              ? `Hay ${draftData.invalid_projects?.length} proyecto(s) inválido(s). Corrige sus features o márcalos para borrar antes de confirmar el borrador.`
               : 'Todos los proyectos ya son válidos. Puedes confirmar el borrador cuando quieras.'}
           </p>
         </div>
@@ -126,17 +116,17 @@ export default function ConflictProjects() {
           <div className="conflicts-sidebar-header">
             <h2>Proyectos en conflicto</h2>
             <span className={`conflicts-count ${draftData.can_confirm ? 'ready' : ''}`}>
-              {invalidProjects.length}
+              {draftData.invalid_projects?.length}
             </span>
           </div>
 
           <div className="conflicts-list">
-            {invalidProjects.map(project => (
+            {draftData.invalid_projects?.map(project => (
               <ProjectCard
                 key={project.id}
                 project={project}
-                onClick={() => setSelectedProjectId(project.id)}
-                isSelected={project.id === selectedProjectId}
+                onClick={() => setSelectedProject(project)}
+                isSelected={project.id === selectedProject?.id}
                 deleteEndpoint={`projects/${project.id}/draft`}
                 deleteTitle="Marcar proyecto para borrado"
                 deleteMessage={`¿Quieres marcar "${project.name}" para borrarlo cuando confirmes el borrador?`}
@@ -144,7 +134,7 @@ export default function ConflictProjects() {
               />
             ))}
 
-            {!invalidProjects.length && (
+            {!draftData.invalid_projects?.length && (
               <div className="conflicts-ready">
                 <h3>Sin conflictos pendientes</h3>
                 <p>Ya puedes confirmar el nuevo UVL y persistir todos los cambios del borrador.</p>

@@ -39,7 +39,9 @@ features
 								alternative
 									"Migrations"
 									"SQL"
+						optional
 							"ODMN-1"
+						optional
 							"OGMN-1"
 					"MessageQueueSupport-1"
 						optional
@@ -122,4 +124,6 @@ features
 			"Frontend Library"
 				alternative
 					"GlobalState-02"
+						mandatory
+							"Hola"
 					"i18nInternalization"
