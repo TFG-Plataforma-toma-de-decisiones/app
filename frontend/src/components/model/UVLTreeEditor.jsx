@@ -1,100 +1,173 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './UVLTreeEditor.css';
 import { FaPlus, FaTrash, FaChevronDown, FaChevronRight } from 'react-icons/fa';
-import useApi from "../../hooks/useApi"
-import useAction from '../../hooks/useAction';
+import useApi from "../../hooks/useApi";
+import apiClient from '../../services/api';
+import { useFeedback } from '../../hooks/useFeedback';
+import { useNavigate } from 'react-router-dom';
 
+const RELATION_TYPES = ["MANDATORY", "OPTIONAL", "OR", "ALTERNATIVE"];
 
-const EditableNode = ({ node,onUpdate,depth}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+function createNode() {
+  return {
+    name: "Nueva Caracteristica",
+    relations: []
+  };
+}
 
-  const handlePropertyChange=(property,e)=>{
-    onUpdate({...node,[property]:e.target.value})
-  }
+function createRelation(type = "OPTIONAL") {
+  return {
+    type,
+    children: [createNode()]
+  };
+}
+
+function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
+  const handleTypeChange = (event) => {
+    onUpdate({ ...relation, type: event.target.value });
+  };
 
   const handleAddChild = () => {
-    const newChild = {
-      name: "Nueva Característica",
-      relationship: "OPTIONAL",
-      children: []
-    };
-    const updatedChildren = [...(node.children || []), newChild];
-    onUpdate({...node,children:updatedChildren});
-    setIsExpanded(true); 
+    onUpdate({
+      ...relation,
+      children: [...relation.children, createNode()]
+    });
   };
 
-  const handleDeleteChild = () => {
-    onUpdate(null)
+  const handleChildUpdate = (index, childNode) => {
+    const nextChildren = [...relation.children];
+    if (childNode) {
+      nextChildren[index] = childNode;
+    } else {
+      nextChildren.splice(index, 1);
+    }
+
+    onUpdate({
+      ...relation,
+      children: nextChildren
+    });
   };
 
-  
-  const disabled=depth<=1
-  if (!node) return null;
+  return (
+    <div className="relation-group">
+      <div className="relation-header">
+        <span className="relation-badge">Relacion</span>
+        <select
+          className="node-type-select"
+          value={relation.type}
+          onChange={handleTypeChange}
+        >
+          {RELATION_TYPES.map((relationType) => (
+            <option key={relationType} value={relationType}>
+              {relationType}
+            </option>
+          ))}
+        </select>
+
+        <div className="node-actions relation-actions">
+          <button className="icon-btn add-btn" onClick={handleAddChild} title="Anadir hijo">
+            <FaPlus />
+          </button>
+          <button className="icon-btn delete-btn" onClick={onDelete} title="Borrar relacion">
+            <FaTrash />
+          </button>
+        </div>
+      </div>
+
+      <div className="node-children relation-children">
+        {relation.children.map((child, index) => (
+          <EditableNode
+            key={`${path}-child-${index}`}
+            path={`${path}-child-${index}`}
+            node={child}
+            depth={depth + 1}
+            onUpdate={(childNode) => handleChildUpdate(index, childNode)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
+  const [isExpanded, setIsExpanded] = useState(depth < 2);
+  const hasRelations = node.relations.length > 0;
+  const isProtectedNode = depth <= 1;
+
+  const handleNameChange = (event) => {
+    onUpdate({ ...node, name: event.target.value });
+  };
+
+  const handleAddRelation = () => {
+    onUpdate({
+      ...node,
+      relations: [...node.relations, createRelation()]
+    });
+    setIsExpanded(true);
+  };
+
+  const handleDeleteNode = () => {
+    onUpdate(null);
+  };
+
+  const handleRelationUpdate = (relationIndex, nextRelation) => {
+    const nextRelations = [...node.relations];
+    if (nextRelation) {
+      nextRelations[relationIndex] = nextRelation;
+    } else {
+      nextRelations.splice(relationIndex, 1);
+    }
+
+    onUpdate({
+      ...node,
+      relations: nextRelations
+    });
+  };
 
   return (
     <div className="editable-node">
       <div className="node-header">
-        
-        {node.children && node.children.length > 0 ? (
-          <button className="icon-btn" onClick={() => setIsExpanded(!isExpanded)}>
+        {hasRelations ? (
+          <button className="icon-btn" onClick={() => setIsExpanded(!isExpanded)} title="Expandir o contraer">
             {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
           </button>
         ) : (
           <span className="spacer"></span>
         )}
 
-        <input 
-          type="text" 
-          className="node-name-input" 
-          value={node.name } 
-          onChange={(e)=>handlePropertyChange('name',e)}
-          disabled={disabled} 
-          placeholder="Nombre de la característica"
+        <input
+          type="text"
+          className="node-name-input"
+          value={node.name ?? ""}
+          onChange={handleNameChange}
+          disabled={isProtectedNode}
+          placeholder="Nombre de la caracteristica"
         />
 
-        {!disabled && (
-          <select 
-            className="node-type-select" 
-            value={node.relationship} 
-            onChange={(e)=>handlePropertyChange('relationship',e)}
-          >
-            <option value="MANDATORY">MANDATORY</option>
-            <option value="OPTIONAL">OPTIONAL</option>
-            <option value="OR">OR</option>
-            <option value="ALTERNATIVE">ALTERNATIVE</option>
-          </select>
-        )}
-
         <div className="node-actions">
-           {depth>0 &&
-          <button className="icon-btn add-btn" onClick={handleAddChild} title="Añadir hijo">
-            <FaPlus />
-          </button>
-          }
-          {!disabled && (
-            <button className="icon-btn delete-btn" onClick={handleDeleteChild} title="Borrar nodo">
+          {depth > 0 && (
+            <button className="icon-btn add-btn" onClick={handleAddRelation} title="Anadir relacion">
+              <FaPlus />
+            </button>
+          )}
+          {!isProtectedNode && (
+            <button className="icon-btn delete-btn" onClick={handleDeleteNode} title="Borrar nodo">
               <FaTrash />
             </button>
           )}
         </div>
       </div>
 
-      {isExpanded && node.children && node.children.length > 0 && (
+      {isExpanded && hasRelations && (
         <div className="node-children">
-          {node.children.map((child, index) => (
-            <EditableNode
-              node={child}
-              onUpdate={childNode=>{
-                const copyChildren=[...node.children]
-                if (childNode){
-                  copyChildren[index]=childNode
-                }
-                else{
-                  copyChildren.splice(index,1) 
-                }
-                onUpdate({...node,children:copyChildren})
-              }} 
-              depth={depth+1}
+          {node.relations.map((relation, index) => (
+            <EditableRelation
+              key={`${path}-relation-${index}`}
+              path={`${path}-relation-${index}`}
+              relation={relation}
+              depth={depth}
+              onUpdate={(nextRelation) => handleRelationUpdate(index, nextRelation)}
+              onDelete={() => handleRelationUpdate(index, null)}
             />
           ))}
         </div>
@@ -102,33 +175,46 @@ const EditableNode = ({ node,onUpdate,depth}) => {
     </div>
   );
 };
+
 export default function UVLTreeEditor() {
-  const { data: model, setData: setModel } = useApi({ endpoint: "/manage-uvl", initialData: {} });
-  const { run, isLoading: isSaving } = useAction();
+  const { data: model, setData: setModel } = useApi({ endpoint: "/manage-uvl", initialData: createNode() });
+  const {showMessage} =useFeedback()
+  const navigate=useNavigate()
   const handleSave = async () => {
-    await run({
-      endpoint: '/manage-uvl',
-      method: "PUT",
-      body: model
-    });
+    try{
+      await apiClient.put("/manage-uvl",model)
+      navigate('/')
+    }
+    catch(error){
+      if(error?.response?.status===409){
+        navigate('/conflicts-projects')
+      }
+      else{
+        showMessage({
+          message: error.response?.data?.detail || "Error en la petición",
+          type: "error",
+          title: "Ocurrió un error"
+        });
+      } 
+    }
   };
+
   return (
     <div className="uvl-tree-editor">
       <h2>Editor de Estructura UVL</h2>
       <div className="editor-container">
-        <EditableNode 
-          node={model} 
-          onUpdate={setModel} 
-           depth={0}
+        <EditableNode
+          node={model}
+          onUpdate={setModel}
+          depth={0}
+          path="root"
         />
       </div>
-      <button 
-        className="submit-button" 
+      <button
+        className="submit-button"
         onClick={handleSave}
-        disabled={isSaving}
-        style={{ opacity: isSaving ? 0.7 : 1, cursor: isSaving ? 'not-allowed' : 'pointer' }}
       >
-        {isSaving ? 'Guardando...' : 'Guardar Modelo'}
+        {'Guardar Modelo'}
       </button>
     </div>
   );

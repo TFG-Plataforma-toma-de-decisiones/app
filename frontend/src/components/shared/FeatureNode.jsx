@@ -16,12 +16,6 @@ const DEFAULT_RELATION_CONFIG = {
 
 const MERGEABLE_RELATION_TYPES = new Set(["MANDATORY", "OPTIONAL"]);
 
-const RELATION_ORDER = [
-  { key: "MANDATORY", title: null, controlType: "mandatory" },
-  { key: "ALTERNATIVE", title: "Alternative (Select exactly one)", controlType: "radio" },
-  { key: "OR", title: "OR (Select at least one)", controlType: "checkbox" },
-  { key: "OPTIONAL", title: "Optional Features", controlType: "checkbox" }
-];
 
 export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
   const { isActive, handleToggle, handleRadioChange } = useFeatureTrees();
@@ -29,15 +23,9 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
   const relations = getRelations(node);
   if (!relations.length) return null;
 
-  const sortedRelations = [...relations].sort((a, b) => {
-    const firstIndex = RELATION_ORDER.findIndex((relation) => relation.key === a.type);
-    const secondIndex = RELATION_ORDER.findIndex((relation) => relation.key === b.type);
-    const safeFirstIndex = firstIndex === -1 ? RELATION_ORDER.length : firstIndex;
-    const safeSecondIndex = secondIndex === -1 ? RELATION_ORDER.length : secondIndex;
-    return safeFirstIndex - safeSecondIndex;
-  });
+  
 
-  const displayRelations = sortedRelations.reduce((groupedRelations, relation) => {
+  const displayRelations = relations.reduce((groupedRelations, relation) => {
     if (!MERGEABLE_RELATION_TYPES.has(relation.type)) {
       groupedRelations.push(relation);
       return groupedRelations;
