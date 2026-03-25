@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './ProjectCard.css';
 import { useAuth } from '../../hooks/useAuth';
 import DeleteModal from '../modals/DeleteModal';
@@ -23,14 +22,12 @@ const formatLabel = (label) => {
     .join(' ');
 };
 
-function ProjectCard({ project,setProjects }) {
-  const navigate = useNavigate();
+function ProjectCard({ project,setProjects,onClick,deleteEndpoint }) {
   const types=["Backend","Frontend","Full Stack","Backend Library","Frontend Library"]
   const type=types.find(t=>project.features.includes(t))
   const {isAdmin} =useAuth()
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const {run}=useAction()
-
   const handleDelete = (e) => {
     e.stopPropagation();
     setDeleteModalOpen(true);
@@ -38,7 +35,7 @@ function ProjectCard({ project,setProjects }) {
 
   const confirmDelete = async (e) => {
     e.stopPropagation();
-    await run({endpoint:`projects/${project.id}`,method:"DELETE",
+    await run({endpoint:deleteEndpoint,method:"DELETE",
       updateState:()=>setProjects(projects=>projects.filter(p=>p.id!==project.id))})
     setDeleteModalOpen(false);
   };
@@ -50,7 +47,7 @@ function ProjectCard({ project,setProjects }) {
 
   return (
     <>
-      <div className="project-card" onClick={() => !isDeleteModalOpen && navigate(`/projects/${project.id}`)}>
+      <div className="project-card" onClick={onClick}>
         <div className="project-card-content">
           <div className="project-card-header">
             <h2 className="project-title">{project.name}</h2>

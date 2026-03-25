@@ -1,5 +1,5 @@
 import { createContext, useState,useEffect } from "react";
-import { collectFeatureNames } from "../utils/featureModel";
+import { addFeatureSubtree, removeFeatureSubtree } from "../utils/featureModel";
 
 export const FeatureTreesContext = createContext();
 
@@ -10,22 +10,20 @@ export default function FeatureTreesProvider({ children, initialTrees = [] }) {
   }, [initialTrees]);
 
   const addFeature = (index, feature) => {
-    const mandatoryFeatures = collectFeatureNames(feature, true);
     setTrees(prev=>{
       const copy = [...prev];
       copy[index] = {
         ...copy[index],
-        features: [...new Set(prev[index].features.concat(mandatoryFeatures))]
+        features: addFeatureSubtree(prev[index].features, feature)
       };
       return copy;
     })
   };
 
   const removeFeature = (index, feature) => {
-    const subtree = collectFeatureNames(feature, false);
     setTrees(prev=>{
       const copy = [...prev];
-      copy[index] = { ...copy[index], features:prev[index].features.filter(f=>!subtree.includes(f)) };
+      copy[index] = { ...copy[index], features: removeFeatureSubtree(prev[index].features, feature) };
       return copy;
     })
   };

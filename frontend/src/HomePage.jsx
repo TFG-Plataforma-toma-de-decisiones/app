@@ -37,7 +37,7 @@ function Home() {
       <div className="home-grid">
         {projects.map((proj) => (
           <div key={proj.id} className="home-grid-item">
-            <ProjectCard project={proj} setProjects={setProjects}/>
+            <ProjectCard project={proj} setProjects={setProjects} onClick={() => navigate(`/projects/${proj.id}`)} deleteEndpoint={`projects/${proj.id}`}/>
           </div>
         ))}
       </div>

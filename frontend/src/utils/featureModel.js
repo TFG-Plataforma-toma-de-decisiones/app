@@ -26,6 +26,24 @@ export function collectFeatureNames(node, mandatoryOnly = false) {
   return featureNames;
 }
 
+export function addFeatureSubtree(features, feature) {
+  return [...new Set(features.concat(collectFeatureNames(feature, true)))];
+}
+
+export function removeFeatureSubtree(features, feature) {
+  const subtree = collectFeatureNames(feature, false);
+  return features.filter((featureName) => !subtree.includes(featureName));
+}
+
 export function findRootFeatureNode(rootNode, featureName) {
   return getRelationChildren(rootNode).find((feature) => feature.name === featureName);
+}
+export function getNodeMap(node,acum){
+  acum.set(node.name,node)
+  for(const relation of node.relations){
+    for(const child of relation.children){
+      getNodeMap(child,acum)
+    }
+  }
+  return acum
 }

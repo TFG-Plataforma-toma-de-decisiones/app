@@ -109,51 +109,50 @@ def autocomplete(request):
     }
     project_data=langchain_service.autocomplete_project(data)
     return Response(data=project_data)
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
-from django.core.cache import cache
-from django.db import transaction
-
 class ManageUVLModelView(APIView):
     permission_classes = [IsAdminUser]
     def get(self, request):
         session_data = cache.get('admin_edit_session')
         if session_data is not None:
-            draft_service=session_data["uvl_content"]
+            draft_service = FlamapyService.create_str(session_data["uvl_content"])
             return Response(data=draft_service.to_dict())
         else:
-            service=FlamapyService.get_instance()
+            service = FlamapyService.get_instance()
             return Response(service.to_dict())
                 
     def put(self, request):
-        uvl_content = FlamapyService.create_str(request.data.get('uvl_content') )
         session_data = cache.get('admin_edit_session', {}) 
+        if request.data:
+            uvl_content = FlamapyService.get_uvl_text(request.data)
+        else:
+            uvl_content=session_data['uvl_content']
         pending_fixes = session_data.get('pending_fixes', {})
+        pending_remove = session_data.get('pending_remove', [])
         draft_service = FlamapyService.create_str(uvl_content)
         all_projects = Project.objects.all()
         invalid_projects = []
         for project in all_projects:
+            if str(project.id) in pending_remove:
+                continue
             features_to_test = pending_fixes.get(str(project.id), project.features)
             is_valid = draft_service.validate(features=features_to_test, is_full=True)
             if not is_valid:
                 invalid_projects.append({
                     "id": project.id,
                     "name": project.name,
-                    "current_features": features_to_test
+                    "features": features_to_test
                 })        
         if not invalid_projects:
             projects_to_update = []
             with transaction.atomic():
                 for project in all_projects:
-                    str_id = str(project.id)
-                    if str_id in pending_fixes:
-                        project.features = pending_fixes[str_id]
+                    if str(project.id) in pending_fixes:
+                        project.features = pending_fixes[str(project.id)]
                         projects_to_update.append(project)
                 if projects_to_update:
                     Project.objects.bulk_update(projects_to_update, ['features'])
-                    
+                if pending_remove:
+                    Project.objects.filter(id__in=pending_remove).delete()
                 FlamapyService.publish_new_model(uvl_content)
                 
             cache.delete('admin_edit_session')
@@ -161,7 +160,9 @@ class ManageUVLModelView(APIView):
         else:
             new_session = {
                 "uvl_content": uvl_content,
+                "invalid_projects": invalid_projects,
                 "pending_fixes": pending_fixes,
+                "pending_remove": pending_remove
             }
             cache.set('admin_edit_session', new_session, 86400)
             return Response(data={
@@ -171,22 +172,51 @@ class ManageUVLModelView(APIView):
     def delete(self, request):
         cache.delete('admin_edit_session')
         return Response(data={"message": "Draft discarded successfully"}, status=200)
-@api_view(["POST"])
-@permission_classes([IsAdminUser]) 
-def update_draft_project(request, id):
-    session_data = cache.get('admin_edit_session') 
+class DraftProject(APIView):
+    permission_classes = [IsAdminUser]
+    def put(self, request, id): 
+        session_data = cache.get('admin_edit_session') 
+        if not session_data:
+            return Response(data={"details": "No active edit session found"}, status=400)
+        pending_fixes = session_data.get('pending_fixes', {})
+        invalid_projects = session_data.get('invalid_projects', [])
+        project=next(filter(lambda p:p["id"] == id,invalid_projects),None)
+        if not project:
+            return Response(data={"details": "Project is not marked as invalid"}, status=400)
+        try:
+            draft_service = FlamapyService.create_str(session_data.get('uvl_content'))
+        except Exception:
+            return Response(data={"details": "Session UVL is corrupted"}, status=500)
+        features = request.data.get("features", [])
+        if not draft_service.validate(features, True):
+            return Response(data={"details": "Invalid features for the current draft"}, status=400)
+        pending_fixes[str(id)] = features
+        session_data['pending_fixes'] = pending_fixes
+        invalid_projects.remove(project)
+        session_data['invalid_projects']=invalid_projects
+        cache.set('admin_edit_session', session_data, 86400)
+        return Response(data={"message": "Project fix saved to draft"}, status=200)
+    def delete(self, request, id):
+        session_data = cache.get('admin_edit_session') 
+        if not session_data:
+            return Response(data={"details": "No active edit session found"}, status=400)
+        invalid_projects = session_data.get('invalid_projects', [])
+        project=next(filter(lambda p:p["id"] == id,invalid_projects),None)
+        if not project:
+            return Response(data={"details": "Project is not marked as invalid"}, status=400)
+        pending_remove = session_data.get('pending_remove', [])
+        if str(id) not in pending_remove:
+            pending_remove.append(str(id))
+        session_data['pending_remove'] = pending_remove
+        invalid_projects.remove(project)
+        session_data['invalid_projects']=invalid_projects
+        cache.set('admin_edit_session', session_data, 86400)
+        return Response(data={"message": "Project marked for deletion"}, status=200)
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def get_invalid_projects(request):
+    session_data = cache.get('admin_edit_session')
     if not session_data:
         return Response(data={"details": "No active edit session found"}, status=400)
-    pending_fixes = session_data.get('pending_fixes', {})
-    try:
-        draft_service = FlamapyService.create_str(session_data.get('uvl_content'))
-    except Exception:
-        return Response(data={"details": "Session UVL is corrupted"}, status=500)
-    features = request.data.get("features", [])
-    if not draft_service.validate(features, True):
-        return Response(data={"details": "Invalid features for the current draft"}, status=400)
-    pending_fixes[str(id)] = features
-    session_data['pending_fixes'] = pending_fixes
-    cache.set('admin_edit_session', session_data, 86400)
-    return Response(data={"message": "Project fix saved to draft"}, status=200)
-    
+    invalid_projects = session_data.get('invalid_projects', [])
+    return Response(data=invalid_projects)
