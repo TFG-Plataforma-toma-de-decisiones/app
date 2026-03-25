@@ -42,6 +42,11 @@ function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
       nextChildren.splice(index, 1);
     }
 
+    if (nextChildren.length === 0) {
+      onDelete();
+      return;
+    }
+
     onUpdate({
       ...relation,
       children: nextChildren

@@ -33,6 +33,7 @@ export default function ConflictProjects() {
   }
   useEffect(()=>{
     if(invalidProjects.length===0){
+      setSelectedProject(null)
       return ;
     }
     setSelectedProject(invalidProjects[0])

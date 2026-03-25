@@ -9,12 +9,15 @@ from django.core.cache import cache
 from itertools import groupby
 class FlamapyService:
     _instance = None
+    _version=0
     @classmethod
-    def get_instance(cls,reload=False):
-        if cls._instance is None or reload:
+    def get_instance(cls):
+        version=cache.get('uvl_model_version',1)
+        if cls._version<version:
             base_dir = Path(settings.BASE_DIR)
             uvl_path = base_dir / "configurador" / "model.uvl"
             cls._instance = cls(uvl_path)
+            cls._version=version
         return cls._instance
     def __init__(self,uvl_path):
         self.fm=FLAMAFeatureModel(str(uvl_path))
@@ -64,8 +67,8 @@ class FlamapyService:
         os.replace(tmp_path, uvl_path)
         if cache.get('uvl_model_version') is None:
             cache.set('uvl_model_version', 1, timeout=None) 
-        new_version = cache.incr('uvl_model_version')
-        cls._instance = cls(uvl_path)
+        cache.incr('uvl_model_version')
+        #cls._instance = cls(uvl_path)
         return True
     @classmethod
     def get_uvl_text(cls,node):

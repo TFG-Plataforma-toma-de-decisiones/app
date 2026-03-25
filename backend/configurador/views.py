@@ -153,7 +153,7 @@ class ManageUVLModelView(APIView):
                     Project.objects.bulk_update(projects_to_update, ['features'])
                 if pending_remove:
                     Project.objects.filter(id__in=pending_remove).delete()
-                FlamapyService.publish_new_model(uvl_content)
+            FlamapyService.publish_new_model(uvl_content)
                 
             cache.delete('admin_edit_session')
             return Response(data={"message": "Model updated successfully"}, status=200)
