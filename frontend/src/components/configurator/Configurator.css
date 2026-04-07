@@ -118,6 +118,7 @@
   padding: 20px;
   margin-bottom: 16px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 /* Efecto hover sutil en la tarjeta del proyecto */
@@ -189,4 +190,17 @@
 
 .swot-button:hover {
   background-color: darken(var(--color-primary), 10%);
+}
+.project-container {
+  transition: all 0.2s ease-in-out;
+}
+
+.project-container:hover {
+  background-color: #f8f9fa;
+}
+
+.project-container.selected {
+  background-color: #e6f2ff; /* Un tono azul/destacado */
+  border-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }

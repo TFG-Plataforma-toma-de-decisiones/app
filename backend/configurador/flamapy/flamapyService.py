@@ -23,7 +23,6 @@ class FlamapyService:
         self.fm=FLAMAFeatureModel(str(uvl_path))
         self.fm._transform_to_sat()
     def validate(self,features,is_full):
-        print(features)
         operation=PySATSatisfiableConfiguration()
         configuration=Configuration(elements={feature:True for feature in features})
         configuration.set_full(is_full)

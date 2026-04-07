@@ -30,6 +30,7 @@ class OSSProjectDetails(BaseModel):
             "ESTÁ ESTRICTAMENTE PROHIBIDO seleccionar más de un hijo de ese grupo. Debes elegir EXACTAMENTE UNO que represente la opción más estándar, principal o representativa del proyecto en ese ámbito.\n"
             "3. Semántica 'or': Si la relación es 'or', puedes elegir uno o varios hijos del grupo.\n"
             "4. Coherencia estructural: No violes la jerarquía ni la exclusividad del árbol. Prioriza la precisión lógica del modelo UVL sobre la exhaustividad del framework."
+            "5. Debes asegurarte de incluir un modelo UVL válido añadiendo todas las feature mandatory intermedias que sean necesarias."
         )
     )
     confidence_score: float = Field(

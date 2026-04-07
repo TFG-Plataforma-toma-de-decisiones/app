@@ -1,18 +1,18 @@
-
 /* --- Overlay del Modal --- */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75); /* Fondo más oscuro para contrastar */
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    padding: 1rem;
+    z-index: 9999; /* Aumentado para garantizar que cubra tu navbar superior */
+    padding: 4vh 4vw; /* Crea un margen dinámico del 4% alrededor de toda la pantalla */
     backdrop-filter: blur(4px);
+    box-sizing: border-box; /* Asegura que el padding no rompa las dimensiones */
 }
 
 /* --- Contenedor Principal del Modal --- */
@@ -23,11 +23,13 @@
     border-radius: var(--border-radius-dialog);
     padding: 2.5rem;
     width: 100%;
-    max-width: 900px;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-width: 1200px; /* Aumentado para que ocupe más a lo ancho */
+    max-height: 100%; /* Su altura máxima será el 100% menos el padding del overlay */
+    display: flex;
+    flex-direction: column; /* Convertimos el modal en flex para controlar su interior */
     position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Sombra intensa pero suave */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
 }
 
 .modal-content h2 {
@@ -36,6 +38,7 @@
     margin-bottom: 2rem;
     color: var(--color-text-primary);
     font-size: 1.8rem;
+    flex-shrink: 0; /* Evita que el título se aplaste si hay mucho contenido */
 }
 
 /* --- Botón de Cierre --- */
@@ -50,6 +53,7 @@
     color: var(--color-text-secondary);
     cursor: pointer;
     transition: color 0.2s ease;
+    z-index: 10; /* Asegura que sea clickeable por encima de todo */
 }
 
 .close-button:hover {
@@ -59,17 +63,39 @@
 /* --- Cuadrícula del DAFO --- */
 .swot-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr; /* Fuerza exactamente 2 columnas del mismo tamaño */
     gap: 1.5rem;
+    overflow-y: auto; /* Mantiene el scroll interno */
+    padding-right: 0.5rem; 
+    flex-grow: 1; 
+}
+
+/* Te añado esta regla para que en pantallas pequeñas (móviles) no se aplaste y pase a 1 sola columna */
+@media (max-width: 768px) {
+    .swot-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Personalización de la barra de scroll (Opcional pero recomendado) --- */
+.swot-container::-webkit-scrollbar {
+    width: 8px;
+}
+.swot-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.swot-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-divider);
+    border-radius: 4px;
 }
 
 /* --- Estilos base para cada cuadrante --- */
 .swot-category {
     padding: 1.5rem;
     border-radius: var(--border-radius-card);
-    background-color: var(--color-background-default); /* Fondo más oscuro que el modal */
+    background-color: var(--color-background-default);
     border: 1px solid var(--color-divider);
-    border-top: 4px solid var(--color-divider); /* Borde superior base */
+    border-top: 4px solid var(--color-divider);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -88,7 +114,7 @@
 .swot-category ul {
     margin: 0;
     padding-left: 1.2rem;
-    color: var(--color-text-secondary); /* Color secundario para no fatigar la vista */
+    color: var(--color-text-secondary);
     line-height: 1.6;
 }
 
@@ -128,13 +154,4 @@
 }
 .swot-category:nth-child(4) h3 {
     color: var(--color-warning);
-}
-
-/* --- Texto de Carga --- */
-.modal-content p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--color-text-secondary);
-    padding: 2rem 0;
-    font-style: italic;
 }

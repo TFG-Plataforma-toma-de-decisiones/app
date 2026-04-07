@@ -53,7 +53,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
         const children = relation.children ?? [];
         if (!children.length) return null;
 
-        const { title, controlType } = RELATION_CONFIG[relation.type] ?? DEFAULT_RELATION_CONFIG;
+        const { title, controlType } = RELATION_CONFIG[relation.type];
 
         return (
           <div

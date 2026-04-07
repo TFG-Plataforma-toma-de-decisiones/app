@@ -13,6 +13,7 @@ export default function Configurator() {
   const {data:dafo,refetch:fetchDafo,setData:setDafo}=useApi({endpoint:"/swot",method:"POST",initialData:null})
   const [comments,setComments]=useState("")
   const [isSwotModalOpen, setSwotModalOpen] = useState(false);
+  const [selectedRecommendations, setSelectedRecommendations] = useState({});
 
   const incompatibleTypes = [
     ["Full Stack", "Frontend"], 
@@ -20,6 +21,12 @@ export default function Configurator() {
   ];
   function getNode(feature){
     return findRootFeatureNode(uvlModel, feature)
+  }
+  function handleSelectReccomendation(recommendation){
+    setSelectedRecommendations(prev => ({
+      ...prev,
+      [recommendation.type]: recommendation
+    }));
   }
   function handleRadioChange(index,type) {
     if (!isActive(index,getNode(type))) {
@@ -34,13 +41,14 @@ export default function Configurator() {
       handleToggle(index,getNode(type));
     }
   }
-  function handleSubmit() {
+  async function handleSubmit() {
     const body=trees.filter((t,index)=>isActive(index,getNode(t.type)))
-    refetch({overrideBody:body})
+    await refetch({overrideBody:body})
+    setSelectedRecommendations({})
   }
-  async function getDafo(recommendation){
+  async function getDafo(){
     setDafo(null)
-    const body={recommendation,preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
+    const body={recommendations:Object.values(selectedRecommendations),preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
     fetchDafo({overrideBody:body,showLoadingModal:true})
     setSwotModalOpen(true);
   }
@@ -110,7 +118,7 @@ export default function Configurator() {
         <div className="type-container">
             <h2>{type}</h2>
             {recommendations.map(recommendation=>(
-              <div className="project-container">
+              <div className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)}>
                 <h2>{recommendation.project}</h2>
                 <div className="libraries-container">
                   {recommendation.libraries.map(l=>(
@@ -119,11 +127,26 @@ export default function Configurator() {
                     </span>
                   ))}
                 </div>
-                <button className="swot-button" onClick={()=>getDafo(recommendation)}>Obtener DAFO</button>
               </div>
             ))}
+            
+
         </div>
+        
+        
       ))}
+      
+      {recommendations.length > 0 && 
+      <div className="dafo-action-container" style={{ marginTop: '20px', textAlign: 'center' }}>
+      <button 
+            className="swot-button" 
+            onClick={getDafo}
+            disabled={Object.keys(selectedRecommendations).length === 0}
+          >
+            Obtener DAFO de la selección
+          </button>
+      </div>
+      }
       {isSwotModalOpen && (
                 <SWOTModal 
                     swot={dafo} 

@@ -83,17 +83,19 @@ def get_recommendation(request):
 @api_view(["POST"])
 def get_swot(request):
     uvl_model=FlamapyService.get_instance().to_dict()
-    main_project=request.data["recommendation"]
-    projects=[main_project["project"]]+main_project["libraries"]
+    recommendations=request.data["recommendations"]
+    projects = [
+    item 
+    for rec in recommendations 
+    for item in ([rec["project"]] + rec["libraries"])
+    ]
     projects_data=Project.objects.filter(name__in=projects).values("name","features")
     data={
         "user_features":request.data["preferences"],
         "user_comments":request.data["comments"],
-        "framework_name":main_project["project"],
-        "libraries_list":main_project["libraries"],
+        "selected_projects_list":recommendations,
         "project_features_details":projects_data,
-        "uvl_model":uvl_model,
-        "framework_role":main_project["type"]
+        "uvl_model":uvl_model
     }
     print(data)
     swot=langchain_service.generate_swot_analysis(data)
