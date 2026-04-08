@@ -37,5 +37,6 @@ urlpatterns = [
     path("api/v1/manage-uvl",views.ManageUVLModelView.as_view()),
     path("api/v1/projects/<int:id>/draft",views.DraftProject.as_view()),
     path("api/v1/projects/draft",views.get_invalid_projects),
-    path("api/v1/", include(router.urls))
+    path("api/v1/", include(router.urls)),
+    path("api/v1/exportar-dafo",views.export_dafo_pdf)
 ]

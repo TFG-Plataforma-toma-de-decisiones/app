@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from configurador.flamapy.flamapyService import FlamapyService
@@ -11,6 +11,8 @@ from configurador.langchain.langchainService import langchain_service
 from rest_framework.views import APIView
 from django.db import transaction
 from django.core.cache import cache
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
@@ -100,6 +102,31 @@ def get_swot(request):
     print(data)
     swot=langchain_service.generate_swot_analysis(data)
     return Response(data=swot)
+
+
+
+@api_view(['POST'])
+def export_dafo_pdf(request):
+    # 1. DRF ya hace el trabajo sucio y te da un diccionario directamente en request.data
+    data = request.data
+    
+    # 2. Renderizamos la plantilla HTML
+    html_string = render_to_string('dafo_pdf.html', {'dafo': data})
+    
+    # 3. Preparamos la respuesta HTTP para el PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="analisis_dafo_tfg.pdf"'
+    
+    # 4. Generamos el PDF
+    pisa_status = pisa.CreatePDF(html_string, dest=response)
+    
+    if pisa_status.err:
+        return Response(
+            {'error': 'Hubo un error al generar el PDF de tu TFG'}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+        
+    return response
 @api_view(["POST"])
 def autocomplete(request):
     uvl_model=FlamapyService.get_instance().to_dict()

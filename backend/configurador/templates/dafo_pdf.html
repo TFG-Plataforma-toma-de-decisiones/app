@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Análisis DAFO</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+        }
+        body {
+            font-family: Helvetica, sans-serif;
+            color: #333;
+        }
+        .header-title {
+            text-align: center;
+            color: #1a202c;
+            margin-bottom: 30px;
+            font-size: 24px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px; /* Espacio entre los cuadrantes */
+        }
+        td {
+            width: 50%;
+            vertical-align: top;
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px; /* xhtml2pdf no pilla bien esto a veces, pero lo intentamos */
+            background-color: #f8fafc;
+        }
+        h3 {
+            margin-top: 0;
+            font-size: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+        /* Colores adaptados del frontend */
+        .fortalezas h3 { color: #10b981; } /* Emerald */
+        .oportunidades h3 { color: #3b82f6; } /* Blue */
+        .debilidades h3 { color: #ef4444; } /* Red */
+        .amenazas h3 { color: #f59e0b; } /* Amber */
+        
+        ul {
+            padding-left: 15px;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-align: justify;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="header-title">Matriz de Análisis DAFO</h1>
+
+    <table>
+        <tr>
+            <td class="fortalezas">
+                <h3>Fortalezas</h3>
+                <ul>
+                    {% for item in dafo.strengths %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td class="oportunidades">
+                <h3>Oportunidades</h3>
+                <ul>
+                    {% for item in dafo.opportunities %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td class="debilidades">
+                <h3>Debilidades</h3>
+                <ul>
+                    {% for item in dafo.weaknesses %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td class="amenazas">
+                <h3>Amenazas</h3>
+                <ul>
+                    {% for item in dafo.threats %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Pie de página automático -->
+    <div id="footer_content" style="text-align: right; font-size: 10px; color: #64748b;">
+        Página <pdf:pagenumber> de <pdf:pagecount>
+    </div>
+
+</body>
+</html>

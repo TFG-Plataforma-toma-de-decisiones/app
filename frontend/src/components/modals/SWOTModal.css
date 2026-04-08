@@ -9,10 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Aumentado para garantizar que cubra tu navbar superior */
-    padding: 4vh 4vw; /* Crea un margen dinámico del 4% alrededor de toda la pantalla */
+    z-index: 9999;
+    padding: 4vh 4vw;
     backdrop-filter: blur(4px);
-    box-sizing: border-box; /* Asegura que el padding no rompa las dimensiones */
+    box-sizing: border-box;
 }
 
 /* --- Contenedor Principal del Modal --- */
@@ -23,25 +23,16 @@
     border-radius: var(--border-radius-dialog);
     padding: 2.5rem;
     width: 100%;
-    max-width: 1200px; /* Aumentado para que ocupe más a lo ancho */
-    max-height: 100%; /* Su altura máxima será el 100% menos el padding del overlay */
+    max-width: 1200px;
+    max-height: 100%;
     display: flex;
-    flex-direction: column; /* Convertimos el modal en flex para controlar su interior */
+    flex-direction: column;
     position: relative;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
 }
 
-.modal-content h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 2rem;
-    color: var(--color-text-primary);
-    font-size: 1.8rem;
-    flex-shrink: 0; /* Evita que el título se aplaste si hay mucho contenido */
-}
-
-/* --- Botón de Cierre --- */
+/* --- Botón de Cierre "X" --- */
 .close-button {
     position: absolute;
     top: 1.2rem;
@@ -53,31 +44,80 @@
     color: var(--color-text-secondary);
     cursor: pointer;
     transition: color 0.2s ease;
-    z-index: 10; /* Asegura que sea clickeable por encima de todo */
+    z-index: 10;
 }
 
 .close-button:hover {
     color: var(--color-error);
 }
 
-/* --- Cuadrícula del DAFO --- */
-.swot-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Fuerza exactamente 2 columnas del mismo tamaño */
-    gap: 1.5rem;
-    overflow-y: auto; /* Mantiene el scroll interno */
-    padding-right: 0.5rem; 
-    flex-grow: 1; 
+/* --- Cabecera del Modal (Título + Botón) --- */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-shrink: 0;
 }
 
-/* Te añado esta regla para que en pantallas pequeñas (móviles) no se aplaste y pase a 1 sola columna */
+.modal-header h2 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 1.8rem;
+    text-align: left;
+}
+
+/* --- Botón de Descarga PDF --- */
+.download-pdf-button {
+    background-color: var(--color-primary);
+    color: white; /* Forzamos blanco para que destaque */
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-pdf-button:hover {
+    opacity: 0.9;
+}
+
+.download-pdf-button:disabled {
+    background-color: var(--color-divider);
+    color: var(--color-text-secondary);
+    cursor: not-allowed;
+}
+
+/* --- Cuadrícula del DAFO (Forzando 2x2) --- */
+.swot-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Fuerza 2 columnas */
+    gap: 1.5rem;
+    overflow-y: auto; /* Scroll interno si es muy largo */
+    padding-right: 0.5rem;
+    flex-grow: 1;
+}
+
+/* Adaptación a móviles (1 columna) */
 @media (max-width: 768px) {
     .swot-container {
         grid-template-columns: 1fr;
     }
+    
+    /* En móvil, ponemos el botón debajo del título */
+    .modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
 }
 
-/* --- Personalización de la barra de scroll (Opcional pero recomendado) --- */
+/* Scrollbar estilizado (opcional) */
 .swot-container::-webkit-scrollbar {
     width: 8px;
 }
@@ -124,7 +164,7 @@
 
 /* --- Colores Específicos Mapeados a tus Variables --- */
 
-/* 1. Fortalezas (Usamos tu color Primary) */
+/* 1. Fortalezas */
 .swot-category:nth-child(1) {
     border-top-color: var(--color-primary);
 }
@@ -132,7 +172,7 @@
     color: var(--color-primary);
 }
 
-/* 2. Oportunidades (Usamos tu color Info) */
+/* 2. Oportunidades */
 .swot-category:nth-child(2) {
     border-top-color: var(--color-info);
 }
@@ -140,7 +180,7 @@
     color: var(--color-info);
 }
 
-/* 3. Debilidades (Usamos tu color Error) */
+/* 3. Debilidades */
 .swot-category:nth-child(3) {
     border-top-color: var(--color-error);
 }
@@ -148,7 +188,7 @@
     color: var(--color-error);
 }
 
-/* 4. Amenazas (Usamos tu color Warning) */
+/* 4. Amenazas */
 .swot-category:nth-child(4) {
     border-top-color: var(--color-warning);
 }

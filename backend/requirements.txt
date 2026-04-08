@@ -14,3 +14,4 @@ langchain-google-genai==4.2.1
 pydantic==2.12.5
 langchain-community==0.4.1
 django-redis==6.0.0
+xhtml2pdf==0.2.16
