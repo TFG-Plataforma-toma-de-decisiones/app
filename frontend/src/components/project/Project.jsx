@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import useAction from '../../hooks/useAction';
 import { BsMagic } from 'react-icons/bs';
 import { useFeedback } from '../../hooks/useFeedback';
+import usePollingAction from '../../hooks/usePollingAction';
 
 export default function Project() {
     const { data: uvlModel } = useApi({ endpoint: "/model", initialData: {} })
@@ -16,6 +17,7 @@ export default function Project() {
     const { data: languages } = useApi({ endpoint: "/languages", initialData: [] })
     const { isAdmin } = useAuth()
     const { run, isLoading } = useAction()
+    const {runPolling}=usePollingAction()
     const isNew = id === "new"
     const {showMessage}=useFeedback()
     const CONFIDENCE_THRESHOLDS = [
@@ -58,12 +60,12 @@ export default function Project() {
 
     async function handleAutocomplete() {
       
-      const data=await run({
+      const data=await runPolling({
         endpoint: '/autocomplete',
+        statusEndpointBase:"/autocomplete-status",
         method: "POST",
         body: trees[0],
-        updateState: (data => setTrees([data])),
-        showLoadingModal:true
+        updateState: (data => setTrees([data.project])),
       })
       if(!data){
         return ;

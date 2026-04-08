@@ -145,3 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LLM_MODEL = env('LLM_MODEL', default='gpt-4o')
 LLM_PROVIDER = env('LLM_PROVIDER', default='openai')
 LLM_TEMPERATURE = env.float('LLM_TEMPERATURE', default=0.2)
+
+CELERY_BROKER_URL = env('REDIS_URL', default="redis://127.0.0.1:6379/1")
+CELERY_RESULT_BACKEND = env('REDIS_URL', default="redis://127.0.0.1:6379/1")
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'

@@ -13,6 +13,8 @@ from django.db import transaction
 from django.core.cache import cache
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
+from celery.result import AsyncResult
+from .tasks import generate_swot_task,autocomplete_project_task
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
@@ -91,7 +93,7 @@ def get_swot(request):
     for rec in recommendations 
     for item in ([rec["project"]] + rec["libraries"])
     ]
-    projects_data=Project.objects.filter(name__in=projects).values("name","features")
+    projects_data=list(Project.objects.filter(name__in=projects).values("name","features"))
     data={
         "user_features":request.data["preferences"],
         "user_comments":request.data["comments"],
@@ -99,25 +101,32 @@ def get_swot(request):
         "project_features_details":projects_data,
         "uvl_model":uvl_model
     }
-    print(data)
-    swot=langchain_service.generate_swot_analysis(data)
-    return Response(data=swot)
+    task = generate_swot_task.delay(data)
+    
+    # Devolvemos el ticket al usuario
+    return Response({"task_id": task.id}, status=202)
+@api_view(["GET"])
+def check_swot_status(request, task_id):
+    task_result = AsyncResult(task_id)
+    if task_result.state == 'SUCCESS':
+        return Response({"status": "SUCCESS", "swot": task_result.result})
+    elif task_result.state == 'FAILURE':
+        return Response({"status": "FAILURE", "error": "Falló la IA"}, status=500)
+    else:
+        return Response({"status": "PENDING"})
 
 
 
 @api_view(['POST'])
 def export_dafo_pdf(request):
-    # 1. DRF ya hace el trabajo sucio y te da un diccionario directamente en request.data
+    
     data = request.data
-    
-    # 2. Renderizamos la plantilla HTML
+
     html_string = render_to_string('dafo_pdf.html', {'dafo': data})
-    
-    # 3. Preparamos la respuesta HTTP para el PDF
+
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="analisis_dafo_tfg.pdf"'
-    
-    # 4. Generamos el PDF
+
     pisa_status = pisa.CreatePDF(html_string, dest=response)
     
     if pisa_status.err:
@@ -130,14 +139,23 @@ def export_dafo_pdf(request):
 @api_view(["POST"])
 def autocomplete(request):
     uvl_model=FlamapyService.get_instance().to_dict()
-    languages=Language.objects.all().values_list("name",flat=True)
+    languages=list(Language.objects.all().values_list("name",flat=True))
     data={
         "admin_input_json":request.data,
         "uvl_model":uvl_model,
         "existing_languages_list":languages
     }
-    project_data=langchain_service.autocomplete_project(data)
-    return Response(data=project_data)
+    task = autocomplete_project_task.delay(data)
+    return Response({"task_id": task.id}, status=202)
+@api_view(["GET"])
+def check_autocomplete_status(request, task_id):
+    task_result = AsyncResult(task_id)
+    if task_result.state == 'SUCCESS':
+        return Response({"status": "SUCCESS", "project": task_result.result})
+    elif task_result.state == 'FAILURE':
+        return Response({"status": "FAILURE", "error": "Falló la IA"}, status=500)
+    else:
+        return Response({"status": "PENDING"})
 class ManageUVLModelView(APIView):
     permission_classes = [IsAdminUser]
     def get(self, request):

@@ -45,5 +45,18 @@ services:
       - "5173:5173"
     depends_on:
       - web
+  celery_worker:
+    build: 
+      context: ../
+      dockerfile: docker/Dockerfile.backend.dev
+    # Le añadimos .celery para que apunte directo al archivo
+    command: bash -c "cd /app && celery -A backend.celery worker -l info" 
+    volumes:
+      - ../backend:/app
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - ../backend/.env
 volumes:
   postgres_data:

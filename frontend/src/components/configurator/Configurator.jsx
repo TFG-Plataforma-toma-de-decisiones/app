@@ -5,12 +5,14 @@ import { useState } from "react";
 import useApi from "../../hooks/useApi";
 import SWOTModal from "../modals/SWOTModal";
 import { findRootFeatureNode } from "../../utils/featureModel";
+import usePollingAction from "../../hooks/usePollingAction"
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
   const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
   const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
-  const {data:dafo,refetch:fetchDafo,setData:setDafo}=useApi({endpoint:"/swot",method:"POST",initialData:null})
+  const [dafo,setDafo]=useState()
+  const {runPolling}=usePollingAction()
   const [comments,setComments]=useState("")
   const [isSwotModalOpen, setSwotModalOpen] = useState(false);
   const [selectedRecommendations, setSelectedRecommendations] = useState({});
@@ -49,7 +51,7 @@ export default function Configurator() {
   async function getDafo(){
     setDafo(null)
     const body={recommendations:Object.values(selectedRecommendations),preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
-    fetchDafo({overrideBody:body,showLoadingModal:true})
+    await runPolling({body,endpoint:"/swot",statusEndpointBase:"/swot-status",updateState:resp=>setDafo(resp.swot)})
     setSwotModalOpen(true);
   }
   const groupedRecommendations = recommendations.reduce((acc, project) => {
