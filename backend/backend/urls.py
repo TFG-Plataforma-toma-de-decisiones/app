@@ -40,5 +40,5 @@ urlpatterns = [
     path("api/v1/projects/<int:id>/draft",views.DraftProject.as_view(),name="draft_project"),
     path("api/v1/projects/draft",views.get_invalid_projects,name="invalid_projects"),
     path("api/v1/", include(router.urls)),
-    path("api/v1/exportar-dafo",views.export_dafo_pdf,name="get_dafo_pdf")
+    path("api/v1/exportar-dafo",views.export_swot_pdf,name="get_dafo_pdf")
 ]

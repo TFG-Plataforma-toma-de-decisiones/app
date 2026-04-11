@@ -23,7 +23,7 @@ class IsAdminOrReadOnly(BasePermission):
 @api_view(['GET'])
 def get_uvl_model(request):
     flamapy_service=FlamapyService.get_instance()
-    return JsonResponse(flamapy_service.to_dict(),safe=False)
+    return Response(flamapy_service.to_dict())
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer

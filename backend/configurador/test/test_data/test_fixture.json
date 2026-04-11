@@ -1,0 +1,89 @@
+[
+  {
+    "model": "configurador.language",
+    "pk": 1,
+    "fields": {
+      "name": "Python"
+    }
+  },
+  {
+    "model": "configurador.language",
+    "pk": 2,
+    "fields": {
+      "name": "JavaScript"
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 1,
+    "fields": {
+      "name": "Flask",
+      "description": "Microframework web para Python usado como backend ligero.",
+      "language": 1,
+      "features": [
+        "Project",
+        "Backend",
+        "ApiStyle",
+        "Rest"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 2,
+    "fields": {
+      "name": "SQLAlchemy",
+      "description": "Toolkit SQL y ORM para aplicaciones Python.",
+      "language": 1,
+      "features": [
+        "Project",
+        "Backend Library",
+        "DatabaseIntegration",
+        "ORM-03"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 3,
+    "fields": {
+      "name": "React",
+      "description": "Biblioteca para construir interfaces de usuario en JavaScript.",
+      "language": 2,
+      "features": [
+        "Project",
+        "Frontend",
+        "RenderingModel",
+        "SPA"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 4,
+    "fields": {
+      "name": "Redux",
+      "description": "Libreria de estado global para aplicaciones JavaScript.",
+      "language": 2,
+      "features": [
+        "Project",
+        "Frontend Library",
+        "GlobalState-02"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 5,
+    "fields": {
+      "name": "i18next",
+      "description": "Libreria de internacionalizacion para aplicaciones JavaScript.",
+      "language": 2,
+      "features": [
+        "Project",
+        "Frontend Library",
+        "i18nInternalization"
+      ]
+    }
+  }
+]

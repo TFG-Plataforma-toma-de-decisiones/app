@@ -1,4 +1,466 @@
-from configurador.test.base import BaseTestCase
-class TestGetUVL(BaseTestCase):
-    def test_get_uvl(self):
-        self.client.get()
+from types import SimpleNamespace
+from unittest.mock import patch
+
+from django.core.cache import cache
+from django.urls import reverse
+
+from configurador.flamapy.flamapyService import FlamapyService
+from configurador.models import Project, User
+from configurador.test.base import BaseTestCase, EXPECTED_MODEL_DICT
+
+
+class ViewsTests(BaseTestCase):
+    def setUp(self):
+        super().setUp()
+        self.admin_user = User.objects.create_user(
+            username="admin",
+            password="test-password",
+            is_staff=True,
+        )
+        self.regular_user = User.objects.create_user(
+            username="regular",
+            password="test-password",
+        )
+
+    def authenticate_admin(self):
+        self.client.force_authenticate(user=self.admin_user)
+
+    def test_get_uvl_returns_model_dict(self):
+        response = self.client.get(reverse("get_uvl"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, EXPECTED_MODEL_DICT)
+
+    def test_get_my_user_returns_staff_flag(self):
+        self.authenticate_admin()
+
+        response = self.client.get(reverse("get_my_user"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {"is_staff": True})
+
+    def test_language_list_returns_fixture_languages(self):
+        response = self.client.get(reverse("language-list"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            {language["name"] for language in response.data},
+            {"Python", "JavaScript"},
+        )
+
+    def test_language_create_requires_admin_user(self):
+        response = self.client.post(
+            reverse("language-list"),
+            {"name": "Ruby"},
+            format="json",
+        )
+
+        self.assertIn(response.status_code, [401, 403])
+
+    def test_language_create_allows_admin_user(self):
+        self.authenticate_admin()
+
+        response = self.client.post(
+            reverse("language-list"),
+            {"name": "Ruby"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data["name"], "Ruby")
+
+    def test_project_create_allows_admin_user_with_valid_features(self):
+        self.authenticate_admin()
+
+        response = self.client.post(
+            reverse("project-list"),
+            {
+                "name": "FastAPI",
+                "description": "Backend API framework.",
+                "language": "Python",
+                "features": ["Project", "Backend", "ApiStyle", "Rest"],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data["name"], "FastAPI")
+
+    def test_project_create_rejects_invalid_features(self):
+        self.authenticate_admin()
+
+        response = self.client.post(
+            reverse("project-list"),
+            {
+                "name": "Invalid project",
+                "description": "Invalid feature selection.",
+                "language": "Python",
+                "features": ["Project", "Backend"],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("Features not valid", str(response.data))
+
+    def test_recommendation_uses_backend_library_to_cover_missing_features(self):
+        response = self.client.post(
+            reverse("recommend"),
+            [
+                {
+                    "type": "Backend",
+                    "language": "Python",
+                    "features": [
+                        "Project",
+                        "Backend",
+                        "ApiStyle",
+                        "Rest",
+                        "ORM-03",
+                    ],
+                }
+            ],
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data,
+            [
+                {
+                    "type": "Backend",
+                    "project": "Flask",
+                    "libraries": ["SQLAlchemy"],
+                }
+            ],
+        )
+
+    @patch("configurador.views.generate_swot_task.delay")
+    def test_get_swot_dispatches_task_with_expected_data(self, mock_delay):
+        mock_delay.return_value = SimpleNamespace(id="swot-task-id")
+
+        response = self.client.post(
+            reverse("get_swot"),
+            {
+                "preferences": ["ORM-03"],
+                "comments": "Necesito persistencia.",
+                "recommendations": [
+                    {
+                        "project": "Flask",
+                        "libraries": ["SQLAlchemy"],
+                    }
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(response.data, {"task_id": "swot-task-id"})
+        task_data = mock_delay.call_args.args[0]
+        self.assertEqual(task_data["uvl_model"], EXPECTED_MODEL_DICT)
+        self.assertEqual(task_data["user_features"], ["ORM-03"])
+        self.assertEqual(task_data["user_comments"], "Necesito persistencia.")
+        self.assertEqual(
+            {project["name"] for project in task_data["project_features_details"]},
+            {"Flask", "SQLAlchemy"},
+        )
+
+    @patch("configurador.views.autocomplete_project_task.delay")
+    def test_autocomplete_dispatches_task_with_expected_data(self, mock_delay):
+        mock_delay.return_value = SimpleNamespace(id="autocomplete-task-id")
+
+        response = self.client.post(
+            reverse("get_autocomplete"),
+            {"name": "Flask"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(response.data, {"task_id": "autocomplete-task-id"})
+        task_data = mock_delay.call_args.args[0]
+        self.assertEqual(task_data["admin_input_json"], {"name": "Flask"})
+        self.assertEqual(task_data["uvl_model"], EXPECTED_MODEL_DICT)
+        self.assertEqual(task_data["existing_languages_list"], ["Python", "JavaScript"])
+
+    @patch("configurador.views.AsyncResult")
+    def test_check_swot_status_returns_success_result(self, mock_async_result):
+        mock_async_result.return_value = SimpleNamespace(
+            state="SUCCESS",
+            result={"strengths": ["Simple"]},
+        )
+
+        response = self.client.get(reverse("check_swot_status", args=["task-id"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data,
+            {"status": "SUCCESS", "swot": {"strengths": ["Simple"]}},
+        )
+        mock_async_result.assert_called_once_with("task-id")
+
+    @patch("configurador.views.AsyncResult")
+    def test_check_swot_status_returns_failure_result(self, mock_async_result):
+        mock_async_result.return_value = SimpleNamespace(state="FAILURE")
+
+        response = self.client.get(reverse("check_swot_status", args=["task-id"]))
+
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(response.data["status"], "FAILURE")
+
+    @patch("configurador.views.AsyncResult")
+    def test_check_autocomplete_status_returns_pending_result(self, mock_async_result):
+        mock_async_result.return_value = SimpleNamespace(state="PENDING")
+
+        response = self.client.get(
+            reverse("check_autocomplete_status", args=["task-id"])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {"status": "PENDING"})
+
+    @patch("configurador.views.pisa.CreatePDF")
+    @patch("configurador.views.render_to_string", return_value="<html></html>")
+    def test_export_swot_pdf_returns_pdf_response(
+        self,
+        mock_render_to_string,
+        mock_create_pdf,
+    ):
+        mock_create_pdf.return_value = SimpleNamespace(err=False)
+
+        response = self.client.post(
+            reverse("get_dafo_pdf"),
+            {"strengths": ["Simple"]},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/pdf")
+        self.assertEqual(
+            response["Content-Disposition"],
+            'attachment; filename="analisis_dafo_tfg.pdf"',
+        )
+        mock_render_to_string.assert_called_once_with(
+            "swot_pdf.html",
+            {"dafo": {"strengths": ["Simple"]}},
+        )
+
+    @patch("configurador.views.pisa.CreatePDF")
+    @patch("configurador.views.render_to_string", return_value="<html></html>")
+    def test_export_swot_pdf_returns_error_when_pdf_generation_fails(
+        self,
+        mock_render_to_string,
+        mock_create_pdf,
+    ):
+        mock_create_pdf.return_value = SimpleNamespace(err=True)
+
+        response = self.client.post(
+            reverse("get_dafo_pdf"),
+            {"strengths": ["Simple"]},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(
+            response.data,
+            {"detail": "Hubo un error al generar el PDF de tu DAFO"},
+        )
+
+    def test_manage_uvl_get_returns_current_model_for_admin(self):
+        self.authenticate_admin()
+
+        response = self.client.get(reverse("manage_uvl"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, EXPECTED_MODEL_DICT)
+
+    def test_manage_uvl_get_returns_draft_from_cache_for_admin(self):
+        self.authenticate_admin()
+        draft_uvl = 'features\n\t"Project"\n\t\tmandatory\n\t\t\t"Nuevo"'
+        cache.set("admin_edit_session", {"uvl_content": draft_uvl})
+
+        response = self.client.get(reverse("manage_uvl"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data,
+            {
+                "name": "Project",
+                "relations": [
+                    {
+                        "type": "MANDATORY",
+                        "children": [{"name": "Nuevo", "relations": []}],
+                    }
+                ],
+            },
+        )
+
+    def test_manage_uvl_put_publishes_valid_model_for_admin(self):
+        self.authenticate_admin()
+
+        response = self.client.put(
+            reverse("manage_uvl"),
+            EXPECTED_MODEL_DICT,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {"message": "Model updated successfully"})
+        self.assertIsNone(cache.get("admin_edit_session"))
+        self.assertEqual(
+            self.uvl_model_test.read_text(encoding="utf-8"),
+            FlamapyService.get_uvl_text(EXPECTED_MODEL_DICT),
+        )
+
+    def test_manage_uvl_put_stores_session_when_projects_become_invalid(self):
+        self.authenticate_admin()
+        invalid_model = {
+            "name": "Project",
+            "relations": [
+                {
+                    "type": "MANDATORY",
+                    "children": [{"name": "Nuevo", "relations": []}],
+                }
+            ],
+        }
+
+        response = self.client.put(
+            reverse("manage_uvl"),
+            invalid_model,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 409)
+        self.assertIn("invalid_projects", response.data)
+        self.assertEqual(
+            {project["name"] for project in response.data["invalid_projects"]},
+            {"Flask", "SQLAlchemy", "React", "Redux", "i18next"},
+        )
+        self.assertIsNotNone(cache.get("admin_edit_session"))
+
+    def test_manage_uvl_delete_discards_draft_session_for_admin(self):
+        self.authenticate_admin()
+        cache.set("admin_edit_session", {"uvl_content": "draft"})
+
+        response = self.client.delete(reverse("manage_uvl"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data,
+            {"message": "Borrador descartado satisfactoriamente"},
+        )
+        self.assertIsNone(cache.get("admin_edit_session"))
+
+    def test_get_invalid_projects_returns_error_without_session(self):
+        self.authenticate_admin()
+
+        response = self.client.get(reverse("invalid_projects"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("No se ha encontrado", response.data["detail"])
+
+    def test_get_invalid_projects_returns_session_projects(self):
+        self.authenticate_admin()
+        invalid_projects = [
+            {
+                "id": 1,
+                "name": "Flask",
+                "features": ["Project", "Backend"],
+            }
+        ]
+        cache.set("admin_edit_session", {"invalid_projects": invalid_projects})
+
+        response = self.client.get(reverse("invalid_projects"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, invalid_projects)
+
+    def test_draft_project_put_saves_valid_feature_fix(self):
+        self.authenticate_admin()
+        invalid_project = {
+            "id": Project.objects.get(name="Flask").id,
+            "name": "Flask",
+            "features": ["Project", "Backend"],
+        }
+        cache.set(
+            "admin_edit_session",
+            {
+                "uvl_content": self.uvl_model_test.read_text(encoding="utf-8"),
+                "invalid_projects": [invalid_project],
+                "pending_fixes": {},
+                "pending_remove": [],
+            },
+        )
+        valid_features = ["Project", "Backend", "ApiStyle", "Rest"]
+
+        response = self.client.put(
+            reverse("draft_project", args=[invalid_project["id"]]),
+            {"features": valid_features},
+            format="json",
+        )
+
+        session_data = cache.get("admin_edit_session")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data,
+            {"message": "Arreglo guardado en el borrador."},
+        )
+        self.assertEqual(
+            session_data["pending_fixes"],
+            {str(invalid_project["id"]): valid_features},
+        )
+        self.assertEqual(session_data["invalid_projects"], [])
+
+    def test_draft_project_put_rejects_invalid_feature_fix(self):
+        self.authenticate_admin()
+        invalid_project = {
+            "id": Project.objects.get(name="Flask").id,
+            "name": "Flask",
+            "features": ["Project", "Backend"],
+        }
+        cache.set(
+            "admin_edit_session",
+            {
+                "uvl_content": self.uvl_model_test.read_text(encoding="utf-8"),
+                "invalid_projects": [invalid_project],
+                "pending_fixes": {},
+                "pending_remove": [],
+            },
+        )
+
+        response = self.client.put(
+            reverse("draft_project", args=[invalid_project["id"]]),
+            {"features": ["Project", "Backend"]},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("borrador actual", response.data["detail"])
+
+    def test_draft_project_delete_marks_invalid_project_for_removal(self):
+        self.authenticate_admin()
+        invalid_project = {
+            "id": Project.objects.get(name="Flask").id,
+            "name": "Flask",
+            "features": ["Project", "Backend"],
+        }
+        cache.set(
+            "admin_edit_session",
+            {
+                "uvl_content": self.uvl_model_test.read_text(encoding="utf-8"),
+                "invalid_projects": [invalid_project],
+                "pending_fixes": {},
+                "pending_remove": [],
+            },
+        )
+
+        response = self.client.delete(
+            reverse("draft_project", args=[invalid_project["id"]])
+        )
+
+        session_data = cache.get("admin_edit_session")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data,
+            {"message": "Proyecto marcado para borrado."},
+        )
+        self.assertEqual(session_data["pending_remove"], [str(invalid_project["id"])])
+        self.assertEqual(session_data["invalid_projects"], [])
