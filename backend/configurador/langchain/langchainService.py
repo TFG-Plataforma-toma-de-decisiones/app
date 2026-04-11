@@ -40,7 +40,7 @@ class MockLangchainService:
             "features": ["Project", "Backend", "ApiStyle", "Rest", "ORM-01"],
             "confidence_level": 0.95
         }
-if settings.TESTING_ENVIRONMENT:
-    langchain_service = MockLangchainService()
-else:
-    langchain_service = LangchainService()
+def get_langchain_service():
+    if getattr(settings, 'TESTING_ENVIRONMENT', False):
+        return MockLangchainService()
+    return LangchainService()

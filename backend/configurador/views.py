@@ -7,7 +7,6 @@ from configurador.serializers import ProjectSerializer,LanguageSerializer,UserSe
 from configurador.utils import features_set_by_name
 from rest_framework import viewsets,mixins
 from rest_framework.permissions import BasePermission,SAFE_METHODS,IsAdminUser
-from configurador.langchain.langchainService import langchain_service
 from rest_framework.views import APIView
 from django.db import transaction
 from django.core.cache import cache
@@ -15,6 +14,7 @@ from django.template.loader import render_to_string
 from xhtml2pdf import pisa
 from celery.result import AsyncResult
 from .tasks import generate_swot_task,autocomplete_project_task
+
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
