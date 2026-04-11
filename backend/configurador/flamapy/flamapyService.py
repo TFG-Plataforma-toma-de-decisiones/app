@@ -55,10 +55,8 @@ class FlamapyService:
                 os.remove(temp_path)
     @classmethod
     def publish_new_model(cls, new_uvl_content):
-        uvl_path = cls._uvl_model_path()
-        config_dir = uvl_path.parent
-        config_dir.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(mode='w', dir=config_dir, suffix='.tmp', encoding='utf-8', delete=False) as tmp_file:
+        uvl_path = Path(settings.UVL_MODEL_FILE)
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.tmp', encoding='utf-8', delete=False) as tmp_file:
             tmp_file.write(new_uvl_content)
             tmp_path = tmp_file.name
         os.replace(tmp_path, uvl_path)
@@ -69,7 +67,6 @@ class FlamapyService:
         return True
     @classmethod
     def get_uvl_text(cls,node):
-        print('features\n'+get_uvl_text_rec(node,1))
         return 'features\n'+get_uvl_text_rec(node,1)
     
 def get_uvl_text_rec(node,tabs):

@@ -19,4 +19,5 @@ class LangchainService:
         return self.generate_llm_response(project_data,SWOTAnalysis,PROMPT_SWOT)
     def autocomplete_project(self,project_data):
         return self.generate_llm_response(project_data,OSSProjectDetails,PROMPT_AUTOCOMPLETE)
+
 langchain_service=LangchainService()

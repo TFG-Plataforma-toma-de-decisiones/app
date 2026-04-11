@@ -18,3 +18,5 @@ frontend/dist
 frontend/dist-ssr
 frontend/*.local
 frontend/.env
+backend/.coverage
+backend/htmlcov

@@ -149,7 +149,7 @@
           "name": "Backend Library",
           "relations": [
             {
-              "type": "MANDATORY",
+              "type": "ALTERNATIVE",
               "children": [
                 {
                   "name": "DatabaseIntegration",
@@ -172,6 +172,24 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "name": "MessageQueueSupport",
+                  "relations": [
+                    {
+                      "type": "ALTERNATIVE",
+                      "children": [
+                        {
+                          "name": "Kafka",
+                          "relations": []
+                        },
+                        {
+                          "name": "RabbitMQ",
+                          "relations": []
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -181,10 +199,14 @@
           "name": "Frontend Library",
           "relations": [
             {
-              "type": "MANDATORY",
+              "type": "ALTERNATIVE",
               "children": [
                 {
                   "name": "GlobalState-02",
+                  "relations": []
+                },
+                {
+                  "name": "i18nInternalization",
                   "relations": []
                 }
               ]

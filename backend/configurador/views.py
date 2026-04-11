@@ -118,11 +118,11 @@ def check_swot_status(request, task_id):
 
 
 @api_view(['POST'])
-def export_dafo_pdf(request):
+def export_swot_pdf(request):
     
     data = request.data
 
-    html_string = render_to_string('dafo_pdf.html', {'dafo': data})
+    html_string = render_to_string('swot_pdf.html', {'dafo': data})
 
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="analisis_dafo_tfg.pdf"'
@@ -131,8 +131,8 @@ def export_dafo_pdf(request):
     
     if pisa_status.err:
         return Response(
-            {'error': 'Hubo un error al generar el PDF de tu TFG'}, 
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            {'detail': 'Hubo un error al generar el PDF de tu DAFO'}, 
+            status=500
         )
         
     return response
@@ -213,44 +213,41 @@ class ManageUVLModelView(APIView):
             }
             cache.set('admin_edit_session', new_session, 86400)
             return Response(data={
-                "details": "There are invalid projects according to this model.",
+                "detail": "Hay projectos inválidos según el modelo.",
                 "invalid_projects": invalid_projects
             }, status=409)
     def delete(self, request):
         cache.delete('admin_edit_session')
-        return Response(data={"message": "Draft discarded successfully"}, status=200)
+        return Response(data={"message": "Borrador descartado satisfactoriamente"}, status=200)
 class DraftProject(APIView):
     permission_classes = [IsAdminUser]
     def put(self, request, id): 
         session_data = cache.get('admin_edit_session') 
         if not session_data:
-            return Response(data={"details": "No active edit session found"}, status=400)
+            return Response(data={"detail": "No se ha encontrado sesión activa de edición"}, status=400)
         pending_fixes = session_data.get('pending_fixes', {})
         invalid_projects = session_data.get('invalid_projects', [])
         project=next(filter(lambda p:p["id"] == id,invalid_projects),None)
         if not project:
-            return Response(data={"details": "Project is not marked as invalid"}, status=400)
-        try:
-            draft_service = FlamapyService.create_str(session_data.get('uvl_content'))
-        except Exception:
-            return Response(data={"details": "Session UVL is corrupted"}, status=500)
+            return Response(data={"detail": "El projecto no está marcado como inválido."}, status=400)
+        draft_service = FlamapyService.create_str(session_data.get('uvl_content'))
         features = request.data.get("features", [])
         if not draft_service.validate(features, True):
-            return Response(data={"details": "Invalid features for the current draft"}, status=400)
+            return Response(data={"detail": "Características inválidas según el borrador actual."}, status=400)
         pending_fixes[str(id)] = features
         session_data['pending_fixes'] = pending_fixes
         invalid_projects.remove(project)
         session_data['invalid_projects']=invalid_projects
         cache.set('admin_edit_session', session_data, 86400)
-        return Response(data={"message": "Project fix saved to draft"}, status=200)
+        return Response(data={"message": "Arreglo guardado en el borrador."}, status=200)
     def delete(self, request, id):
         session_data = cache.get('admin_edit_session') 
         if not session_data:
-            return Response(data={"details": "No active edit session found"}, status=400)
+            return Response(data={"detail": "No se ha encontrado sesión de edición."}, status=400)
         invalid_projects = session_data.get('invalid_projects', [])
         project=next(filter(lambda p:p["id"] == id,invalid_projects),None)
         if not project:
-            return Response(data={"details": "Project is not marked as invalid"}, status=400)
+            return Response(data={"detail": "El proyecto no está marcado como inválido."}, status=400)
         pending_remove = session_data.get('pending_remove', [])
         if str(id) not in pending_remove:
             pending_remove.append(str(id))
@@ -258,12 +255,12 @@ class DraftProject(APIView):
         invalid_projects.remove(project)
         session_data['invalid_projects']=invalid_projects
         cache.set('admin_edit_session', session_data, 86400)
-        return Response(data={"message": "Project marked for deletion"}, status=200)
+        return Response(data={"message": "Proyecto marcado para borrado."}, status=200)
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def get_invalid_projects(request):
     session_data = cache.get('admin_edit_session')
     if not session_data:
-        return Response(data={"details": "No active edit session found"}, status=400)
+        return Response(data={"detail": "No se ha encontrado sesión activa de edición."}, status=400)
     invalid_projects = session_data.get('invalid_projects', [])
     return Response(data=invalid_projects)

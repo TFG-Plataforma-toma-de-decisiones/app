@@ -1,39 +1,49 @@
 features
-	Project
+	"Project"
 		alternative
-			Backend
+			"Backend"
 				optional
 					"ORM-01"
+				optional
 					"OGMN-01"
+				optional
 					"ODMN-01"
 				mandatory
-					ApiStyle
+					"ApiStyle"
 						or
-							Rest
-							GraphQL
-			Frontend
+							"Rest"
+							"GraphQL"
+			"Frontend"
 				mandatory
-					RenderingModel
+					"RenderingModel"
 						alternative
-							SPA
-							CSR
-							SSR
-							SSG
+							"SPA"
+							"CSR"
+							"SSR"
+							"SSG"
 				optional
 					"GlobalState-01"
 			"Full Stack"
 				optional
-					AdministrationPanel
+					"AdministrationPanel"
+				optional
 					"ORM-02"
+				optional
 					"OGMN-02"
+				optional
 					"ODMN-02"
 			"Backend Library"
 				alternative
-					DatabaseIntegration
+					"DatabaseIntegration"
 						alternative
 							"ORM-03"
 							"ODM-03"
 							"OGM-03"
+					"MessageQueueSupport"
+						alternative
+							"Kafka"
+							"RabbitMQ"
 			"Frontend Library"
 				alternative
 					"GlobalState-02"
+					"i18nInternalization"
