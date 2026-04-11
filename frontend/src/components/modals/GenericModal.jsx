@@ -30,7 +30,6 @@ const TYPE_CONFIG = {
     colorClass: 'type-info', 
     colorClassClose:'type-error',
     close:"Cancelar"
-    
   }
 };
 
@@ -44,12 +43,24 @@ export default function GenericModal({onClose, config }) {
     }
     onClose(); 
   };
+  const renderMessage = () => {
+    if (Array.isArray(config.message) && config.message.length > 1) {
+      return (
+        <ul className="modal-list">
+          {config.message.map((msg, index) => (
+            <li key={index} className="modal-list-item">{msg}</li>
+          ))}
+        </ul>
+      );
+    }
+    const text = Array.isArray(config.message) ? config.message[0] : config.message;
+    return <p className="modal-text">{text}</p>;
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-box" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          {/* Combinamos modal-title con la clase de color específica */}
           <h2 className={`modal-title ${typeData.colorClass}`}>
             <span className="modal-icon-container">{typeData.icon}</span>
             {config.title}
@@ -60,9 +71,7 @@ export default function GenericModal({onClose, config }) {
         </div>
 
         <div className="modal-body">
-          <p className="modal-text">
-            {config.message }
-          </p>
+          {renderMessage()}
         </div>
 
         <div className="modal-footer">

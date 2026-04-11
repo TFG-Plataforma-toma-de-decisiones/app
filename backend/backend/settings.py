@@ -62,7 +62,8 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'EXCEPTION_HANDLER': 'backend.handlers.custom_exception_handler'
 }
 AUTH_USER_MODEL="configurador.User"
 MIDDLEWARE = [
@@ -150,3 +151,4 @@ CELERY_BROKER_URL = env('REDIS_URL', default="redis://127.0.0.1:6379/1")
 CELERY_RESULT_BACKEND = env('REDIS_URL', default="redis://127.0.0.1:6379/1")
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+UVL_MODEL_FILE = BASE_DIR / "configurador" / "model.uvl"

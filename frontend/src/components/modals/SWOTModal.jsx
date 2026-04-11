@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './SWOTModal.css';
 import { useFeedback } from '../../hooks/useFeedback';
+import apiClient from '../../services/api';
 const SWOTModal = ({ swot, onClose }) => {
     const baseURL=import.meta.env.VITE_API_URL
-    // Estado para manejar el texto y deshabilitar el botón mientras se genera
     const [isDownloading, setIsDownloading] = useState(false);
     const {showMessage} =useFeedback()
     if (!swot) return null;
@@ -12,9 +11,7 @@ const SWOTModal = ({ swot, onClose }) => {
     const handleDownloadPDF = async () => {
         setIsDownloading(true);
         try {
-            // Reemplaza la URL por la ruta real de tu backend si es diferente
-            const response = await axios.post(`${baseURL}/exportar-dafo`, swot, {
-                // ¡SÚPER IMPORTANTE! Sin esto, el PDF se descarga corrupto
+            const response = await apiClient.post(`${baseURL}/exportar-dafo`, swot, {
                 responseType: 'blob', 
             });
 

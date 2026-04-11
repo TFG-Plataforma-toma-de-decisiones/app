@@ -1,0 +1,197 @@
+{
+  "name": "Project",
+  "relations": [
+    {
+      "type": "ALTERNATIVE",
+      "children": [
+        {
+          "name": "Backend",
+          "relations": [
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "ORM-01",
+                  "relations": []
+                }
+              ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "OGMN-01",
+                  "relations": []
+                }
+              ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "ODMN-01",
+                  "relations": []
+                }
+              ]
+            },
+            {
+              "type": "MANDATORY",
+              "children": [
+                {
+                  "name": "ApiStyle",
+                  "relations": [
+                    {
+                      "type": "OR",
+                      "children": [
+                        {
+                          "name": "Rest",
+                          "relations": []
+                        },
+                        {
+                          "name": "GraphQL",
+                          "relations": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Frontend",
+          "relations": [
+            {
+              "type": "MANDATORY",
+              "children": [
+                {
+                  "name": "RenderingModel",
+                  "relations": [
+                    {
+                      "type": "ALTERNATIVE",
+                      "children": [
+                        {
+                          "name": "SPA",
+                          "relations": []
+                        },
+                        {
+                          "name": "CSR",
+                          "relations": []
+                        },
+                        {
+                          "name": "SSR",
+                          "relations": []
+                        },
+                        {
+                          "name": "SSG",
+                          "relations": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "GlobalState-01",
+                  "relations": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Full Stack",
+          "relations": [
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "AdministrationPanel",
+                  "relations": []
+                }
+              ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "ORM-02",
+                  "relations": []
+                }
+              ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "OGMN-02",
+                  "relations": []
+                }
+              ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "ODMN-02",
+                  "relations": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Backend Library",
+          "relations": [
+            {
+              "type": "MANDATORY",
+              "children": [
+                {
+                  "name": "DatabaseIntegration",
+                  "relations": [
+                    {
+                      "type": "ALTERNATIVE",
+                      "children": [
+                        {
+                          "name": "ORM-03",
+                          "relations": []
+                        },
+                        {
+                          "name": "ODM-03",
+                          "relations": []
+                        },
+                        {
+                          "name": "OGM-03",
+                          "relations": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Frontend Library",
+          "relations": [
+            {
+              "type": "MANDATORY",
+              "children": [
+                {
+                  "name": "GlobalState-02",
+                  "relations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

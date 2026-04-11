@@ -13,9 +13,8 @@ class FlamapyService:
     @classmethod
     def get_instance(cls):
         version=cache.get('uvl_model_version',1)
-        if cls._version<version:
-            base_dir = Path(settings.BASE_DIR)
-            uvl_path = base_dir / "configurador" / "model.uvl"
+        uvl_path = Path(settings.UVL_MODEL_FILE)
+        if cls._version < version:
             cls._instance = cls(uvl_path)
             cls._version=version
         return cls._instance
@@ -56,9 +55,8 @@ class FlamapyService:
                 os.remove(temp_path)
     @classmethod
     def publish_new_model(cls, new_uvl_content):
-        base_dir = Path(settings.BASE_DIR)
-        config_dir = base_dir / "configurador"
-        uvl_path = config_dir / "model.uvl"
+        uvl_path = cls._uvl_model_path()
+        config_dir = uvl_path.parent
         config_dir.mkdir(parents=True, exist_ok=True)
         with tempfile.NamedTemporaryFile(mode='w', dir=config_dir, suffix='.tmp', encoding='utf-8', delete=False) as tmp_file:
             tmp_file.write(new_uvl_content)

@@ -1,4 +1,21 @@
 /* --- Estructura Base --- */
+/* Añadimos .modal-box delante de todo para ganar prioridad (especificidad) absoluta */
+
+.modal-box .modal-body {
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem !important;
+}
+
+.modal-box .modal-list {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding-left: 1.5rem !important;
+}
+
+/* Forzamos a que el primer <li> no tenga margen superior pase lo que pase */
+.modal-box .modal-list-item:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -16,8 +33,8 @@
   position: relative;
   width: 90%;
   max-width: 450px;
-  background-color: var(--color-background-paper);
-  border: 1px solid var(--color-divider);
+  background-color: var(--color-background-paper, #ffffff);
+  border: 1px solid var(--color-divider, #e0e0e0);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   outline: none;
@@ -28,7 +45,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider, #e0e0e0);
 }
 
 .modal-title {
@@ -38,46 +55,100 @@
   font-weight: 600;
   margin: 0;
   font-size: 1.25rem;
-  /* IMPORTANTE: No definir color aquí para que lo herede de la clase de tipo */
 }
 
 .modal-icon-container {
   display: flex;
   font-size: 1.6rem;
-  color: inherit; /* Esto obliga al icono a usar el color del h2 (.type-XXX) */
+  color: inherit;
 }
 
-/* --- Clases de Tipo (Colores de Texto e Icono) --- */
-.type-error { color: var(--color-error) !important; }
-.type-success { color: var(--color-success) !important; }
-.type-warning { color: var(--color-warning) !important; }
-.type-info { color: var(--color-info) !important; }
+/* --- Cuerpo del Modal y Listas (CORREGIDO) --- */
+.modal-body {
+  /* Espaciado equilibrado: 1rem arriba, 1.5rem resto de lados */
+  padding: 1rem 1.5rem 1.5rem 1.5rem; 
+}
+
+.modal-list {
+  /* RESET agresivo para matar cualquier estilo global invasivo */
+  margin: 0 !important; 
+  padding: 0 0 0 1.5rem !important; /* Arriba 0, Derecha 0, Abajo 0, Izquierda 1.5rem */
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text-primary, inherit);
+}
+
+.modal-list-item {
+  /* Forzamos margin-top a 0 para que no empuje el texto hacia abajo */
+  margin: 0 0 0.5rem 0 !important; 
+  padding: 0 !important;
+}
+
+.modal-list-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.modal-text {
+  margin: 0 !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text-primary, inherit);
+}
+
+/* --- Footer --- */
+.modal-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-divider, #e0e0e0);
+}
 
 /* --- Botones --- */
+.modal-close-icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  color: var(--color-text-secondary, #666);
+  transition: color 0.2s;
+}
+
+.modal-close-icon-btn:hover {
+  color: var(--color-text-primary, #000);
+}
+
 .modal-btn-confirm {
-  color: #ffffff; /* Texto blanco por defecto */
+  color: #ffffff;
   text-transform: none;
   font-weight: 600;
   padding: 8px 24px;
-  border-radius: var(--border-radius-button);
+  border-radius: var(--border-radius-button, 8px);
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 0.2s;
-}
-
-/* Clases de Fondo para Botones */
-.type-error-bg { background-color: var(--color-error); }
-.type-success-bg { background-color: var(--color-success); }
-.type-info-bg { background-color: var(--color-info); }
-.type-warning-bg { 
-  background-color: var(--color-warning); 
-  color: #000000; /* Texto negro para legibilidad sobre amarillo */
 }
 
 .modal-btn-confirm:hover {
   filter: brightness(1.1);
   transform: translateY(-1px);
 }
+
+/* --- Clases de Tipo (Colores de Texto e Icono) --- */
+.type-error { color: var(--color-error, #f44336) !important; }
+.type-success { color: var(--color-success, #4caf50) !important; }
+.type-warning { color: var(--color-warning, #ff9800) !important; }
+.type-info { color: var(--color-info, #2196f3) !important; }
+
+/* --- Clases de Fondo para Botones --- */
+.type-error-bg { background-color: var(--color-error, #f44336); }
+.type-success-bg { background-color: var(--color-success, #4caf50); }
+.type-info-bg { background-color: var(--color-info, #2196f3); }
+.type-warning-bg { 
+  background-color: var(--color-warning, #ff9800); 
+  color: #000000; 
+}
+
 /* --- Animación para el Loader --- */
 @keyframes spin {
   from { transform: rotate(0deg); }
