@@ -6,21 +6,20 @@
     cy.intercept('POST', '**/swot').as('getSwot')
     cy.intercept('POST', '**/exportar-dafo').as('downloadSwot')
     cy.visit('/');
-    cy.get('a[href="/recomendador"]').click();
+    cy.get('[data-cy="nav-recommender"]').click();
     cy.wait('@getModel');
-    cy.contains('Backend').should('be.visible');
-    cy.contains('.feature-name', 'Backend').click();
-    cy.contains('.feature-name', 'ORM-01').click();
-    cy.contains('.feature-name', 'Rest').click();
-    cy.contains('.feature-name', 'Frontend').click();
-    cy.contains('.feature-name', 'SPA').click();
-    cy.contains('.feature-name', 'GlobalState-01').click();
+    cy.get('[data-cy="project-type-Backend"]').should('be.visible').click();
+    cy.get('[data-cy="feature-ORM-01"]').click();
+    cy.get('[data-cy="feature-Rest"]').click();
+    cy.get('[data-cy="project-type-Frontend"]').click();
+    cy.get('[data-cy="feature-SPA"]').click();
+    cy.get('[data-cy="feature-GlobalState-01"]').click();
     cy.get('[data-cy="submit-recommendation"]').click();
     cy.wait('@getRecomendaciones');
-    cy.get('[data-cy="Flask"]').click();
-    cy.get('[data-cy="React"]').click();
-    cy.get('button.swot-button').click();
+    cy.get('[data-cy="recommendation-Flask"]').click();
+    cy.get('[data-cy="recommendation-React"]').click();
+    cy.get('[data-cy="generate-swot"]').click();
     cy.wait('@getSwot');
-    cy.get('button.download-pdf-button').click();
+    cy.get('[data-cy="download-swot-pdf"]').click();
     cy.wait('@downloadSwot');
  });

@@ -67,6 +67,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
               const active = isMandatory ? true : isActive(index, child);
               const hasChildren = hasRelations(child);
               const id = `control-${child.name.replace(/\s+/g, '-')}`;
+              const featureDataCy = `feature-${child.name.replace(/\s+/g, '-')}`;
               let control = null;
 
               if (isMandatory) {
@@ -109,7 +110,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
 
               return (
                 <div key={child.name} className={`feature-card ${active ? 'active' : ''} ${isMandatory ? 'mandatory' : ''}`}>
-                  <label className="feature-header">
+                  <label className="feature-header" data-cy={featureDataCy}>
                     {control}
                     <span className="feature-name">{child.name}</span>
                   </label>

@@ -44,6 +44,7 @@ const SWOTModal = ({ swot, onClose }) => {
                     <h2>Análisis DAFO</h2>
                     <button 
                         className="download-pdf-button" 
+                        data-cy="download-swot-pdf"
                         onClick={handleDownloadPDF} 
                         disabled={isDownloading}
                     >

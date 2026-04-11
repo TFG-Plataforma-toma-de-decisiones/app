@@ -29,6 +29,7 @@ export default function Login() {
                 </div>
                 <input
                     className="form-input"
+                    data-cy="login-username"
                     placeholder="Usuario"
                     type="text"
                     value={form.username}
@@ -36,6 +37,7 @@ export default function Login() {
                 />
                 <input
                     className="form-input"
+                    data-cy="login-password"
                     placeholder="Contraseña"
                     type="password"
                     value={form.password}
@@ -44,6 +46,7 @@ export default function Login() {
                 <button
                     type="submit"
                     className="form-button"
+                    data-cy="login-submit"
                 >
                     Acceder
                 </button>

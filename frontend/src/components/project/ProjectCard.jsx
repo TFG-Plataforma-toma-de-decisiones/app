@@ -47,12 +47,12 @@ function ProjectCard({ project,setProjects,onClick,deleteEndpoint }) {
 
   return (
     <>
-      <div className="project-card" onClick={onClick}>
+      <div className="project-card" onClick={onClick} data-cy={`project-card-${project.name}`}>
         <div className="project-card-content">
           <div className="project-card-header">
             <h2 className="project-title">{project.name}</h2>
             {isAdmin && (
-              <button onClick={handleDelete} className="delete-project-btn">
+              <button onClick={handleDelete} className="delete-project-btn" data-cy={`delete-project-${project.name}`}>
                 <FaTrash />
               </button>
             )}

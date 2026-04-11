@@ -19,18 +19,18 @@ function Navbar() {
               Inicio
             </NavLink>
 
-            <NavLink to="/recomendador" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
+            <NavLink to="/recomendador" data-cy="nav-recommender" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
               Recomendador
             </NavLink>
             {isAdmin && <NavLink to="/uvl-model" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
               Modelo uvl
             </NavLink>}
             {isAuthenticated ? (
-              <button className="action-button" onClick={logout}>
+              <button className="action-button" onClick={logout} data-cy="nav-logout">
                 Log out
               </button>
             ) : (
-              <NavLink to="/login" className="action-button">
+              <NavLink to="/login" className="action-button" data-cy="nav-login">
                 Acceder
               </NavLink>
             )}

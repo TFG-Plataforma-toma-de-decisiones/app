@@ -72,10 +72,11 @@ export default function Configurator() {
           const type=tree.type
           const node=getNode(type)
           const active = node!=null && isActive(index,node);
+          const projectTypeDataCy = `project-type-${type.replace(/\s+/g, '-')}`;
 
           return (
             <div key={type} className={`feature-card ${active ? 'active' : ''}`}>
-              <label className="feature-header root-header">
+              <label className="feature-header root-header" data-cy={projectTypeDataCy}>
                 <input
                   type="checkbox"
                   id={type}
@@ -120,7 +121,7 @@ export default function Configurator() {
         <div className="type-container">
             <h2>{type}</h2>
             {recommendations.map(recommendation=>(
-              <div className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)} data-cy={recommendation.project}>
+              <div className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)} data-cy={`recommendation-${recommendation.project}`}>
                 <h2>{recommendation.project}</h2>
                 <div className="libraries-container">
                   {recommendation.libraries.map(l=>(
@@ -142,6 +143,7 @@ export default function Configurator() {
       <div className="dafo-action-container" style={{ marginTop: '20px', textAlign: 'center' }}>
       <button 
             className="swot-button" 
+            data-cy="generate-swot"
             onClick={getDafo}
             disabled={Object.keys(selectedRecommendations).length === 0}
           >

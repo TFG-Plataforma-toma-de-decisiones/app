@@ -90,6 +90,7 @@ export default function Project() {
             <div className="input-wrapper">
               <input 
                 className="input-text" 
+                data-cy={`project-${property}-input`}
                 value={getProperty(index, property) || ""} 
                 name={property}
                 onChange={(e) => setProperty(index, property, e.target.value)} 
@@ -98,7 +99,7 @@ export default function Project() {
               />
               
               {property === 'name' && getProperty(index, 'name') && isAdmin && (
-                <button className="autocompletar-btn" onClick={handleAutocomplete}>
+                <button className="autocompletar-btn" onClick={handleAutocomplete} data-cy="autocomplete-project">
                   <BsMagic className="btn-icon" />
                   <span>Autocompletar</span>
                 </button>
@@ -135,7 +136,7 @@ export default function Project() {
         
         {isAdmin && (
           <div className="submit-wrapper">
-            <button className="submit-button" onClick={handleSubmit}>Guardar Proyecto</button>
+            <button className="submit-button" onClick={handleSubmit} data-cy="save-project">Guardar Proyecto</button>
           </div>
         )}
       </div>

@@ -27,7 +27,7 @@ function Home() {
           </p>
         </div>
         {isAdmin && (
-          <button className="create-project-btn" onClick={()=>navigate("projects/new")}>
+          <button className="create-project-btn" onClick={()=>navigate("projects/new")} data-cy="create-project">
             Crear Proyecto
           </button>
         )}
@@ -36,7 +36,7 @@ function Home() {
       {/* Grid de Proyectos */}
       <div className="home-grid">
         {projects.map((proj) => (
-          <div key={proj.id} className="home-grid-item">
+          <div key={proj.id} className="home-grid-item" >
             <ProjectCard project={proj} setProjects={setProjects} onClick={() => navigate(`/projects/${proj.id}`)} deleteEndpoint={`projects/${proj.id}`}/>
           </div>
         ))}
