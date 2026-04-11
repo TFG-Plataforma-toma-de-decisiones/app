@@ -146,15 +146,13 @@ class RecommendationViewTests(APIClientMixin, BaseTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
+        self.assertIn(
+            {
+                "type": "Backend",
+                "project": "Flask",
+                "libraries": ["SQLAlchemy"],
+            },
             response.data,
-            [
-                {
-                    "type": "Backend",
-                    "project": "Flask",
-                    "libraries": ["SQLAlchemy"],
-                }
-            ],
         )
 
 
@@ -356,7 +354,7 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         self.assertIn("invalid_projects", response.data)
         self.assertEqual(
             {project["name"] for project in response.data["invalid_projects"]},
-            {"Flask", "SQLAlchemy", "React", "Redux", "i18next"},
+            {"Flask", "SQLAlchemy", "React", "Redux", "i18next", "Django", "Next.js"},
         )
         self.assertIsNotNone(cache.get("admin_edit_session"))
 

@@ -42,3 +42,7 @@ class BaseTestCase(BaseUVLTestCase):
         self.testing_override = override_settings(TESTING_ENVIRONMENT=True)
         self.testing_override.enable()
         call_command("loaddata", str(TEST_DATA_FIXTURE), verbosity=0)
+
+    def tearDown(self):
+        self.testing_override.disable()
+        super().tearDown()

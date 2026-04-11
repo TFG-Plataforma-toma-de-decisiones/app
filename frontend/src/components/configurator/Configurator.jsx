@@ -115,12 +115,12 @@ export default function Configurator() {
         <label className="label-comments">Comentarios adicionales:</label>
         <input type="text" onChange={(e)=>setComments(e.target.value)} value={comments} className="input-text"/>
       </div>
-      <button className="submit-button" onClick={handleSubmit}>Obtener recomendación</button>
+      <button className="submit-button" onClick={handleSubmit} data-cy="submit-recommendation">Obtener recomendación</button>
       {Object.entries(groupedRecommendations).map(([type,recommendations])=>(
         <div className="type-container">
             <h2>{type}</h2>
             {recommendations.map(recommendation=>(
-              <div className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)}>
+              <div className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)} data-cy={recommendation.project}>
                 <h2>{recommendation.project}</h2>
                 <div className="libraries-container">
                   {recommendation.libraries.map(l=>(

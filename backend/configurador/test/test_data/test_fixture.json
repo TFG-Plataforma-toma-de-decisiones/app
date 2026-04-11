@@ -85,5 +85,36 @@
         "i18nInternalization"
       ]
     }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 6,
+    "fields": {
+      "name": "Django",
+      "description": "Framework backend para Python con ORM integrado.",
+      "language": 1,
+      "features": [
+        "Project",
+        "Backend",
+        "ApiStyle",
+        "Rest",
+        "ORM-01"
+      ]
+    }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 7,
+    "fields": {
+      "name": "Next.js",
+      "description": "Framework full stack para aplicaciones React.",
+      "language": 2,
+      "features": [
+        "Project",
+        "Full Stack",
+        "AdministrationPanel",
+        "ORM-02"
+      ]
+    }
   }
 ]

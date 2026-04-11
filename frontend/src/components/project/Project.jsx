@@ -91,6 +91,7 @@ export default function Project() {
               <input 
                 className="input-text" 
                 value={getProperty(index, property) || ""} 
+                name={property}
                 onChange={(e) => setProperty(index, property, e.target.value)} 
                 disabled={!isAdmin} 
                 placeholder={`Escribe el ${property}...`}
