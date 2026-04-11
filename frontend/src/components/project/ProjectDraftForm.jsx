@@ -66,7 +66,7 @@ export default function ProjectDraftForm({ project, uvlModel, onSave, isLoading 
       <FeatureNode node={uvlModel} readOnly={false} />
 
       <div className="submit-wrapper">
-        <button className="submit-button" onClick={() => onSave(trees[0])} disabled={isLoading}>
+        <button className="submit-button" onClick={() => onSave(trees[0])} disabled={isLoading} data-cy="save-draft-project">
           {isLoading ? 'Guardando...' : 'Guardar features'}
         </button>
       </div>

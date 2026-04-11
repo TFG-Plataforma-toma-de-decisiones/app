@@ -2,7 +2,7 @@ from rest_framework.views import exception_handler
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
-
+from django.conf import settings
 def _handle_validation_error(exc, response):
     errores_formateados = []
     
@@ -41,6 +41,8 @@ def _handle_standard_drf_error(exc, response):
 def custom_exception_handler(exc, context):
     response = exception_handler(exc, context)
     if response is None:
+        if settings.DEBUG:
+            raise exc
         return _handle_generic_error(exc)
     if isinstance(exc, ValidationError):
         return _handle_validation_error(exc, response)

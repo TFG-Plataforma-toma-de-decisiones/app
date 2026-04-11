@@ -70,7 +70,7 @@ function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
         </select>
 
         <div className="node-actions relation-actions">
-          <button className="icon-btn add-btn" onClick={handleAddChild} title="Anadir hijo">
+          <button className="icon-btn add-btn" onClick={handleAddChild} title="Anadir hijo" data-cy={`add-feature-${path}`}>
             <FaPlus />
           </button>
           <button className="icon-btn delete-btn" onClick={onDelete} title="Borrar relacion">
@@ -151,7 +151,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
 
         <div className="node-actions">
           {depth > 0 && (
-            <button className="icon-btn add-btn" onClick={handleAddRelation} title="Anadir relacion">
+            <button className="icon-btn add-btn" onClick={handleAddRelation} title="Anadir relacion" data-cy={`add-relation-${path}`}>
               <FaPlus />
             </button>
           )}

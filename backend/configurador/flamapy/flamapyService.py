@@ -56,7 +56,7 @@ class FlamapyService:
     @classmethod
     def publish_new_model(cls, new_uvl_content):
         uvl_path = Path(settings.UVL_MODEL_FILE)
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.tmp', encoding='utf-8', delete=False) as tmp_file:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.tmp', encoding='utf-8', delete=False,dir=uvl_path.parent) as tmp_file:
             tmp_file.write(new_uvl_content)
             tmp_path = tmp_file.name
         os.replace(tmp_path, uvl_path)
