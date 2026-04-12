@@ -38,12 +38,17 @@ export function removeFeatureSubtree(features, feature) {
 export function findRootFeatureNode(rootNode, featureName) {
   return getRelationChildren(rootNode).find((feature) => feature.name === featureName);
 }
-export function getNodeMap(node,acum){
-  acum.set(node.name,node)
-  for(const relation of node.relations){
-    for(const child of relation.children){
-      getNodeMap(child,acum)
+export function getNodeMap(node, acum = new Map(), parent = null) {
+  acum.set(node.name, {
+    node,
+    parent: parent?.name ?? null,
+  });
+
+  for (const relation of node.relations ?? []) {
+    for (const child of relation.children ?? []) {
+      getNodeMap(child, acum, node);
     }
   }
-  return acum
+
+  return acum;
 }
