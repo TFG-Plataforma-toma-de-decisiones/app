@@ -24,8 +24,7 @@ class Command(BaseCommand):
         # 3. Crear el superusuario directamente con el ORM (Ultrarrápido y sin errores de inputs)
         self.stdout.write("3. Creando usuario admin...")
         User = get_user_model()
-        if not User.objects.filter(username='admin').exists():
-            User.objects.create_superuser('admin', 'admin@admin.com', 'admin')
+        User.objects.create_superuser('admin', 'admin@admin.com', 'admin')
 
         # 4. Actualizar la caché de Redis
         self.stdout.write("4. Actualizando caché de Flamapy...")

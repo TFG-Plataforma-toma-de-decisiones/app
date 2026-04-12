@@ -1,8 +1,0 @@
-services:
-  web:
-    environment:
-      TESTING: "True"
-
-  celery_worker:
-    environment:
-      TESTING: "True"
