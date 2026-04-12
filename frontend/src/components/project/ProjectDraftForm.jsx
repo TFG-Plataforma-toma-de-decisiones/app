@@ -54,6 +54,7 @@ export default function ProjectDraftForm({ project, uvlModel, onSave, isLoading 
           <div className="input-wrapper">
             <input
               className="input-text"
+              data-cy="draft-project-name-input"
               value={getProperty(index, "name") || ""}
               disabled
             />

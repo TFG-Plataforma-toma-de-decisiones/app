@@ -54,11 +54,12 @@ function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
   };
 
   return (
-    <div className="relation-group">
+    <div className="relation-group" data-cy={`relation-${path}`}>
       <div className="relation-header">
         <span className="relation-badge">Relacion</span>
         <select
           className="node-type-select"
+          data-cy={`relation-type-${path}`}
           value={relation.type}
           onChange={handleTypeChange}
         >
@@ -130,8 +131,8 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   };
 
   return (
-    <div className="editable-node">
-      <div className="node-header">
+    <div className="editable-node" data-cy={`feature-node-${path}`}>
+      <div className="node-header" data-cy={`feature-node-header-${path}`}>
         {hasRelations ? (
           <button className="icon-btn" onClick={() => setIsExpanded(!isExpanded)} title="Expandir o contraer">
             {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
@@ -143,6 +144,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
         <input
           type="text"
           className="node-name-input"
+          data-cy={`feature-name-${path}`}
           value={node.name ?? ""}
           onChange={handleNameChange}
           disabled={isProtectedNode}
@@ -217,6 +219,7 @@ export default function UVLTreeEditor() {
       </div>
       <button
         className="submit-button"
+        data-cy="save-uvl-model"
         onClick={handleSave}
       >
         {'Guardar Modelo'}

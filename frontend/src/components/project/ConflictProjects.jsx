@@ -81,10 +81,10 @@ export default function ConflictProjects() {
           </p>
         </div>
         <div className="conflicts-actions">
-          <button className="secondary-button" onClick={handleDiscard} disabled={isLoading}>
+          <button className="secondary-button" onClick={handleDiscard} disabled={isLoading} data-cy="discard-draft">
             Descartar borrador
           </button>
-          <button className="submit-button" onClick={handleConfirm} disabled={invalidProjects.length>0 || isLoading}>
+          <button className="submit-button" onClick={handleConfirm} disabled={invalidProjects.length>0 || isLoading} data-cy="confirm-draft">
             Confirmar cambios
           </button>
         </div>
