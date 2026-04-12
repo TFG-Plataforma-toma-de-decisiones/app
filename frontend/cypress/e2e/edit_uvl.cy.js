@@ -1,8 +1,6 @@
 describe('Edit uvl tests', () => {
   beforeEach(() => {
-    cy.task('resetDjangoDB');
-    cy.task('updateFlamapyCache');
-    cy.task('restoreUvlFile');
+    cy.task('setupE2eEnvironment');
   });
     it('edit_uvl', function() {
         

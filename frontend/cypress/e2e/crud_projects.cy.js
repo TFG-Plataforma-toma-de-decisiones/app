@@ -1,8 +1,6 @@
 describe('CRUD projects tests', () => {
   beforeEach(() => {
-    cy.task('resetDjangoDB');
-    cy.task('updateFlamapyCache');
-    cy.task('restoreUvlFile');
+    cy.task('setupE2eEnvironment');
   });
   it('test_cr_project', function() {
     cy.visit('/')

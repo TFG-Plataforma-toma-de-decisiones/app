@@ -1,8 +1,6 @@
 describe('SWOT tests', () => {
   beforeEach(() => {
-    cy.task('resetDjangoDB');
-    cy.task('updateFlamapyCache');
-    cy.task('restoreUvlFile');
+    cy.task('setupE2eEnvironment');
   });
  it('test_dafo', function() {
     
