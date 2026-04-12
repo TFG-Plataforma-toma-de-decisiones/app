@@ -1,4 +1,9 @@
- const apiUrl = Cypress.env('apiUrl');
+describe('SWOT tests', () => {
+  beforeEach(() => {
+    cy.task('resetDjangoDB');
+    cy.task('updateFlamapyCache');
+    cy.task('restoreUvlFile');
+  });
  it('test_dafo', function() {
     
     cy.intercept('GET', '**/model').as('getModel')
@@ -23,3 +28,4 @@
     cy.get('[data-cy="download-swot-pdf"]').click();
     cy.wait('@downloadSwot');
  });
+});

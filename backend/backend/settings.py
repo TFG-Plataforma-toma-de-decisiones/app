@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+import shutil
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -153,3 +154,5 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 TESTING_ENVIRONMENT=env.bool("TESTING",False)
 UVL_MODEL_FILE = BASE_DIR / "configurador" / "model.uvl" if not TESTING_ENVIRONMENT else BASE_DIR/"configurador"/"test"/"test_data"/"test_model.uvl"
+if TESTING_ENVIRONMENT:
+    shutil.copy(UVL_MODEL_FILE.parent/"backup_test_model.uvl",UVL_MODEL_FILE)
