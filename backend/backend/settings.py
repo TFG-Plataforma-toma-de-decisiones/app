@@ -155,4 +155,4 @@ CELERY_TASK_SERIALIZER = 'json'
 TESTING_ENVIRONMENT=env.bool("TESTING",False)
 UVL_MODEL_FILE = BASE_DIR / "configurador" / "model.uvl" if not TESTING_ENVIRONMENT else BASE_DIR/"configurador"/"test"/"test_data"/"test_model.uvl"
 if TESTING_ENVIRONMENT:
-    shutil.copy(UVL_MODEL_FILE.parent/"backup_test_model.uvl",UVL_MODEL_FILE)
+    shutil.copy(UVL_MODEL_FILE.parent/"test_model_backup.uvl",UVL_MODEL_FILE)

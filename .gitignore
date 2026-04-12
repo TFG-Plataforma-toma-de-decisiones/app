@@ -21,4 +21,4 @@ frontend/.env
 backend/.coverage
 backend/htmlcov
 frontend/cypress/downloads/*
-backend/test/test_data/test_model.uvl
+backend/configurador/test/test_data/test_model.uvl
