@@ -1,106 +1,289 @@
 features
-	Project
+	"Project"
 		alternative
-			Backend
+			"Backend"
 				mandatory
-					APIStyle
+					"APIStyle"
 						or
-							REST
-							GraphQL
-							RPC
-							gRPC
-					ExecutionModel
+							"REST"
+							"GraphQL"
+							"RPC"
+							"gRPC"
+				mandatory
+					"License-1"
 						alternative
-							Synchronous
-							EventDriven
-							Reactive
-							Batch
-					Persistence
-						alternative
-							Stateless
-							Stateful
-					License
-						alternative
-							MIT
-							GPL
-							Apache
-							BSD
+							"MIT-1"
+							"GPL-1"
+							"Apache-1"
+							"BSD-1"
 				optional
-					AutomaticAuthentication
+					"AuthenticationSupport"
 						optional
-							JWT
-							OAuth2
-							Basic
+							"JWT"
+						optional
+							"OAuth2"
+						optional
+							"Basic"
+						optional
+							"SessionAuth"
+				optional
+					"AuthenticationAbstractions"
+						optional
+							"BuiltInAuthentication"
+						optional
+							"BuiltInJWTAuthentication"
+				optional
+					"Authorization"
+						optional
+							"Roles"
+						optional
+							"Permissions"
+				optional
+					"DependencyInjection"
+				optional
+					"ValidationSupport"
+						optional
+							"RequestValidation"
+						optional
+							"SchemaValidation"
+				optional
 					"DatabaseIntegration-1"
 						optional
 							"ORM-1"
-							"ODMN-1"
-							"OGMN-1"
+						optional
+							"ODM-1"
+						optional
+							"OGM-1"
+						optional
+							"Migrations-1"
+				optional
 					"MessageQueueSupport-1"
 						optional
 							"Kafka-1"
+						optional
 							"RabbitMQ-1"
-			Frontend
+				optional
+					"CacheSupport-1"
+						optional
+							"Redis-1"
+						optional
+							"Memcached-1"
+				optional
+					"APIDocumentationSupport"
+						optional
+							"OpenAPIGeneration"
+						optional
+							"SwaggerUI"
+				optional
+					"GenericCRUDAbstractions"
+				optional
+					"RealtimeCommunicationSupport"
+						optional
+							"WebSockets"
+			"Frontend"
 				mandatory
-					Platform
+					"Platform"
 						alternative
-							Web
-							Mobile
+							"Web"
+							"Mobile"
 							"Web+Mobile"
-					RenderingModel
+				mandatory
+					"ApplicationArchitecture"
 						alternative
-							SPA
-							CSR
-							SSR
-							SSG
+							"SPA"
+							"MPA"
+				mandatory
+					"RenderingModel"
+						alternative
+							"CSR"
+							"SSR"
+							"SSG"
+				mandatory
 					"License-2"
 						alternative
 							"MIT-2"
 							"GPL-2"
 							"Apache-2"
 							"BSD-2"
-					Styling
+				mandatory
+					"Styling"
 						or
-							CSS
-							CSSModules
-							CSSinJS
-							FrameworkCSS
+							"CSS"
+							"CSSModules"
+							"CSSinJS"
+							"UtilityFirstCSS"
+							"ComponentLibraryStyling"
 				optional
-					"GlobalState-01"
-					i8nInternalization
+					"RoutingSupport"
+						optional
+							"ClientSideRouting"
+						optional
+							"FileBasedRouting"
+				optional
+					"FormSupport"
+						optional
+							"FormStateManagement"
+						optional
+							"Validation"
+				optional
+					"DataFetchingSupport"
+						optional
+							"ClientFetching"
+						optional
+							"ServerFetching"
+						optional
+							"QueryCaching"
+				optional
+					"TypeScriptSupport"
+				optional
+					"GlobalState-2"
+				optional
+					"i18nInternationalization-2"
+				optional
+					"PWAFeatures"
+						optional
+							"OfflineSupport"
+						optional
+							"InstallableApp"
+				optional
+					"SEOFeatures"
+						optional
+							"MetadataManagement"
+						optional
+							"StructuredDataSupport"
+						optional
+							"SitemapSupport"
+						optional
+							"RobotsTxtSupport"
 			"Full Stack"
 				mandatory
-					"RenderingModel-2"
+					"RenderingModel-3"
+						or
+							"CSR-3"
+							"SSR-3"
+							"SSG-3"
+				mandatory
+					"License-3"
 						alternative
-							"SSR-2"
-							"SSG-2"
-							"CSR-2"
-					"DatabaseIntegration-2"
-						optional
-							"ORM-2"
-							"ODM-2"
-							"OGM-2"
+							"MIT-3"
+							"GPL-3"
+							"Apache-3"
+							"BSD-3"
 				optional
-					AdmninPanel
-					AuthenticationBuiltIn
+					"BuiltInAPIRoutes"
+				optional
+					"FullStackRoutingSupport"
+						optional
+							"FileBasedRouting-3"
+						optional
+							"NestedRouting-3"
+				optional
+					"DataLoadingAbstractions"
+						optional
+							"ServerSideDataFetching-3"
+						optional
+							"ServerActions-3"
+				optional
+					"FullStackFormAbstractions"
+				optional
+					"DatabaseIntegration-3"
+						optional
+							"ORM-3"
+						optional
+							"ODM-3"
+						optional
+							"OGM-3"
+						optional
+							"Migrations-3"
+				optional
+					"AuthenticationBuiltIn"
+				optional
+					"AdminPanel"
+				optional
+					"CacheSupport-3"
+						optional
+							"Redis-3"
+						optional
+							"Memcached-3"
+				optional
+					"ServerClientIntegration"
 			"Backend Library"
 				alternative
-					DatabaseIntegration
+					"DatabaseIntegration-4"
 						alternative
-							ORM
-							ODM
-							OGM
+							"ORM-4"
+							"ODM-4"
+							"OGM-4"
+							"QueryBuilder-4"
 						optional
-							migrations
-					MessageQueueSupport
+							"Migrations-4"
+					"AuthenticationSupport-4"
+						optional
+							"JWT-4"
+						optional
+							"OAuth2-4"
+						optional
+							"Basic-4"
+						optional
+							"SessionAuth-4"
+					"Authorization-4"
+						optional
+							"Roles-4"
+						optional
+							"Permissions-4"
+					"ValidationSupport-4"
+						optional
+							"RequestValidation-4"
+						optional
+							"SchemaValidation-4"
+					"APIDocumentationSupport-4"
+						optional
+							"OpenAPIGeneration-4"
+						optional
+							"SwaggerUI-4"
+					"MessageQueueSupport-4"
 						alternative
-							Kafka
-							RabbitMQ
-					CacheSupport
+							"Kafka-4"
+							"RabbitMQ-4"
+					"CacheSupport-4"
 						alternative
-							Redis
-							Memcached
+							"Redis-4"
+							"Memcached-4"
+					"RealtimeCommunicationSupport-4"
+						optional
+							"WebSockets-4"
 			"Frontend Library"
 				alternative
-					"GlobalState-02"
-					i18nInternalization
+					"RoutingSupport-5"
+						optional
+							"ClientSideRouting-5"
+						optional
+							"FileBasedRouting-5"
+					"FormSupport-5"
+						optional
+							"FormStateManagement-5"
+						optional
+							"Validation-5"
+					"DataFetchingSupport-5"
+						optional
+							"ClientFetching-5"
+						optional
+							"ServerFetching-5"
+						optional
+							"QueryCaching-5"
+					"GlobalState-5"
+					"i18nInternationalization-5"
+					"PWAFeatures-5"
+						optional
+							"OfflineSupport-5"
+						optional
+							"InstallableApp-5"
+					"SEOFeatures-5"
+						optional
+							"MetadataManagement-5"
+						optional
+							"StructuredDataSupport-5"
+						optional
+							"SitemapSupport-5"
+						optional
+							"RobotsTxtSupport-5"
