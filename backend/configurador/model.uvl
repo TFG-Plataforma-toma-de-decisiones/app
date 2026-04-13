@@ -145,16 +145,6 @@ features
 							"OfflineSupport"
 						optional
 							"InstallableApp"
-				optional
-					"SEOFeatures"
-						optional
-							"MetadataManagement"
-						optional
-							"StructuredDataSupport"
-						optional
-							"SitemapSupport"
-						optional
-							"RobotsTxtSupport"
 			"Full Stack"
 				mandatory
 					"RenderingModel-3"
@@ -178,11 +168,13 @@ features
 						optional
 							"NestedRouting-3"
 				optional
-					"DataLoadingAbstractions"
+					"DataLoadingSupport"
 						optional
 							"ServerSideDataFetching-3"
+				optional
+					"ServerInteractionAbstractions"
 						optional
-							"ServerActions-3"
+							"UITriggeredServerActions-3"
 				optional
 					"FullStackFormAbstractions"
 				optional
@@ -205,8 +197,6 @@ features
 							"Redis-3"
 						optional
 							"Memcached-3"
-				optional
-					"ServerClientIntegration"
 				optional
 					"RealtimeCommunicationSupport-3"
 						optional
@@ -282,12 +272,3 @@ features
 							"OfflineSupport-5"
 						optional
 							"InstallableApp-5"
-					"SEOFeatures-5"
-						optional
-							"MetadataManagement-5"
-						optional
-							"StructuredDataSupport-5"
-						optional
-							"SitemapSupport-5"
-						optional
-							"RobotsTxtSupport-5"

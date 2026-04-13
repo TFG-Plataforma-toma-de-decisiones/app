@@ -30,9 +30,26 @@
     "pk": 1,
     "fields": {
       "name": "Django (Full Stack)",
-      "description": "Django usado como framework full stack con renderizado en servidor, ORM, migraciones, autenticación y panel de administración integrados.",
+      "description": "Django usado como framework full stack con renderizado en servidor, carga de datos en servidor, ORM, migraciones, autenticación y panel de administración integrados.",
       "language": 1,
-      "features": ["Project","Full Stack","RenderingModel-3","SSR-3","License-3","BSD-3","DatabaseIntegration-3","ORM-3","Migrations-3","AuthenticationBuiltIn","AdminPanel","FullStackFormAbstractions","ServerClientIntegration","RealtimeCommunicationSupport-3","WebSockets-3"]
+      "features": [
+        "Project",
+        "Full Stack",
+        "RenderingModel-3",
+        "SSR-3",
+        "License-3",
+        "BSD-3",
+        "DataLoadingSupport",
+        "ServerSideDataFetching-3",
+        "DatabaseIntegration-3",
+        "ORM-3",
+        "Migrations-3",
+        "AuthenticationBuiltIn",
+        "AdminPanel",
+        "FullStackFormAbstractions",
+        "RealtimeCommunicationSupport-3",
+        "WebSockets-3"
+      ]
     }
   },
   {
@@ -42,7 +59,34 @@
       "name": "Django REST Framework",
       "description": "Toolkit para construir APIs REST sobre Django, con serializers, viewsets, autenticación y generación de esquemas OpenAPI.",
       "language": 1,
-      "features": ["Project","Backend","APIStyle","REST","License-1","BSD-1","AuthenticationSupport","JWT","AuthenticationAbstractions","BuiltInJWTAuthentication","Basic","SessionAuth","Authorization","Roles","Permissions","ValidationSupport","RequestValidation","SchemaValidation","DatabaseIntegration-1","ORM-1","Migrations-1","APIDocumentationSupport","OpenAPIGeneration","GenericCRUDAbstractions","RealtimeCommunicationSupport","WebSockets"]
+      "features": [
+        "Project",
+        "Backend",
+        "APIStyle",
+        "REST",
+        "License-1",
+        "BSD-1",
+        "AuthenticationSupport",
+        "JWT",
+        "Basic",
+        "SessionAuth",
+        "AuthenticationAbstractions",
+        "BuiltInJWTAuthentication",
+        "Authorization",
+        "Roles",
+        "Permissions",
+        "ValidationSupport",
+        "RequestValidation",
+        "SchemaValidation",
+        "DatabaseIntegration-1",
+        "ORM-1",
+        "Migrations-1",
+        "APIDocumentationSupport",
+        "OpenAPIGeneration",
+        "GenericCRUDAbstractions",
+        "RealtimeCommunicationSupport",
+        "WebSockets"
+      ]
     }
   },
   {
@@ -52,7 +96,25 @@
       "name": "FastAPI",
       "description": "Framework moderno para APIs en Python con validación basada en tipos, OpenAPI/Swagger automáticos y soporte para WebSockets.",
       "language": 1,
-      "features": ["Project","Backend","APIStyle","REST","License-1","MIT-1","AuthenticationSupport","OAuth2","Basic","ValidationSupport","RequestValidation","SchemaValidation","APIDocumentationSupport","OpenAPIGeneration","SwaggerUI","RealtimeCommunicationSupport","WebSockets"]
+      "features": [
+        "Project",
+        "Backend",
+        "APIStyle",
+        "REST",
+        "License-1",
+        "MIT-1",
+        "AuthenticationSupport",
+        "OAuth2",
+        "Basic",
+        "ValidationSupport",
+        "RequestValidation",
+        "SchemaValidation",
+        "APIDocumentationSupport",
+        "OpenAPIGeneration",
+        "SwaggerUI",
+        "RealtimeCommunicationSupport",
+        "WebSockets"
+      ]
     }
   },
   {
@@ -62,7 +124,31 @@
       "name": "Spring Boot",
       "description": "Framework para aplicaciones Java con fuerte integración con Spring, inyección de dependencias, validación y seguridad.",
       "language": 4,
-      "features": ["Project","Backend","APIStyle","REST","License-1","Apache-1","AuthenticationSupport","JWT","OAuth2","Authorization","Roles","Permissions","DependencyInjection","ValidationSupport","RequestValidation","SchemaValidation","DatabaseIntegration-1","ORM-1","RealtimeCommunicationSupport","WebSockets","APIDocumentationSupport","OpenAPIGeneration","SwaggerUI"]
+      "features": [
+        "Project",
+        "Backend",
+        "APIStyle",
+        "REST",
+        "License-1",
+        "Apache-1",
+        "AuthenticationSupport",
+        "JWT",
+        "OAuth2",
+        "Authorization",
+        "Roles",
+        "Permissions",
+        "DependencyInjection",
+        "ValidationSupport",
+        "RequestValidation",
+        "SchemaValidation",
+        "DatabaseIntegration-1",
+        "ORM-1",
+        "RealtimeCommunicationSupport",
+        "WebSockets",
+        "APIDocumentationSupport",
+        "OpenAPIGeneration",
+        "SwaggerUI"
+      ]
     }
   },
   {
@@ -72,7 +158,24 @@
       "name": "NestJS",
       "description": "Framework backend para Node.js/TypeScript con arquitectura modular, inyección de dependencias, validación y soporte oficial para OpenAPI y WebSockets.",
       "language": 2,
-      "features": ["Project","Backend","APIStyle","REST","GraphQL","License-1","MIT-1","DependencyInjection","ValidationSupport","RequestValidation","SchemaValidation","APIDocumentationSupport","OpenAPIGeneration","SwaggerUI","RealtimeCommunicationSupport","WebSockets"]
+      "features": [
+        "Project",
+        "Backend",
+        "APIStyle",
+        "REST",
+        "GraphQL",
+        "License-1",
+        "MIT-1",
+        "DependencyInjection",
+        "ValidationSupport",
+        "RequestValidation",
+        "SchemaValidation",
+        "APIDocumentationSupport",
+        "OpenAPIGeneration",
+        "SwaggerUI",
+        "RealtimeCommunicationSupport",
+        "WebSockets"
+      ]
     }
   },
   {
@@ -82,7 +185,14 @@
       "name": "Express.js",
       "description": "Framework minimalista para Node.js orientado a construir aplicaciones y APIs HTTP con pocas abstracciones incorporadas.",
       "language": 2,
-      "features": ["Project","Backend","APIStyle","REST","License-1","MIT-1"]
+      "features": [
+        "Project",
+        "Backend",
+        "APIStyle",
+        "REST",
+        "License-1",
+        "MIT-1"
+      ]
     }
   },
   {
@@ -90,9 +200,25 @@
     "pk": 7,
     "fields": {
       "name": "Next.js",
-      "description": "Framework full stack sobre React con App Router, rutas de API, server actions y renderizado híbrido.",
+      "description": "Framework full stack sobre React con App Router, rutas de API, carga de datos en servidor y acciones de servidor disparadas desde la interfaz.",
       "language": 2,
-      "features": ["Project","Full Stack","RenderingModel-3","CSR-3","SSR-3","SSG-3","License-3","MIT-3","BuiltInAPIRoutes","FullStackRoutingSupport","FileBasedRouting-3","DataLoadingAbstractions","ServerSideDataFetching-3","ServerActions-3","ServerClientIntegration"]
+      "features": [
+        "Project",
+        "Full Stack",
+        "RenderingModel-3",
+        "CSR-3",
+        "SSR-3",
+        "SSG-3",
+        "License-3",
+        "MIT-3",
+        "BuiltInAPIRoutes",
+        "FullStackRoutingSupport",
+        "FileBasedRouting-3",
+        "DataLoadingSupport",
+        "ServerSideDataFetching-3",
+        "ServerInteractionAbstractions",
+        "UITriggeredServerActions-3"
+      ]
     }
   },
   {
@@ -100,9 +226,25 @@
     "pk": 8,
     "fields": {
       "name": "Nuxt",
-      "description": "Framework full stack sobre Vue con file-based routing, renderizado híbrido y capa servidor integrada.",
+      "description": "Framework full stack sobre Vue con file-based routing, renderizado híbrido, carga de datos en servidor y acciones de servidor integradas.",
       "language": 2,
-      "features": ["Project","Full Stack","RenderingModel-3","CSR-3","SSR-3","SSG-3","License-3","MIT-3","BuiltInAPIRoutes","FullStackRoutingSupport","FileBasedRouting-3","DataLoadingAbstractions","ServerSideDataFetching-3","ServerActions-3","ServerClientIntegration"]
+      "features": [
+        "Project",
+        "Full Stack",
+        "RenderingModel-3",
+        "CSR-3",
+        "SSR-3",
+        "SSG-3",
+        "License-3",
+        "MIT-3",
+        "BuiltInAPIRoutes",
+        "FullStackRoutingSupport",
+        "FileBasedRouting-3",
+        "DataLoadingSupport",
+        "ServerSideDataFetching-3",
+        "ServerInteractionAbstractions",
+        "UITriggeredServerActions-3"
+      ]
     }
   },
   {
@@ -112,7 +254,20 @@
       "name": "React",
       "description": "Librería para construir interfaces de usuario, normalmente usada en aplicaciones SPA renderizadas en cliente.",
       "language": 2,
-      "features": ["Project","Frontend","Platform","Web","ApplicationArchitecture","SPA","RenderingModel","CSR","License-2","MIT-2","Styling","CSS"]
+      "features": [
+        "Project",
+        "Frontend",
+        "Platform",
+        "Web",
+        "ApplicationArchitecture",
+        "SPA",
+        "RenderingModel",
+        "CSR",
+        "License-2",
+        "MIT-2",
+        "Styling",
+        "CSS"
+      ]
     }
   },
   {
@@ -122,7 +277,21 @@
       "name": "Vue.js",
       "description": "Framework progresivo para interfaces web con buen soporte de componentes y TypeScript.",
       "language": 2,
-      "features": ["Project","Frontend","Platform","Web","ApplicationArchitecture","SPA","RenderingModel","CSR","License-2","MIT-2","Styling","CSSModules","TypeScriptSupport"]
+      "features": [
+        "Project",
+        "Frontend",
+        "Platform",
+        "Web",
+        "ApplicationArchitecture",
+        "SPA",
+        "RenderingModel",
+        "CSR",
+        "License-2",
+        "MIT-2",
+        "Styling",
+        "CSSModules",
+        "TypeScriptSupport"
+      ]
     }
   },
   {
@@ -132,7 +301,30 @@
       "name": "Angular",
       "description": "Framework frontend completo con routing, formularios, i18n y capacidades oficiales para SSR y PWA.",
       "language": 2,
-      "features": ["Project","Frontend","Platform","Web","ApplicationArchitecture","SPA","RenderingModel","SSR","License-2","MIT-2","Styling","CSS","RoutingSupport","ClientSideRouting","FormSupport","FormStateManagement","Validation","TypeScriptSupport","i18nInternationalization-2","PWAFeatures","OfflineSupport","InstallableApp"]
+      "features": [
+        "Project",
+        "Frontend",
+        "Platform",
+        "Web",
+        "ApplicationArchitecture",
+        "SPA",
+        "RenderingModel",
+        "SSR",
+        "License-2",
+        "MIT-2",
+        "Styling",
+        "CSS",
+        "RoutingSupport",
+        "ClientSideRouting",
+        "FormSupport",
+        "FormStateManagement",
+        "Validation",
+        "TypeScriptSupport",
+        "i18nInternationalization-2",
+        "PWAFeatures",
+        "OfflineSupport",
+        "InstallableApp"
+      ]
     }
   },
   {
@@ -142,7 +334,21 @@
       "name": "React Native",
       "description": "Framework para crear aplicaciones móviles nativas usando React.",
       "language": 2,
-      "features": ["Project","Frontend","Platform","Mobile","ApplicationArchitecture","SPA","RenderingModel","CSR","License-2","MIT-2","Styling","CSSinJS","TypeScriptSupport"]
+      "features": [
+        "Project",
+        "Frontend",
+        "Platform",
+        "Mobile",
+        "ApplicationArchitecture",
+        "SPA",
+        "RenderingModel",
+        "CSR",
+        "License-2",
+        "MIT-2",
+        "Styling",
+        "CSSinJS",
+        "TypeScriptSupport"
+      ]
     }
   },
   {
@@ -152,7 +358,21 @@
       "name": "Flutter",
       "description": "Toolkit de UI para crear aplicaciones para móvil y web desde una única base de código.",
       "language": 6,
-      "features": ["Project","Frontend","Platform","Web+Mobile","ApplicationArchitecture","SPA","RenderingModel","CSR","License-2","BSD-2","Styling","ComponentLibraryStyling","i18nInternationalization-2"]
+      "features": [
+        "Project",
+        "Frontend",
+        "Platform",
+        "Web+Mobile",
+        "ApplicationArchitecture",
+        "SPA",
+        "RenderingModel",
+        "CSR",
+        "License-2",
+        "BSD-2",
+        "Styling",
+        "ComponentLibraryStyling",
+        "i18nInternationalization-2"
+      ]
     }
   },
   {
@@ -160,9 +380,22 @@
     "pk": 14,
     "fields": {
       "name": "Ruby on Rails (Full Stack)",
-      "description": "Framework MVC full stack con renderizado en servidor, Active Record y helpers de formularios.",
+      "description": "Framework MVC full stack con renderizado en servidor, carga de datos en servidor, Active Record y helpers de formularios.",
       "language": 5,
-      "features": ["Project","Full Stack","RenderingModel-3","SSR-3","License-3","MIT-3","DatabaseIntegration-3","ORM-3","Migrations-3","FullStackFormAbstractions","ServerClientIntegration"]
+      "features": [
+        "Project",
+        "Full Stack",
+        "RenderingModel-3",
+        "SSR-3",
+        "License-3",
+        "MIT-3",
+        "DataLoadingSupport",
+        "ServerSideDataFetching-3",
+        "DatabaseIntegration-3",
+        "ORM-3",
+        "Migrations-3",
+        "FullStackFormAbstractions"
+      ]
     }
   },
   {
@@ -172,7 +405,19 @@
       "name": "Ruby on Rails (API Mode)",
       "description": "Rails configurado en modo API para exponer servicios REST con Active Record.",
       "language": 5,
-      "features": ["Project","Backend","APIStyle","REST","License-1","MIT-1","ValidationSupport","RequestValidation","DatabaseIntegration-1","ORM-1","Migrations-1"]
+      "features": [
+        "Project",
+        "Backend",
+        "APIStyle",
+        "REST",
+        "License-1",
+        "MIT-1",
+        "ValidationSupport",
+        "RequestValidation",
+        "DatabaseIntegration-1",
+        "ORM-1",
+        "Migrations-1"
+      ]
     }
   },
   {
@@ -182,7 +427,13 @@
       "name": "Prisma",
       "description": "ORM para Node.js y TypeScript con migraciones y modelo de datos tipado.",
       "language": 2,
-      "features": ["Project","Backend Library","DatabaseIntegration-4","ORM-4","Migrations-4"]
+      "features": [
+        "Project",
+        "Backend Library",
+        "DatabaseIntegration-4",
+        "ORM-4",
+        "Migrations-4"
+      ]
     }
   },
   {
@@ -192,7 +443,12 @@
       "name": "Hibernate ORM",
       "description": "ORM ampliamente usado en Java para mapear objetos a bases de datos relacionales.",
       "language": 4,
-      "features": ["Project","Backend Library","DatabaseIntegration-4","ORM-4"]
+      "features": [
+        "Project",
+        "Backend Library",
+        "DatabaseIntegration-4",
+        "ORM-4"
+      ]
     }
   },
   {
@@ -202,7 +458,13 @@
       "name": "Pydantic",
       "description": "Librería para validación de datos y generación de esquemas basada en type hints de Python.",
       "language": 1,
-      "features": ["Project","Backend Library","ValidationSupport-4","RequestValidation-4","SchemaValidation-4"]
+      "features": [
+        "Project",
+        "Backend Library",
+        "ValidationSupport-4",
+        "RequestValidation-4",
+        "SchemaValidation-4"
+      ]
     }
   },
   {
@@ -212,7 +474,12 @@
       "name": "Socket.IO",
       "description": "Librería para comunicación bidireccional y en tiempo real entre cliente y servidor.",
       "language": 2,
-      "features": ["Project","Backend Library","RealtimeCommunicationSupport-4","WebSockets-4"]
+      "features": [
+        "Project",
+        "Backend Library",
+        "RealtimeCommunicationSupport-4",
+        "WebSockets-4"
+      ]
     }
   },
   {
@@ -222,7 +489,13 @@
       "name": "TanStack Query",
       "description": "Librería para data fetching, cache y sincronización de server state en frontend.",
       "language": 2,
-      "features": ["Project","Frontend Library","DataFetchingSupport-5","ClientFetching-5","QueryCaching-5"]
+      "features": [
+        "Project",
+        "Frontend Library",
+        "DataFetchingSupport-5",
+        "ClientFetching-5",
+        "QueryCaching-5"
+      ]
     }
   },
   {
@@ -232,7 +505,11 @@
       "name": "i18next",
       "description": "Framework de internacionalización para JavaScript y ecosistemas frontend.",
       "language": 2,
-      "features": ["Project","Frontend Library","i18nInternationalization-5"]
+      "features": [
+        "Project",
+        "Frontend Library",
+        "i18nInternationalization-5"
+      ]
     }
   }
 ]
