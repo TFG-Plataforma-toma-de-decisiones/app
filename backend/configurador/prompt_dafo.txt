@@ -22,3 +22,5 @@ INSTRUCCIONES DE ANÁLISIS:
 Identifica los aspectos técnicos más críticos derivados del contexto del usuario y céntrate en ellos durante el análisis. Evita centrar el DAFO en características genéricas del stack (seguridad, comunidad, etc.) si no son determinantes para el problema descrito. Da más peso a los elementos que condicionan la arquitectura o la complejidad del sistema.
 6. ELIMINAR REDUNDANCIA:
 Está prohibido mencionar como fortaleza que la tecnología cumple con las características seleccionadas por el usuario (por ejemplo: "cumple con Full Stack", "incluye ORM", "tiene autenticación", etc.), ya que esto siempre es cierto por construcción. El análisis debe centrarse en implicaciones, trade-offs y consecuencias técnicas reales.
+7. Utiliza exclusivamente caracteres UTF-8 reales (ej. 'ó', 'ñ', 'á'). 
+8. PROHIBIDO utilizar secuencias de escape Unicode (como \u00f3) o formatos corruptos (como \n00f3).

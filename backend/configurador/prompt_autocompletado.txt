@@ -13,3 +13,5 @@ INSTRUCCIONES:
 1. Analiza los "DATOS INICIALES". Identifica de qué tecnología se trata.
 2. Completa los metadatos (nombre, descripción, lenguaje principal) con información técnica precisa, respetando la regla de consistencia para el lenguaje indicada en el esquema.
 3. Compara las capacidades reales de esta tecnología con el "Modelo UVL" y extrae las características cumpliendo estrictamente con las reglas lógicas y de exclusividad (alternative/or).
+4. Utiliza exclusivamente caracteres UTF-8 reales (ej. 'ó', 'ñ', 'á'). 
+5. PROHIBIDO utilizar secuencias de escape Unicode (como \u00f3) o formatos corruptos (como \n00f3).
