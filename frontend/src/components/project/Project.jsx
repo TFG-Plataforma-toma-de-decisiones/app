@@ -82,32 +82,40 @@ export default function Project() {
       <div className="form-container">
         <h2 className='project-name'>{isNew ? 'Nuevo Proyecto' : 'Proyecto'}</h2>
         
-        {["name", "description"].map(property => (
-          <div className='input-container' key={property}> 
-            <label className='label-input'>
-              {property.charAt(0).toUpperCase() + property.slice(1)}
-            </label>
-            <div className="input-wrapper">
-              <input 
-                className="input-text" 
-                data-cy={`project-${property}-input`}
-                value={getProperty(index, property) || ""} 
-                name={property}
-                onChange={(e) => setProperty(index, property, e.target.value)} 
-                disabled={!isAdmin} 
-                placeholder={`Escribe el ${property}...`}
-              />
-              
-              {property === 'name' && getProperty(index, 'name') && isAdmin && (
-                <button className="autocompletar-btn" onClick={handleAutocomplete} data-cy="autocomplete-project">
-                  <BsMagic className="btn-icon" />
-                  <span>Autocompletar</span>
-                </button>
-              )}
-              {isLoading && property === "name" && <span className='loading-text'>Cargando...</span>}
-            </div>
-          </div>
-        ))}      
+        <div className='input-container'> 
+  <label className='label-input'>Name</label>
+  <div className="input-wrapper">
+    <input 
+      className="input-text" 
+      data-cy="project-name-input"
+      value={getProperty(index, 'name') || ""} 
+      name="name"
+      onChange={(e) => setProperty(index, 'name', e.target.value)} 
+      disabled={!isAdmin} 
+      placeholder="Escribe el name..."
+    />
+    {getProperty(index, 'name') && isAdmin && (
+      <button className="autocompletar-btn" onClick={handleAutocomplete} data-cy="autocomplete-project">
+        <BsMagic className="btn-icon" />
+        <span>Autocompletar</span>
+      </button>
+    )}
+  </div>
+</div>
+<div className='input-container'> 
+  <label className='label-input'>Description</label>
+  <div className="input-wrapper">
+    <textarea 
+      className="textarea-input" 
+      data-cy="project-description-input"
+      value={getProperty(index, 'description') || ""} 
+      name="description"
+      onChange={(e) => setProperty(index, 'description', e.target.value)} 
+      disabled={!isAdmin} 
+      placeholder="Escribe la description..."
+    />
+  </div>
+</div>      
         
 
         <div className="input-container">

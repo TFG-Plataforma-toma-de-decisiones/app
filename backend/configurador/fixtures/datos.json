@@ -61,7 +61,9 @@
         "AuthenticationBuiltIn",
         "AdminPanel",
         "FullStackFormAbstractions",
-        "ServerClientIntegration"
+        "ServerClientIntegration",
+        "RealtimeCommunicationSupport-3",
+        "WebSockets-3"
       ]
     }
   },

@@ -39,12 +39,12 @@
    ========================================= */
 
 .comments-container {
-  margin-top: 32px; /* Separación clara del árbol de opciones */
+  margin-top: 32px; 
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
-  max-width: 800px; /* Evita que el input sea exageradamente largo en PC */
+  /* max-width: 800px;  <-- Hemos eliminado esta restricción */
 }
 
 .label-comments {
@@ -203,4 +203,48 @@
   background-color: #e6f2ff; /* Un tono azul/destacado */
   border-color: #007bff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.no-results-message {
+  margin-top: 32px;
+  padding: 40px 24px;
+  background-color: var(--color-background-paper);
+  border: 2px dashed var(--color-divider);
+  border-radius: var(--border-radius-card);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-results-message p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text-secondary); /* Un color más tenue para indicar que está vacío */
+}
+.textarea-comments {
+  width: 100%;
+  min-height: 120px; /* Esto define la altura inicial de la caja grande */
+  padding: 12px 16px;
+  font-family: inherit; /* Hereda la fuente de tu proyecto */
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-paper, #ffffff);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card, 8px);
+  resize: vertical; /* Permite al usuario estirar la caja hacia abajo, pero no hacia los lados */
+  box-sizing: border-box; /* Asegura que el padding no rompa el ancho del 100% */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto cuando el usuario hace clic dentro de la caja de texto */
+.textarea-comments:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.2); /* Cambia el color rgba según tu color primario si lo deseas */
+}
+
+/* Si quieres que el placeholder tenga un color más suave */
+.textarea-comments::placeholder {
+  color: var(--color-text-secondary, #888);
 }

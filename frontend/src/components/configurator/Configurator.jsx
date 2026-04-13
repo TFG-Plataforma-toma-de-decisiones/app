@@ -9,7 +9,7 @@ import usePollingAction from "../../hooks/usePollingAction"
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
-  const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:[]})
+  const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:null})
   const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
   const [dafo,setDafo]=useState()
   const {runPolling}=usePollingAction()
@@ -54,13 +54,12 @@ export default function Configurator() {
     await runPolling({body,endpoint:"/swot",statusEndpointBase:"/swot-status",updateState:resp=>setDafo(resp.swot)})
     setSwotModalOpen(true);
   }
-  const groupedRecommendations = recommendations.reduce((acc, project) => {
+  const groupedRecommendations = recommendations!=null? recommendations.reduce((acc, project) => {
     const type = project.type;
     if (!acc[type]) acc[type] = [];
     acc[type].push(project);
     return acc;
-  }, {});
-  console.log(groupedRecommendations)
+  }, {}) :{};
 
   return (
     <div className="uvl-configurator configurator-page">
@@ -112,11 +111,12 @@ export default function Configurator() {
           );
         })}
       </div>
-      <div className="comments-container">
-        <label className="label-comments">Comentarios adicionales:</label>
-        <input type="text" onChange={(e)=>setComments(e.target.value)} value={comments} className="input-text"/>
-      </div>
       <button className="submit-button" onClick={handleSubmit} data-cy="submit-recommendation">Obtener recomendación</button>
+      {recommendations?.length===0 &&
+        <div className="no-results-message">
+          <p>No se ha encontrado ningún proyecto según las restricciones.</p>
+        </div>
+      }
       {Object.entries(groupedRecommendations).map(([type,recommendations])=>(
         <div className="type-container">
             <h2>{type}</h2>
@@ -139,8 +139,19 @@ export default function Configurator() {
         
       ))}
       
-      {recommendations.length > 0 && 
+      {recommendations?.length > 0 && 
+      <>
+        <div className="comments-container">
+        <label className="label-comments">Comentarios adicionales:</label>
+        <textarea 
+          onChange={(e) => setComments(e.target.value)} 
+          value={comments} 
+          className="textarea-comments"
+          placeholder="Escribe detalles adicionales aquí..."
+        />
+      </div>
       <div className="dafo-action-container" style={{ marginTop: '20px', textAlign: 'center' }}>
+      
       <button 
             className="swot-button" 
             data-cy="generate-swot"
@@ -150,6 +161,7 @@ export default function Configurator() {
             Obtener DAFO de la selección
           </button>
       </div>
+      </>
       }
       {isSwotModalOpen && (
                 <SWOTModal 

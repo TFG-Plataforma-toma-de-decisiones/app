@@ -22,7 +22,7 @@ export default function usePollingAction() {
     statusEndpointBase,    
     body = null,
     updateState = null,
-    loadingMessage = "La IA está procesando...",
+    loadingMessage = "Cargando ...",
     initialDelay = 300,    
     intervalTime = 2000,
     loadingDelay = 600     // <-- NUEVO: Espera 600ms antes de enseñar el modal
@@ -83,7 +83,7 @@ export default function usePollingAction() {
               if (loadingMessageTimeoutRef.current) clearTimeout(loadingMessageTimeoutRef.current);
               hideMessage();
               setIsLoading(false);
-              showMessage({ type: "error", title: "Error", message: "La IA falló al generar la respuesta." });
+              showMessage({ type: "error", title: "Error", message: "Error durante la petición." });
               reject(new Error("Celery task failed"));
               
             } else {

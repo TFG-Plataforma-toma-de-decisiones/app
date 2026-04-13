@@ -130,3 +130,41 @@
   z-index: 10;
   border-radius: 16px;
 }
+/* =========================================
+   ESTILOS PARA TEXTAREA DINÁMICO
+   ========================================= */
+
+.textarea-input {
+  width: 100%;
+  min-height: 100px; 
+  padding: 10px 14px; 
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  /* Usamos la misma variable de fondo que usas en tu language-select */
+  background-color: var(--color-background-default);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  resize: vertical; 
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.textarea-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.2); 
+}
+
+/* Aplicamos el mismo diseño transparente que tienes en .input-text:disabled */
+.textarea-input:disabled {
+  background-color: transparent;
+  border-color: transparent;
+  padding-left: 0; 
+  padding-top: 0;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  opacity: 0.9;
+  cursor: default;
+  resize: none; /* Evitamos que el usuario pueda redimensionar la caja si está deshabilitada */
+}

@@ -207,6 +207,10 @@ features
 							"Memcached-3"
 				optional
 					"ServerClientIntegration"
+				optional
+					"RealtimeCommunicationSupport-3"
+						optional
+							"WebSockets-3"
 			"Backend Library"
 				alternative
 					"DatabaseIntegration-4"
