@@ -25,7 +25,7 @@ function App() {
           <Route 
             path="/recomendador" 
             element={
-              <FeatureTreesProvider initialTrees={types.map((t) => ({features: [], type: t}))}>
+              <FeatureTreesProvider initialTrees={types.map((t) => ({features: [], type: t}))} key="configurator">
                 <Configurator />
               </FeatureTreesProvider>
             } 
@@ -37,7 +37,7 @@ function App() {
           <Route 
             path="/projects/:id" 
             element={
-              <FeatureTreesProvider initialTrees={[{features: ["Project"]}]}>
+              <FeatureTreesProvider initialTrees={[{features: ["Project"]}]} key="project">
                 <Project />
               </FeatureTreesProvider>
             } 

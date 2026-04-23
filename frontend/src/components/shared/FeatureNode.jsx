@@ -82,7 +82,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
                     <input
                       type="radio"
                       id={id}
-                      name={`group-${node.name}-${relationIndex}`}
+                      name={`group-${node.name?.split('-')?.[0]}-${relationIndex}`}
                       checked={active}
                       disabled={readOnly}
                       onChange={() => handleRadioChange(index, children, child)}
@@ -112,7 +112,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
                 <div key={child.name} className={`feature-card ${active ? 'active' : ''} ${isMandatory ? 'mandatory' : ''}`}>
                   <label className="feature-header" data-cy={featureDataCy}>
                     {control}
-                    <span className="feature-name">{child.name}</span>
+                    <span className="feature-name">{child.name?.split("-")?.[0]}</span>
                   </label>
                   {active && hasChildren && (
                     <div className="feature-children">

@@ -7,13 +7,27 @@ def _handle_validation_error(exc, response):
     errores_formateados = []
     
     if isinstance(response.data, dict):
+        # Manejo para un solo objeto (sin many=True)
         for field, errors in response.data.items():
             if isinstance(errors, list):
-                errores_formateados.append(f"{field}: {', '.join(errors)}")
+                # Usamos str(e) por si acaso viene un ErrorDetail dentro
+                errores_formateados.append(f"{field}: {', '.join([str(e) for e in errors])}")
             else:
-                errores_formateados.append(f"{field}: {errors}")
+                errores_formateados.append(f"{field}: {str(errors)}")
+                
     elif isinstance(response.data, list):
-        errores_formateados = [str(e) for e in response.data]
+        for index, item_errors in enumerate(response.data):
+            if isinstance(item_errors, dict) and item_errors: 
+                for field, errors in item_errors.items():
+                    if isinstance(errors, list):
+                        mensajes = ', '.join([str(e) for e in errors])
+                    else:
+                        mensajes = str(errors)
+                    errores_formateados.append(f"Element {index + 1} ({field}): {mensajes}")
+            elif isinstance(item_errors, list):
+                errores_formateados.append(f"Element {index + 1}: {', '.join([str(e) for e in item_errors])}")
+            elif isinstance(item_errors, str):
+                errores_formateados.append(item_errors)
 
     response.data = {
         "detail": errores_formateados 

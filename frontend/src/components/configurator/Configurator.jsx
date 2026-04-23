@@ -4,7 +4,7 @@ import "./Configurator.css";
 import { useState } from "react";
 import useApi from "../../hooks/useApi";
 import SWOTModal from "../modals/SWOTModal";
-import { findRootFeatureNode } from "../../utils/featureModel";
+import { getNode } from "../../utils/featureModel";
 import usePollingAction from "../../hooks/usePollingAction"
 export default function Configurator() {
   const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
@@ -21,9 +21,6 @@ export default function Configurator() {
     ["Full Stack", "Frontend"], 
     ["Full Stack", "Backend"]
   ];
-  function getNode(feature){
-    return findRootFeatureNode(uvlModel, feature)
-  }
   function handleSelectReccomendation(recommendation){
     setSelectedRecommendations(prev => ({
       ...prev,
@@ -31,26 +28,26 @@ export default function Configurator() {
     }));
   }
   function handleRadioChange(index,type) {
-    if (!isActive(index,getNode(type))) {
+    if (!isActive(index,getNode(uvlModel,type))) {
       incompatibleTypes
         .filter(conj => conj.includes(type))
         .forEach(conj => 
-          conj.filter((f) => isActive(trees.findIndex(t=>t.type===f),getNode(f))).forEach(f => handleToggle(trees.findIndex(t=>t.type===f),getNode(f)))
+          conj.filter((f) => isActive(trees.findIndex(t=>t.type===f),getNode(uvlModel,f))).forEach(f => handleToggle(trees.findIndex(t=>t.type===f),getNode(uvlModel,f)))
         );
-      handleToggle(index,getNode(type));
+      handleToggle(index,getNode(uvlModel,type));
     } else {
       // Si ya estaba activo y permiten deseleccionarlo
-      handleToggle(index,getNode(type));
+      handleToggle(index,getNode(uvlModel,type));
     }
   }
   async function handleSubmit() {
-    const body=trees.filter((t,index)=>isActive(index,getNode(t.type)))
+    const body=trees.filter((t,index)=>isActive(index,getNode(uvlModel,t.type)))
     await refetch({overrideBody:body})
     setSelectedRecommendations({})
   }
   async function getDafo(){
     setDafo(null)
-    const body={recommendations:Object.values(selectedRecommendations),preferences:trees.filter((t,index)=>isActive(index,getNode(t.type))),comments}
+    const body={recommendations:Object.values(selectedRecommendations),preferences:trees.filter((t,index)=>isActive(index,getNode(uvlModel,t.type))),comments}
     await runPolling({body,endpoint:"/swot",statusEndpointBase:"/swot-status",updateState:resp=>setDafo(resp.swot)})
     setSwotModalOpen(true);
   }
@@ -69,7 +66,7 @@ export default function Configurator() {
       <div className="feature-group">
         {trees.map((tree,index) => {
           const type=tree.type
-          const node=getNode(type)
+          const node=getNode(uvlModel,type)
           const active = node!=null && isActive(index,node);
           const projectTypeDataCy = `project-type-${type.replace(/\s+/g, '-')}`;
 

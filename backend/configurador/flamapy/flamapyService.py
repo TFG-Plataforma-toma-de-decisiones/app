@@ -26,8 +26,12 @@ class FlamapyService:
         configuration=Configuration(elements={feature:True for feature in features})
         configuration.set_full(is_full)
         operation.set_configuration(configuration)
-        operation.execute(self.fm.sat_model)
-        return operation.get_result()
+        try:
+            operation.execute(self.fm.sat_model)
+            valid=operation.get_result()
+        except KeyError:
+            valid=False
+        return valid
     def to_dict_rec(self,feature):
         diccionary = {}
         diccionary["name"] = feature.name

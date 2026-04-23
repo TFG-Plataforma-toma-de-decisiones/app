@@ -35,8 +35,20 @@ export function removeFeatureSubtree(features, feature) {
   return features.filter((featureName) => !subtree.includes(featureName));
 }
 
-export function findRootFeatureNode(rootNode, featureName) {
-  return getRelationChildren(rootNode).find((feature) => feature.name === featureName);
+export function getNode(rootNode, featureName) {
+  let node=null
+  for(const relation of rootNode.relations ?? []){
+    for(const child of relation.children){
+      if(child.name===featureName){
+        return child
+      }
+      node=getNode(child,featureName)
+      if(node){
+        break
+      }
+    }
+  }
+  return node
 }
 export function getNodeMap(node, acum = new Map(), parent = null) {
   acum.set(node.name, {

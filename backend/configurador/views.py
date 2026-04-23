@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from configurador.flamapy.flamapyService import FlamapyService
 from configurador.models import Project,Language
-from configurador.serializers import ProjectSerializer,LanguageSerializer,UserSerializer
+from configurador.serializers import ConfiguratorBranchSerializer, ProjectSerializer,LanguageSerializer,UserSerializer
 from configurador.utils import features_set_by_name
 from rest_framework import viewsets,mixins
 from rest_framework.permissions import BasePermission,SAFE_METHODS,IsAdminUser
@@ -41,6 +41,8 @@ def get_my_user(request):
     return Response(UserSerializer(request.user).data)
 @api_view(['POST'])
 def get_recommendation(request):
+    serializer=ConfiguratorBranchSerializer(data=request.data, many=True)
+    serializer.is_valid(raise_exception=True)
     projects = list(Project.objects.all())
     libraries_by_type = {
         "Frontend": [p for p in projects if "Frontend Library" in p.features],
