@@ -1,6 +1,7 @@
 .navbar {
   position: sticky;
   top: 0;
+  width: 100%;
   background-color: var(--color-background-default);
   border-bottom: 1px solid var(--color-divider);
   z-index: 1100;
@@ -17,6 +18,7 @@
   justify-content: space-between;
   align-items: center;
   min-height: 64px;
+  width: 100%;
 }
 
 .logo-link {
@@ -34,6 +36,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 
 .nav-link {
@@ -66,4 +69,36 @@
 .action-button:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .logo-link {
+    flex: 1 1 100%;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .nav-link,
+  .action-button {
+    margin-left: 0;
+    padding: 10px 14px;
+    text-align: center;
+  }
 }

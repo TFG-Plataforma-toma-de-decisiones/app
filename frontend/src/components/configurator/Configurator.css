@@ -6,6 +6,7 @@
     padding: 24px;
     max-width: 1200px; /* Evita que en pantallas gigantes se estire al infinito */
     margin: 0 auto;    /* Lo centra en la pantalla */
+    width: 100%;
   }
   
   .configurator-main-title {
@@ -247,4 +248,47 @@
 /* Si quieres que el placeholder tenga un color más suave */
 .textarea-comments::placeholder {
   color: var(--color-text-secondary, #888);
+}
+
+@media (max-width: 768px) {
+  .configurator-page {
+    padding: 0;
+  }
+
+  .configurator-main-title {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+
+  .feature-header.root-header {
+    padding: 14px 16px;
+  }
+
+  .feature-children.root-children {
+    padding: 12px;
+  }
+
+  .submit-button,
+  .swot-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .comments-container {
+    margin-top: 24px;
+  }
+
+  .project-container {
+    padding: 14px;
+  }
+
+  .project-container > h2 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .libraries-container span {
+    white-space: normal;
+  }
 }
