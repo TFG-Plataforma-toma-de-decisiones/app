@@ -511,5 +511,21 @@
         "i18nInternationalization-5"
       ]
     }
+  },
+  {
+    "model": "configurador.project",
+    "pk": 27,
+    "fields": {
+      "name": "Celery",
+      "description": "Librería de cola de tareas distribuida para Python, orientada a procesamiento asíncrono y tareas programadas.",
+      "language": 1,
+      "features": [
+        "Project",
+        "Backend Library",
+        "BackgroundProcessing-4",
+        "TaskQueue-4",
+        "ScheduledTasks-4"
+      ]
+    }
   }
 ]

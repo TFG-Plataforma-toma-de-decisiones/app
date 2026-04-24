@@ -54,14 +54,24 @@ features
 							"ODM-1"
 						optional
 							"OGM-1"
-						optional
-							"Migrations-1"
 				optional
-					"MessageQueueSupport-1"
-						optional
-							"Kafka-1"
-						optional
-							"RabbitMQ-1"
+					"TaskQueueSupport"
+						or
+							"OpenStandardQueues"
+								or
+									"RabbitMQ"
+									"ActiveMQ"
+							"CloudNativeQueues"
+								or
+									"AWSSQS"
+									"GoogleCloudTasks"
+									"AzureServiceBus"
+							"EventStreaming"
+								mandatory
+									"Kafka"
+							"InCacheQueues"
+								mandatory
+									"Redis"
 				optional
 					"CacheSupport-1"
 						optional
@@ -185,8 +195,6 @@ features
 							"ODM-3"
 						optional
 							"OGM-3"
-						optional
-							"Migrations-3"
 				optional
 					"AuthenticationBuiltIn"
 				optional
@@ -201,6 +209,24 @@ features
 					"RealtimeCommunicationSupport-3"
 						optional
 							"WebSockets-3"
+				optional
+					"TaskQueueSupport-3"
+						or
+							"OpenStandardQueues-3"
+								or
+									"RabbitMQ-3"
+									"ActiveMQ-3"
+							"CloudNativeQueues-3"
+								or
+									"AWSSQS-3"
+									"GoogleCloudTasks-3"
+									"AzureServiceBus-3"
+							"EventStreaming-3"
+								mandatory
+									"Kafka-3"
+							"InCacheQueues-3"
+								mandatory
+									"Redis-5"
 			"Backend Library"
 				alternative
 					"DatabaseIntegration-4"
@@ -208,9 +234,6 @@ features
 							"ORM-4"
 							"ODM-4"
 							"OGM-4"
-							"QueryBuilder-4"
-						optional
-							"Migrations-4"
 					"AuthenticationSupport-4"
 						optional
 							"JWT-4"
@@ -235,10 +258,23 @@ features
 							"OpenAPIGeneration-4"
 						optional
 							"SwaggerUI-4"
-					"MessageQueueSupport-4"
-						alternative
-							"Kafka-4"
-							"RabbitMQ-4"
+					"TaskQueueSupport-4"
+						or
+							"OpenStandardQueues-4"
+								or
+									"RabbitMQ-4"
+									"ActiveMQ-4"
+							"CloudNativeQueues4"
+								or
+									"AWSSQS-4"
+									"GoogleCloudTasks-4"
+									"AzureServiceBus-4"
+							"EventStreaming-4"
+								mandatory
+									"Kafka-4"
+							"InCacheQueues-4"
+								mandatory
+									"Redis-6"
 					"CacheSupport-4"
 						alternative
 							"Redis-4"
