@@ -1,531 +1,277 @@
 [
-  {
-    "model": "configurador.language",
-    "pk": 1,
-    "fields": { "name": "Python" }
-  },
-  {
-    "model": "configurador.language",
-    "pk": 2,
-    "fields": { "name": "JavaScript/TypeScript" }
-  },
-  {
-    "model": "configurador.language",
-    "pk": 4,
-    "fields": { "name": "Java" }
-  },
-  {
-    "model": "configurador.language",
-    "pk": 5,
-    "fields": { "name": "Ruby" }
-  },
-  {
-    "model": "configurador.language",
-    "pk": 6,
-    "fields": { "name": "Dart" }
-  },
-
-  {
+{
     "model": "configurador.project",
     "pk": 1,
     "fields": {
-      "name": "Django (Full Stack)",
-      "description": "Django usado como framework full stack con renderizado en servidor, carga de datos en servidor, ORM, migraciones, autenticación y panel de administración integrados.",
-      "language": 1,
-      "features": [
-        "Project",
-        "Full Stack",
-        "RenderingModel-3",
-        "SSR-3",
-        "License-3",
-        "BSD-3",
-        "DataLoadingSupport",
-        "ServerSideDataFetching-3",
-        "DatabaseIntegration-3",
-        "ORM-3",
-        "Migrations-3",
-        "AuthenticationBuiltIn",
-        "AdminPanel",
-        "FullStackFormAbstractions",
-        "RealtimeCommunicationSupport-3",
-        "WebSockets-3"
-      ]
+        "name": "Django (Full Stack)",
+        "description": "Django usado como framework full stack con renderizado en servidor, carga de datos en servidor, ORM, migraciones, autenticación y panel de administración integrados.",
+        "language": 1,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"BSD-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"FullStackFormAbstractions\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 2,
     "fields": {
-      "name": "Django REST Framework",
-      "description": "Toolkit para construir APIs REST sobre Django, con serializers, viewsets, autenticación y generación de esquemas OpenAPI.",
-      "language": 1,
-      "features": [
-        "Project",
-        "Backend",
-        "APIStyle",
-        "REST",
-        "License-1",
-        "BSD-1",
-        "AuthenticationSupport",
-        "JWT",
-        "Basic",
-        "SessionAuth",
-        "AuthenticationAbstractions",
-        "BuiltInJWTAuthentication",
-        "Authorization",
-        "Roles",
-        "Permissions",
-        "ValidationSupport",
-        "RequestValidation",
-        "SchemaValidation",
-        "DatabaseIntegration-1",
-        "ORM-1",
-        "Migrations-1",
-        "APIDocumentationSupport",
-        "OpenAPIGeneration",
-        "GenericCRUDAbstractions",
-        "RealtimeCommunicationSupport",
-        "WebSockets"
-      ]
+        "name": "Django REST Framework",
+        "description": "Toolkit para construir APIs REST sobre Django, con serializers, viewsets, autenticación y generación de esquemas OpenAPI.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 3,
     "fields": {
-      "name": "FastAPI",
-      "description": "Framework moderno para APIs en Python con validación basada en tipos, OpenAPI/Swagger automáticos y soporte para WebSockets.",
-      "language": 1,
-      "features": [
-        "Project",
-        "Backend",
-        "APIStyle",
-        "REST",
-        "License-1",
-        "MIT-1",
-        "AuthenticationSupport",
-        "OAuth2",
-        "Basic",
-        "ValidationSupport",
-        "RequestValidation",
-        "SchemaValidation",
-        "APIDocumentationSupport",
-        "OpenAPIGeneration",
-        "SwaggerUI",
-        "RealtimeCommunicationSupport",
-        "WebSockets"
-      ]
+        "name": "FastAPI",
+        "description": "Framework moderno para APIs en Python con validación basada en tipos, OpenAPI/Swagger automáticos y soporte para WebSockets.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\", \"AuthenticationSupport\", \"OAuth2\", \"Basic\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"SwaggerUI\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 4,
     "fields": {
-      "name": "Spring Boot",
-      "description": "Framework para aplicaciones Java con fuerte integración con Spring, inyección de dependencias, validación y seguridad.",
-      "language": 4,
-      "features": [
-        "Project",
-        "Backend",
-        "APIStyle",
-        "REST",
-        "License-1",
-        "Apache-1",
-        "AuthenticationSupport",
-        "JWT",
-        "OAuth2",
-        "Authorization",
-        "Roles",
-        "Permissions",
-        "DependencyInjection",
-        "ValidationSupport",
-        "RequestValidation",
-        "SchemaValidation",
-        "DatabaseIntegration-1",
-        "ORM-1",
-        "RealtimeCommunicationSupport",
-        "WebSockets",
-        "APIDocumentationSupport",
-        "OpenAPIGeneration",
-        "SwaggerUI"
-      ]
+        "name": "Spring Boot",
+        "description": "Framework para aplicaciones Java con fuerte integración con Spring, inyección de dependencias, validación y seguridad.",
+        "language": 4,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"SwaggerUI\", \"TaskQueueSupport\", \"EventStreaming\", \"Kafka\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"CloudNativeQueues\", \"AWSSQS\", \"GoogleCloudTasks\", \"AzureServiceBus\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 5,
     "fields": {
-      "name": "NestJS",
-      "description": "Framework backend para Node.js/TypeScript con arquitectura modular, inyección de dependencias, validación y soporte oficial para OpenAPI y WebSockets.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Backend",
-        "APIStyle",
-        "REST",
-        "GraphQL",
-        "License-1",
-        "MIT-1",
-        "DependencyInjection",
-        "ValidationSupport",
-        "RequestValidation",
-        "SchemaValidation",
-        "APIDocumentationSupport",
-        "OpenAPIGeneration",
-        "SwaggerUI",
-        "RealtimeCommunicationSupport",
-        "WebSockets"
-      ]
+        "name": "NestJS",
+        "description": "Framework backend para Node.js/TypeScript con arquitectura modular, inyección de dependencias, validación y soporte oficial para OpenAPI y WebSockets.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"GraphQL\", \"License-1\", \"MIT-1\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"SwaggerUI\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 6,
     "fields": {
-      "name": "Express.js",
-      "description": "Framework minimalista para Node.js orientado a construir aplicaciones y APIs HTTP con pocas abstracciones incorporadas.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Backend",
-        "APIStyle",
-        "REST",
-        "License-1",
-        "MIT-1"
-      ]
+        "name": "Express.js",
+        "description": "Framework minimalista para Node.js orientado a construir aplicaciones y APIs HTTP con pocas abstracciones incorporadas.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 7,
     "fields": {
-      "name": "Next.js",
-      "description": "Framework full stack sobre React con App Router, rutas de API, carga de datos en servidor y acciones de servidor disparadas desde la interfaz.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Full Stack",
-        "RenderingModel-3",
-        "CSR-3",
-        "SSR-3",
-        "SSG-3",
-        "License-3",
-        "MIT-3",
-        "BuiltInAPIRoutes",
-        "FullStackRoutingSupport",
-        "FileBasedRouting-3",
-        "DataLoadingSupport",
-        "ServerSideDataFetching-3",
-        "ServerInteractionAbstractions",
-        "UITriggeredServerActions-3"
-      ]
+        "name": "Next.js",
+        "description": "Framework full stack sobre React con App Router, rutas de API, carga de datos en servidor y acciones de servidor disparadas desde la interfaz.",
+        "language": 2,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"CSR-3\", \"SSR-3\", \"SSG-3\", \"License-3\", \"MIT-3\", \"BuiltInAPIRoutes\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 8,
     "fields": {
-      "name": "Nuxt",
-      "description": "Framework full stack sobre Vue con file-based routing, renderizado híbrido, carga de datos en servidor y acciones de servidor integradas.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Full Stack",
-        "RenderingModel-3",
-        "CSR-3",
-        "SSR-3",
-        "SSG-3",
-        "License-3",
-        "MIT-3",
-        "BuiltInAPIRoutes",
-        "FullStackRoutingSupport",
-        "FileBasedRouting-3",
-        "DataLoadingSupport",
-        "ServerSideDataFetching-3",
-        "ServerInteractionAbstractions",
-        "UITriggeredServerActions-3"
-      ]
+        "name": "Nuxt",
+        "description": "Framework full stack sobre Vue con file-based routing, renderizado híbrido, carga de datos en servidor y acciones de servidor integradas.",
+        "language": 2,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"CSR-3\", \"SSR-3\", \"SSG-3\", \"License-3\", \"MIT-3\", \"BuiltInAPIRoutes\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 9,
     "fields": {
-      "name": "React",
-      "description": "Librería para construir interfaces de usuario, normalmente usada en aplicaciones SPA renderizadas en cliente.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Frontend",
-        "Platform",
-        "Web",
-        "ApplicationArchitecture",
-        "SPA",
-        "RenderingModel",
-        "CSR",
-        "License-2",
-        "MIT-2",
-        "Styling",
-        "CSS"
-      ]
+        "name": "React",
+        "description": "Librería para construir interfaces de usuario, normalmente usada en aplicaciones SPA renderizadas en cliente.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSS\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 10,
     "fields": {
-      "name": "Vue.js",
-      "description": "Framework progresivo para interfaces web con buen soporte de componentes y TypeScript.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Frontend",
-        "Platform",
-        "Web",
-        "ApplicationArchitecture",
-        "SPA",
-        "RenderingModel",
-        "CSR",
-        "License-2",
-        "MIT-2",
-        "Styling",
-        "CSSModules",
-        "TypeScriptSupport"
-      ]
+        "name": "Vue.js",
+        "description": "Framework progresivo para interfaces web con buen soporte de componentes y TypeScript.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSSModules\", \"TypeScriptSupport\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 11,
     "fields": {
-      "name": "Angular",
-      "description": "Framework frontend completo con routing, formularios, i18n y capacidades oficiales para SSR y PWA.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Frontend",
-        "Platform",
-        "Web",
-        "ApplicationArchitecture",
-        "SPA",
-        "RenderingModel",
-        "SSR",
-        "License-2",
-        "MIT-2",
-        "Styling",
-        "CSS",
-        "RoutingSupport",
-        "ClientSideRouting",
-        "FormSupport",
-        "FormStateManagement",
-        "Validation",
-        "TypeScriptSupport",
-        "i18nInternationalization-2",
-        "PWAFeatures",
-        "OfflineSupport",
-        "InstallableApp"
-      ]
+        "name": "Angular",
+        "description": "Framework frontend completo con routing, formularios, i18n y capacidades oficiales para SSR y PWA.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"SSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"TypeScriptSupport\", \"i18nInternationalization-2\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 12,
     "fields": {
-      "name": "React Native",
-      "description": "Framework para crear aplicaciones móviles nativas usando React.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Frontend",
-        "Platform",
-        "Mobile",
-        "ApplicationArchitecture",
-        "SPA",
-        "RenderingModel",
-        "CSR",
-        "License-2",
-        "MIT-2",
-        "Styling",
-        "CSSinJS",
-        "TypeScriptSupport"
-      ]
+        "name": "React Native",
+        "description": "Framework para crear aplicaciones móviles nativas usando React.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Mobile\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSSinJS\", \"TypeScriptSupport\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 13,
     "fields": {
-      "name": "Flutter",
-      "description": "Toolkit de UI para crear aplicaciones para móvil y web desde una única base de código.",
-      "language": 6,
-      "features": [
-        "Project",
-        "Frontend",
-        "Platform",
-        "Web+Mobile",
-        "ApplicationArchitecture",
-        "SPA",
-        "RenderingModel",
-        "CSR",
-        "License-2",
-        "BSD-2",
-        "Styling",
-        "ComponentLibraryStyling",
-        "i18nInternationalization-2"
-      ]
+        "name": "Flutter",
+        "description": "Toolkit de UI para crear aplicaciones para móvil y web desde una única base de código.",
+        "language": 6,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web+Mobile\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"BSD-2\", \"Styling\", \"ComponentLibraryStyling\", \"i18nInternationalization-2\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 14,
     "fields": {
-      "name": "Ruby on Rails (Full Stack)",
-      "description": "Framework MVC full stack con renderizado en servidor, carga de datos en servidor, Active Record y helpers de formularios.",
-      "language": 5,
-      "features": [
-        "Project",
-        "Full Stack",
-        "RenderingModel-3",
-        "SSR-3",
-        "License-3",
-        "MIT-3",
-        "DataLoadingSupport",
-        "ServerSideDataFetching-3",
-        "DatabaseIntegration-3",
-        "ORM-3",
-        "Migrations-3",
-        "FullStackFormAbstractions"
-      ]
+        "name": "Ruby on Rails (Full Stack)",
+        "description": "Framework MVC full stack con renderizado en servidor, carga de datos en servidor, Active Record y helpers de formularios.",
+        "language": 5,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"MIT-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"DatabaseIntegration-3\", \"ORM-3\", \"FullStackFormAbstractions\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 15,
     "fields": {
-      "name": "Ruby on Rails (API Mode)",
-      "description": "Rails configurado en modo API para exponer servicios REST con Active Record.",
-      "language": 5,
-      "features": [
-        "Project",
-        "Backend",
-        "APIStyle",
-        "REST",
-        "License-1",
-        "MIT-1",
-        "ValidationSupport",
-        "RequestValidation",
-        "DatabaseIntegration-1",
-        "ORM-1",
-        "Migrations-1"
-      ]
+        "name": "Ruby on Rails (API Mode)",
+        "description": "Rails configurado en modo API para exponer servicios REST con Active Record.",
+        "language": 5,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"MIT-1\", \"ValidationSupport\", \"RequestValidation\", \"DatabaseIntegration-1\", \"ORM-1\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 16,
     "fields": {
-      "name": "Prisma",
-      "description": "ORM para Node.js y TypeScript con migraciones y modelo de datos tipado.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Backend Library",
-        "DatabaseIntegration-4",
-        "ORM-4",
-        "Migrations-4"
-      ]
+        "name": "Prisma",
+        "description": "ORM para Node.js y TypeScript con migraciones y modelo de datos tipado.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ORM-4\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 17,
     "fields": {
-      "name": "Hibernate ORM",
-      "description": "ORM ampliamente usado en Java para mapear objetos a bases de datos relacionales.",
-      "language": 4,
-      "features": [
-        "Project",
-        "Backend Library",
-        "DatabaseIntegration-4",
-        "ORM-4"
-      ]
+        "name": "Hibernate ORM",
+        "description": "ORM ampliamente usado en Java para mapear objetos a bases de datos relacionales.",
+        "language": 4,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ORM-4\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 18,
     "fields": {
-      "name": "Pydantic",
-      "description": "Librería para validación de datos y generación de esquemas basada en type hints de Python.",
-      "language": 1,
-      "features": [
-        "Project",
-        "Backend Library",
-        "ValidationSupport-4",
-        "RequestValidation-4",
-        "SchemaValidation-4"
-      ]
+        "name": "Pydantic",
+        "description": "Librería para validación de datos y generación de esquemas basada en type hints de Python.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"ValidationSupport-4\", \"RequestValidation-4\", \"SchemaValidation-4\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 20,
     "fields": {
-      "name": "Socket.IO",
-      "description": "Librería para comunicación bidireccional y en tiempo real entre cliente y servidor.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Backend Library",
-        "RealtimeCommunicationSupport-4",
-        "WebSockets-4"
-      ]
+        "name": "Socket.IO",
+        "description": "Librería para comunicación bidireccional y en tiempo real entre cliente y servidor.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"RealtimeCommunicationSupport-4\", \"WebSockets-4\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 24,
     "fields": {
-      "name": "TanStack Query",
-      "description": "Librería para data fetching, cache y sincronización de server state en frontend.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Frontend Library",
-        "DataFetchingSupport-5",
-        "ClientFetching-5",
-        "QueryCaching-5"
-      ]
+        "name": "TanStack Query",
+        "description": "Librería para data fetching, cache y sincronización de server state en frontend.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"DataFetchingSupport-5\", \"ClientFetching-5\", \"QueryCaching-5\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 26,
     "fields": {
-      "name": "i18next",
-      "description": "Framework de internacionalización para JavaScript y ecosistemas frontend.",
-      "language": 2,
-      "features": [
-        "Project",
-        "Frontend Library",
-        "i18nInternationalization-5"
-      ]
+        "name": "i18next",
+        "description": "Framework de internacionalización para JavaScript y ecosistemas frontend.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"i18nInternationalization-5\"]"
     }
-  },
-  {
+},
+{
     "model": "configurador.project",
     "pk": 27,
     "fields": {
-      "name": "Celery",
-      "description": "Librería de cola de tareas distribuida para Python, orientada a procesamiento asíncrono y tareas programadas.",
-      "language": 1,
-      "features": [
-        "Project",
-        "Backend Library",
-        "BackgroundProcessing-4",
-        "TaskQueue-4",
-        "ScheduledTasks-4"
-      ]
+        "name": "Celery",
+        "description": "Librería de cola de tareas distribuida para Python, orientada a procesamiento asíncrono y tareas programadas.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"CloudNativeQueues4\", \"AWSSQS-4\", \"OpenStandardQueues-4\", \"RabbitMQ-4\"]"
     }
-  }
+},
+{
+    "model": "configurador.project",
+    "pk": 28,
+    "fields": {
+        "name": "Bull",
+        "description": "Bull es una robusta librería de colas de trabajos para Node.js, respaldada por Redis, diseñada para el procesamiento confiable de tareas en segundo plano. Ofrece características como trabajos retrasados, trabajos repetibles, control de concurrencia y manejo de fallos, lo que la hace ideal para gestionar tareas que requieren ejecución asíncrona y persistencia.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"EventStreaming-4\", \"Kafka-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 29,
+    "fields": {
+        "name": "Sidekiq",
+        "description": "Sidekiq es un framework de procesamiento de trabajos en segundo plano para aplicaciones Ruby. Permite la ejecución asíncrona de tareas que consumen mucho tiempo, como el envío de correos electrónicos, la generación de informes o el procesamiento de imágenes, fuera del ciclo de solicitud-respuesta principal de la aplicación web. Utiliza Redis como su almacén de datos para gestionar colas de trabajos, lo que proporciona persistencia y escalabilidad. Es conocido por su alto rendimiento, su capacidad para manejar un gran volumen de trabajos y su facilidad de integración con aplicaciones Rails.",
+        "language": 5,
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"Redis-6\"]"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 1,
+    "fields": {
+        "name": "Python"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 2,
+    "fields": {
+        "name": "JavaScript/TypeScript"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 4,
+    "fields": {
+        "name": "Java"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 5,
+    "fields": {
+        "name": "Ruby"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 6,
+    "fields": {
+        "name": "Dart"
+    }
+}
 ]
