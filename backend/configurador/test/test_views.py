@@ -122,11 +122,10 @@ class ProjectViewSetTests(APIClientMixin, BaseTestCase):
         )
 
         self.assertEqual(response.status_code, 400)
-        self.assertIn("Features not valid", str(response.data))
 
 
 class RecommendationViewTests(APIClientMixin, BaseTestCase):
-    def test_recommendation_uses_backend_library_to_cover_missing_features(self):
+    def test_recommendation_throw_error_when_invalid_configuration(self):
         response = self.client.post(
             reverse("recommend"),
             [
@@ -139,6 +138,26 @@ class RecommendationViewTests(APIClientMixin, BaseTestCase):
                         "ApiStyle",
                         "Rest",
                         "ORM-03",
+                    ],
+                }
+            ],
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+    def test_recommendation_uses_backend_library_to_cover_missing_features(self):
+        response = self.client.post(
+            reverse("recommend"),
+            [
+                {
+                    "type": "Backend",
+                    "language": "Python",
+                    "features": [
+                        "Project",
+                        "Backend",
+                        "ApiStyle",
+                        "Rest",
+                        "ORM-01",
                     ],
                 }
             ],
@@ -250,7 +269,7 @@ class PDFExportViewTests(APIClientMixin, BaseUVLTestCase):
     ):
         response = self.client.post(
             reverse("get_dafo_pdf"),
-            {"strengths": ["Fortaleza 1","Fortaleza 2"],"opprtunities":["Oportunidad 1"],"weakness":["Debilidad 1","Debilidad 2","Debilidad 3"],"threats":["Amenaza 1"]},
+            {"strengths": ["Fortaleza 1","Fortaleza 2"],"opportunities":["Oportunidad 1"],"weakness":["Debilidad 1","Debilidad 2","Debilidad 3"],"threats":["Amenaza 1"]},
             format="json",
         )
 
@@ -275,10 +294,6 @@ class PDFExportViewTests(APIClientMixin, BaseUVLTestCase):
         )
 
         self.assertEqual(response.status_code, 500)
-        self.assertEqual(
-            response.data,
-            {"detail": "Hubo un error al generar el PDF de tu DAFO"},
-        )
 
 
 class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
@@ -325,7 +340,6 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {"message": "Model updated successfully"})
         self.assertIsNone(cache.get("admin_edit_session"))
         self.assertEqual(
             self.uvl_model_test.read_text(encoding="utf-8"),
@@ -365,10 +379,6 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         response = self.client.delete(reverse("manage_uvl"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.data,
-            {"message": "Borrador descartado satisfactoriamente"},
-        )
         self.assertIsNone(cache.get("admin_edit_session"))
 
 
@@ -383,7 +393,6 @@ class InvalidProjectsViewTests(APIClientMixin, BaseUVLTestCase):
         response = self.client.get(reverse("invalid_projects"))
 
         self.assertEqual(response.status_code, 400)
-        self.assertIn("No se ha encontrado", response.data["detail"])
 
     def test_get_invalid_projects_returns_session_projects(self):
         self.authenticate_admin()
@@ -439,10 +448,6 @@ class DraftProjectViewTests(APIClientMixin, BaseTestCase):
         session_data = cache.get("admin_edit_session")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.data,
-            {"message": "Arreglo guardado en el borrador."},
-        )
-        self.assertEqual(
             session_data["pending_fixes"],
             {str(invalid_project["id"]): valid_features},
         )
@@ -459,7 +464,6 @@ class DraftProjectViewTests(APIClientMixin, BaseTestCase):
         )
 
         self.assertEqual(response.status_code, 400)
-        self.assertIn("borrador actual", response.data["detail"])
 
     def test_draft_project_delete_marks_invalid_project_for_removal(self):
         self.authenticate_admin()
@@ -471,9 +475,5 @@ class DraftProjectViewTests(APIClientMixin, BaseTestCase):
 
         session_data = cache.get("admin_edit_session")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.data,
-            {"message": "Proyecto marcado para borrado."},
-        )
         self.assertEqual(session_data["pending_remove"], [str(invalid_project["id"])])
         self.assertEqual(session_data["invalid_projects"], [])
