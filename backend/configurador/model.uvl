@@ -7,7 +7,6 @@ features
 						or
 							"REST"
 							"GraphQL"
-							"RPC"
 							"gRPC"
 				mandatory
 					"License-1"
@@ -79,11 +78,7 @@ features
 						optional
 							"Memcached-1"
 				optional
-					"APIDocumentationSupport"
-						optional
-							"OpenAPIGeneration"
-						optional
-							"SwaggerUI"
+					"OpenAPIDocumentationSupport"
 				optional
 					"GenericCRUDAbstractions"
 				optional
@@ -253,11 +248,6 @@ features
 							"RequestValidation-4"
 						optional
 							"SchemaValidation-4"
-					"APIDocumentationSupport-4"
-						optional
-							"OpenAPIGeneration-4"
-						optional
-							"SwaggerUI-4"
 					"TaskQueueSupport-4"
 						or
 							"OpenStandardQueues-4"

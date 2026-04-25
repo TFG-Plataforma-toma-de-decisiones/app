@@ -44,11 +44,11 @@ class ConfiguratorBranchListSerializer(serializers.ListSerializer):
 
 class ConfiguratorBranchSerializer(serializers.Serializer):
     type = serializers.ChoiceField(choices=["Backend", "Frontend", "Full Stack"])
-    language = serializers.SlugRelatedField(
+    languages = serializers.SlugRelatedField(
         slug_field="name",
         queryset=Language.objects.all(),
-        required=False,
-        allow_null=True
+        allow_empty=True,
+        many=True
     )
     features = serializers.ListField(
         child=serializers.CharField(),

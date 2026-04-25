@@ -292,3 +292,20 @@
     white-space: normal;
   }
 }
+/* Heredamos tu estilo de las librerías pero lo hacemos clickeable */
+.libraries-container.clickable-chips {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.libraries-container.clickable-chips span {
+  cursor: pointer;
+  user-select: none; /* Evita que el texto se subraye azul al hacer clics rápidos */
+}
+
+/* Estilo cuando el usuario marca el lenguaje */
+.libraries-container.clickable-chips span.chip-selected {
+  background-color: var(--color-primary);
+  color: var(--color-background-default, #ffffff);
+  border-color: var(--color-primary);
+}

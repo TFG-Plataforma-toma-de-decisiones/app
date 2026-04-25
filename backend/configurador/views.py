@@ -50,14 +50,11 @@ def get_recommendation(request):
         "Full Stack": [p for p in projects if any(typeProject in p.features for typeProject in ["Backend Library","Frontend Library"])],
     }
     result = []
-    count_per_type = {"Frontend":0, "Backend":0, "Full Stack":0}
     for project_request in request.data:
         typeProject=project_request["type"]
         requested_features = features_set_by_name(project_request["features"])
         projects_filter = (
-            (lambda p: typeProject in p.features and project_request.get("language") == p.language.name)
-            if (project_request.get("language") or "").strip()
-            else (lambda p: project_request["type"] in p.features)
+            lambda p: typeProject in p.features and (p.language.name in project_request.get("languages") or len(project_request.get("languages"))==0)
         )   
 
         for project in filter(projects_filter, projects):
@@ -76,16 +73,13 @@ def get_recommendation(request):
                     break
                 covered_features |= features_set_by_name(library.features)
                 libraries_used.append(library.name)
-            if count_per_type[typeProject] < 5 and not missing:
+            if not missing:
                 result.append({
                     "type": typeProject,
                     "project": project.name,
                     "libraries": libraries_used
                 })
-                count_per_type[typeProject] += 1
-            if count_per_type[typeProject] >= 5:
-                break
-    return Response(result)
+    return Response(list(sorted(result,key=lambda p:len(p["libraries"]))))
 @api_view(["POST"])
 def get_swot(request):
     uvl_model=FlamapyService.get_instance().to_dict()

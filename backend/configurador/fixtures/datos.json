@@ -16,7 +16,7 @@
         "name": "Django REST Framework",
         "description": "Toolkit para construir APIs REST sobre Django, con serializers, viewsets, autenticación y generación de esquemas OpenAPI.",
         "language": 1,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
     }
 },
 {
@@ -26,7 +26,7 @@
         "name": "FastAPI",
         "description": "Framework moderno para APIs en Python con validación basada en tipos, OpenAPI/Swagger automáticos y soporte para WebSockets.",
         "language": 1,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\", \"AuthenticationSupport\", \"OAuth2\", \"Basic\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"SwaggerUI\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"MIT-1\", \"AuthenticationSupport\", \"OAuth2\", \"Basic\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
     }
 },
 {
@@ -36,7 +36,7 @@
         "name": "Spring Boot",
         "description": "Framework para aplicaciones Java con fuerte integración con Spring, inyección de dependencias, validación y seguridad.",
         "language": 4,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"SwaggerUI\", \"TaskQueueSupport\", \"EventStreaming\", \"Kafka\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"CloudNativeQueues\", \"AWSSQS\", \"GoogleCloudTasks\", \"AzureServiceBus\"]"
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"TaskQueueSupport\", \"EventStreaming\", \"Kafka\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"CloudNativeQueues\", \"AWSSQS\", \"GoogleCloudTasks\", \"AzureServiceBus\", \"GraphQL\", \"gRPC\", \"CacheSupport-1\", \"Redis-1\", \"ODM-1\", \"OGM-1\", \"OpenAPIDocumentationSupport\"]"
     }
 },
 {
@@ -46,7 +46,7 @@
         "name": "NestJS",
         "description": "Framework backend para Node.js/TypeScript con arquitectura modular, inyección de dependencias, validación y soporte oficial para OpenAPI y WebSockets.",
         "language": 2,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"GraphQL\", \"License-1\", \"MIT-1\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"APIDocumentationSupport\", \"OpenAPIGeneration\", \"SwaggerUI\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"GraphQL\", \"MIT-1\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
     }
 },
 {
@@ -226,7 +226,7 @@
         "name": "Bull",
         "description": "Bull es una robusta librería de colas de trabajos para Node.js, respaldada por Redis, diseñada para el procesamiento confiable de tareas en segundo plano. Ofrece características como trabajos retrasados, trabajos repetibles, control de concurrencia y manejo de fallos, lo que la hace ideal para gestionar tareas que requieren ejecución asíncrona y persistencia.",
         "language": 2,
-        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"EventStreaming-4\", \"Kafka-4\"]"
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"Redis-6\"]"
     }
 },
 {
@@ -237,6 +237,176 @@
         "description": "Sidekiq es un framework de procesamiento de trabajos en segundo plano para aplicaciones Ruby. Permite la ejecución asíncrona de tareas que consumen mucho tiempo, como el envío de correos electrónicos, la generación de informes o el procesamiento de imágenes, fuera del ciclo de solicitud-respuesta principal de la aplicación web. Utiliza Redis como su almacén de datos para gestionar colas de trabajos, lo que proporciona persistencia y escalabilidad. Es conocido por su alto rendimiento, su capacidad para manejar un gran volumen de trabajos y su facilidad de integración con aplicaciones Rails.",
         "language": 5,
         "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"Redis-6\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 30,
+    "fields": {
+        "name": "Flask",
+        "description": "Flask es un microframework web ligero para Python, diseñado para construir aplicaciones web de manera rápida y sencilla. Proporciona las herramientas esenciales para el desarrollo web, como enrutamiento, manejo de solicitudes y respuestas, y soporte para plantillas, sin imponer dependencias o estructuras de proyecto complejas. Su diseño modular permite a los desarrolladores elegir las bibliotecas y herramientas que mejor se adapten a sus necesidades, lo que lo hace ideal para APIs RESTful, microservicios y aplicaciones web de tamaño pequeño a mediano.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"SessionAuth\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 31,
+    "fields": {
+        "name": ".NET",
+        "description": ".NET es una plataforma de desarrollo gratuita, de código abierto y multiplataforma, mantenida por Microsoft y la comunidad. Permite construir una amplia variedad de aplicaciones, incluyendo servicios web, APIs RESTful, microservicios, aplicaciones de escritorio, móviles, juegos y soluciones IoT. Proporciona un entorno de ejecución (CLR), un conjunto extenso de bibliotecas de clases (BCL) y compiladores, ofreciendo un ecosistema robusto para el desarrollo de software de alto rendimiento y escalable.",
+        "language": 7,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"MIT-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"TaskQueueSupport\", \"OpenStandardQueues\", \"RabbitMQ\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 32,
+    "fields": {
+        "name": "React Native",
+        "description": "React Native es un framework de código abierto desarrollado por Facebook para construir aplicaciones móviles nativas multiplataforma (iOS y Android) utilizando JavaScript y la biblioteca React. Permite a los desarrolladores escribir código una sola vez y desplegarlo en ambas plataformas, aprovechando componentes de interfaz de usuario nativos para ofrecer un rendimiento y una experiencia de usuario auténticos, en lugar de vistas web incrustadas. Su arquitectura se basa en el principio de 'learn once, write anywhere', facilitando la reutilización de conocimientos de desarrollo web en el ámbito móvil.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web+Mobile\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"ClientFetching\", \"QueryCaching\", \"TypeScriptSupport\", \"GlobalState-2\", \"i18nInternationalization-2\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 33,
+    "fields": {
+        "name": "SQLAlchemy",
+        "description": "SQLAlchemy es un completo toolkit SQL y Mapeador Objeto-Relacional (ORM) para Python. Proporciona un conjunto robusto de patrones de persistencia, diseñado para un acceso eficiente y de alto rendimiento a bases de datos. Permite a los desarrolladores interactuar con bases de datos utilizando objetos Python, abstraiendo las complejidades de las consultas SQL mientras ofrece control total sobre SQL cuando es necesario. Soporta una amplia variedad de motores de bases de datos y presenta una arquitectura flexible y extensible.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ORM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 34,
+    "fields": {
+        "name": "Laravel",
+        "description": "Laravel es un framework de aplicación web de código abierto escrito en PHP, diseñado para el desarrollo de aplicaciones web siguiendo el patrón arquitectónico modelo-vista-controlador (MVC). Ofrece una sintaxis elegante y expresiva, herramientas robustas para tareas comunes como enrutamiento, autenticación, sesiones y caché, y una potente capa de abstracción de base de datos (Eloquent ORM). Su ecosistema incluye herramientas como Artisan CLI, Mix para compilación de assets, y soporte para colas de tareas, facilitando el desarrollo rápido y escalable.",
+        "language": 8,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"SSR-3\", \"License-3\", \"MIT-3\", \"BuiltInAPIRoutes\", \"FullStackRoutingSupport\", \"NestedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\", \"FullStackFormAbstractions\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"CacheSupport-3\", \"Redis-3\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\", \"TaskQueueSupport-3\", \"InCacheQueues-3\", \"Redis-5\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 35,
+    "fields": {
+        "name": "yup",
+        "description": "Yup es un constructor de esquemas JavaScript para el análisis y la validación de valores. Permite definir esquemas de validación de forma declarativa para objetos, arrays, strings, números, etc., facilitando la validación de datos de formularios, entradas de API y otras estructuras de datos. Es ampliamente utilizado en aplicaciones frontend con librerías como React, pero también es útil en entornos backend para la validación de esquemas.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"FormSupport-5\", \"Validation-5\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 36,
+    "fields": {
+        "name": "MongoEngine",
+        "description": "MongoEngine es un Object-Document Mapper (ODM) para Python que permite interactuar con bases de datos MongoDB de una manera orientada a objetos. Proporciona una capa de abstracción sobre PyMongo, facilitando la definición de esquemas de documentos, la validación de datos y la manipulación de colecciones de MongoDB utilizando clases y objetos Python, lo que mejora la legibilidad y mantenibilidad del código.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 37,
+    "fields": {
+        "name": "py2neo",
+        "description": "py2neo es una biblioteca cliente de Python para Neo4j, una base de datos de grafos. Proporciona una API completa y un Object Graph Mapper (OGM) para interactuar con la base de datos Neo4j, permitiendo a los desarrolladores trabajar con datos de grafos de manera intuitiva y programática.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"OGM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 38,
+    "fields": {
+        "name": "Mongoose",
+        "description": "Mongoose es una biblioteca de modelado de datos de objetos (ODM) para MongoDB en entornos Node.js. Proporciona una solución basada en esquemas para modelar los datos de su aplicación, incluyendo validación de tipos, construcción de consultas y middleware. Facilita la interacción con bases de datos MongoDB al proporcionar una capa de abstracción sobre el controlador nativo de MongoDB, permitiendo a los desarrolladores trabajar con datos de forma más estructurada y orientada a objetos.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 39,
+    "fields": {
+        "name": "neo4j-driver",
+        "description": "El neo4j-driver es el controlador oficial de Neo4j para JavaScript/TypeScript, diseñado para facilitar la conexión y la interacción con bases de datos de grafos Neo4j. Proporciona una API robusta para ejecutar consultas Cypher, gestionar transacciones y mapear datos de grafos a objetos JavaScript, permitiendo a las aplicaciones integrar funcionalidades de bases de datos de grafos de manera eficiente.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"OGM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 40,
+    "fields": {
+        "name": "MongoDB",
+        "description": "MongoDB es una base de datos NoSQL orientada a documentos de código abierto. Almacena datos en documentos flexibles de tipo JSON (BSON), lo que significa que los campos pueden variar de un documento a otro y la estructura de datos puede cambiar con el tiempo. Está diseñada para escalabilidad, alto rendimiento y disponibilidad, siendo ideal para aplicaciones modernas que requieren flexibilidad en el esquema de datos y la capacidad de manejar grandes volúmenes de datos distribuidos.",
+        "language": 9,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 41,
+    "fields": {
+        "name": "Neo4jClient",
+        "description": "Neo4jClient es un cliente .NET de código abierto para la base de datos de grafos Neo4j. Proporciona una interfaz fluida y fuertemente tipada para interactuar con Neo4j, permitiendo a los desarrolladores construir consultas Cypher de manera programática y mapear los resultados a objetos C#. Facilita la integración de Neo4j en aplicaciones .NET, actuando como un Object-Graph Mapper (OGM).",
+        "language": 7,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"OGM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 42,
+    "fields": {
+        "name": "Doctrine MongoDB ODM",
+        "description": "Doctrine MongoDB ODM (Object Document Mapper) es una biblioteca de PHP que proporciona una capa de abstracción para interactuar con bases de datos MongoDB. Permite a los desarrolladores mapear documentos de MongoDB a objetos PHP, facilitando la definición de esquemas, la gestión de relaciones entre documentos y la implementación de eventos del ciclo de vida de los objetos, integrándose comúnmente en frameworks como Symfony para la persistencia de datos.",
+        "language": 8,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 43,
+    "fields": {
+        "name": "Mongoid",
+        "description": "Mongoid es un Object-Document Mapper (ODM) para la base de datos NoSQL MongoDB, escrito en Ruby. Proporciona una interfaz elegante y \"Ruby-esque\" para interactuar con MongoDB, permitiendo a los desarrolladores definir modelos de datos, realizar operaciones CRUD, gestionar validaciones, callbacks y asociaciones de documentos de manera similar a un ORM tradicional, pero adaptado a la naturaleza sin esquema de MongoDB.",
+        "language": 5,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 44,
+    "fields": {
+        "name": "Neo4j.rb",
+        "description": "Neo4j.rb es un Object Graph Mapper (OGM) para el lenguaje Ruby, que facilita la interacción con bases de datos de grafos Neo4j. Proporciona una interfaz inspirada en ActiveRecord para mapear objetos Ruby a nodos y relaciones en Neo4j, permitiendo a los desarrolladores consultar y manipular datos de grafos utilizando sintaxis Ruby familiar. Es comúnmente utilizado en aplicaciones Ruby on Rails para integrar capacidades de bases de datos de grafos.",
+        "language": 5,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"OGM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 45,
+    "fields": {
+        "name": "MongoDB Go Driver",
+        "description": "El MongoDB Go Driver es el controlador oficial de MongoDB para el lenguaje de programación Go. Proporciona una API idiomática para que las aplicaciones Go interactúen con bases de datos MongoDB, permitiendo operaciones CRUD, agregaciones, transacciones y otras funcionalidades avanzadas de MongoDB. Facilita la conexión, gestión de sesiones y mapeo de documentos BSON a estructuras Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 46,
+    "fields": {
+        "name": "Neo4j Go Driver",
+        "description": "El Neo4j Go Driver es el controlador oficial y recomendado para conectar aplicaciones Go a bases de datos Neo4j. Proporciona una API idiomática en Go para interactuar con Neo4j, ejecutar consultas Cypher de manera eficiente y gestionar transacciones, facilitando el desarrollo de aplicaciones que aprovechan las capacidades de las bases de datos de grafos.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"OGM-4\"]"
     }
 },
 {
@@ -272,6 +442,34 @@
     "pk": 6,
     "fields": {
         "name": "Dart"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 7,
+    "fields": {
+        "name": "C#"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 8,
+    "fields": {
+        "name": "PHP"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 9,
+    "fields": {
+        "name": "C++"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 10,
+    "fields": {
+        "name": "Go"
     }
 }
 ]

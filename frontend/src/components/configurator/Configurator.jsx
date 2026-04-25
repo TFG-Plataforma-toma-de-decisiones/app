@@ -84,19 +84,37 @@ export default function Configurator() {
               </label>
               {active && node && (
                 <div className="feature-children root-children">
-                  <div className="language-dropdown-container">
-          <select 
-            className="language-select"
-            value={getProperty(index,"language")}
-            onChange={(e)=>setProperty(index,"language",e.target.value)}
-          >
-            <option value="" >Selecciona un lenguaje...</option>
-            {languages.map(l=>(
-                <option value={l.name}>{l.name}</option>
-            ))}
-            
-          </select>
-            </div>
+                  <div className="language-chips-wrapper">
+        <label className="label-comments">Lenguajes:</label>
+        <div className="libraries-container clickable-chips">
+          {languages.map((l, i) => {
+            // Obtenemos los lenguajes seleccionados actuales (asegurando que es un array)
+            const currentLangs = getProperty(index, "languages") || [];
+            const isSelected = currentLangs.includes(l.name);
+
+            // Función para alternar la selección sin necesidad de tecla Ctrl
+            const toggleLanguage = () => {
+              let newLangs;
+              if (isSelected) {
+                newLangs = currentLangs.filter(lang => lang !== l.name);
+              } else {
+                newLangs = [...currentLangs, l.name];
+              }
+              setProperty(index, "languages", newLangs);
+            };
+
+            return (
+              <span 
+                key={i} 
+                className={isSelected ? 'chip-selected' : ''}
+                onClick={toggleLanguage}
+              >
+                {l.name}
+              </span>
+            );
+          })}
+        </div>
+      </div>
                   <FeatureNode
                     node={node}
                     depth={1}

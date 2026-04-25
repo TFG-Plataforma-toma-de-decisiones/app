@@ -25,7 +25,7 @@ function App() {
           <Route 
             path="/recomendador" 
             element={
-              <FeatureTreesProvider initialTrees={types.map((t) => ({features: [], type: t}))} key="configurator">
+              <FeatureTreesProvider initialTrees={types.map((t) => ({features: [], type: t,languages:[]}))} key="configurator">
                 <Configurator />
               </FeatureTreesProvider>
             } 
