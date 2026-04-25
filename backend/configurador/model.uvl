@@ -1,7 +1,7 @@
 features
 	"Project"
 		alternative
-			"Backend"
+			"Backend" {label 'sl'}
 				mandatory
 					"APIStyle"
 						or
@@ -298,3 +298,5 @@ features
 							"OfflineSupport-5"
 						optional
 							"InstallableApp-5"
+constraints
+	"GenericCRUDAbstractions" => "ORM-1"

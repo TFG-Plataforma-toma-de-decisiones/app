@@ -14,8 +14,9 @@ class ProjectSerializer(serializers.ModelSerializer):
     )
     def validate_features(self, value):
         service = FlamapyService.get_instance()
-        if not service.validate(value,True):
-            raise serializers.ValidationError("Features not valid")
+        valid,message=service.validate(value,True)
+        if not valid:
+            raise serializers.ValidationError(message)
         return value  
     class Meta:
         model = Project
