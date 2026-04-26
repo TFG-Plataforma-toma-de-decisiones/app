@@ -119,6 +119,7 @@ export default function Configurator() {
                     node={node}
                     depth={1}
                     index={index}
+                    fullConfig={false}
                   />
                 </div>
               )}

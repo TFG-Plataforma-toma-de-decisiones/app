@@ -36,7 +36,7 @@
         "name": "Spring Boot",
         "description": "Framework para aplicaciones Java con fuerte integración con Spring, inyección de dependencias, validación y seguridad.",
         "language": 4,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"TaskQueueSupport\", \"EventStreaming\", \"Kafka\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"CloudNativeQueues\", \"AWSSQS\", \"GoogleCloudTasks\", \"AzureServiceBus\", \"GraphQL\", \"gRPC\", \"CacheSupport-1\", \"Redis-1\", \"ODM-1\", \"OGM-1\", \"OpenAPIDocumentationSupport\"]"
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"TaskQueueSupport\", \"EventStreaming\", \"Kafka\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"CloudNativeQueues\", \"AWSSQS\", \"GoogleCloudTasks\", \"AzureServiceBus\", \"GraphQL\", \"gRPC\", \"CacheSupport-1\", \"Redis-1\", \"ODM-1\", \"OGM-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\"]"
     }
 },
 {
@@ -96,7 +96,7 @@
         "name": "Vue.js",
         "description": "Framework progresivo para interfaces web con buen soporte de componentes y TypeScript.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSSModules\", \"TypeScriptSupport\"]"
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSModules\"]"
     }
 },
 {
@@ -106,17 +106,7 @@
         "name": "Angular",
         "description": "Framework frontend completo con routing, formularios, i18n y capacidades oficiales para SSR y PWA.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"SSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"TypeScriptSupport\", \"i18nInternationalization-2\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]"
-    }
-},
-{
-    "model": "configurador.project",
-    "pk": 12,
-    "fields": {
-        "name": "React Native",
-        "description": "Framework para crear aplicaciones móviles nativas usando React.",
-        "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Mobile\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSSinJS\", \"TypeScriptSupport\"]"
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web\", \"SPA\", \"SSR\", \"MIT-2\", \"CSS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"i18nInternationalization-2\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]"
     }
 },
 {
@@ -266,7 +256,7 @@
         "name": "React Native",
         "description": "React Native es un framework de código abierto desarrollado por Facebook para construir aplicaciones móviles nativas multiplataforma (iOS y Android) utilizando JavaScript y la biblioteca React. Permite a los desarrolladores escribir código una sola vez y desplegarlo en ambas plataformas, aprovechando componentes de interfaz de usuario nativos para ofrecer un rendimiento y una experiencia de usuario auténticos, en lugar de vistas web incrustadas. Su arquitectura se basa en el principio de 'learn once, write anywhere', facilitando la reutilización de conocimientos de desarrollo web en el ámbito móvil.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web+Mobile\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"ClientFetching\", \"QueryCaching\", \"TypeScriptSupport\", \"GlobalState-2\", \"i18nInternationalization-2\"]"
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"ClientFetching\", \"QueryCaching\", \"GlobalState-2\", \"i18nInternationalization-2\", \"Mobile\"]"
     }
 },
 {
@@ -407,6 +397,26 @@
         "description": "El Neo4j Go Driver es el controlador oficial y recomendado para conectar aplicaciones Go a bases de datos Neo4j. Proporciona una API idiomática en Go para interactuar con Neo4j, ejecutar consultas Cypher de manera eficiente y gestionar transacciones, facilitando el desarrollo de aplicaciones que aprovechan las capacidades de las bases de datos de grafos.",
         "language": 10,
         "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"OGM-4\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 82,
+    "fields": {
+        "name": "Redux",
+        "description": "Redux es una librería de código abierto para la gestión del estado de aplicaciones JavaScript. Proporciona un contenedor de estado predecible que ayuda a escribir aplicaciones que se comportan de manera consistente en diferentes entornos (cliente, servidor y nativo) y son fáciles de probar. Se basa en un único \"store\" inmutable, acciones para describir los cambios de estado y \"reducers\" para especificar cómo el estado cambia en respuesta a esas acciones, facilitando la depuración y la implementación de funcionalidades como \"undo/redo\".",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"GlobalState-5\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 84,
+    "fields": {
+        "name": "Expo",
+        "description": "Expo es un framework y una plataforma de herramientas de código abierto que simplifica el desarrollo de aplicaciones nativas universales utilizando JavaScript y React. Permite a los desarrolladores crear, construir y desplegar aplicaciones para iOS, Android y la web desde una única base de código, abstrayendo gran parte de la complejidad de la configuración de entornos nativos y la gestión de dependencias. Proporciona un conjunto de APIs y componentes preconstruidos que facilitan el acceso a las funcionalidades del dispositivo, así como servicios para la compilación en la nube y la publicación de actualizaciones over-the-air.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web+Mobile\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FileBasedRouting\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]"
     }
 },
 {

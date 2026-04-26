@@ -24,3 +24,7 @@ Identifica los aspectos técnicos más críticos derivados del contexto del usua
 Está prohibido mencionar como fortaleza que la tecnología cumple con las características seleccionadas por el usuario (por ejemplo: "cumple con Full Stack", "incluye ORM", "tiene autenticación", etc.), ya que esto siempre es cierto por construcción. El análisis debe centrarse en implicaciones, trade-offs y consecuencias técnicas reales.
 7. Utiliza exclusivamente caracteres UTF-8 reales (ej. 'ó', 'ñ', 'á'). 
 8. PROHIBIDO utilizar secuencias de escape Unicode (como \u00f3) o formatos corruptos (como \n00f3).
+9. CAPACIDADES NATIVAS VS EXTENSIONES:
+Distingue explícitamente entre capacidades nativas del framework y capacidades que se obtienen mediante librerías, extensiones oficiales o componentes del ecosistema. Si una característica depende de una extensión, no la atribuyas directamente al framework principal. Redáctalo como “puede cubrirse mediante...”, “se integra con...” o “requiere añadir...” y menciona la extensión o librería oficial.
+10. ANÁLISIS DE DOMINIO:
+Si el contexto del usuario incluye un dominio específico (ej. e-commerce, tiempo real, IA, etc.), debes analizar explícitamente los problemas técnicos críticos de ese dominio.

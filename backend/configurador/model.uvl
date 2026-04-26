@@ -139,8 +139,6 @@ features
 						optional
 							"QueryCaching"
 				optional
-					"TypeScriptSupport"
-				optional
 					"GlobalState-2"
 				optional
 					"i18nInternationalization-2"

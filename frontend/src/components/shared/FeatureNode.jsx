@@ -4,9 +4,9 @@ import { getRelations, hasRelations } from "../../utils/featureModel";
 
 const RELATION_CONFIG = {
   MANDATORY: { title: null, controlType: "mandatory" },
-  ALTERNATIVE: { title: "Alternative (Select exactly one)", controlType: "radio" },
-  OR: { title: "OR (Select at least one)", controlType: "checkbox" },
-  OPTIONAL: { title: "Optional Features", controlType: "checkbox" }
+  ALTERNATIVE: { title: "Selecciona uno", controlType: "radio" },
+  OR: { title: "Selecciona al menos uno", controlType: "checkbox" },
+  OPTIONAL: { title: "Características opcionales", controlType: "checkbox" }
 };
 
 const DEFAULT_RELATION_CONFIG = {
@@ -17,7 +17,7 @@ const DEFAULT_RELATION_CONFIG = {
 const MERGEABLE_RELATION_TYPES = new Set(["MANDATORY", "OPTIONAL"]);
 
 
-export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
+export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullConfig=true }) {
   const { isActive, handleToggle, handleRadioChange } = useFeatureTrees();
 
   const relations = getRelations(node);
@@ -85,14 +85,21 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
                       name={`group-${node.name?.split('-')?.[0]}-${relationIndex}`}
                       checked={active}
                       disabled={readOnly}
-                      onChange={() => handleRadioChange(index, children, child)}
+                      onChange={() => {}}
+                      onClick={() => {
+                        console.log(fullConfig)
+                        if(!active || !fullConfig){
+                          handleRadioChange(index, children, child)
+                          }
+                        }
+                      }
                     />
                     <span className="custom-control custom-radio"></span>
                   </>
                 );
               } else if (controlType === "checkbox") {
                 const checkedCount = children.filter(c => isActive(index, c)).length;
-                const disabled = (relation.type === "OR" && active && checkedCount === 1) || readOnly;
+                const disabled = (relation.type === "OR" && active && checkedCount === 1 && fullConfig) || readOnly;
 
                 control = (
                   <>
@@ -116,7 +123,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly }) {
                   </label>
                   {active && hasChildren && (
                     <div className="feature-children">
-                      <FeatureNode node={child} depth={depth + 1} index={index} readOnly={readOnly}/>
+                      <FeatureNode node={child} depth={depth + 1} index={index} readOnly={readOnly} fullConfig={fullConfig}/>
                     </div>
                   )}
                 </div>
