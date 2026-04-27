@@ -1,267 +1,298 @@
 features
-    "Project" { label 'Proyecto' }
-        alternative
-            "Backend" { label 'Backend' }
-                mandatory
-                    "APIStyle" { label 'API' }
-                        or
-                            "REST" { label 'REST' }
-                            "GraphQL" { label 'GraphQL' }
-                            "gRPC" { label 'gRPC' }
-                    "License-1" { label 'Licencia' }
-                        alternative
-                            "MIT-1" { label 'MIT' }
-                            "GPL-1" { label 'GPL' }
-                            "Apache-1" { label 'Apache' }
-                            "BSD-1" { label 'BSD' }
-                optional
-                    "AuthenticationSupport" { label 'Autenticación', description 'Mecanismos de autenticación que el framework soporta de forma nativa o mediante integración oficial directa.' }
-                        optional
-                            "JWT" { label 'JWT' }
-                        optional
-                            "OAuth2" { label 'OAuth2' }
-                        optional
-                            "Basic" { label 'Básica' }
-                        optional
-                            "SessionAuth" { label 'Sesiones' }
-                    "AuthenticationAbstractions" { label 'Auth integrada', description 'Facilidades oficiales del framework que reducen el trabajo manual necesario para implementar autenticación.' }
-                        optional
-                            "BuiltInAuthentication" { label 'Autenticación integrada', description 'El framework incluye un sistema de autenticación ya resuelto o muy avanzado.' }
-                        optional
-                            "BuiltInJWTAuthentication" { label 'JWT integrado', description 'El framework ofrece soporte oficial y bastante directo para autenticación JWT sin tener que implementar manualmente gran parte del flujo.' }
-                    "Authorization" { label 'Autorización', description 'Mecanismos para controlar qué acciones puede realizar un usuario autenticado.' }
-                        optional
-                            "Roles" { label 'Roles' }
-                        optional
-                            "Permissions" { label 'Permisos' }
-                    "DependencyInjection" { label 'Inyección de dependencias', description 'El framework usa inyección de dependencias como parte clara de su arquitectura y configuración.' }
-                    "ValidationSupport" { label 'Validación', description 'Soporte para validar datos de entrada de forma declarativa o integrada en el framework.' }
-                        optional
-                            "RequestValidation" { label 'Validación de entrada', description 'Validación de los datos recibidos en peticiones o formularios.' }
-                        optional
-                            "SchemaValidation" { label 'Validación por esquema', description 'Validación basada en esquemas, tipos o estructuras declarativas.' }
-                    "DatabaseIntegration-1" { label 'Base de datos', description 'Capacidades oficiales de integración con bases de datos y modelos de persistencia.' }
-                        optional
-                            "ORM-1" { label 'ORM' }
-                        optional
-                            "ODM-1" { label 'ODM' }
-                        optional
-                            "OGM-1" { label 'OGM' }
-                    "TaskQueueSupport" { label 'Colas de trabajo', description 'Soporte para procesamiento asíncrono mediante colas, brokers o sistemas de eventos.' }
-                        or
-                            "OpenStandardQueues" { label 'Colas estándar', description 'Sistemas de colas o mensajería ampliamente usados y desacoplados del proveedor cloud.' }
-                                or
-                                    "RabbitMQ" { label 'RabbitMQ' }
-                                    "ActiveMQ" { label 'ActiveMQ' }
-                            "CloudNativeQueues" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.' }
-                                or
-                                    "AWSSQS" { label 'AWS SQS' }
-                                    "GoogleCloudTasks" { label 'Google Cloud Tasks' }
-                                    "AzureServiceBus" { label 'Azure Service Bus' }
-                            "EventStreaming" { label 'Streaming', description 'Plataformas orientadas a flujos de eventos continuos y consumo desacoplado.' }
-                                mandatory
-                                    "Kafka" { label 'Kafka' }
-                            "InCacheQueues" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.' }
-                                mandatory
-                                    "Redis" { label 'Redis' }
-                    "CacheSupport-1" { label 'Caché', description 'Soporte para almacenar datos temporales y acelerar operaciones frecuentes.' }
-                        optional
-                            "Redis-1" { label 'Redis' }
-                        optional
-                            "Memcached-1" { label 'Memcached' }
-                    "OpenAPIDocumentationSupport" { label 'OpenAPI / Swagger', description 'Capacidad de generar o exponer documentación de API basada en OpenAPI o Swagger de forma oficial.' }
-                    "GenericCRUDAbstractions" { label 'CRUD integrado', description 'El framework ofrece abstracciones oficiales para operaciones CRUD comunes, reduciendo código repetitivo.' }
-                    "RealtimeCommunicationSupport" { label 'Tiempo real', description 'Soporte para comunicación persistente o bidireccional en tiempo real.' }
-                        optional
-                            "WebSockets" { label 'WebSockets' }
-            "Frontend" { label 'Frontend' }
-                mandatory
-                    "Platform" { label 'Plataforma' }
-                        alternative
-                            "Web" { label 'Web' }
-                            "Mobile" { label 'Móvil' }
-                            "Web+Mobile" { label 'Web y móvil' }
-                    "ApplicationArchitecture" { label 'Tipo de aplicación' }
-                        alternative
-                            "SPA" { label 'SPA' }
-                            "MPA" { label 'MPA' }
-                    "RenderingModel" { label 'Renderizado' }
-                        alternative
-                            "CSR" { label 'CSR (Renderizado del Cliente)' }
-                            "SSR" { label 'SSR (Renderizado del Servidor)' }
-                            "SSG" { label 'SSG (Sitios Estáticos)' }
-                    "License-2" { label 'Licencia' }
-                        alternative
-                            "MIT-2" { label 'MIT' }
-                            "GPL-2" { label 'GPL' }
-                            "Apache-2" { label 'Apache' }
-                            "BSD-2" { label 'BSD' }
-                    "Styling" { label 'Estilos' }
-                        or
-                            "CSS" { label 'CSS nativo' }
-                            "CSSModules" { label 'CSS Modules' }
-                            "CSSinJS" { label 'CSS en JS' }
-                            "UtilityFirstCSS" { label 'CSS de utilizadades (ej. Tailwind)' }
-                            "ComponentLibraryStyling" { label 'Librería de componentes', description 'El framework o ecosistema se apoya de forma natural en librerías de componentes con estilos integrados.' }
-                optional
-                    "RoutingSupport" { label 'Enrutamiento', description 'Soporte oficial para gestionar navegación y rutas dentro de la aplicación.' }
-                        optional
-                            "ClientSideRouting" { label 'Enrutamiento cliente' }
-                        optional
-                            "FileBasedRouting" { label 'Enrutamiento por archivos' }
-                    "FormSupport" { label 'Formularios', description 'Facilidades para construir, validar y gestionar formularios en el frontend.' }
-                        optional
-                            "FormStateManagement" { label 'Estado del formulario' }
-                        optional
-                            "Validation" { label 'Validación' }
-                    "DataFetchingSupport" { label 'Carga de datos', description 'Soporte para obtener, sincronizar y cachear datos remotos en la interfaz.' }
-                        optional
-                            "ClientFetching" { label 'Carga en cliente' }
-                        optional
-                            "ServerFetching" { label 'Carga en servidor' }
-                        optional
-                            "QueryCaching" { label 'Caché de consultas' }
-                    "GlobalState-2" { label 'Estado global', description 'Gestión de estado compartido entre múltiples componentes o vistas.' }
-                    "i18nInternationalization-2" { label 'Internacionalización', description 'Soporte para traducciones, localización y cambio de idioma.' }
-                    "PWAFeatures" { label 'PWA', description 'Capacidades asociadas a aplicaciones web progresivas.' }
-                        optional
-                            "OfflineSupport" { label 'Sin conexión' }
-                        optional
-                            "InstallableApp" { label 'Instalable' }
-            "Full Stack" { label 'Full stack' }
-                mandatory
-                    "RenderingModel-3" { label 'Renderizado' }
-                        or
-                            "CSR-3" { label 'CSR (Renderizado del Cliente)' }
-                            "SSR-3" { label 'SSR (Renderizado del Servidor)' }
-                            "SSG-3" { label 'SSG (Sitios Estáticos)' }
-                    "License-3" { label 'Licencia' }
-                        alternative
-                            "MIT-3" { label 'MIT' }
-                            "GPL-3" { label 'GPL' }
-                            "Apache-3" { label 'Apache' }
-                            "BSD-3" { label 'BSD' }
-                optional
-                    "BuiltInAPIRoutes" { label 'API integrada', description 'El framework permite definir rutas o endpoints de API dentro del mismo proyecto full stack.' }
-                    "FullStackRoutingSupport" { label 'Soporte para Enrutamiento', description 'El sistema de rutas forma parte central del framework y organiza navegación, vistas, layouts o páginas de forma integrada.' }
-                        optional
-                            "FileBasedRouting-3" { label 'Enrutamiento por archivos' }
-                        optional
-                            "NestedRouting-3" { label 'Enrutamiento anidado' }
-                    "DataLoadingSupport" { label 'Carga de datos', description 'El framework ofrece mecanismos oficiales para cargar datos del servidor como parte natural del renderizado o de la resolución de rutas.' }
-                        optional
-                            "ServerSideDataFetching-3" { label 'Carga en servidor', description 'Los datos pueden obtenerse en servidor dentro del flujo normal del framework antes o durante el renderizado.' }
-                    "ServerInteractionAbstractions" { label 'Interacción con servidor', description 'El framework abstrae parte de la comunicación entre interfaz y servidor, evitando implementar manualmente todo el flujo.' }
-                        optional
-                            "UITriggeredServerActions-3" { label 'Acciones en servidor', description 'El framework permite ejecutar lógica del servidor iniciada desde la interfaz mediante mecanismos integrados propios.' }
-                    "FullStackFormAbstractions" { label 'Formularios integrados', description 'El framework facilita el ciclo completo de formularios en aplicaciones full stack, incluyendo envío, validación y procesamiento en servidor.' }
-                    "DatabaseIntegration-3" { label 'Base de datos', description 'Capacidades oficiales de integración con bases de datos dentro del framework full stack.' }
-                        optional
-                            "ORM-3" { label 'ORM' }
-                        optional
-                            "ODM-3" { label 'ODM' }
-                        optional
-                            "OGM-3" { label 'OGM' }
-                    "AuthenticationBuiltIn" { label 'Autenticación integrada', description 'El framework full stack incluye autenticación bastante resuelta dentro de su propio ecosistema.' }
-                    "AdminPanel" { label 'Panel admin', description 'El framework incorpora o facilita mucho un panel de administración.' }
-                    "CacheSupport-3" { label 'Caché', description 'Soporte para almacenamiento temporal de datos y aceleración de respuestas.' }
-                        optional
-                            "Redis-3" { label 'Redis' }
-                        optional
-                            "Memcached-3" { label 'Memcached' }
-                    "RealtimeCommunicationSupport-3" { label 'Tiempo real', description 'Soporte para comunicación persistente o bidireccional en tiempo real.' }
-                        optional
-                            "WebSockets-3" { label 'WebSockets' }
-                    "TaskQueueSupport-3" { label 'Colas y mensajería', description 'Soporte para procesamiento asíncrono, colas de trabajo o infraestructura de mensajería en soluciones full stack.' }
-                        or
-                            "OpenStandardQueues-3" { label 'Colas estándar', description 'Sistemas de colas o mensajería ampliamente usados y desacoplados del proveedor cloud.' }
-                                or
-                                    "RabbitMQ-3" { label 'RabbitMQ' }
-                                    "ActiveMQ-3" { label 'ActiveMQ' }
-                            "CloudNativeQueues-3" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.' }
-                                or
-                                    "AWSSQS-3" { label 'AWS SQS' }
-                                    "GoogleCloudTasks-3" { label 'Google Cloud Tasks' }
-                                    "AzureServiceBus-3" { label 'Azure Service Bus' }
-                            "EventStreaming-3" { label 'Streaming', description 'Plataformas orientadas a flujos de eventos continuos y consumo desacoplado.' }
-                                mandatory
-                                    "Kafka-3" { label 'Kafka' }
-                            "InCacheQueues-3" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.' }
-                                mandatory
-                                    "Redis-5" { label 'Redis' }
-            "Backend Library" { label 'Librería backend' }
-                alternative
-                    "DatabaseIntegration-4" { label 'Base de datos', description 'Librerías para integrar persistencia o acceso a datos.' }
-                        alternative
-                            "ORM-4" { label 'ORM' }
-                            "ODM-4" { label 'ODM' }
-                            "OGM-4" { label 'OGM' }
-                    "AuthenticationSupport-4" { label 'Autenticación', description 'Librerías que aportan mecanismos de autenticación al backend.' }
-                        optional
-                            "JWT-4" { label 'JWT' }
-                        optional
-                            "OAuth2-4" { label 'OAuth2' }
-                        optional
-                            "Basic-4" { label 'Básica' }
-                        optional
-                            "SessionAuth-4" { label 'Sesiones' }
-                    "Authorization-4" { label 'Autorización', description 'Librerías para control de acceso mediante roles o permisos.' }
-                        optional
-                            "Roles-4" { label 'Roles' }
-                        optional
-                            "Permissions-4" { label 'Permisos' }
-                    "ValidationSupport-4" { label 'Validación', description 'Librerías que aportan validación de entrada o validación basada en esquemas.' }
-                        optional
-                            "RequestValidation-4" { label 'Validación de entrada' }
-                        optional
-                            "SchemaValidation-4" { label 'Validación por esquema' }
-                    "TaskQueueSupport-4" { label 'Colas y mensajería', description 'Librerías para procesamiento asíncrono, colas de trabajo o integración con brokers.' }
-                        or
-                            "OpenStandardQueues-4" { label 'Colas estándar', description 'Sistemas de colas o mensajería ampliamente usados y desacoplados del proveedor cloud.' }
-                                or
-                                    "RabbitMQ-4" { label 'RabbitMQ' }
-                                    "ActiveMQ-4" { label 'ActiveMQ' }
-                            "CloudNativeQueues4" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.' }
-                                or
-                                    "AWSSQS-4" { label 'AWS SQS' }
-                                    "GoogleCloudTasks-4" { label 'Google Cloud Tasks' }
-                                    "AzureServiceBus-4" { label 'Azure Service Bus' }
-                            "EventStreaming-4" { label 'Streaming', description 'Plataformas orientadas a flujos de eventos continuos y consumo desacoplado.' }
-                                mandatory
-                                    "Kafka-4" { label 'Kafka' }
-                            "InCacheQueues-4" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.' }
-                                mandatory
-                                    "Redis-6" { label 'Redis' }
-                    "CacheSupport-4" { label 'Caché', description 'Librerías para cachear datos o respuestas.' }
-                        alternative
-                            "Redis-4" { label 'Redis' }
-                            "Memcached-4" { label 'Memcached' }
-                    "RealtimeCommunicationSupport-4" { label 'Tiempo real', description 'Librerías que permiten comunicación persistente o bidireccional en tiempo real.' }
-                        optional
-                            "WebSockets-4" { label 'WebSockets' }
-            "Frontend Library" { label 'Librería frontend' }
-                alternative
-                    "RoutingSupport-5" { label 'Enrutamiento', description 'Librerías para gestionar rutas y navegación en el frontend.' }
-                        optional
-                            "ClientSideRouting-5" { label 'Enrutamiento cliente' }
-                        optional
-                            "FileBasedRouting-5" { label 'Enrutamiento por archivos' }
-                    "FormSupport-5" { label 'Formularios', description 'Librerías que facilitan la construcción, gestión y validación de formularios.' }
-                        optional
-                            "FormStateManagement-5" { label 'Estado del formulario' }
-                        optional
-                            "Validation-5" { label 'Validación' }
-                    "DataFetchingSupport-5" { label 'Carga de datos', description 'Librerías para obtener, sincronizar y cachear datos remotos en el frontend.' }
-                        optional
-                            "ClientFetching-5" { label 'Carga en cliente' }
-                        optional
-                            "ServerFetching-5" { label 'Carga en servidor' }
-                        optional
-                            "QueryCaching-5" { label 'Caché de consultas' }
-                    "GlobalState-5" { label 'Estado global', description 'Librerías para gestionar estado compartido entre componentes o vistas.' }
-                    "i18nInternationalization-5" { label 'Internacionalización', description 'Librerías para traducciones, localización y cambio de idioma.' }
-                    "PWAFeatures-5" { label 'PWA', description 'Librerías o capacidades asociadas a aplicaciones web progresivas.' }
-                        optional
-                            "OfflineSupport-5" { label 'Sin conexión' }
-                        optional
-                            "InstallableApp-5" { label 'Instalable' }
+	"Project" { label 'Proyecto'}
+		alternative
+			"Backend" { label 'Backend'}
+				mandatory
+					"APIStyle" { label 'API'}
+						or
+							"REST" { label 'REST'}
+							"GraphQL" { label 'GraphQL'}
+							"gRPC" { label 'gRPC'}
+				mandatory
+					"License-1" { label 'Licencia'}
+						alternative
+							"MIT-1" { label 'MIT'}
+							"GPL-1" { label 'GPL'}
+							"Apache-1" { label 'Apache'}
+							"BSD-1" { label 'BSD'}
+				optional
+					"AuthenticationSupport" { label 'Autenticación', description 'Mecanismos de autenticación que el framework soporta de forma nativa o mediante integración oficial directa.'}
+						optional
+							"JWT" { label 'JWT'}
+						optional
+							"OAuth2" { label 'OAuth2'}
+						optional
+							"Basic" { label 'Básica'}
+						optional
+							"SessionAuth" { label 'Sesiones'}
+				optional
+					"AuthenticationAbstractions" { label 'Auth integrada', description 'Facilidades oficiales del framework que reducen el trabajo manual necesario para implementar autenticación.'}
+						optional
+							"BuiltInAuthentication" { label 'Autenticación integrada', description 'El framework incluye un sistema de autenticación ya resuelto o muy avanzado.'}
+						optional
+							"BuiltInJWTAuthentication" { label 'JWT integrado', description 'El framework ofrece soporte oficial y bastante directo para autenticación JWT sin tener que implementar manualmente gran parte del flujo.'}
+				optional
+					"Authorization" { label 'Autorización', description 'Mecanismos para controlar qué acciones puede realizar un usuario autenticado.'}
+						optional
+							"Roles" { label 'Roles'}
+						optional
+							"Permissions" { label 'Permisos'}
+				optional
+					"DependencyInjection" { label 'Inyección de dependencias', description 'El framework usa inyección de dependencias como parte clara de su arquitectura y configuración.'}
+				optional
+					"ValidationSupport" { label 'Validación', description 'Soporte para validar datos de entrada de forma declarativa o integrada en el framework.'}
+						optional
+							"RequestValidation" { label 'Validación de entrada', description 'Validación de los datos recibidos en peticiones o formularios.'}
+						optional
+							"SchemaValidation" { label 'Validación por esquema', description 'Validación basada en esquemas, tipos o estructuras declarativas.'}
+				optional
+					"DatabaseIntegration-1" { label 'Base de datos', description 'Capacidades oficiales de integración con bases de datos y modelos de persistencia.'}
+						optional
+							"ORM-1" { label 'ORM'}
+						optional
+							"ODM-1" { label 'ODM'}
+						optional
+							"OGM-1" { label 'OGM'}
+				optional
+					"TaskQueueSupport" { label 'Colas de trabajo', description 'Soporte para procesamiento asíncrono mediante colas, brokers o sistemas de eventos.'}
+						or
+							"OpenStandardQueues" { label 'Colas estándar', description 'Sistemas de colas o mensajería ampliamente usados y desacoplados del proveedor cloud.'}
+								or
+									"RabbitMQ" { label 'RabbitMQ'}
+									"ActiveMQ" { label 'ActiveMQ'}
+							"CloudNativeQueues" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.'}
+								or
+									"AWSSQS" { label 'AWS SQS'}
+									"GoogleCloudTasks" { label 'Google Cloud Tasks'}
+									"AzureServiceBus" { label 'Azure Service Bus'}
+							"EventStreaming" { label 'Streaming', description 'Plataformas orientadas a flujos de eventos continuos y consumo desacoplado.'}
+								mandatory
+									"Kafka" { label 'Kafka'}
+							"InCacheQueues" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.'}
+								mandatory
+									"Redis" { label 'Redis'}
+				optional
+					"CacheSupport-1" { label 'Caché', description 'Soporte para almacenar datos temporales y acelerar operaciones frecuentes.'}
+						optional
+							"Redis-1" { label 'Redis'}
+						optional
+							"Memcached-1" { label 'Memcached'}
+				optional
+					"OpenAPIDocumentationSupport" { label 'OpenAPI / Swagger', description 'Capacidad de generar o exponer documentación de API basada en OpenAPI o Swagger de forma oficial.'}
+				optional
+					"GenericCRUDAbstractions" { label 'CRUD integrado', description 'El framework ofrece abstracciones oficiales para operaciones CRUD comunes, reduciendo código repetitivo.'}
+				optional
+					"RealtimeCommunicationSupport" { label 'Tiempo real', description 'Soporte para comunicación persistente o bidireccional en tiempo real.'}
+						optional
+							"WebSockets" { label 'WebSockets'}
+			"Frontend" { label 'Frontend'}
+				mandatory
+					"Platform" { label 'Plataforma'}
+						alternative
+							"Web" { label 'Web'}
+							"Mobile" { label 'Móvil'}
+							"Web+Mobile" { label 'Web y móvil'}
+				mandatory
+					"ApplicationArchitecture" { label 'Tipo de aplicación'}
+						alternative
+							"SPA" { label 'SPA'}
+							"MPA" { label 'MPA'}
+				mandatory
+					"RenderingModel" { label 'Renderizado', description 'Modelo de renderizado de la aplicación. Es relevante para SEO, rendimiento inicial e indexabilidad del contenido público.'}
+						alternative
+							"CSR" { label 'CSR (Renderizado del Cliente)'}
+							"SSR" { label 'SSR (Renderizado del Servidor)'}
+							"SSG" { label 'SSG (Sitios Estáticos)'}
+				mandatory
+					"License-2" { label 'Licencia'}
+						alternative
+							"MIT-2" { label 'MIT'}
+							"GPL-2" { label 'GPL'}
+							"Apache-2" { label 'Apache'}
+							"BSD-2" { label 'BSD'}
+				mandatory
+					"Styling" { label 'Estilos'}
+						or
+							"CSS" { label 'CSS nativo'}
+							"CSSModules" { label 'CSS Modules'}
+							"CSSinJS" { label 'CSS en JS'}
+							"UtilityFirstCSS" { label 'CSS de utilizadades (ej. Tailwind)'}
+							"ComponentLibraryStyling" { label 'Librería de componentes', description 'El framework o ecosistema se apoya de forma natural en librerías de componentes con estilos integrados.'}
+				optional
+					"RoutingSupport" { label 'Enrutamiento', description 'Soporte oficial para gestionar navegación y rutas dentro de la aplicación.'}
+						optional
+							"ClientSideRouting" { label 'Enrutamiento cliente'}
+						optional
+							"FileBasedRouting" { label 'Enrutamiento por archivos'}
+				optional
+					"FormSupport" { label 'Formularios', description 'Facilidades para construir, validar y gestionar formularios en el frontend.'}
+						optional
+							"FormStateManagement" { label 'Estado del formulario'}
+						optional
+							"Validation" { label 'Validación'}
+				optional
+					"DataFetchingSupport" { label 'Carga de datos', description 'Soporte para obtener, sincronizar y cachear datos remotos en la interfaz.'}
+						optional
+							"ClientFetching" { label 'Carga en cliente'}
+						optional
+							"ServerFetching" { label 'Carga en servidor'}
+						optional
+							"QueryCaching" { label 'Caché de consultas'}
+				optional
+					"GlobalState-2" { label 'Estado global', description 'Gestión de estado compartido entre múltiples componentes o vistas.'}
+				optional
+					"i18nInternationalization-2" { label 'Internacionalización', description 'Soporte para traducciones, localización y cambio de idioma.'}
+				optional
+					"PWAFeatures" { label 'PWA', description 'Capacidades asociadas a aplicaciones web progresivas.'}
+						optional
+							"OfflineSupport" { label 'Sin conexión'}
+						optional
+							"InstallableApp" { label 'Instalable'}
+			"Full Stack" { label 'Full stack'}
+				mandatory
+					"RenderingModel-3" { label 'Renderizado'}
+						or
+							"CSR-3" { label 'CSR (Renderizado del Cliente)'}
+							"SSR-3" { label 'SSR (Renderizado del Servidor)'}
+							"SSG-3" { label 'SSG (Sitios Estáticos)'}
+				mandatory
+					"License-3" { label 'Licencia'}
+						alternative
+							"MIT-3" { label 'MIT'}
+							"GPL-3" { label 'GPL'}
+							"Apache-3" { label 'Apache'}
+							"BSD-3" { label 'BSD'}
+				optional
+					"BuiltInAPIRoutes" { label 'API integrada', description 'El framework permite definir rutas o endpoints de API dentro del mismo proyecto full stack.'}
+				optional
+					"FullStackRoutingSupport" { label 'Soporte para Enrutamiento', description 'El sistema de rutas forma parte central del framework y organiza navegación, vistas, layouts o páginas de forma integrada.'}
+						optional
+							"FileBasedRouting-3" { label 'Enrutamiento por archivos'}
+						optional
+							"NestedRouting-3" { label 'Enrutamiento anidado'}
+				optional
+					"DataLoadingSupport" { label 'Carga de datos', description 'El framework ofrece mecanismos oficiales para cargar datos del servidor como parte natural del renderizado o de la resolución de rutas.'}
+						optional
+							"ServerSideDataFetching-3" { label 'Carga en servidor', description 'Los datos pueden obtenerse en servidor dentro del flujo normal del framework antes o durante el renderizado.'}
+				optional
+					"ServerInteractionAbstractions" { label 'Interacción con servidor', description 'El framework abstrae parte de la comunicación entre interfaz y servidor, evitando implementar manualmente todo el flujo.'}
+						optional
+							"UITriggeredServerActions-3" { label 'Acciones en servidor', description 'El framework permite ejecutar lógica del servidor iniciada desde la interfaz mediante mecanismos integrados propios.'}
+				optional
+					"FullStackFormAbstractions" { label 'Formularios integrados', description 'El framework facilita el ciclo completo de formularios en aplicaciones full stack, incluyendo envío, validación y procesamiento en servidor.'}
+				optional
+					"DatabaseIntegration-3" { label 'Base de datos', description 'Capacidades oficiales de integración con bases de datos dentro del framework full stack.'}
+						optional
+							"ORM-3" { label 'ORM'}
+						optional
+							"ODM-3" { label 'ODM'}
+						optional
+							"OGM-3" { label 'OGM'}
+				optional
+					"AuthenticationBuiltIn" { label 'Autenticación integrada', description 'El framework full stack incluye autenticación bastante resuelta dentro de su propio ecosistema.'}
+				optional
+					"AdminPanel" { label 'Panel admin', description 'El framework incorpora o facilita mucho un panel de administración.'}
+				optional
+					"CacheSupport-3" { label 'Caché', description 'Soporte para almacenamiento temporal de datos y aceleración de respuestas.'}
+						optional
+							"Redis-3" { label 'Redis'}
+						optional
+							"Memcached-3" { label 'Memcached'}
+				optional
+					"RealtimeCommunicationSupport-3" { label 'Tiempo real', description 'Soporte para comunicación persistente o bidireccional en tiempo real.'}
+						optional
+							"WebSockets-3" { label 'WebSockets'}
+				optional
+					"TaskQueueSupport-3" { label 'Colas y mensajería', description 'Soporte para procesamiento asíncrono, colas de trabajo o infraestructura de mensajería en soluciones full stack.'}
+						or
+							"OpenStandardQueues-3" { label 'Colas estándar', description 'Sistemas de colas o mensajería ampliamente usados y desacoplados del proveedor cloud.'}
+								or
+									"RabbitMQ-3" { label 'RabbitMQ'}
+									"ActiveMQ-3" { label 'ActiveMQ'}
+							"CloudNativeQueues-3" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.'}
+								or
+									"AWSSQS-3" { label 'AWS SQS'}
+									"GoogleCloudTasks-3" { label 'Google Cloud Tasks'}
+									"AzureServiceBus-3" { label 'Azure Service Bus'}
+							"EventStreaming-3" { label 'Streaming', description 'Plataformas orientadas a flujos de eventos continuos y consumo desacoplado.'}
+								mandatory
+									"Kafka-3" { label 'Kafka'}
+							"InCacheQueues-3" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.'}
+								mandatory
+									"Redis-5" { label 'Redis'}
+			"Backend Library" { label 'Librería backend'}
+				alternative
+					"DatabaseIntegration-4" { label 'Base de datos', description 'Librerías para integrar persistencia o acceso a datos.'}
+						alternative
+							"ORM-4" { label 'ORM'}
+							"ODM-4" { label 'ODM'}
+							"OGM-4" { label 'OGM'}
+					"AuthenticationSupport-4" { label 'Autenticación', description 'Librerías que aportan mecanismos de autenticación al backend.'}
+						optional
+							"JWT-4" { label 'JWT'}
+						optional
+							"OAuth2-4" { label 'OAuth2'}
+						optional
+							"Basic-4" { label 'Básica'}
+						optional
+							"SessionAuth-4" { label 'Sesiones'}
+					"Authorization-4" { label 'Autorización', description 'Librerías para control de acceso mediante roles o permisos.'}
+						optional
+							"Roles-4" { label 'Roles'}
+						optional
+							"Permissions-4" { label 'Permisos'}
+					"ValidationSupport-4" { label 'Validación', description 'Librerías que aportan validación de entrada o validación basada en esquemas.'}
+						optional
+							"RequestValidation-4" { label 'Validación de entrada'}
+						optional
+							"SchemaValidation-4" { label 'Validación por esquema'}
+					"TaskQueueSupport-4" { label 'Colas y mensajería', description 'Librerías para procesamiento asíncrono, colas de trabajo o integración con brokers.'}
+						or
+							"OpenStandardQueues-4" { label 'Colas estándar', description 'Sistemas de colas o mensajería ampliamente usados y desacoplados del proveedor cloud.'}
+								or
+									"RabbitMQ-4" { label 'RabbitMQ'}
+									"ActiveMQ-4" { label 'ActiveMQ'}
+							"CloudNativeQueues4" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.'}
+								or
+									"AWSSQS-4" { label 'AWS SQS'}
+									"GoogleCloudTasks-4" { label 'Google Cloud Tasks'}
+									"AzureServiceBus-4" { label 'Azure Service Bus'}
+							"EventStreaming-4" { label 'Streaming', description 'Plataformas orientadas a flujos de eventos continuos y consumo desacoplado.'}
+								mandatory
+									"Kafka-4" { label 'Kafka'}
+							"InCacheQueues-4" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.'}
+								mandatory
+									"Redis-6" { label 'Redis'}
+					"CacheSupport-4" { label 'Caché', description 'Librerías para cachear datos o respuestas.'}
+						alternative
+							"Redis-4" { label 'Redis'}
+							"Memcached-4" { label 'Memcached'}
+					"RealtimeCommunicationSupport-4" { label 'Tiempo real', description 'Librerías que permiten comunicación persistente o bidireccional en tiempo real.'}
+						optional
+							"WebSockets-4" { label 'WebSockets'}
+			"Frontend Library" { label 'Librería frontend'}
+				alternative
+					"RoutingSupport-5" { label 'Enrutamiento', description 'Librerías para gestionar rutas y navegación en el frontend.'}
+						optional
+							"ClientSideRouting-5" { label 'Enrutamiento cliente'}
+						optional
+							"FileBasedRouting-5" { label 'Enrutamiento por archivos'}
+					"FormSupport-5" { label 'Formularios', description 'Librerías que facilitan la construcción, gestión y validación de formularios.'}
+						optional
+							"FormStateManagement-5" { label 'Estado del formulario'}
+						optional
+							"Validation-5" { label 'Validación'}
+					"DataFetchingSupport-5" { label 'Carga de datos', description 'Librerías para obtener, sincronizar y cachear datos remotos en el frontend.'}
+						optional
+							"ClientFetching-5" { label 'Carga en cliente'}
+						optional
+							"ServerFetching-5" { label 'Carga en servidor'}
+						optional
+							"QueryCaching-5" { label 'Caché de consultas'}
+					"GlobalState-5" { label 'Estado global', description 'Librerías para gestionar estado compartido entre componentes o vistas.'}
+					"i18nInternationalization-5" { label 'Internacionalización', description 'Librerías para traducciones, localización y cambio de idioma.'}
+					"PWAFeatures-5" { label 'PWA', description 'Librerías o capacidades asociadas a aplicaciones web progresivas.'}
+						optional
+							"OfflineSupport-5" { label 'Sin conexión'}
+						optional
+							"InstallableApp-5" { label 'Instalable'}

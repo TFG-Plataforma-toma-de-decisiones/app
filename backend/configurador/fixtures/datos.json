@@ -13,10 +13,10 @@
     "model": "configurador.project",
     "pk": 2,
     "fields": {
-        "name": "Django REST Framework",
-        "description": "Toolkit para construir APIs REST sobre Django, con serializers, viewsets, autenticación y generación de esquemas OpenAPI.",
+        "name": "Django Rest Framework",
+        "description": "Django Rest Framework (DRF) es un potente y flexible conjunto de herramientas para construir APIs web RESTful en el framework Django. Simplifica drásticamente el desarrollo de APIs al proporcionar serializadores, vistas genéricas, viewsets, routers, y mecanismos de autenticación y permisos, permitiendo a los desarrolladores crear APIs robustas y escalables con menos código.",
         "language": 1,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
     }
 },
 {
@@ -27,16 +27,6 @@
         "description": "Framework moderno para APIs en Python con validación basada en tipos, OpenAPI/Swagger automáticos y soporte para WebSockets.",
         "language": 1,
         "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"MIT-1\", \"AuthenticationSupport\", \"OAuth2\", \"Basic\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]"
-    }
-},
-{
-    "model": "configurador.project",
-    "pk": 4,
-    "fields": {
-        "name": "Spring Boot",
-        "description": "Framework para aplicaciones Java con fuerte integración con Spring, inyección de dependencias, validación y seguridad.",
-        "language": 4,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"TaskQueueSupport\", \"EventStreaming\", \"Kafka\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"CloudNativeQueues\", \"AWSSQS\", \"GoogleCloudTasks\", \"AzureServiceBus\", \"GraphQL\", \"gRPC\", \"CacheSupport-1\", \"Redis-1\", \"ODM-1\", \"OGM-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\"]"
     }
 },
 {
@@ -417,6 +407,16 @@
         "description": "Expo es un framework y una plataforma de herramientas de código abierto que simplifica el desarrollo de aplicaciones nativas universales utilizando JavaScript y React. Permite a los desarrolladores crear, construir y desplegar aplicaciones para iOS, Android y la web desde una única base de código, abstrayendo gran parte de la complejidad de la configuración de entornos nativos y la gestión de dependencias. Proporciona un conjunto de APIs y componentes preconstruidos que facilitan el acceso a las funcionalidades del dispositivo, así como servicios para la compilación en la nube y la publicación de actualizaciones over-the-air.",
         "language": 2,
         "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web+Mobile\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FileBasedRouting\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 85,
+    "fields": {
+        "name": "Spring Boot",
+        "description": "Spring Boot es un framework de código abierto basado en Java que simplifica la creación de aplicaciones Spring independientes y listas para producción. Prioriza la convención sobre la configuración, permitiendo a los desarrolladores construir rápidamente microservicios y aplicaciones web robustas, escalables y seguras con un mínimo esfuerzo de configuración inicial. Incluye servidores embebidos, monitoreo de salud, métricas y configuración externalizada, facilitando el despliegue y la gestión de aplicaciones.",
+        "language": 4,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"ODM-1\", \"OGM-1\", \"TaskQueueSupport\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"EventStreaming\", \"Kafka\", \"InCacheQueues\", \"Redis\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\"]"
     }
 },
 {
