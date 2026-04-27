@@ -1,9 +1,5 @@
-import json
-
 from configurador.flamapy.flamapyService import FlamapyService
-from configurador.test.base import BaseUVLTestCase, TEST_BASE_DIR,EXPECTED_MODEL_DICT
-
-
+from configurador.test.base import BaseUVLTestCase, EXPECTED_MODEL_DICT
 
 
 class FlamapyServiceTests(BaseUVLTestCase):
@@ -52,21 +48,23 @@ class FlamapyServiceTests(BaseUVLTestCase):
         result = flamapy_service.validate(features, is_full=True)
 
         self.assertTrue(result)
+
     def test_get_uvl_text(self):
-        uvl_conent=FlamapyService.get_uvl_text(EXPECTED_MODEL_DICT)
-        with open(self.uvl_model_test,mode='r') as f:
-            expected_uvl_content=f.read().rstrip("\n")
-        self.assertEqual(uvl_conent,expected_uvl_content)
+        uvl_content = FlamapyService.get_uvl_text(EXPECTED_MODEL_DICT)
+        regenerated_service = FlamapyService.create_str(uvl_content)
+
+        self.assertEqual(regenerated_service.to_dict(), EXPECTED_MODEL_DICT)
+
     def test_publish_new_model(self):
-        expected_new_model="features\n\tProject\n\t\tmandatory\n\t\t\tNuevo"
+        expected_new_model = "features\n\tProject\n\t\tmandatory\n\t\t\tNuevo"
         FlamapyService.publish_new_model(expected_new_model)
-        with open(self.uvl_model_test,mode="r") as f:
-            new_model=f.read()
-        self.assertEqual(expected_new_model,new_model)
+        with open(self.uvl_model_test, mode="r") as f:
+            new_model = f.read()
+        self.assertEqual(expected_new_model, new_model)
+
     def test_create_str(self):
-        expected_service=FlamapyService.get_instance()
-        with open(self.uvl_model_test,mode='r') as f:
-            uvl_content=f.read()
-        service=FlamapyService.create_str(uvl_content)
-        self.assertEqual(expected_service.to_dict(),service.to_dict())
-        
+        expected_service = FlamapyService.get_instance()
+        with open(self.uvl_model_test, mode="r") as f:
+            uvl_content = f.read()
+        service = FlamapyService.create_str(uvl_content)
+        self.assertEqual(expected_service.to_dict(), service.to_dict())

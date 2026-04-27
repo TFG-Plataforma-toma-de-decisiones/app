@@ -9,13 +9,13 @@ features
 				optional
 					"ODMN-01"
 				mandatory
-					"ApiStyle"
+					"ApiStyle" { label 'Api'}
 						or
 							"Rest"
 							"GraphQL"
 			"Frontend"
 				mandatory
-					"RenderingModel"
+					"RenderingModel" { label 'Modelo de renderizado', description 'Modelo de renderizado del framework.'}
 						alternative
 							"SPA"
 							"CSR"

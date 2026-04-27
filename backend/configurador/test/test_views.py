@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 from configurador.flamapy.flamapyService import FlamapyService
 from configurador.models import Project, User
 from configurador.test.base import BaseTestCase, BaseUVLTestCase, EXPECTED_MODEL_DICT
-
+import json
 
 def create_admin_user():
     return User.objects.create_user(
@@ -131,7 +131,7 @@ class RecommendationViewTests(APIClientMixin, BaseTestCase):
             [
                 {
                     "type": "Backend",
-                    "language": "Python",
+                    "languages": ["Python"],
                     "features": [
                         "Project",
                         "Backend",
@@ -151,7 +151,7 @@ class RecommendationViewTests(APIClientMixin, BaseTestCase):
             [
                 {
                     "type": "Backend",
-                    "language": "Python",
+                    "languages": ["Python"],
                     "features": [
                         "Project",
                         "Backend",
@@ -315,27 +315,18 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         cache.set("admin_edit_session", {"uvl_content": draft_uvl})
 
         response = self.client.get(reverse("manage_uvl"))
+        expected_draft_model = FlamapyService.create_str(draft_uvl).to_dict()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.data,
-            {
-                "name": "Project",
-                "relations": [
-                    {
-                        "type": "MANDATORY",
-                        "children": [{"name": "Nuevo", "relations": []}],
-                    }
-                ],
-            },
-        )
+        self.assertEqual(response.data, expected_draft_model)
 
     def test_manage_uvl_put_publishes_valid_model_for_admin(self):
         self.authenticate_admin()
-
+        new_model=json.loads(json.dumps(EXPECTED_MODEL_DICT))
+        new_model["relations"].append({"type":"OPTIONAL","children":[{"name":"New feature","relations":[],"attributes":{}}]})
         response = self.client.put(
             reverse("manage_uvl"),
-            EXPECTED_MODEL_DICT,
+            new_model,
             format="json",
         )
 
@@ -343,20 +334,31 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         self.assertIsNone(cache.get("admin_edit_session"))
         self.assertEqual(
             self.uvl_model_test.read_text(encoding="utf-8"),
-            FlamapyService.get_uvl_text(EXPECTED_MODEL_DICT),
+            FlamapyService.get_uvl_text(new_model),
+        )
+    def test_manage_uvl_put_publishes_valid_model_edits_attributes(self):
+        self.authenticate_admin()
+        new_model=json.loads(json.dumps(EXPECTED_MODEL_DICT))
+        backend_node=next((relation["children"][0] for relation in new_model["relations"] if any(child["name"]=="Backend" for child in relation["children"])))
+        backend_node["attributes"]={"label":"label"}
+        response = self.client.put(
+            reverse("manage_uvl"),
+            new_model,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(cache.get("admin_edit_session"))
+        self.assertEqual(
+            self.uvl_model_test.read_text(encoding="utf-8"),
+            FlamapyService.get_uvl_text(new_model),
         )
 
     def test_manage_uvl_put_stores_session_when_projects_become_invalid(self):
         self.authenticate_admin()
-        invalid_model = {
-            "name": "Project",
-            "relations": [
-                {
-                    "type": "MANDATORY",
-                    "children": [{"name": "Nuevo", "relations": []}],
-                }
-            ],
-        }
+        invalid_model = FlamapyService.create_str(
+            'features\n\t"Project"\n\t\tmandatory\n\t\t\t"Nuevo"'
+        ).to_dict()
 
         response = self.client.put(
             reverse("manage_uvl"),

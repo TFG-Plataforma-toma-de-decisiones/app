@@ -1,6 +1,5 @@
 import json
 import shutil
-import tempfile
 from pathlib import Path
 
 from django.core.cache import cache

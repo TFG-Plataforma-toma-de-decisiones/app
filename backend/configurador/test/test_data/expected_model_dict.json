@@ -12,7 +12,8 @@
               "children": [
                 {
                   "name": "ORM-01",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             },
@@ -21,7 +22,8 @@
               "children": [
                 {
                   "name": "OGMN-01",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             },
@@ -30,7 +32,8 @@
               "children": [
                 {
                   "name": "ODMN-01",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             },
@@ -45,19 +48,25 @@
                       "children": [
                         {
                           "name": "Rest",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "GraphQL",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "attributes": {
+                    "label": "Api"
+                  }
                 }
               ]
             }
-          ]
+          ],
+          "attributes": {}
         },
         {
           "name": "Frontend",
@@ -73,23 +82,31 @@
                       "children": [
                         {
                           "name": "SPA",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "CSR",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "SSR",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "SSG",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "attributes": {
+                    "label": "Modelo de renderizado",
+                    "description": "Modelo de renderizado del framework."
+                  }
                 }
               ]
             },
@@ -98,11 +115,13 @@
               "children": [
                 {
                   "name": "GlobalState-01",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             }
-          ]
+          ],
+          "attributes": {}
         },
         {
           "name": "Full Stack",
@@ -112,7 +131,8 @@
               "children": [
                 {
                   "name": "AdministrationPanel",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             },
@@ -121,7 +141,8 @@
               "children": [
                 {
                   "name": "ORM-02",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             },
@@ -130,7 +151,8 @@
               "children": [
                 {
                   "name": "OGMN-02",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             },
@@ -139,11 +161,13 @@
               "children": [
                 {
                   "name": "ODMN-02",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             }
-          ]
+          ],
+          "attributes": {}
         },
         {
           "name": "Backend Library",
@@ -159,19 +183,23 @@
                       "children": [
                         {
                           "name": "ORM-03",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "ODM-03",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "OGM-03",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "attributes": {}
                 },
                 {
                   "name": "MessageQueueSupport",
@@ -181,19 +209,23 @@
                       "children": [
                         {
                           "name": "Kafka",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         },
                         {
                           "name": "RabbitMQ",
-                          "relations": []
+                          "relations": [],
+                          "attributes": {}
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "attributes": {}
                 }
               ]
             }
-          ]
+          ],
+          "attributes": {}
         },
         {
           "name": "Frontend Library",
@@ -203,17 +235,21 @@
               "children": [
                 {
                   "name": "GlobalState-02",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 },
                 {
                   "name": "i18nInternalization",
-                  "relations": []
+                  "relations": [],
+                  "attributes": {}
                 }
               ]
             }
-          ]
+          ],
+          "attributes": {}
         }
       ]
     }
-  ]
+  ],
+  "attributes": {}
 }

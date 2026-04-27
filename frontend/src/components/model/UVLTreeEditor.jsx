@@ -11,7 +11,8 @@ const RELATION_TYPES = ["MANDATORY", "OPTIONAL", "OR", "ALTERNATIVE"];
 function createNode() {
   return {
     name: "Nueva Caracteristica",
-    relations: []
+    relations: [],
+    attributes:{}
   };
 }
 
@@ -101,6 +102,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   const isProtectedNode = depth <= 1;
   const [activeAttrKey, setActiveAttrKey] = useState('');
   const attributes = node.attributes || {};
+  const attributeDataCySuffix = `${node.name || 'empty'}`;
 
   const handleNameChange = (event) => {
     onUpdate({ ...node, name: event.target.value });
@@ -181,6 +183,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
             <input
               type="text"
               className="attribute-input key-input"
+              data-cy={`attribute-selector`}
               list={`datalist-attrs-${path}`}
               value={activeAttrKey}
               onChange={(event) => setActiveAttrKey(event.target.value)}
@@ -191,6 +194,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
             <input
               type="text"
               className="attribute-input value-input"
+              data-cy={`attribute-input-${attributeDataCySuffix}`}
               value={activeAttrKey ? (attributes[activeAttrKey] ?? "") : ""}
               onChange={(event) => handleActiveAttrValueChange(event.target.value)}
               placeholder="Valor del atributo"
@@ -198,6 +202,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
             />
             <button
               className="icon-btn delete-btn"
+              data-cy={`delete-attribute-${attributeDataCySuffix}`}
               onClick={handleDeleteActiveAttribute}
               title="Borrar atributo actual"
               disabled={!activeAttrKey || attributes[activeAttrKey] === undefined}
