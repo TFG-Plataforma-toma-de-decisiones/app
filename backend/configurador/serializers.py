@@ -77,3 +77,22 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
         fields=["is_staff"]
+
+
+class SWOTPdfExportSerializer(serializers.Serializer):
+    strengths = serializers.ListField(
+        child=serializers.CharField(),
+        allow_empty=True
+    )
+    opportunities = serializers.ListField(
+        child=serializers.CharField(),
+        allow_empty=True
+    )
+    weaknesses = serializers.ListField(
+        child=serializers.CharField(),
+        allow_empty=True
+    )
+    threats = serializers.ListField(
+        child=serializers.CharField(),
+        allow_empty=True
+    )

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from configurador.flamapy.flamapyService import FlamapyService
 from configurador.models import Project,Language
-from configurador.serializers import ConfiguratorBranchSerializer, ProjectSerializer,LanguageSerializer,UserSerializer
+from configurador.serializers import ConfiguratorBranchSerializer, ProjectSerializer,LanguageSerializer,SWOTPdfExportSerializer,UserSerializer
 from configurador.utils import features_set_by_name
 from rest_framework import viewsets,mixins
 from rest_framework.permissions import BasePermission,SAFE_METHODS,IsAdminUser
@@ -115,8 +115,9 @@ def check_swot_status(request, task_id):
 
 @api_view(['POST'])
 def export_swot_pdf(request):
-    
-    data = request.data
+    serializer = SWOTPdfExportSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    data = serializer.validated_data
 
     html_string = render_to_string('swot_pdf.html', {'dafo': data})
 
@@ -212,7 +213,7 @@ class ManageUVLModelView(APIView):
                 "detail": "Hay projectos inválidos según el modelo.",
                 "invalid_projects": invalid_projects
             }, status=409)
-    def delete(self, request):
+    def delete(self,request):
         cache.delete('admin_edit_session')
         return Response(data={"message": "Borrador descartado satisfactoriamente"}, status=200)
 class DraftProject(APIView):

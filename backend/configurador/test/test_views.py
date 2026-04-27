@@ -263,13 +263,20 @@ class TaskStatusViewTests(APIClientMixin, BaseUVLTestCase):
 
 
 class PDFExportViewTests(APIClientMixin, BaseUVLTestCase):
-    
+    def get_valid_swot_payload(self):
+        return {
+            "strengths": ["Fortaleza 1", "Fortaleza 2"],
+            "opportunities": ["Oportunidad 1"],
+            "weaknesses": ["Debilidad 1", "Debilidad 2", "Debilidad 3"],
+            "threats": ["Amenaza 1"],
+        }
+
     def test_export_swot_pdf_returns_pdf_response(
         self
     ):
         response = self.client.post(
             reverse("get_dafo_pdf"),
-            {"strengths": ["Fortaleza 1","Fortaleza 2"],"opportunities":["Oportunidad 1"],"weakness":["Debilidad 1","Debilidad 2","Debilidad 3"],"threats":["Amenaza 1"]},
+            self.get_valid_swot_payload(),
             format="json",
         )
 
@@ -289,11 +296,21 @@ class PDFExportViewTests(APIClientMixin, BaseUVLTestCase):
 
         response = self.client.post(
             reverse("get_dafo_pdf"),
-            {"strengths": ["Simple"]},
+            self.get_valid_swot_payload(),
             format="json",
         )
 
         self.assertEqual(response.status_code, 500)
+
+    def test_export_swot_pdf_rejects_invalid_payload(self):
+        response = self.client.post(
+            reverse("get_dafo_pdf"),
+            {"strengths": ["Simple"]},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("weaknesses", response.data)
 
 
 class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
