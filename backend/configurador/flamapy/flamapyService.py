@@ -42,6 +42,7 @@ class FlamapyService:
             }
             for relation in feature.get_relations()
         ]
+        diccionary['attributes']={attribute.name:attribute.default_value for attribute in feature.get_attributes()}
         return diccionary
 
     def to_dict(self):
@@ -74,8 +75,9 @@ class FlamapyService:
         return 'features\n'+get_uvl_text_rec(node,1)
     
 def get_uvl_text_rec(node,tabs):
-
-    res='\t'*tabs+'"'+node["name"]+'"'
+    attributes='{'+','.join(f" {key} '{value}'" for key,value in node['attributes'].items())+'}'
+    
+    res='\t'*tabs+'"'+node["name"]+'"'+' '+attributes
     for relation in node["relations"]:
         res += '\n' + '\t' * (tabs+1) + relation["type"].lower()
         for child in relation["children"]:

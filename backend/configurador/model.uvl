@@ -1,298 +1,298 @@
 features
-	"Project"
+	"Project" { label 'Proyecto'}
 		alternative
-			"Backend"
+			"Backend" { label 'Backend'}
 				mandatory
-					"APIStyle"
+					"APIStyle" { label 'Estilo de API'}
 						or
-							"REST"
-							"GraphQL"
-							"gRPC"
+							"REST" { label 'REST'}
+							"GraphQL" { label 'GraphQL'}
+							"gRPC" { label 'gRPC'}
 				mandatory
-					"License-1"
+					"License-1" { label 'Licencia'}
 						alternative
-							"MIT-1"
-							"GPL-1"
-							"Apache-1"
-							"BSD-1"
+							"MIT-1" { label 'MIT'}
+							"GPL-1" { label 'GPL'}
+							"Apache-1" { label 'Apache'}
+							"BSD-1" { label 'BSD'}
 				optional
-					"AuthenticationSupport"
+					"AuthenticationSupport" { label 'Soporte de Autenticación'}
 						optional
-							"JWT"
+							"JWT" { label 'JWT'}
 						optional
-							"OAuth2"
+							"OAuth2" { label 'OAuth2'}
 						optional
-							"Basic"
+							"Basic" { label 'Básica'}
 						optional
-							"SessionAuth"
+							"SessionAuth" { label 'Basada en Sesiones'}
 				optional
-					"AuthenticationAbstractions"
+					"AuthenticationAbstractions" { label 'Abstracciones de Autenticación'}
 						optional
-							"BuiltInAuthentication"
+							"BuiltInAuthentication" { label 'Autenticación Integrada'}
 						optional
-							"BuiltInJWTAuthentication"
+							"BuiltInJWTAuthentication" { label 'Autenticación JWT Integrada'}
 				optional
-					"Authorization"
+					"Authorization" { label 'Autorización'}
 						optional
-							"Roles"
+							"Roles" { label 'Roles'}
 						optional
-							"Permissions"
+							"Permissions" { label 'Permisos'}
 				optional
-					"DependencyInjection"
+					"DependencyInjection" { label 'Inyección de Dependencias'}
 				optional
-					"ValidationSupport"
+					"ValidationSupport" { label 'Soporte de Validación'}
 						optional
-							"RequestValidation"
+							"RequestValidation" { label 'Validación de Peticiones'}
 						optional
-							"SchemaValidation"
+							"SchemaValidation" { label 'Validación de Esquemas'}
 				optional
-					"DatabaseIntegration-1"
+					"DatabaseIntegration-1" { label 'Integración de Base de Datos'}
 						optional
-							"ORM-1"
+							"ORM-1" { label 'ORM'}
 						optional
-							"ODM-1"
+							"ODM-1" { label 'ODM'}
 						optional
-							"OGM-1"
+							"OGM-1" { label 'OGM'}
 				optional
-					"TaskQueueSupport"
+					"TaskQueueSupport" { label 'Soporte para Colas de Tareas'}
 						or
-							"OpenStandardQueues"
+							"OpenStandardQueues" { label 'Colas de Estándar Abierto'}
 								or
-									"RabbitMQ"
-									"ActiveMQ"
-							"CloudNativeQueues"
+									"RabbitMQ" { label 'RabbitMQ'}
+									"ActiveMQ" { label 'ActiveMQ'}
+							"CloudNativeQueues" { label 'Colas Nativas en la Nube'}
 								or
-									"AWSSQS"
-									"GoogleCloudTasks"
-									"AzureServiceBus"
-							"EventStreaming"
+									"AWSSQS" { label 'AWS SQS'}
+									"GoogleCloudTasks" { label 'Google Cloud Tasks'}
+									"AzureServiceBus" { label 'Azure Service Bus'}
+							"EventStreaming" { label 'Streaming de Eventos'}
 								mandatory
-									"Kafka"
-							"InCacheQueues"
+									"Kafka" { label 'Kafka'}
+							"InCacheQueues" { label 'Colas en Caché'}
 								mandatory
-									"Redis"
+									"Redis" { label 'Redis'}
 				optional
-					"CacheSupport-1"
+					"CacheSupport-1" { label 'Soporte de Caché'}
 						optional
-							"Redis-1"
+							"Redis-1" { label 'Redis'}
 						optional
-							"Memcached-1"
+							"Memcached-1" { label 'Memcached'}
 				optional
-					"OpenAPIDocumentationSupport"
+					"OpenAPIDocumentationSupport" { label 'Documentación OpenAPI (Swagger)'}
 				optional
-					"GenericCRUDAbstractions"
+					"GenericCRUDAbstractions" { label 'Abstracciones CRUD Genéricas'}
 				optional
-					"RealtimeCommunicationSupport"
+					"RealtimeCommunicationSupport" { label 'Comunicación en Tiempo Real'}
 						optional
-							"WebSockets"
-			"Frontend"
+							"WebSockets" { label 'WebSockets'}
+			"Frontend" { label 'Frontend'}
 				mandatory
-					"Platform"
+					"Platform" { label 'Plataforma'}
 						alternative
-							"Web"
-							"Mobile"
-							"Web+Mobile"
+							"Web" { label 'Web'}
+							"Mobile" { label 'Móvil'}
+							"Web+Mobile" { label 'Web y Móvil'}
 				mandatory
-					"ApplicationArchitecture"
+					"ApplicationArchitecture" { label 'Arquitectura de la Aplicación'}
 						alternative
-							"SPA"
-							"MPA"
+							"SPA" { label 'SPA (Single Page Application)'}
+							"MPA" { label 'MPA (Multi Page Application)'}
 				mandatory
-					"RenderingModel"
+					"RenderingModel" { label 'Modelo de Renderizado'}
 						alternative
-							"CSR"
-							"SSR"
-							"SSG"
+							"CSR" { label 'CSR (Renderizado del Cliente)'}
+							"SSR" { label 'SSR (Renderizado del Servidor)'}
+							"SSG" { label 'SSG (Sitios Estáticos)'}
 				mandatory
-					"License-2"
+					"License-2" { label 'Licencia'}
 						alternative
-							"MIT-2"
-							"GPL-2"
-							"Apache-2"
-							"BSD-2"
+							"MIT-2" { label 'MIT'}
+							"GPL-2" { label 'GPL'}
+							"Apache-2" { label 'Apache'}
+							"BSD-2" { label 'BSD'}
 				mandatory
-					"Styling"
+					"Styling" { label 'Estilos'}
 						or
-							"CSS"
-							"CSSModules"
-							"CSSinJS"
-							"UtilityFirstCSS"
-							"ComponentLibraryStyling"
+							"CSS" { label 'CSS Nativo'}
+							"CSSModules" { label 'Módulos CSS'}
+							"CSSinJS" { label 'CSS en JS'}
+							"UtilityFirstCSS" { label 'CSS de Utilidades (ej. Tailwind)'}
+							"ComponentLibraryStyling" { label 'Librería de Componentes'}
 				optional
-					"RoutingSupport"
+					"RoutingSupport" { label 'Soporte de Enrutamiento'}
 						optional
-							"ClientSideRouting"
+							"ClientSideRouting" { label 'Enrutamiento en el Cliente'}
 						optional
-							"FileBasedRouting"
+							"FileBasedRouting" { label 'Enrutamiento basado en Archivos'}
 				optional
-					"FormSupport"
+					"FormSupport" { label 'Soporte para Formularios'}
 						optional
-							"FormStateManagement"
+							"FormStateManagement" { label 'Gestión del Estado del Formulario'}
 						optional
-							"Validation"
+							"Validation" { label 'Validación de Formularios'}
 				optional
-					"DataFetchingSupport"
+					"DataFetchingSupport" { label 'Soporte para Obtención de Datos'}
 						optional
-							"ClientFetching"
+							"ClientFetching" { label 'Obtención en el Cliente'}
 						optional
-							"ServerFetching"
+							"ServerFetching" { label 'Obtención en el Servidor'}
 						optional
-							"QueryCaching"
+							"QueryCaching" { label 'Caché de Consultas'}
 				optional
-					"GlobalState-2"
+					"GlobalState-2" { label 'Estado Global'}
 				optional
-					"i18nInternationalization-2"
+					"i18nInternationalization-2" { label 'Internacionalización (i18n)'}
 				optional
-					"PWAFeatures"
+					"PWAFeatures" { label 'Características PWA'}
 						optional
-							"OfflineSupport"
+							"OfflineSupport" { label 'Soporte Sin Conexión'}
 						optional
-							"InstallableApp"
-			"Full Stack"
+							"InstallableApp" { label 'Aplicación Instalable'}
+			"Full Stack" { label 'Full Stack'}
 				mandatory
-					"RenderingModel-3"
+					"RenderingModel-3" { label 'Modelo de Renderizado'}
 						or
-							"CSR-3"
-							"SSR-3"
-							"SSG-3"
+							"CSR-3" { label 'CSR (Renderizado del Cliente)'}
+							"SSR-3" { label 'SSR (Renderizado del Servidor)'}
+							"SSG-3" { label 'SSG (Sitios Estáticos)'}
 				mandatory
-					"License-3"
+					"License-3" { label 'Licencia'}
 						alternative
-							"MIT-3"
-							"GPL-3"
-							"Apache-3"
-							"BSD-3"
+							"MIT-3" { label 'MIT'}
+							"GPL-3" { label 'GPL'}
+							"Apache-3" { label 'Apache'}
+							"BSD-3" { label 'BSD'}
 				optional
-					"BuiltInAPIRoutes"
+					"BuiltInAPIRoutes" { label 'Rutas de API Integradas'}
 				optional
-					"FullStackRoutingSupport"
+					"FullStackRoutingSupport" { label 'Enrutamiento Full Stack'}
 						optional
-							"FileBasedRouting-3"
+							"FileBasedRouting-3" { label 'Enrutamiento basado en Archivos'}
 						optional
-							"NestedRouting-3"
+							"NestedRouting-3" { label 'Enrutamiento Anidado'}
 				optional
-					"DataLoadingSupport"
+					"DataLoadingSupport" { label 'Carga de Datos'}
 						optional
-							"ServerSideDataFetching-3"
+							"ServerSideDataFetching-3" { label 'Obtención de Datos en el Servidor'}
 				optional
-					"ServerInteractionAbstractions"
+					"ServerInteractionAbstractions" { label 'Abstracciones de Interacción con Servidor'}
 						optional
-							"UITriggeredServerActions-3"
+							"UITriggeredServerActions-3" { label 'Server Actions (Acciones de Servidor)'}
 				optional
-					"FullStackFormAbstractions"
+					"FullStackFormAbstractions" { label 'Abstracciones de Formularios Full Stack'}
 				optional
-					"DatabaseIntegration-3"
+					"DatabaseIntegration-3" { label 'Integración de Base de Datos'}
 						optional
-							"ORM-3"
+							"ORM-3" { label 'ORM'}
 						optional
-							"ODM-3"
+							"ODM-3" { label 'ODM'}
 						optional
-							"OGM-3"
+							"OGM-3" { label 'OGM'}
 				optional
-					"AuthenticationBuiltIn"
+					"AuthenticationBuiltIn" { label 'Autenticación Integrada'}
 				optional
-					"AdminPanel"
+					"AdminPanel" { label 'Panel de Administración'}
 				optional
-					"CacheSupport-3"
+					"CacheSupport-3" { label 'Soporte de Caché'}
 						optional
-							"Redis-3"
+							"Redis-3" { label 'Redis'}
 						optional
-							"Memcached-3"
+							"Memcached-3" { label 'Memcached'}
 				optional
-					"RealtimeCommunicationSupport-3"
+					"RealtimeCommunicationSupport-3" { label 'Comunicación en Tiempo Real'}
 						optional
-							"WebSockets-3"
+							"WebSockets-3" { label 'WebSockets'}
 				optional
-					"TaskQueueSupport-3"
+					"TaskQueueSupport-3" { label 'Soporte para Colas de Tareas'}
 						or
-							"OpenStandardQueues-3"
+							"OpenStandardQueues-3" { label 'Colas de Estándar Abierto'}
 								or
-									"RabbitMQ-3"
-									"ActiveMQ-3"
-							"CloudNativeQueues-3"
+									"RabbitMQ-3" { label 'RabbitMQ'}
+									"ActiveMQ-3" { label 'ActiveMQ'}
+							"CloudNativeQueues-3" { label 'Colas Nativas en la Nube'}
 								or
-									"AWSSQS-3"
-									"GoogleCloudTasks-3"
-									"AzureServiceBus-3"
-							"EventStreaming-3"
+									"AWSSQS-3" { label 'AWS SQS'}
+									"GoogleCloudTasks-3" { label 'Google Cloud Tasks'}
+									"AzureServiceBus-3" { label 'Azure Service Bus'}
+							"EventStreaming-3" { label 'Streaming de Eventos'}
 								mandatory
-									"Kafka-3"
-							"InCacheQueues-3"
+									"Kafka-3" { label 'Kafka'}
+							"InCacheQueues-3" { label 'Colas en Caché'}
 								mandatory
-									"Redis-5"
-			"Backend Library"
+									"Redis-5" { label 'Redis'}
+			"Backend Library" { label 'Librería Backend'}
 				alternative
-					"DatabaseIntegration-4"
+					"DatabaseIntegration-4" { label 'Integración de Base de Datos'}
 						alternative
-							"ORM-4"
-							"ODM-4"
-							"OGM-4"
-					"AuthenticationSupport-4"
+							"ORM-4" { label 'ORM'}
+							"ODM-4" { label 'ODM'}
+							"OGM-4" { label 'OGM'}
+					"AuthenticationSupport-4" { label 'Soporte de Autenticación'}
 						optional
-							"JWT-4"
+							"JWT-4" { label 'JWT'}
 						optional
-							"OAuth2-4"
+							"OAuth2-4" { label 'OAuth2'}
 						optional
-							"Basic-4"
+							"Basic-4" { label 'Básica'}
 						optional
-							"SessionAuth-4"
-					"Authorization-4"
+							"SessionAuth-4" { label 'Basada en Sesiones'}
+					"Authorization-4" { label 'Autorización'}
 						optional
-							"Roles-4"
+							"Roles-4" { label 'Roles'}
 						optional
-							"Permissions-4"
-					"ValidationSupport-4"
+							"Permissions-4" { label 'Permisos'}
+					"ValidationSupport-4" { label 'Soporte de Validación'}
 						optional
-							"RequestValidation-4"
+							"RequestValidation-4" { label 'Validación de Peticiones'}
 						optional
-							"SchemaValidation-4"
-					"TaskQueueSupport-4"
+							"SchemaValidation-4" { label 'Validación de Esquemas'}
+					"TaskQueueSupport-4" { label 'Soporte para Colas de Tareas'}
 						or
-							"OpenStandardQueues-4"
+							"OpenStandardQueues-4" { label 'Colas de Estándar Abierto'}
 								or
-									"RabbitMQ-4"
-									"ActiveMQ-4"
-							"CloudNativeQueues4"
+									"RabbitMQ-4" { label 'RabbitMQ'}
+									"ActiveMQ-4" { label 'ActiveMQ'}
+							"CloudNativeQueues4" { label 'Colas Nativas en la Nube'}
 								or
-									"AWSSQS-4"
-									"GoogleCloudTasks-4"
-									"AzureServiceBus-4"
-							"EventStreaming-4"
+									"AWSSQS-4" { label 'AWS SQS'}
+									"GoogleCloudTasks-4" { label 'Google Cloud Tasks'}
+									"AzureServiceBus-4" { label 'Azure Service Bus'}
+							"EventStreaming-4" { label 'Streaming de Eventos'}
 								mandatory
-									"Kafka-4"
-							"InCacheQueues-4"
+									"Kafka-4" { label 'Kafka'}
+							"InCacheQueues-4" { label 'Colas en Caché'}
 								mandatory
-									"Redis-6"
-					"CacheSupport-4"
+									"Redis-6" { label 'Redis'}
+					"CacheSupport-4" { label 'Soporte de Caché'}
 						alternative
-							"Redis-4"
-							"Memcached-4"
-					"RealtimeCommunicationSupport-4"
+							"Redis-4" { label 'Redis'}
+							"Memcached-4" { label 'Memcached'}
+					"RealtimeCommunicationSupport-4" { label 'Comunicación en Tiempo Real'}
 						optional
-							"WebSockets-4"
-			"Frontend Library"
+							"WebSockets-4" { label 'WebSockets'}
+			"Frontend Library" { label 'Librería Frontend'}
 				alternative
-					"RoutingSupport-5"
+					"RoutingSupport-5" { label 'Soporte de Enrutamiento'}
 						optional
-							"ClientSideRouting-5"
+							"ClientSideRouting-5" { label 'Enrutamiento en el Cliente'}
 						optional
-							"FileBasedRouting-5"
-					"FormSupport-5"
+							"FileBasedRouting-5" { label 'Enrutamiento basado en Archivos'}
+					"FormSupport-5" { label 'Soporte para Formularios'}
 						optional
-							"FormStateManagement-5"
+							"FormStateManagement-5" { label 'Gestión del Estado del Formulario'}
 						optional
-							"Validation-5"
-					"DataFetchingSupport-5"
+							"Validation-5" { label 'Validación de Formularios'}
+					"DataFetchingSupport-5" { label 'Soporte para Obtención de Datos'}
 						optional
-							"ClientFetching-5"
+							"ClientFetching-5" { label 'Obtención en el Cliente'}
 						optional
-							"ServerFetching-5"
+							"ServerFetching-5" { label 'Obtención en el Servidor'}
 						optional
-							"QueryCaching-5"
-					"GlobalState-5"
-					"i18nInternationalization-5"
-					"PWAFeatures-5"
+							"QueryCaching-5" { label 'Caché de Consultas'}
+					"GlobalState-5" { label 'Estado Global'}
+					"i18nInternationalization-5" { label 'Internacionalización (i18n)'}
+					"PWAFeatures-5" { label 'Características PWA'}
 						optional
-							"OfflineSupport-5"
+							"OfflineSupport-5" { label 'Soporte Sin Conexión'}
 						optional
-							"InstallableApp-5"
+							"InstallableApp-5" { label 'Aplicación Instalable'}

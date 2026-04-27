@@ -54,7 +54,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullC
         if (!children.length) return null;
 
         const { title, controlType } = RELATION_CONFIG[relation.type];
-
+        
         return (
           <div
             key={`${node.name}-${relation.type}-${relationIndex}`}
@@ -119,7 +119,7 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullC
                 <div key={child.name} className={`feature-card ${active ? 'active' : ''} ${isMandatory ? 'mandatory' : ''}`}>
                   <label className="feature-header" data-cy={featureDataCy}>
                     {control}
-                    <span className="feature-name">{child.name?.split("-")?.[0]}</span>
+                    <span className="feature-name">{child.attributes?.label || child.name?.split("-")?.[0]}</span>
                   </label>
                   {active && hasChildren && (
                     <div className="feature-children">

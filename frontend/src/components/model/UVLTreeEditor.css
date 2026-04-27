@@ -203,7 +203,6 @@
     padding: 12px;
   }
 
-  .node-header,
   .relation-header {
     flex-wrap: wrap;
   }
@@ -219,4 +218,64 @@
   .relation-badge {
     min-width: auto;
   }
+}
+/* --- ESTILOS PARA ATRIBUTOS (DATALIST) --- */
+.node-attributes.single-row {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 0;
+  padding: 0;
+}
+
+.attribute-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.attribute-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.attribute-input {
+  padding: 4px 8px;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  outline: none;
+  background-color: var(--color-background-paper);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.attribute-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.15);
+}
+
+.attribute-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.key-input {
+  width: 140px;
+  font-weight: 600;
+}
+
+.value-input {
+  width: 180px;
+  min-width: 180px;
+}
+
+.attribute-separator {
+  color: var(--color-text-secondary);
+  font-weight: bold;
 }

@@ -99,6 +99,8 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   const [isExpanded, setIsExpanded] = useState(depth < 2);
   const hasRelations = node.relations.length > 0;
   const isProtectedNode = depth <= 1;
+  const [activeAttrKey, setActiveAttrKey] = useState('');
+  const attributes = node.attributes || {};
 
   const handleNameChange = (event) => {
     onUpdate({ ...node, name: event.target.value });
@@ -130,6 +132,23 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
     });
   };
 
+  const handleActiveAttrValueChange = (newValue) => {
+    if (!activeAttrKey) return;
+
+    onUpdate({
+      ...node,
+      attributes: { ...attributes, [activeAttrKey]: newValue }
+    });
+  };
+
+  const handleDeleteActiveAttribute = () => {
+    const newAttributes = { ...attributes };
+    delete newAttributes[activeAttrKey];
+    onUpdate({ ...node, attributes: newAttributes });
+    const remainingKeys = Object.keys(newAttributes);
+    setActiveAttrKey(remainingKeys.length > 0 ? remainingKeys[0] : '');
+  };
+
   return (
     <div className="editable-node" data-cy={`feature-node-${path}`}>
       <div className="node-header" data-cy={`feature-node-header-${path}`}>
@@ -150,6 +169,43 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
           disabled={isProtectedNode}
           placeholder="Nombre de la caracteristica"
         />
+
+        <div className="node-attributes single-row">
+          <datalist id={`datalist-attrs-${path}`}>
+            {Object.keys(attributes).map((key) => (
+              <option key={key} value={key} />
+            ))}
+          </datalist>
+          <div className="attribute-row">
+            <span className="attribute-badge">Atributos</span>
+            <input
+              type="text"
+              className="attribute-input key-input"
+              list={`datalist-attrs-${path}`}
+              value={activeAttrKey}
+              onChange={(event) => setActiveAttrKey(event.target.value)}
+              placeholder="Selecciona o crea..."
+              title="Clave del atributo"
+            />
+            <span className="attribute-separator">:</span>
+            <input
+              type="text"
+              className="attribute-input value-input"
+              value={activeAttrKey ? (attributes[activeAttrKey] ?? "") : ""}
+              onChange={(event) => handleActiveAttrValueChange(event.target.value)}
+              placeholder="Valor del atributo"
+              disabled={!activeAttrKey}
+            />
+            <button
+              className="icon-btn delete-btn"
+              onClick={handleDeleteActiveAttribute}
+              title="Borrar atributo actual"
+              disabled={!activeAttrKey || attributes[activeAttrKey] === undefined}
+            >
+              <FaTrash size={12} />
+            </button>
+          </div>
+        </div>
 
         <div className="node-actions">
           {depth > 0 && (
@@ -185,24 +241,23 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
 
 export default function UVLTreeEditor() {
   const { data: model, setData: setModel } = useApi({ endpoint: "/manage-uvl", initialData: createNode() });
-  const {showMessage} =useFeedback()
-  const navigate=useNavigate()
+  const { showMessage } = useFeedback();
+  const navigate = useNavigate();
+
   const handleSave = async () => {
-    try{
-      await apiClient.put("/manage-uvl",model)
-      navigate('/')
-    }
-    catch(error){
-      if(error?.response?.status===409){
-        navigate('/conflicts-projects')
-      }
-      else{
+    try {
+      await apiClient.put("/manage-uvl", model);
+      navigate('/');
+    } catch (error) {
+      if (error?.response?.status === 409) {
+        navigate('/conflicts-projects');
+      } else {
         showMessage({
-          message: error.response?.data?.detail || "Error en la petición",
+          message: error.response?.data?.detail || "Error en la peticion",
           type: "error",
-          title: "Ocurrió un error"
+          title: "Ocurrio un error"
         });
-      } 
+      }
     }
   };
 
