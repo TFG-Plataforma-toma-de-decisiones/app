@@ -24,7 +24,92 @@ INCOMPATIBLE_TYPES = [
     {"Full Stack", "Backend"},
     {"Full Stack", "Frontend"},
 ]
+class RelationSerializer(serializers.Serializer):
+    type = serializers.ChoiceField(choices=[
+        ("ALTERNATIVE", "ALTERNATIVE"),
+        ("MANDATORY", "MANDATORY"),
+        ("OPTIONAL", "OPTIONAL"),
+        ("OR", "OR")
+    ])
 
+    def get_fields(self):
+        fields = super().get_fields()
+        # Inyección dinámica para evitar referencias circulares.
+        # Usamos many=True como motor nativo de listas de DRF.
+        fields['children'] = UVLModelSerializer(
+            many=True, 
+            allow_empty=False
+        )
+        return fields
+
+class UVLModelSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=255, allow_blank=False)
+    
+    # Usamos RelationSerializer directamente con many=True
+    relations = RelationSerializer(
+        many=True,
+        required=False,    
+        allow_empty=True,  
+        default=list
+    )
+    
+    attributes = serializers.DictField(
+        child=serializers.CharField(allow_blank=False),
+        required=False,
+        default=dict
+    )
+
+    def validate_attributes(self, value):
+        for key in value.keys():
+            if not str(key).strip():
+                raise serializers.ValidationError("La clave no puede estar vacía.")
+        return value
+
+    def validate_relations(self, value):
+        """
+        'value' es una lista de diccionarios con la estructura ya validada
+        por RelationSerializer.
+        """
+        # 1. Solo aplicamos esta lógica estricta al nivel principal (nodo raíz)
+        if self == self.root:
+            if not value:
+                raise serializers.ValidationError("El nodo raíz debe tener al menos una relación definida.")
+            
+            primer_nodo = value[0]
+            if len(value)>1:
+                raise serializers.ValidationError("El primer nivel solo debe de tener una relación alternativa")
+            # 2. Validar que la raíz sea ALTERNATIVE
+            if primer_nodo.get("type") != "ALTERNATIVE":
+                raise serializers.ValidationError(
+                    "La primera relación del nodo raíz debe ser 'ALTERNATIVE'."
+                )
+            
+            # 3. Validar que tenga exactamente estos hijos
+            hijos = primer_nodo.get("children", [])
+            nombres_hijos = {hijo.get("name") for hijo in hijos}
+            
+            nombres_requeridos = {
+                "Backend", 
+                "Frontend", 
+                "Full Stack", 
+                "Backend Library", 
+                "Frontend Library"
+            }
+            
+            if nombres_hijos != nombres_requeridos:
+                faltan = nombres_requeridos - nombres_hijos
+                sobran = nombres_hijos - nombres_requeridos
+                
+                error_msg = "Los hijos del nodo raíz no son válidos."
+                if faltan:
+                    error_msg += f" Faltan: {', '.join(faltan)}."
+                if sobran:
+                    error_msg += f" No permitidos aquí: {', '.join(sobran)}."
+                
+                raise serializers.ValidationError(error_msg)
+
+        # Para los nodos que no son raíz, simplemente retornamos el valor para que fluya
+        return value
 class ConfiguratorBranchListSerializer(serializers.ListSerializer):
     def validate(self, data):
         branch_types = [item["type"] for item in data]

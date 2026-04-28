@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from configurador.flamapy.flamapyService import FlamapyService
 from configurador.models import Project,Language
-from configurador.serializers import ConfiguratorBranchSerializer, ProjectSerializer,LanguageSerializer,SWOTPdfExportSerializer,UserSerializer
-from configurador.utils import features_set_by_name
+from configurador.serializers import ConfiguratorBranchSerializer, ProjectSerializer,LanguageSerializer,SWOTPdfExportSerializer,UserSerializer,UVLModelSerializer
+from configurador.utils import features_set_by_name,aplanar_errores_uvl
 from rest_framework import viewsets,mixins
 from rest_framework.permissions import BasePermission,SAFE_METHODS,IsAdminUser
 from rest_framework.views import APIView
@@ -167,9 +167,24 @@ class ManageUVLModelView(APIView):
     def put(self, request):
         session_data = cache.get('admin_edit_session', {}) 
         if request.data:
-            uvl_content = FlamapyService.get_uvl_text(request.data)
-        else:
+            serializer=UVLModelSerializer(data=request.data)
+            if not serializer.is_valid():
+                nombre_raiz = request.data.get("name") if isinstance(request.data, dict) else None
+                root_path = f"[{nombre_raiz}]" if nombre_raiz else "[Raíz]"
+                errores_formateados = aplanar_errores_uvl(
+                    errores_drf=serializer.errors, 
+                    datos_originales=request.data, 
+                    path_actual=root_path
+                )
+                return Response(
+                    {"detail": errores_formateados}, 
+                    status=400
+                )
+            uvl_content = FlamapyService.get_uvl_text(serializer.validated_data)
+        elif 'uvl_content' in session_data:
             uvl_content=session_data['uvl_content']
+        else:
+            return Response(data={"detail":"No hay borrador existente."},status=400)
         pending_fixes = session_data.get('pending_fixes', {})
         pending_remove = session_data.get('pending_remove', [])
         draft_service = FlamapyService.create_str(uvl_content)

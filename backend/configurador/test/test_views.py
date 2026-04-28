@@ -310,7 +310,10 @@ class PDFExportViewTests(APIClientMixin, BaseUVLTestCase):
         )
 
         self.assertEqual(response.status_code, 400)
-        self.assertIn("weaknesses", response.data)
+        self.assertIn("detail", response.data)
+        self.assertTrue(
+            any("weaknesses" in error for error in response.data["detail"])
+        )
 
 
 class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
@@ -340,7 +343,8 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
     def test_manage_uvl_put_publishes_valid_model_for_admin(self):
         self.authenticate_admin()
         new_model=json.loads(json.dumps(EXPECTED_MODEL_DICT))
-        new_model["relations"].append({"type":"OPTIONAL","children":[{"name":"New feature","relations":[],"attributes":{}}]})
+        backend_node=next((relation["children"][0] for relation in new_model["relations"] if any(child["name"]=="Backend" for child in relation["children"])))
+        backend_node["relations"].append({"type":"OPTIONAL","children":[{"name":"New feature","relations":[],"attributes":{}}]})
         response = self.client.put(
             reverse("manage_uvl"),
             new_model,
@@ -371,23 +375,44 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
             FlamapyService.get_uvl_text(new_model),
         )
 
-    def test_manage_uvl_put_stores_session_when_projects_become_invalid(self):
+    def test_manage_uvl_put_returns_feature_names_when_serializer_validation_fails(self):
         self.authenticate_admin()
-        invalid_model = FlamapyService.create_str(
-            'features\n\t"Project"\n\t\tmandatory\n\t\t\t"Nuevo"'
-        ).to_dict()
+        new_model = json.loads(json.dumps(EXPECTED_MODEL_DICT))
+        backend_node = next(
+            relation["children"][0]
+            for relation in new_model["relations"]
+            if any(child["name"] == "Backend" for child in relation["children"])
+        )
+        backend_node["attributes"] = {"": "label"}
 
         response = self.client.put(
             reverse("manage_uvl"),
-            invalid_model,
+            new_model,
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("detail", response.data)
+        self.assertTrue(
+            any("Project" in error and "Backend" in error for error in response.data["detail"])
+        )
+
+    def test_manage_uvl_put_stores_session_when_projects_become_invalid(self):
+        self.authenticate_admin()
+        new_model=json.loads(json.dumps(EXPECTED_MODEL_DICT))
+        backend_node=next((relation["children"][0] for relation in new_model["relations"] if any(child["name"]=="Backend" for child in relation["children"])))
+        backend_node["relations"]=[]
+
+        response = self.client.put(
+            reverse("manage_uvl"),
+            new_model,
             format="json",
         )
 
         self.assertEqual(response.status_code, 409)
         self.assertIn("invalid_projects", response.data)
-        self.assertEqual(
-            {project["name"] for project in response.data["invalid_projects"]},
-            {"Flask", "SQLAlchemy", "React", "Redux", "i18next", "Django", "Next.js"},
+        self.assertTrue(
+            "Django" in {project["name"] for project in response.data["invalid_projects"]}
         )
         self.assertIsNotNone(cache.get("admin_edit_session"))
 

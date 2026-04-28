@@ -31,6 +31,7 @@ class Command(BaseCommand):
         version = cache.get('uvl_model_version', 1)
         nueva_version = version + 1
         cache.set('uvl_model_version', nueva_version, timeout=None)
+        cache.delete('admin_edit_session')
 
         # 5. Restaurar el archivo UVL (Asumiendo que BASE_DIR es la carpeta 'backend')
         self.stdout.write("5. Restaurando archivo UVL...")
