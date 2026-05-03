@@ -38,7 +38,8 @@ class MockLangchainService:
             "language": "Python",
             "description": "Descripcion generica autocompletada en prueba.",
             "features": ["Project", "Backend", "ApiStyle", "Rest", "ORM-01"],
-            "confidence_level": 0.95
+            "confidence_level": 0.95,
+            "compatible_projects":["Django"]
         }
 def get_langchain_service():
     if getattr(settings, 'TESTING_ENVIRONMENT', False):

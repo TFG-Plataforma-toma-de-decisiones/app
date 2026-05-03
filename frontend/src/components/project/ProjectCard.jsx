@@ -22,7 +22,7 @@ const formatLabel = (label) => {
     .join(' ');
 };
 
-function ProjectCard({ project,setProjects,onClick,deleteEndpoint }) {
+function ProjectCard({ project,setProjects,onClick,deleteEndpoint,refetchProjects }) {
   const types=["Backend","Frontend","Full Stack","Backend Library","Frontend Library"]
   const type=types.find(t=>project.features.includes(t))
   const {isAdmin} =useAuth()
@@ -38,6 +38,9 @@ function ProjectCard({ project,setProjects,onClick,deleteEndpoint }) {
     await run({endpoint:deleteEndpoint,method:"DELETE",
       updateState:()=>setProjects(projects=>projects.filter(p=>p.id!==project.id))})
     setDeleteModalOpen(false);
+    if(refetchProjects){
+        await refetchProjects()
+    }
   };
 
   const cancelDelete = (e) => {

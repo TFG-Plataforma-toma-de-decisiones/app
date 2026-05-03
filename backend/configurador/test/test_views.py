@@ -33,7 +33,13 @@ class ModelViewsTests(APIClientMixin, BaseUVLTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, EXPECTED_MODEL_DICT)
+class ProjectsNameList(APIClientMixin, BaseTestCase):
+    def test_get_uvl_returns_model_dict(self):
+        response = self.client.get(reverse("projects_name"))
 
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Django",response.data)
+        self.assertTrue(not "Django Channels" in response.data)
 
 class UserViewsTests(APIClientMixin, BaseUVLTestCase):
     def setUp(self):
@@ -122,6 +128,23 @@ class ProjectViewSetTests(APIClientMixin, BaseTestCase):
         )
 
         self.assertEqual(response.status_code, 400)
+    def test_delete_project_allows_admin_user(self):
+        self.authenticate_admin()
+
+        response = self.client.delete(
+            reverse("project-list")+"/1",
+            format="json",
+        )
+        self.assertEqual(response.status_code,204)
+    def test_delete_project_deletes_orphan_dependant_project(self):
+        self.authenticate_admin()
+
+        response = self.client.delete(
+            reverse("project-list")+"/6",
+            format="json",
+        )
+        self.assertEqual(response.status_code,204)   
+        self.assertTrue(not Project.objects.filter(name="Django Channels").exists())
 
 
 class RecommendationViewTests(APIClientMixin, BaseTestCase):
@@ -170,6 +193,43 @@ class RecommendationViewTests(APIClientMixin, BaseTestCase):
                 "type": "Backend",
                 "project": "Flask",
                 "libraries": ["SQLAlchemy"],
+            },
+            response.data,
+        )
+    def test_recommendation_uses_backend_library_to_cover_missing_features_if_compatible(self):
+        response = self.client.post(
+            reverse("recommend"),
+            [
+                {
+                    "type": "Backend",
+                    "languages": ["Python"],
+                    "features": [
+                        "Project",
+                        "Backend",
+                        "ApiStyle",
+                        "Rest",
+                        "ORM-01",
+                        "WebSockets-01"
+                    ],
+                }
+            ],
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(not
+            {
+                "type": "Backend",
+                "project": "Flask",
+                "libraries": ["SQLAlchemy"],
+            } in 
+            response.data,
+        )
+        self.assertIn(
+            {
+                "type": "Backend",
+                "project": "Django",
+                "libraries": ["Django Channels"],
             },
             response.data,
         )

@@ -116,5 +116,22 @@
         "ORM-02"
       ]
     }
+  },
+   {
+    "model": "configurador.project",
+    "pk": 8,
+    "fields": {
+      "name": "Django Channels",
+      "description": "Librería para implementar WebSockets en Django.",
+      "language": 1,
+      "features": [
+        "Project",
+        "Backend Library",
+        "WebSockets-02"
+      ],
+      "compatible_projects": [
+            6
+        ]
+    }
   }
 ]

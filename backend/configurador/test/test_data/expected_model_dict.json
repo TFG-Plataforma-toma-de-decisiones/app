@@ -64,6 +64,16 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "OPTIONAL",
+              "children": [
+                {
+                  "name": "WebSockets-01",
+                  "relations": [],
+                  "attributes": {}
+                }
+              ]
             }
           ],
           "attributes": {}
@@ -220,6 +230,11 @@
                       ]
                     }
                   ],
+                  "attributes": {}
+                },
+                {
+                  "name": "WebSockets-02",
+                  "relations": [],
                   "attributes": {}
                 }
               ]

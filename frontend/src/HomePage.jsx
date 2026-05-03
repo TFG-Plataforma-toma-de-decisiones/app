@@ -6,7 +6,7 @@ import { useAuth } from './hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const { data: projects,setData:setProjects } = useApi({endpoint:"/projects",initialData:[]});
+  const { data: projects,setData:setProjects,refetch:refetchProjects } = useApi({endpoint:"/projects",initialData:[]});
   const {isAdmin}=useAuth()
   const navigate=useNavigate()
 
@@ -37,7 +37,7 @@ function Home() {
       <div className="home-grid">
         {projects.map((proj) => (
           <div key={proj.id} className="home-grid-item" >
-            <ProjectCard project={proj} setProjects={setProjects} onClick={() => navigate(`/projects/${proj.id}`)} deleteEndpoint={`projects/${proj.id}`}/>
+            <ProjectCard project={proj} setProjects={setProjects} onClick={() => navigate(`/projects/${proj.id}`)} deleteEndpoint={`projects/${proj.id}`} refetchProjects={refetchProjects}/>
           </div>
         ))}
       </div>
