@@ -12,11 +12,12 @@ class FlamapyService:
     _version=0
     @classmethod
     def get_instance(cls):
-        version=cache.get('uvl_model_version',1)
+        version_actual_redis = cache.get('uvl_model_version', 1)
         uvl_path = Path(settings.UVL_MODEL_FILE)
-        if cls._version < version:
+        if cls._instance is None or cls._version < version_actual_redis:
             cls._instance = cls(uvl_path)
-            cls._version=version
+            cls._version = version_actual_redis
+            
         return cls._instance
     def __init__(self,uvl_path):
         self.fm=FLAMAFeatureModel(str(uvl_path))
@@ -65,9 +66,10 @@ class FlamapyService:
             tmp_file.write(new_uvl_content)
             tmp_path = tmp_file.name
         os.replace(tmp_path, uvl_path)
-        if cache.get('uvl_model_version') is None:
-            cache.set('uvl_model_version', 1, timeout=None) 
-        cache.incr('uvl_model_version')
+        try:
+            cache.incr('uvl_model_version')
+        except ValueError:
+            cache.set('uvl_model_version', 2, timeout=None)
         #cls._instance = cls(uvl_path)
         return True
     @classmethod
