@@ -12,6 +12,7 @@ import usePollingAction from '../../hooks/usePollingAction';
 
 export default function Project() {
     const { data: uvlModel } = useApi({ endpoint: "/model", initialData: {} })
+    const {data:projects}=useApi({endpoint:"/projects-name",initialData:[]})
     const { setTrees, setProperty, getProperty, trees } = useFeatureTrees()
     const { id } = useParams()
     const { data: languages } = useApi({ endpoint: "/languages", initialData: [] })
@@ -77,7 +78,6 @@ export default function Project() {
       }
       
     }
-
     return (
       <div className="form-container">
         <h2 className='project-name'>{isNew ? 'Nuevo Proyecto' : 'Proyecto'}</h2>
@@ -136,6 +136,51 @@ export default function Project() {
             </datalist>
           </div>
         </div>
+        <div className="input-container">
+  <label className='label-input'>Proyectos Compatibles</label>
+  <div className="input-wrapper">
+    {!isAdmin ? (
+      /* --- MODO SOLO LECTURA --- */
+      <div className="chips-container">
+        {getProperty(index,"compatible_projects")
+          ?.map(p => (
+            <span key={p} className="chip chip-selected readonly-chip">
+              {p}
+            </span>
+          ))}
+        {!(getProperty(index, "compatible_projects") || []).length && (
+          <span className="no-data-text">Ningún proyecto seleccionado</span>
+        )}
+      </div>
+    ) : (
+      /* --- MODO EDICIÓN --- */
+          <div className="chips-container clickable-chips">
+            {projects.map((p) => {
+              const currentCompatible = getProperty(index, "compatible_projects") || [];
+              const isSelected = currentCompatible.includes(p);
+              console.log(isSelected)
+              console.log(currentCompatible.filter(comp =>comp===p))
+              const toggleProject = () => {
+                const newCompatible = isSelected
+                  ? currentCompatible.filter(comp =>comp!==p)
+                  : [...currentCompatible, p];
+                setProperty(index, "compatible_projects", newCompatible);
+              };
+
+              return (
+                <span
+                  key={p}
+                  className={`chip ${isSelected ? 'chip-selected' : 'chip-default'}`}
+                  onClick={toggleProject}
+                >
+                  {p}
+                </span>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
 
         <FeatureNode 
           node={uvlModel}

@@ -10,7 +10,7 @@ class ConfiguradorConfig(AppConfig):
         import redis
         from langchain_core.globals import set_llm_cache
         from langchain_community.cache import RedisCache
-
+        import configurador.signals
         try:
 
             redis_client = caches['default'].client.get_client(write=True)

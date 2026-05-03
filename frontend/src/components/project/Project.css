@@ -168,3 +168,69 @@
   cursor: default;
   resize: none; /* Evitamos que el usuario pueda redimensionar la caja si está deshabilitada */
 }
+/* =========================================
+   ESTILOS PARA LOS CHIPS DE SELECCIÓN
+   ========================================= */
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  /* Padding simulando el input para mantener alineación visual */
+  padding: 4px 0; 
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: 20px; /* Bordes bien redondeados estilo píldora */
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  user-select: none; /* Evita que el texto se seleccione accidentalmente al hacer clic rápido */
+  border: 1px solid transparent;
+}
+
+/* Chips en estado normal (no seleccionados) */
+.chip-default {
+  background-color: var(--color-background-default);
+  color: var(--color-text-secondary);
+  border-color: var(--color-divider);
+}
+
+/* Efecto hover solo cuando son clicables y no están seleccionados */
+.clickable-chips .chip-default:hover {
+  background-color: var(--color-divider);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+/* Chips en estado seleccionado */
+.chip-selected {
+  /* Fondo transparente con un tono primario y borde del color primario */
+  background-color: rgba(45, 212, 191, 0.1); /* Asumiendo que tu color primario es un teal/verde. Ajusta el RGB según tu --color-primary */
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.clickable-chips .chip-selected {
+  cursor: pointer;
+}
+
+.clickable-chips .chip-selected:hover {
+  background-color: rgba(45, 212, 191, 0.2);
+}
+
+/* Chips en modo solo lectura */
+.readonly-chip {
+  cursor: default !important; /* Forzar cursor normal */
+  opacity: 0.9;
+}
+
+/* Texto de fallback cuando no hay proyectos seleccionados en solo lectura */
+.no-data-text {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  padding-left: 0;
+}

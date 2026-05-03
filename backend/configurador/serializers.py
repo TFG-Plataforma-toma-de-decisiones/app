@@ -12,6 +12,12 @@ class ProjectSerializer(serializers.ModelSerializer):
         queryset=Language.objects.all(),  
         slug_field='name'             
     )
+    compatible_projects = serializers.SlugRelatedField(
+        many=True,
+        queryset=Project.objects.all(),
+        slug_field="name",
+        required=False,
+    )
     def validate_features(self, value):
         service = FlamapyService.get_instance()
         if not service.validate(value,True):

@@ -24,6 +24,14 @@ class IsAdminOrReadOnly(BasePermission):
 def get_uvl_model(request):
     flamapy_service=FlamapyService.get_instance()
     return Response(flamapy_service.to_dict())
+@api_view(['GET'])
+def projects_name(request):
+    projects = list(
+    Project.objects.filter(
+        features__overlap=["Backend", "Frontend", "Full Stack"]
+    ).values_list("name", flat=True)
+)
+    return Response(projects)
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -43,7 +51,7 @@ def get_my_user(request):
 def get_recommendation(request):
     serializer=ConfiguratorBranchSerializer(data=request.data, many=True)
     serializer.is_valid(raise_exception=True)
-    projects = list(Project.objects.all())
+    projects = list(Project.objects.all().prefetch_related("compatible_projects"))
     libraries_by_type = {
         "Frontend": [p for p in projects if "Frontend Library" in p.features],
         "Backend": [p for p in projects if "Backend Library" in p.features],
@@ -62,13 +70,32 @@ def get_recommendation(request):
             libraries_used = []
 
             while (missing := requested_features - covered_features):
+                candidates = [
+                                (
+                                    p,
+                                    {cp.pk for cp in p.compatible_projects.all()},
+                                    features_set_by_name(p.features) & missing,
+                                )
+                                for p in libraries_by_type[typeProject]
+                                if p.language_id == project.language_id
+                            ]
                 library = next(
-                    filter(
-                        lambda p: features_set_by_name(p.features) & missing and p.language==project.language,
-                        libraries_by_type[typeProject]
-                    ),
-                    None
-                )
+                                (
+                                    p for p, compatible_ids, covered in sorted(
+                                        (
+                                            (p, compatible_ids, covered)
+                                            for p, compatible_ids, covered in candidates
+                                            if covered and (project.pk in compatible_ids or not compatible_ids)
+                                        ),
+                                        key=lambda item: (
+                                            project.pk in item[1],
+                                            len(item[2]),
+                                        ),
+                                        reverse=True,
+                                    )
+                                ),
+                                None,
+                            )
                 if not library:
                     break
                 covered_features |= features_set_by_name(library.features)
@@ -137,10 +164,16 @@ def export_swot_pdf(request):
 def autocomplete(request):
     uvl_model=FlamapyService.get_instance().to_dict()
     languages=list(Language.objects.all().values_list("name",flat=True))
+    projects = list(
+    Project.objects.filter(
+        features__overlap=["Backend", "Frontend", "Full Stack"]
+    ).values_list("name", flat=True)
+    )
     data={
         "admin_input_json":request.data,
         "uvl_model":uvl_model,
-        "existing_languages_list":languages
+        "existing_languages_list":languages,
+        "projects":projects
     }
     task = autocomplete_project_task.delay(data)
     return Response({"task_id": task.id}, status=202)

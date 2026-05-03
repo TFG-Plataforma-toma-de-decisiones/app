@@ -9,9 +9,33 @@ LENGUAJES EXISTENTES EN LA BASE DE DATOS:
 CONTEXTO DEL SISTEMA (Modelo UVL disponible):
 {uvl_model}
 
+PROYECTOS EXISTENTES EN LA BASE DE DATOS:
+{projects}
+
 INSTRUCCIONES:
 1. Analiza los "DATOS INICIALES". Identifica de qué tecnología se trata.
 2. Completa los metadatos (nombre, descripción, lenguaje principal) con información técnica precisa, respetando la regla de consistencia para el lenguaje indicada en el esquema.
 3. Compara las capacidades reales de esta tecnología con el "Modelo UVL" y extrae las características cumpliendo estrictamente con las reglas lógicas y de exclusividad (alternative/or).
-4. Utiliza exclusivamente caracteres UTF-8 reales (ej. 'ó', 'ñ', 'á'). 
-5. PROHIBIDO utilizar secuencias de escape Unicode (como \u00f3) o formatos corruptos (como \n00f3).
+
+3.b. REGLA CRÍTICA DE ATRIBUCIÓN DE FEATURES:
+- Solo debes asignar una feature al proyecto si la capacidad forma parte de la oferta oficial principal del propio proyecto.
+- También puedes asignar una feature si la capacidad se ofrece mediante módulos oficiales del mismo platform project, distribución principal o release train, y esa capacidad no se modela como un proyecto separado en la base de datos.
+- NO debes asignar una feature al proyecto base si para obtenerla es necesario apoyarse en un proyecto, paquete o librería separada con identidad propia que pueda modelarse como entrada independiente en la base de datos.
+- Si una capacidad pertenece a un proyecto separado del ecosistema, esa capacidad NO debe incluirse en `features` del proyecto base. En ese caso debe modelarse en el proyecto/librería separado correspondiente.
+- La existencia de una librería compatible NO convierte automáticamente esa capacidad en una feature del proyecto base.
+- En caso de duda, usa esta regla:
+  - si lo modelarías como proyecto aparte en el catálogo, NO lo atribuyas al proyecto base;
+  - si forma parte de la plataforma oficial principal del proyecto y no lo modelas aparte, SÍ puedes atribuirlo.
+
+4. Si la tecnología identificada es una librería ("Backend Library" o "Frontend Library"), debes completar también el campo `compatible_projects`:
+   - Debe contener una lista de nombres de proyectos existentes en la base de datos con los que la librería es específicamente compatible.
+   - Usa EXCLUSIVAMENTE nombres que existan en la lista "PROYECTOS EXISTENTES EN LA BASE DE DATOS".
+   - No inventes nombres ni variantes.
+   - Si la librería es genérica del lenguaje o del ecosistema y no está ligada claramente a un framework o proyecto concreto, devuelve una lista vacía `[]`.
+   - No incluyas proyectos solo porque la librería pueda usarse técnicamente con ellos.
+   - Solo incluye proyectos cuando la librería sea una extensión clara, integración específica o complemento directo de ese framework o proyecto.
+   - La compatibilidad no depende de que el proyecto tenga el mismo tipo funcional; depende de que la librería esté ligada claramente a ese proyecto concreto.
+   - Si la tecnología NO es una librería, devuelve también `[]`.
+
+5. Utiliza exclusivamente caracteres UTF-8 reales (ej. 'ó', 'ñ', 'á').
+6. PROHIBIDO utilizar secuencias de escape Unicode (como \u00f3) o formatos corruptos (como \n00f3).
