@@ -1,4 +1,5 @@
 from configurador.flamapy.flamapyService import FlamapyService
+from configurador.models import UVLModel
 from configurador.test.base import BaseUVLTestCase, EXPECTED_MODEL_DICT
 
 
@@ -58,13 +59,11 @@ class FlamapyServiceTests(BaseUVLTestCase):
     def test_publish_new_model(self):
         expected_new_model = "features\n\tProject\n\t\tmandatory\n\t\t\tNuevo"
         FlamapyService.publish_new_model(expected_new_model)
-        with open(self.uvl_model_test, mode="r") as f:
-            new_model = f.read()
+        new_model = UVLModel.objects.first().raw_content
         self.assertEqual(expected_new_model, new_model)
 
     def test_create_str(self):
         expected_service = FlamapyService.get_instance()
-        with open(self.uvl_model_test, mode="r") as f:
-            uvl_content = f.read()
+        uvl_content = self.uvl_model_test.read_text(encoding="utf-8")
         service = FlamapyService.create_str(uvl_content)
         self.assertEqual(expected_service.to_dict(), service.to_dict())

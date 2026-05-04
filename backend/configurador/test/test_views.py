@@ -6,7 +6,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from configurador.flamapy.flamapyService import FlamapyService
-from configurador.models import Project, User
+from configurador.models import Project, User, UVLModel
 from configurador.test.base import BaseTestCase, BaseUVLTestCase, EXPECTED_MODEL_DICT
 import json
 
@@ -414,7 +414,7 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(cache.get("admin_edit_session"))
         self.assertEqual(
-            self.uvl_model_test.read_text(encoding="utf-8"),
+            UVLModel.objects.first().raw_content,
             FlamapyService.get_uvl_text(new_model),
         )
     def test_manage_uvl_put_publishes_valid_model_edits_attributes(self):
@@ -431,7 +431,7 @@ class ManageUVLModelViewTests(APIClientMixin, BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(cache.get("admin_edit_session"))
         self.assertEqual(
-            self.uvl_model_test.read_text(encoding="utf-8"),
+            UVLModel.objects.first().raw_content,
             FlamapyService.get_uvl_text(new_model),
         )
 

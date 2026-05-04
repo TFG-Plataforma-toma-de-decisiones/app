@@ -1,14 +1,17 @@
 # backend/configurador/management/commands/setup_e2e_env.py
 
+from pathlib import Path
+
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.core.cache import cache
 from django.conf import settings
 from django.contrib.auth import get_user_model
-import shutil
+
+from configurador.models import UVLModel
 
 class Command(BaseCommand):
-    help = 'Prepara el entorno para tests E2E: Borra DB, carga Fixture, restaura UVL e invalida la caché.'
+    help = 'Prepara el entorno para tests E2E: Borra DB, carga Fixture, inserta UVL e invalida la caché.'
 
     def handle(self, *args, **kwargs):
         self.stdout.write("--- Iniciando Reset del Entorno E2E ---")
@@ -26,20 +29,19 @@ class Command(BaseCommand):
         User = get_user_model()
         User.objects.create_superuser('admin', 'admin@admin.com', 'admin')
 
-        # 4. Actualizar la caché de Redis
-        self.stdout.write("4. Actualizando caché de Flamapy...")
+        # 4. Insertar el modelo UVL en la base de datos
+        self.stdout.write("4. Insertando modelo UVL en la base de datos...")
+        uvl_path = Path(settings.BASE_DIR) / "configurador/test/test_data/test_model.uvl"
+        UVLModel.objects.create(raw_content=uvl_path.read_text(encoding="utf-8"))
+
+        # 5. Actualizar la caché de Redis
+        self.stdout.write("5. Actualizando caché de Flamapy...")
         version = cache.get('uvl_model_version', 1)
         nueva_version = version + 1
         cache.set('uvl_model_version', nueva_version, timeout=None)
         cache.delete('admin_edit_session')
 
-        # 5. Restaurar el archivo UVL (Asumiendo que BASE_DIR es la carpeta 'backend')
-        self.stdout.write("5. Restaurando archivo UVL...")
-        backup_path = settings.BASE_DIR / "configurador/test/test_data/test_model_backup.uvl"
-        target_path = settings.BASE_DIR / "configurador/test/test_data/test_model.uvl"
-        shutil.copy(backup_path, target_path)
-
         # Confirmación final
         self.stdout.write(self.style.SUCCESS(
-            f'¡Entorno E2E listo! BD restaurada, Admin creado, Archivo copiado y Caché en v{nueva_version}'
+            f'¡Entorno E2E listo! BD restaurada, Admin creado, UVL insertado y Caché en v{nueva_version}'
         ))
