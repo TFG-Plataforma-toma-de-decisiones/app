@@ -7,15 +7,25 @@ import os
 import tempfile
 from django.core.cache import cache
 from itertools import groupby
+from django.db import transaction
+from configurador.models import UVLModel
+default_uvl_nodes=["Backend","Frontend",'"Full Stack"','"Backend Library"','"Frontend Library"']
+
 class FlamapyService:
     _instance = None
     _version=0
     @classmethod
     def get_instance(cls):
         version_actual_redis = cache.get('uvl_model_version', 1)
-        uvl_path = Path(settings.UVL_MODEL_FILE)
         if cls._instance is None or cls._version < version_actual_redis:
-            cls._instance = cls(uvl_path)
+            model=UVLModel.objects.first()
+            if model:
+                uvl_content=model.raw_content
+            else:
+                default_uvl_nodes_text="\n\t\t\t".join(default_uvl_nodes)
+                uvl_content=f"features\n\tProject\n\t\talternative\n\t\t\t{default_uvl_nodes_text}"
+                print(uvl_content)
+            cls._instance = FlamapyService.create_str(uvl_content)
             cls._version = version_actual_redis
             
         return cls._instance
@@ -61,11 +71,10 @@ class FlamapyService:
                 os.remove(temp_path)
     @classmethod
     def publish_new_model(cls, new_uvl_content):
-        uvl_path = Path(settings.UVL_MODEL_FILE)
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.tmp', encoding='utf-8', delete=False,dir=uvl_path.parent) as tmp_file:
-            tmp_file.write(new_uvl_content)
-            tmp_path = tmp_file.name
-        os.replace(tmp_path, uvl_path)
+        with transaction.atomic():
+            UVLModel.objects.update_or_create(
+            defaults={'raw_content': new_uvl_content}
+        )
         try:
             cache.incr('uvl_model_version')
         except ValueError:

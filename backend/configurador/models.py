@@ -18,3 +18,5 @@ class Project(models.Model):
     )
 class User(AbstractUser):
     pass
+class UVLModel(models.Model):
+    raw_content=models.TextField(blank=False)
