@@ -16,3 +16,4 @@ langchain-community==0.4.1
 django-redis==6.0.0
 xhtml2pdf==0.2.16
 celery==5.4.0
+gunicorn==22.0.0
