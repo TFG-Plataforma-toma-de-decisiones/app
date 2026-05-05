@@ -14,15 +14,17 @@ services:
       - ../backend/.env
     depends_on:
       - redis
+      - cloud-sql-proxy
 
   celery_worker:
     build: 
       context: ../
       dockerfile: docker/Dockerfile.backend.prod
-    restart: always # ¡Añadido!
+    restart: always
     command: bash -c "cd /app && celery -A backend.celery worker" 
     depends_on:
       - redis
+      - cloud-sql-proxy 
     env_file:
       - ../backend/.env
 
@@ -35,3 +37,13 @@ services:
     depends_on:
       - web
     command: caddy reverse-proxy --from backend-tfg.duckdns.org --to web:8000
+
+  cloud-sql-proxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0
+    restart: always
+    env_file:
+      - ../backend/.env
+    command:
+      - "--port=5432"
+      - "--address=0.0.0.0"
+      - "${CLOUD_SQL_CONNECTION_NAME}" 
