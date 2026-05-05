@@ -1,6 +1,6 @@
 import './Project.css';
 import FeatureNode from '../shared/FeatureNode';
-1import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner from '../shared/LoadingSpinner';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
