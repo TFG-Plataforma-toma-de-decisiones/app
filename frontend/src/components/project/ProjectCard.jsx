@@ -27,7 +27,7 @@ function ProjectCard({ project,setProjects,onClick,deleteEndpoint,refetchProject
   const type=types.find(t=>project.features.includes(t))
   const {isAdmin} =useAuth()
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const {run}=useAction()
+  const {run,isLoading}=useAction()
   const handleDelete = (e) => {
     e.stopPropagation();
     setDeleteModalOpen(true);
@@ -55,7 +55,7 @@ function ProjectCard({ project,setProjects,onClick,deleteEndpoint,refetchProject
           <div className="project-card-header">
             <h2 className="project-title">{project.name}</h2>
             {isAdmin && (
-              <button onClick={handleDelete} className="delete-project-btn" data-cy={`delete-project-${project.name}`}>
+              <button onClick={handleDelete} className="delete-project-btn" disabled={isLoading} data-cy={`delete-project-${project.name}`}>
                 <FaTrash />
               </button>
             )}

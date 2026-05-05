@@ -58,3 +58,52 @@ body {
   transform: translateY(0); /* Vuelve a bajar al hacer clic */
   box-shadow: 0 2px 8px rgba(45, 212, 191, 0.2);
 }
+
+.submit-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* ==========================================
+   LOADING STATES
+   ========================================== */
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 16px;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-divider);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.skeleton-card {
+  background-color: var(--color-background-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--border-radius-card);
+  animation: pulse 1.5s ease-in-out infinite;
+}

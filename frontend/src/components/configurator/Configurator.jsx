@@ -6,11 +6,12 @@ import useApi from "../../hooks/useApi";
 import SWOTModal from "../modals/SWOTModal";
 import { getNode } from "../../utils/featureModel";
 import usePollingAction from "../../hooks/usePollingAction"
+import LoadingSpinner from "../shared/LoadingSpinner";
 export default function Configurator() {
-  const {data:uvlModel}=useApi({endpoint:"/model",initialData:{}})
+  const {data:uvlModel,isLoading:isLoadingUvl}=useApi({endpoint:"/model",initialData:{}})
   const { isActive,handleToggle,trees,getProperty,setProperty} = useFeatureTrees();
-  const {data:recommendations,refetch}=useApi({endpoint:"/recommend",method:"POST",initialData:null})
-  const {data:languages}=useApi({endpoint:"/languages",initialData:[]})
+  const {data:recommendations,refetch,isLoading:isLoadingRecommendations}=useApi({endpoint:"/recommend",method:"POST",initialData:null})
+  const {data:languages,isLoading:isLoadingLanguages}=useApi({endpoint:"/languages",initialData:[]})
   const [dafo,setDafo]=useState()
   const {runPolling}=usePollingAction()
   const [comments,setComments]=useState("")
@@ -57,6 +58,15 @@ export default function Configurator() {
     acc[type].push(project);
     return acc;
   }, {}) :{};
+
+  if (isLoadingUvl || isLoadingLanguages) {
+    return (
+      <div className="uvl-configurator configurator-page">
+        <h2 className="configurator-main-title">Tipo de Proyecto</h2>
+        <LoadingSpinner message="Cargando configuración..." />
+      </div>
+    );
+  }
 
   return (
     <div className="uvl-configurator configurator-page">
@@ -127,7 +137,14 @@ export default function Configurator() {
           );
         })}
       </div>
-      <button className="submit-button" onClick={handleSubmit} data-cy="submit-recommendation">Obtener recomendación</button>
+      <button
+        className="submit-button"
+        onClick={handleSubmit}
+        disabled={isLoadingRecommendations}
+        data-cy="submit-recommendation"
+      >
+        {isLoadingRecommendations ? 'Buscando...' : 'Obtener recomendación'}
+      </button>
       {recommendations?.length===0 &&
         <div className="no-results-message">
           <p>No se ha encontrado ningún proyecto según las restricciones.</p>

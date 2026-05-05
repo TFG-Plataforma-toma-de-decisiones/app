@@ -4,6 +4,7 @@ import { FaPlus, FaTrash, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import useApi from "../../hooks/useApi";
 import apiClient from '../../services/api';
 import { useFeedback } from '../../hooks/useFeedback';
+import LoadingSpinner from '../shared/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
 
 const RELATION_TYPES = ["MANDATORY", "OPTIONAL", "OR", "ALTERNATIVE"];
@@ -245,7 +246,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
 };
 
 export default function UVLTreeEditor() {
-  const { data: model, setData: setModel } = useApi({ endpoint: "/manage-uvl", initialData: createNode() });
+  const { data: model, setData: setModel, isLoading } = useApi({ endpoint: "/manage-uvl", initialData: createNode() });
   const { showMessage } = useFeedback();
   const navigate = useNavigate();
 
@@ -265,6 +266,15 @@ export default function UVLTreeEditor() {
       }
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="uvl-tree-editor">
+        <h2>Editor de Estructura UVL</h2>
+        <LoadingSpinner message="Cargando modelo..." />
+      </div>
+    );
+  }
 
   return (
     <div className="uvl-tree-editor">

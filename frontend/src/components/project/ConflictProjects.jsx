@@ -6,6 +6,7 @@ import ProjectCard from './ProjectCard';
 import ProjectDraftForm from './ProjectDraftForm';
 import './ConflictProjects.css';
 import FeatureTreesProvider from '../../context/FeatureTreesContext';
+import LoadingSpinner from '../shared/LoadingSpinner';
 export default function ConflictProjects() {
   const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = useState(null);
@@ -62,10 +63,7 @@ export default function ConflictProjects() {
   if (isLoadingDraft || isLoadingModel) {
     return (
       <div className="conflicts-page">
-        <div className="conflicts-empty">
-          <h2>Cargando borrador</h2>
-          <p>Estamos recuperando el UVL draft y sus proyectos conflictivos.</p>
-        </div>
+        <LoadingSpinner message="Cargando borrador y proyectos conflictivos..." />
       </div>
     );
   }
