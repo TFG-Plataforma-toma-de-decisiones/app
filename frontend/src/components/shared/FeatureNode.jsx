@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import './FeatureNode.css';
 import { useFeatureTrees } from "../../hooks/useFeatureTrees";
 import { getRelations, hasRelations } from "../../utils/featureModel";
+import DescriptionModal from './DescriptionModal';
 
 const RELATION_CONFIG = {
   MANDATORY: { title: null, controlType: "mandatory" },
@@ -17,8 +19,9 @@ const DEFAULT_RELATION_CONFIG = {
 const MERGEABLE_RELATION_TYPES = new Set(["MANDATORY", "OPTIONAL"]);
 
 
-export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullConfig=true }) {
+export default function FeatureNode({ node, depth = 0, index = 0, readOnly, fullConfig = true, showLabel = true }) {
   const { isActive, handleToggle, handleRadioChange } = useFeatureTrees();
+  const [openDescription, setOpenDescription] = useState(null);
 
   const relations = getRelations(node);
   if (!relations.length) return null;
@@ -48,6 +51,14 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullC
   }, []);
 
   return (
+    <>
+    {openDescription && (
+      <DescriptionModal
+        title={openDescription.title}
+        description={openDescription.description}
+        onClose={() => setOpenDescription(null)}
+      />
+    )}
     <div className={`uvl-configurator ${readOnly ? 'readonly-mode' : ''}`}>
       {displayRelations.map((relation, relationIndex) => {
         const children = relation.children ?? [];
@@ -115,15 +126,30 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullC
                 );
               }
 
+              const description = child.attributes?.description;
+              const displayName = showLabel ? (child.attributes?.label || child.name?.split("-")?.[0]) : child.name;
+
               return (
                 <div key={child.name} className={`feature-card ${active ? 'active' : ''} ${isMandatory ? 'mandatory' : ''}`}>
-                  <label className="feature-header" data-cy={featureDataCy}>
-                    {control}
-                    <span className="feature-name">{child.attributes?.label || child.name?.split("-")?.[0]}</span>
-                  </label>
+                  <div className="feature-header" data-cy={featureDataCy}>
+                    <label className="feature-label">
+                      {control}
+                      <span className="feature-name">{displayName}</span>
+                    </label>
+                    {description && (
+                      <button
+                        type="button"
+                        className="feature-info-btn"
+                        onClick={(e) => { e.stopPropagation(); setOpenDescription({ title: child.attributes?.label || child.name?.split("-")?.[0], description }); }}
+                        aria-label="Ver descripción"
+                      >
+                        i
+                      </button>
+                    )}
+                  </div>
                   {active && hasChildren && (
                     <div className="feature-children">
-                      <FeatureNode node={child} depth={depth + 1} index={index} readOnly={readOnly} fullConfig={fullConfig}/>
+                      <FeatureNode node={child} depth={depth + 1} index={index} readOnly={readOnly} fullConfig={fullConfig} showLabel={showLabel} />
                     </div>
                   )}
                 </div>
@@ -133,5 +159,6 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly,fullC
         );
       })}
     </div>
+    </>
   );
 }

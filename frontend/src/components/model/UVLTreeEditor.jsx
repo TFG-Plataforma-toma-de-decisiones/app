@@ -102,8 +102,10 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   const hasRelations = node.relations.length > 0;
   const isProtectedNode = depth <= 1;
   const [activeAttrKey, setActiveAttrKey] = useState('');
+  const [newAttrKey, setNewAttrKey] = useState('');
   const attributes = node.attributes || {};
   const attributeDataCySuffix = `${node.name || 'empty'}`;
+  const isAddingNew = activeAttrKey === '__new__';
 
   const handleNameChange = (event) => {
     onUpdate({ ...node, name: event.target.value });
@@ -136,7 +138,7 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   };
 
   const handleActiveAttrValueChange = (newValue) => {
-    if (!activeAttrKey) return;
+    if (!activeAttrKey || isAddingNew) return;
 
     onUpdate({
       ...node,
@@ -150,6 +152,19 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
     onUpdate({ ...node, attributes: newAttributes });
     const remainingKeys = Object.keys(newAttributes);
     setActiveAttrKey(remainingKeys.length > 0 ? remainingKeys[0] : '');
+  };
+
+  const handleSelectKey = (event) => {
+    setActiveAttrKey(event.target.value);
+    if (event.target.value !== '__new__') setNewAttrKey('');
+  };
+
+  const handleConfirmNewAttr = () => {
+    const key = newAttrKey.trim();
+    if (!key) return;
+    onUpdate({ ...node, attributes: { ...attributes, [key]: '' } });
+    setActiveAttrKey(key);
+    setNewAttrKey('');
   };
 
   return (
@@ -174,39 +189,49 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
         />
 
         <div className="node-attributes single-row">
-          <datalist id={`datalist-attrs-${path}`}>
-            {Object.keys(attributes).map((key) => (
-              <option key={key} value={key} />
-            ))}
-          </datalist>
           <div className="attribute-row">
             <span className="attribute-badge">Atributos</span>
-            <input
-              type="text"
-              className="attribute-input key-input"
-              data-cy={`attribute-selector`}
-              list={`datalist-attrs-${path}`}
-              value={activeAttrKey}
-              onChange={(event) => setActiveAttrKey(event.target.value)}
-              placeholder="Selecciona o crea..."
-              title="Clave del atributo"
-            />
+            {isAddingNew ? (
+              <input
+                type="text"
+                className="attribute-input key-input"
+                value={newAttrKey}
+                onChange={(e) => setNewAttrKey(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleConfirmNewAttr()}
+                onBlur={() => newAttrKey.trim() ? handleConfirmNewAttr() : setActiveAttrKey('')}
+                placeholder="Nueva clave..."
+                autoFocus
+              />
+            ) : (
+              <select
+                className="attribute-input key-input"
+                data-cy={`attribute-selector`}
+                value={activeAttrKey}
+                onChange={handleSelectKey}
+              >
+                <option value="">Selecciona o crea...</option>
+                {Object.keys(attributes).map((key) => (
+                  <option key={key} value={key}>{key}</option>
+                ))}
+                <option value="__new__">+ Nueva clave</option>
+              </select>
+            )}
             <span className="attribute-separator">:</span>
             <input
               type="text"
               className="attribute-input value-input"
               data-cy={`attribute-input-${attributeDataCySuffix}`}
-              value={activeAttrKey ? (attributes[activeAttrKey] ?? "") : ""}
+              value={activeAttrKey && !isAddingNew ? (attributes[activeAttrKey] ?? "") : ""}
               onChange={(event) => handleActiveAttrValueChange(event.target.value)}
               placeholder="Valor del atributo"
-              disabled={!activeAttrKey}
+              disabled={!activeAttrKey || isAddingNew}
             />
             <button
               className="icon-btn delete-btn"
               data-cy={`delete-attribute-${attributeDataCySuffix}`}
               onClick={handleDeleteActiveAttribute}
               title="Borrar atributo actual"
-              disabled={!activeAttrKey || attributes[activeAttrKey] === undefined}
+              disabled={!activeAttrKey || isAddingNew || attributes[activeAttrKey] === undefined}
             >
               <FaTrash size={12} />
             </button>

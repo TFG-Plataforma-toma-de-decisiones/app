@@ -26,10 +26,10 @@ describe('Edit uvl tests', () => {
         cy.get('[data-cy="feature-name-root-relation-0-child-0-relation-4-child-1"]').clear().type('Caracteristica 2');
         cy.get('[data-cy="feature-name-root-relation-0-child-0-relation-4-child-1"]').clear();
         cy.get('[data-cy="feature-name-root-relation-0-child-0-relation-4-child-1"]').type('Caracteristica ');
-        cy.get('input[list="datalist-attrs-root-relation-0-child-0-relation-4-child-0"]').click();
-        cy.get('input[list="datalist-attrs-root-relation-0-child-0-relation-4-child-0"]').type('label');
+        cy.get('[data-cy="feature-node-header-root-relation-0-child-0-relation-4-child-0"] [data-cy="attribute-selector"]').select('__new__');
+        cy.get('[data-cy="feature-node-header-root-relation-0-child-0-relation-4-child-0"] input.key-input').type('label{enter}');
         cy.get('[data-cy="attribute-input-Caracteristica 1"]').click();
-        cy.get('[data-cy="attribute-input-Caracteristica 1"]').type('Etiqueta');
+        cy.get('[data-cy="attribute-input-Caracteristica 1"]').type('etiqueta{enter}');
         cy.get('[data-cy="save-uvl-model"]').click();
         cy.wait('@saveUVL')
         cy.wait('@getDraftProjects')

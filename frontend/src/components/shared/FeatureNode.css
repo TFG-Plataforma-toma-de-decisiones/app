@@ -90,13 +90,48 @@
   align-items: center;
   margin: 0;
   padding: 12px 14px;
-  cursor: pointer;
   transition: background-color 0.2s;
   flex-wrap: nowrap;
+  gap: 6px;
 }
 
 .feature-header:hover {
   background-color: var(--color-hover-border, rgba(45, 212, 191, 0.05));
+}
+
+.feature-label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.feature-info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text-secondary);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+}
+
+.feature-info-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: rgba(45, 212, 191, 0.08);
 }
 
 .feature-name {
@@ -139,6 +174,10 @@
 
 .feature-children .feature-header {
   padding: 8px 10px;
+}
+
+.feature-children .feature-label {
+  cursor: pointer;
 }
 
 .feature-children .feature-name {
@@ -309,7 +348,7 @@
 
 /* Read only mode */
 
-.readonly-mode .feature-header {
+.readonly-mode .feature-label {
   cursor: default;
 }
 

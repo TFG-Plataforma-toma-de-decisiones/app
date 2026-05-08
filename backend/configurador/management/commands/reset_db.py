@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from configurador.models import UVLModel
 import os
+from django.core.cache import cache
 class Command(BaseCommand):
     help = "Resetea la base de datos y carga fixtures"
 
@@ -26,4 +27,9 @@ class Command(BaseCommand):
         except FileNotFoundError:
             self.stdout.write(self.style.ERROR(f"❌ Error: No se encontró el archivo UVL en {uvl_file_path}"))
             return
+        self.stdout.write("5. Actualizando caché de Flamapy...")
+        version = cache.get('uvl_model_version', 1)
+        nueva_version = version + 1
+        cache.set('uvl_model_version', nueva_version, timeout=None)
+        cache.delete('admin_edit_session')
         self.stdout.write(self.style.SUCCESS("✅ Base de datos reseteada"))

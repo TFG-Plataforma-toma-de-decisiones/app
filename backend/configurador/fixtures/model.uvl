@@ -17,41 +17,33 @@ features
 							"BSD-1" { label 'BSD'}
 				optional
 					"AuthenticationSupport" { label 'Autenticación', description 'Mecanismos de autenticación que el framework soporta de forma nativa o mediante integración oficial directa.'}
-						optional
+						or
 							"JWT" { label 'JWT'}
-						optional
 							"OAuth2" { label 'OAuth2'}
-						optional
 							"Basic" { label 'Básica'}
-						optional
 							"SessionAuth" { label 'Sesiones'}
 				optional
 					"AuthenticationAbstractions" { label 'Auth integrada', description 'Facilidades oficiales del framework que reducen el trabajo manual necesario para implementar autenticación.'}
-						optional
+						or
 							"BuiltInAuthentication" { label 'Autenticación integrada', description 'El framework incluye un sistema de autenticación ya resuelto o muy avanzado.'}
-						optional
 							"BuiltInJWTAuthentication" { label 'JWT integrado', description 'El framework ofrece soporte oficial y bastante directo para autenticación JWT sin tener que implementar manualmente gran parte del flujo.'}
 				optional
 					"Authorization" { label 'Autorización', description 'Mecanismos para controlar qué acciones puede realizar un usuario autenticado.'}
-						optional
+						or
 							"Roles" { label 'Roles'}
-						optional
 							"Permissions" { label 'Permisos'}
 				optional
 					"DependencyInjection" { label 'Inyección de dependencias', description 'El framework usa inyección de dependencias como parte clara de su arquitectura y configuración.'}
 				optional
 					"ValidationSupport" { label 'Validación', description 'Soporte para validar datos de entrada de forma declarativa o integrada en el framework.'}
-						optional
+						or
 							"RequestValidation" { label 'Validación de entrada', description 'Validación de los datos recibidos en peticiones o formularios.'}
-						optional
 							"SchemaValidation" { label 'Validación por esquema', description 'Validación basada en esquemas, tipos o estructuras declarativas.'}
 				optional
 					"DatabaseIntegration-1" { label 'Base de datos', description 'Capacidades oficiales de integración con bases de datos y modelos de persistencia.'}
-						optional
+						or
 							"ORM-1" { label 'ORM'}
-						optional
 							"ODM-1" { label 'ODM'}
-						optional
 							"OGM-1" { label 'OGM'}
 				optional
 					"TaskQueueSupport" { label 'Colas de trabajo', description 'Soporte para procesamiento asíncrono mediante colas, brokers o sistemas de eventos.'}
@@ -73,9 +65,8 @@ features
 									"Redis" { label 'Redis'}
 				optional
 					"CacheSupport-1" { label 'Caché', description 'Soporte para almacenar datos temporales y acelerar operaciones frecuentes.'}
-						optional
+						or
 							"Redis-1" { label 'Redis'}
-						optional
 							"Memcached-1" { label 'Memcached'}
 				optional
 					"OpenAPIDocumentationSupport" { label 'OpenAPI / Swagger', description 'Capacidad de generar o exponer documentación de API basada en OpenAPI o Swagger de forma oficial.'}
@@ -83,7 +74,7 @@ features
 					"GenericCRUDAbstractions" { label 'CRUD integrado', description 'El framework ofrece abstracciones oficiales para operaciones CRUD comunes, reduciendo código repetitivo.'}
 				optional
 					"RealtimeCommunicationSupport" { label 'Tiempo real', description 'Soporte para comunicación persistente o bidireccional en tiempo real.'}
-						optional
+						mandatory
 							"WebSockets" { label 'WebSockets'}
 			"Frontend" { label 'Frontend'}
 				mandatory
@@ -102,7 +93,6 @@ features
 						alternative
 							"CSR" { label 'CSR (Renderizado del Cliente)'}
 							"SSR" { label 'SSR (Renderizado del Servidor)'}
-							"SSG" { label 'SSG (Sitios Estáticos)'}
 				mandatory
 					"License-2" { label 'Licencia'}
 						alternative
@@ -111,18 +101,14 @@ features
 							"Apache-2" { label 'Apache'}
 							"BSD-2" { label 'BSD'}
 				mandatory
-					"Styling" { label 'Estilos'}
+					"StylingApproach" { label 'Enfoque de estilos'}
 						or
-							"CSS" { label 'CSS nativo'}
-							"CSSModules" { label 'CSS Modules'}
-							"CSSinJS" { label 'CSS en JS'}
-							"UtilityFirstCSS" { label 'CSS de utilizadades (ej. Tailwind)'}
-							"ComponentLibraryStyling" { label 'Librería de componentes', description 'El framework o ecosistema se apoya de forma natural en librerías de componentes con estilos integrados.'}
+							"ProgrammaticStyling" { label 'Estilos por código'}
+							"StylesheetBasedStyling" { label 'Hoja de estilos'}
 				optional
 					"RoutingSupport" { label 'Enrutamiento', description 'Soporte oficial para gestionar navegación y rutas dentro de la aplicación.'}
-						optional
+						or
 							"ClientSideRouting" { label 'Enrutamiento cliente'}
-						optional
 							"FileBasedRouting" { label 'Enrutamiento por archivos'}
 				optional
 					"FormSupport" { label 'Formularios', description 'Facilidades para construir, validar y gestionar formularios en el frontend.'}
@@ -132,10 +118,6 @@ features
 							"Validation" { label 'Validación'}
 				optional
 					"DataFetchingSupport" { label 'Carga de datos', description 'Soporte para obtener, sincronizar y cachear datos remotos en la interfaz.'}
-						optional
-							"ClientFetching" { label 'Carga en cliente'}
-						optional
-							"ServerFetching" { label 'Carga en servidor'}
 						optional
 							"QueryCaching" { label 'Caché de consultas'}
 				optional
@@ -148,6 +130,10 @@ features
 							"OfflineSupport" { label 'Sin conexión'}
 						optional
 							"InstallableApp" { label 'Instalable'}
+				optional
+					"ThemingSupport-2" { label 'Temas'}
+				optional
+					"ResponsiveDesignSupport-2" { label 'Diseño responsive'}
 			"Full Stack" { label 'Full stack'}
 				mandatory
 					"RenderingModel-3" { label 'Renderizado'}
@@ -162,8 +148,6 @@ features
 							"GPL-3" { label 'GPL'}
 							"Apache-3" { label 'Apache'}
 							"BSD-3" { label 'BSD'}
-				optional
-					"BuiltInAPIRoutes" { label 'API integrada', description 'El framework permite definir rutas o endpoints de API dentro del mismo proyecto full stack.'}
 				optional
 					"FullStackRoutingSupport" { label 'Soporte para Enrutamiento', description 'El sistema de rutas forma parte central del framework y organiza navegación, vistas, layouts o páginas de forma integrada.'}
 						optional
@@ -194,13 +178,12 @@ features
 					"AdminPanel" { label 'Panel admin', description 'El framework incorpora o facilita mucho un panel de administración.'}
 				optional
 					"CacheSupport-3" { label 'Caché', description 'Soporte para almacenamiento temporal de datos y aceleración de respuestas.'}
-						optional
+						or
 							"Redis-3" { label 'Redis'}
-						optional
 							"Memcached-3" { label 'Memcached'}
 				optional
 					"RealtimeCommunicationSupport-3" { label 'Tiempo real', description 'Soporte para comunicación persistente o bidireccional en tiempo real.'}
-						optional
+						mandatory
 							"WebSockets-3" { label 'WebSockets'}
 				optional
 					"TaskQueueSupport-3" { label 'Colas y mensajería', description 'Soporte para procesamiento asíncrono, colas de trabajo o infraestructura de mensajería en soluciones full stack.'}
@@ -228,23 +211,18 @@ features
 							"ODM-4" { label 'ODM'}
 							"OGM-4" { label 'OGM'}
 					"AuthenticationSupport-4" { label 'Autenticación', description 'Librerías que aportan mecanismos de autenticación al backend.'}
-						optional
+						or
 							"JWT-4" { label 'JWT'}
-						optional
 							"OAuth2-4" { label 'OAuth2'}
-						optional
 							"Basic-4" { label 'Básica'}
-						optional
 							"SessionAuth-4" { label 'Sesiones'}
 					"Authorization-4" { label 'Autorización', description 'Librerías para control de acceso mediante roles o permisos.'}
-						optional
+						or
 							"Roles-4" { label 'Roles'}
-						optional
 							"Permissions-4" { label 'Permisos'}
 					"ValidationSupport-4" { label 'Validación', description 'Librerías que aportan validación de entrada o validación basada en esquemas.'}
-						optional
+						or
 							"RequestValidation-4" { label 'Validación de entrada'}
-						optional
 							"SchemaValidation-4" { label 'Validación por esquema'}
 					"TaskQueueSupport-4" { label 'Colas y mensajería', description 'Librerías para procesamiento asíncrono, colas de trabajo o integración con brokers.'}
 						or
@@ -252,7 +230,7 @@ features
 								or
 									"RabbitMQ-4" { label 'RabbitMQ'}
 									"ActiveMQ-4" { label 'ActiveMQ'}
-							"CloudNativeQueues4" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.'}
+							"CloudNativeQueues-4" { label 'Colas cloud', description 'Servicios gestionados de colas o tareas proporcionados por plataformas cloud.'}
 								or
 									"AWSSQS-4" { label 'AWS SQS'}
 									"GoogleCloudTasks-4" { label 'Google Cloud Tasks'}
@@ -264,18 +242,17 @@ features
 								mandatory
 									"Redis-6" { label 'Redis'}
 					"CacheSupport-4" { label 'Caché', description 'Librerías para cachear datos o respuestas.'}
-						alternative
+						or
 							"Redis-4" { label 'Redis'}
 							"Memcached-4" { label 'Memcached'}
 					"RealtimeCommunicationSupport-4" { label 'Tiempo real', description 'Librerías que permiten comunicación persistente o bidireccional en tiempo real.'}
-						optional
+						mandatory
 							"WebSockets-4" { label 'WebSockets'}
 			"Frontend Library" { label 'Librería frontend'}
 				alternative
 					"RoutingSupport-5" { label 'Enrutamiento', description 'Librerías para gestionar rutas y navegación en el frontend.'}
-						optional
+						or
 							"ClientSideRouting-5" { label 'Enrutamiento cliente'}
-						optional
 							"FileBasedRouting-5" { label 'Enrutamiento por archivos'}
 					"FormSupport-5" { label 'Formularios', description 'Librerías que facilitan la construcción, gestión y validación de formularios.'}
 						optional
@@ -284,15 +261,10 @@ features
 							"Validation-5" { label 'Validación'}
 					"DataFetchingSupport-5" { label 'Carga de datos', description 'Librerías para obtener, sincronizar y cachear datos remotos en el frontend.'}
 						optional
-							"ClientFetching-5" { label 'Carga en cliente'}
-						optional
-							"ServerFetching-5" { label 'Carga en servidor'}
-						optional
 							"QueryCaching-5" { label 'Caché de consultas'}
 					"GlobalState-5" { label 'Estado global', description 'Librerías para gestionar estado compartido entre componentes o vistas.'}
 					"i18nInternationalization-5" { label 'Internacionalización', description 'Librerías para traducciones, localización y cambio de idioma.'}
-					"PWAFeatures-5" { label 'PWA', description 'Librerías o capacidades asociadas a aplicaciones web progresivas.'}
-						optional
-							"OfflineSupport-5" { label 'Sin conexión'}
-						optional
-							"InstallableApp-5" { label 'Instalable'}
+					"ComponentLibrary" { label 'Librería de componentes'}
+						or
+							"ThemingSupport-5" { label 'Soporte para temas'}
+							"ResponsiveDesignSupport" { label 'Diseño responsive'}

@@ -61,7 +61,7 @@
         "name": "Next.js",
         "description": "Framework full stack sobre React con App Router, rutas de API, carga de datos en servidor y acciones de servidor disparadas desde la interfaz.",
         "language": 2,
-        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"CSR-3\", \"SSR-3\", \"SSG-3\", \"License-3\", \"MIT-3\", \"BuiltInAPIRoutes\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]",
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"CSR-3\", \"SSR-3\", \"SSG-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]",
         "compatible_projects": []
     }
 },
@@ -72,7 +72,7 @@
         "name": "Nuxt",
         "description": "Framework full stack sobre Vue con file-based routing, renderizado híbrido, carga de datos en servidor y acciones de servidor integradas.",
         "language": 2,
-        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"CSR-3\", \"SSR-3\", \"SSG-3\", \"License-3\", \"MIT-3\", \"BuiltInAPIRoutes\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]",
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"CSR-3\", \"SSR-3\", \"SSG-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]",
         "compatible_projects": []
     }
 },
@@ -83,7 +83,7 @@
         "name": "React",
         "description": "Librería para construir interfaces de usuario, normalmente usada en aplicaciones SPA renderizadas en cliente.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"Styling\", \"CSS\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web\", \"SPA\", \"CSR\", \"MIT-2\", \"StylesheetBasedStyling\", \"ProgrammaticStyling\"]",
         "compatible_projects": []
     }
 },
@@ -94,7 +94,7 @@
         "name": "Vue.js",
         "description": "Framework progresivo para interfaces web con buen soporte de componentes y TypeScript.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSModules\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web\", \"SPA\", \"CSR\", \"MIT-2\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
         "compatible_projects": []
     }
 },
@@ -105,7 +105,7 @@
         "name": "Angular",
         "description": "Framework frontend completo con routing, formularios, i18n y capacidades oficiales para SSR y PWA.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web\", \"SPA\", \"SSR\", \"MIT-2\", \"CSS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"i18nInternationalization-2\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web\", \"SPA\", \"SSR\", \"MIT-2\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"i18nInternationalization-2\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\", \"StylesheetBasedStyling\", \"ProgrammaticStyling\"]",
         "compatible_projects": []
     }
 },
@@ -116,7 +116,7 @@
         "name": "Flutter",
         "description": "Toolkit de UI para crear aplicaciones para móvil y web desde una única base de código.",
         "language": 6,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web+Mobile\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"BSD-2\", \"Styling\", \"ComponentLibraryStyling\", \"i18nInternationalization-2\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web+Mobile\", \"SPA\", \"CSR\", \"BSD-2\", \"i18nInternationalization-2\", \"ProgrammaticStyling\"]",
         "compatible_projects": []
     }
 },
@@ -193,7 +193,7 @@
         "name": "TanStack Query",
         "description": "Librería para data fetching, cache y sincronización de server state en frontend.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend Library\", \"DataFetchingSupport-5\", \"ClientFetching-5\", \"QueryCaching-5\"]",
+        "features": "[\"Project\", \"Frontend Library\", \"DataFetchingSupport-5\", \"QueryCaching-5\"]",
         "compatible_projects": []
     }
 },
@@ -215,7 +215,7 @@
         "name": "Celery",
         "description": "Librería de cola de tareas distribuida para Python, orientada a procesamiento asíncrono y tareas programadas.",
         "language": 1,
-        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"CloudNativeQueues4\", \"AWSSQS-4\", \"OpenStandardQueues-4\", \"RabbitMQ-4\"]",
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"OpenStandardQueues-4\", \"RabbitMQ-4\", \"CloudNativeQueues-4\", \"AWSSQS-4\"]",
         "compatible_projects": []
     }
 },
@@ -270,7 +270,7 @@
         "name": "React Native",
         "description": "React Native es un framework de código abierto desarrollado por Facebook para construir aplicaciones móviles nativas multiplataforma (iOS y Android) utilizando JavaScript y la biblioteca React. Permite a los desarrolladores escribir código una sola vez y desplegarlo en ambas plataformas, aprovechando componentes de interfaz de usuario nativos para ofrecer un rendimiento y una experiencia de usuario auténticos, en lugar de vistas web incrustadas. Su arquitectura se basa en el principio de 'learn once, write anywhere', facilitando la reutilización de conocimientos de desarrollo web en el ámbito móvil.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"ClientFetching\", \"QueryCaching\", \"GlobalState-2\", \"i18nInternationalization-2\", \"Mobile\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"SPA\", \"CSR\", \"MIT-2\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"QueryCaching\", \"GlobalState-2\", \"i18nInternationalization-2\", \"Mobile\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
         "compatible_projects": []
     }
 },
@@ -292,7 +292,7 @@
         "name": "Laravel",
         "description": "Laravel es un framework de aplicación web de código abierto escrito en PHP, diseñado para el desarrollo de aplicaciones web siguiendo el patrón arquitectónico modelo-vista-controlador (MVC). Ofrece una sintaxis elegante y expresiva, herramientas robustas para tareas comunes como enrutamiento, autenticación, sesiones y caché, y una potente capa de abstracción de base de datos (Eloquent ORM). Su ecosistema incluye herramientas como Artisan CLI, Mix para compilación de assets, y soporte para colas de tareas, facilitando el desarrollo rápido y escalable.",
         "language": 8,
-        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"SSR-3\", \"License-3\", \"MIT-3\", \"BuiltInAPIRoutes\", \"FullStackRoutingSupport\", \"NestedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\", \"FullStackFormAbstractions\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"CacheSupport-3\", \"Redis-3\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\", \"TaskQueueSupport-3\", \"InCacheQueues-3\", \"Redis-5\"]",
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"NestedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\", \"FullStackFormAbstractions\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"CacheSupport-3\", \"Redis-3\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\", \"TaskQueueSupport-3\", \"InCacheQueues-3\", \"Redis-5\"]",
         "compatible_projects": []
     }
 },
@@ -446,7 +446,7 @@
         "name": "Expo",
         "description": "Expo es un framework y una plataforma de herramientas de código abierto que simplifica el desarrollo de aplicaciones nativas universales utilizando JavaScript y React. Permite a los desarrolladores crear, construir y desplegar aplicaciones para iOS, Android y la web desde una única base de código, abstrayendo gran parte de la complejidad de la configuración de entornos nativos y la gestión de dependencias. Proporciona un conjunto de APIs y componentes preconstruidos que facilitan el acceso a las funcionalidades del dispositivo, así como servicios para la compilación en la nube y la publicación de actualizaciones over-the-air.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"Styling\", \"Web+Mobile\", \"SPA\", \"CSR\", \"MIT-2\", \"CSSinJS\", \"RoutingSupport\", \"ClientSideRouting\", \"FileBasedRouting\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web+Mobile\", \"SPA\", \"CSR\", \"MIT-2\", \"RoutingSupport\", \"ClientSideRouting\", \"FileBasedRouting\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
         "compatible_projects": []
     }
 },
@@ -496,6 +496,32 @@
         "description": "Zustand es una solución de gestión de estado ligera, rápida y escalable para aplicaciones JavaScript/TypeScript. Utiliza principios simplificados de Flux y se caracteriza por su API minimalista y su enfoque en la inmutabilidad. Permite crear y consumir \"stores\" de estado de forma sencilla, sin la necesidad de \"providers\" o \"contextos\" complejos, lo que facilita su integración con frameworks como React, Vue o Svelte, aunque es agnóstico a la interfaz de usuario, aunque su integración resulta más sencilla para React",
         "language": 2,
         "features": "[\"Project\", \"Frontend Library\", \"GlobalState-5\"]",
+        "compatible_projects": [
+            9
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 90,
+    "fields": {
+        "name": "MUI",
+        "description": "MUI (anteriormente Material-UI) es una popular librería de componentes React de código abierto que implementa el Material Design de Google. Proporciona un conjunto completo de herramientas de interfaz de usuario para ayudar a los desarrolladores a construir interfaces de usuario atractivas y accesibles, ofreciendo componentes preconstruidos y personalizables para el desarrollo frontend.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"ComponentLibrary\", \"ThemingSupport-5\", \"ResponsiveDesignSupport\"]",
+        "compatible_projects": [
+            9
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 91,
+    "fields": {
+        "name": "react-i18next",
+        "description": "react-i18next es una potente librería de internacionalización para React, que integra el framework i18next. Proporciona funcionalidades completas para la gestión de traducciones, detección de idioma, formateo de contenido y componentes React específicos para facilitar la localización de aplicaciones web y móviles.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"i18nInternationalization-5\"]",
         "compatible_projects": [
             9
         ]

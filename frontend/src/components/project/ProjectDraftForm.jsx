@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './Project.css';
 import FeatureNode from '../shared/FeatureNode';
 import { useFeatureTrees } from '../../hooks/useFeatureTrees';
@@ -17,13 +17,17 @@ export default function ProjectDraftForm({
 }) {
   const { setTrees, trees, getProperty } = useFeatureTrees();
   const index = 0;
+  const [conflictInfo, setConflictInfo] = useState({ nonExistent: [], removed: [] });
 
   useEffect(() => {
     if (!project) {
+      setConflictInfo({ nonExistent: [], removed: [] });
       return;
     }
 
     const nodeMap = getNodeMap(uvlModel, new Map());
+
+    const nonExistent = project.features.filter((f) => !nodeMap.has(f));
 
     const newFeatures = project.features
       .filter((f) => nodeMap.has(f))
@@ -65,6 +69,12 @@ export default function ProjectDraftForm({
       filteredConflictFeatures
     );
 
+    const removed = project.features.filter(
+      (f) => nodeMap.has(f) && !filteredFeatures.includes(f)
+    );
+
+    setConflictInfo({ nonExistent, removed });
+
     setTrees([
       {
         ...project,
@@ -85,6 +95,8 @@ export default function ProjectDraftForm({
     );
   }
 
+  const hasConflicts = conflictInfo.nonExistent.length > 0 || conflictInfo.removed.length > 0;
+
   return (
     <div className="form-container">
       <h2 className="project-name">Proyecto en conflicto</h2>
@@ -101,7 +113,40 @@ export default function ProjectDraftForm({
         </div>
       </div>
 
-      <FeatureNode node={uvlModel} readOnly={false} />
+      {hasConflicts && (
+        <div className="conflict-alert" data-cy="conflict-alert">
+          <div className="conflict-alert-header">
+            <span className="conflict-alert-icon">!</span>
+            <strong>Features eliminadas automáticamente</strong>
+          </div>
+
+          {conflictInfo.nonExistent.length > 0 && (
+            <div className="conflict-section">
+              <p className="conflict-section-title">Ya no existen en el nuevo modelo:</p>
+              <ul className="conflict-feature-list">
+                {conflictInfo.nonExistent.map((f) => (
+                  <li key={f} className="conflict-feature-tag conflict-tag-missing">{f}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {conflictInfo.removed.length > 0 && (
+            <div className="conflict-section">
+              <p className="conflict-section-title">Incompatibles con el nuevo modelo (selección inválida):</p>
+              <ul className="conflict-feature-list">
+                {conflictInfo.removed.map((f) => (
+                  <li key={f} className="conflict-feature-tag conflict-tag-removed">{f}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <p className="conflict-hint">Revisa el árbol de abajo, selecciona las features válidas y guarda.</p>
+        </div>
+      )}
+
+      <FeatureNode node={uvlModel} readOnly={false} showLabel={false} />
 
       <div className="submit-wrapper">
         <button
