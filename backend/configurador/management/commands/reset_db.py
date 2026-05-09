@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
-from django.contrib.auth import get_user_model
 from django.conf import settings
 from configurador.models import UVLModel
 import os
@@ -13,8 +12,7 @@ class Command(BaseCommand):
 
         call_command("flush", "--noinput")
         call_command("loaddata", "configurador/fixtures/datos.json")
-        User=get_user_model()
-        User.objects.create_superuser('admin', 'admin@admin.com', 'admin')
+        call_command("createsuperuser","--noinput")
         uvl_file_path = os.path.join(settings.BASE_DIR, "configurador", "fixtures", "model.uvl")
         try:
             with open(uvl_file_path, 'r', encoding='utf-8') as file:

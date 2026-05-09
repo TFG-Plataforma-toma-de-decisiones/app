@@ -21,6 +21,7 @@
   /* Opcional: Hacer la cabecera del nivel raíz un poco más grande */
   .feature-header.root-header {
     padding: 16px 20px;
+    cursor: pointer;
   }
   
   .feature-header.root-header .feature-name {
