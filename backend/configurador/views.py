@@ -248,7 +248,7 @@ class ManageUVLModelView(APIView):
             FlamapyService.publish_new_model(uvl_content)
                 
             cache.delete('admin_edit_session')
-            return Response(data={"message": "Model updated successfully"}, status=200)
+            return Response(data={"message": "Modelo actualizado correctamente"}, status=200)
         else:
             new_session = {
                 "uvl_content": uvl_content,
