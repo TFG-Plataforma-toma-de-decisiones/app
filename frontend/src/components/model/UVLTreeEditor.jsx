@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './UVLTreeEditor.css';
-import { FaPlus, FaTrash, FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaChevronDown, FaChevronRight, FaGripVertical, FaCopy } from 'react-icons/fa';
 import useApi from "../../hooks/useApi";
 import apiClient from '../../services/api';
 import { useFeedback } from '../../hooks/useFeedback';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
+import { DndContext, useDraggable, useDroppable, closestCenter } from '@dnd-kit/core';
 
 const RELATION_TYPES = ["MANDATORY", "OPTIONAL", "OR", "ALTERNATIVE"];
 
@@ -13,7 +14,7 @@ function createNode() {
   return {
     name: "Nueva Caracteristica",
     relations: [],
-    attributes:{}
+    attributes: {}
   };
 }
 
@@ -24,39 +25,92 @@ function createRelation(type = "OPTIONAL") {
   };
 }
 
+function incrementSuffix(name) {
+  const match = name.match(/^(.*)-(\d+)$/);
+  if (match) {
+    return `${match[1]}-${parseInt(match[2], 10) + 1}`;
+  }
+  return `${name}-2`;
+}
+
+function deepCopyWithIncrementedSuffix(node) {
+  return {
+    ...node,
+    name: incrementSuffix(node.name),
+    relations: node.relations.map(rel => ({
+      ...rel,
+      children: rel.children.map(child => deepCopyWithIncrementedSuffix(child))
+    }))
+  };
+}
+
 function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
+  const { isOver, setNodeRef } = useDroppable({
+    id: `droppable-${path}`,
+    data: {
+      insertarNodoAqui: (nuevoNodo) => {
+        onUpdate(prevRelation => ({
+          ...prevRelation,
+          children: [...prevRelation.children, nuevoNodo]
+        }));
+      }
+    }
+  });
+
   const handleTypeChange = (event) => {
-    onUpdate({ ...relation, type: event.target.value });
+    onUpdate(prev => ({ ...prev, type: event.target.value }));
   };
 
   const handleAddChild = () => {
-    onUpdate({
-      ...relation,
-      children: [...relation.children, createNode()]
+    onUpdate(prev => ({
+      ...prev,
+      children: [...prev.children, createNode()]
+    }));
+  };
+
+  const handleCopyChild = (index) => {
+    onUpdate(prevRelation => {
+      const nextChildren = [...prevRelation.children];
+      const copy = deepCopyWithIncrementedSuffix(nextChildren[index]);
+      nextChildren.splice(index + 1, 0, copy);
+      return { ...prevRelation, children: nextChildren };
     });
   };
 
-  const handleChildUpdate = (index, childNode) => {
-    const nextChildren = [...relation.children];
-    if (childNode) {
-      nextChildren[index] = childNode;
-    } else {
-      nextChildren.splice(index, 1);
-    }
+  const handleChildUpdate = (index, childUpdater) => {
+    onUpdate(prevRelation => {
+      const nextChildren = [...prevRelation.children];
+      const currentChild = nextChildren[index];
 
-    if (nextChildren.length === 0) {
-      onDelete();
-      return;
-    }
+      const nextChild = typeof childUpdater === 'function'
+        ? childUpdater(currentChild)
+        : childUpdater;
 
-    onUpdate({
-      ...relation,
-      children: nextChildren
+      if (nextChild) {
+        nextChildren[index] = nextChild;
+      } else {
+        nextChildren.splice(index, 1);
+      }
+
+      if (nextChildren.length === 0) {
+        return null;
+      }
+
+      return { ...prevRelation, children: nextChildren };
     });
   };
 
   return (
-    <div className="relation-group" data-cy={`relation-${path}`}>
+    <div 
+      className="relation-group" 
+      data-cy={`relation-${path}`}
+      ref={setNodeRef}
+      style={{
+        backgroundColor: isOver ? 'rgba(76, 175, 80, 0.05)' : 'transparent',
+        border: isOver ? '2px dashed #4CAF50' : 'none',
+        transition: 'all 0.2s ease'
+      }}
+    >
       <div className="relation-header">
         <span className="relation-badge">Relacion</span>
         <select
@@ -89,7 +143,8 @@ function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
             path={`${path}-child-${index}`}
             node={child}
             depth={depth + 1}
-            onUpdate={(childNode) => handleChildUpdate(index, childNode)}
+            onUpdate={(updater) => handleChildUpdate(index, updater)}
+            onCopy={() => handleCopyChild(index)}
           />
         ))}
       </div>
@@ -97,8 +152,8 @@ function EditableRelation({ relation, depth, onUpdate, onDelete, path }) {
   );
 }
 
-const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
-  const [isExpanded, setIsExpanded] = useState(depth < 2);
+const EditableNode = ({ node, onUpdate, onCopy, depth, path = "root" }) => {
+  const [isExpanded, setIsExpanded] = useState(depth < 1);
   const hasRelations = node.relations.length > 0;
   const isProtectedNode = depth <= 1;
   const [activeAttrKey, setActiveAttrKey] = useState('');
@@ -107,51 +162,76 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   const attributeDataCySuffix = `${node.name || 'empty'}`;
   const isAddingNew = activeAttrKey === '__new__';
 
+  const { attributes: dragAttrs, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `draggable-${path}`,
+    disabled: isProtectedNode,
+    data: {
+      node: node,
+      eliminarEsteNodo: () => onUpdate(() => null)
+    }
+  });
+
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    opacity: isDragging ? 0.4 : 1,
+    zIndex: isDragging ? 999 : 'auto',
+    position: isDragging ? 'relative' : 'static',
+  } : undefined;
+
   const handleNameChange = (event) => {
-    onUpdate({ ...node, name: event.target.value });
+    onUpdate(prev => ({ ...prev, name: event.target.value }));
   };
 
   const handleAddRelation = () => {
-    onUpdate({
-      ...node,
-      relations: [...node.relations, createRelation()]
-    });
+    onUpdate(prev => ({
+      ...prev,
+      relations: [...prev.relations, createRelation()]
+    }));
     setIsExpanded(true);
   };
 
   const handleDeleteNode = () => {
-    onUpdate(null);
+    onUpdate(() => null);
   };
 
-  const handleRelationUpdate = (relationIndex, nextRelation) => {
-    const nextRelations = [...node.relations];
-    if (nextRelation) {
-      nextRelations[relationIndex] = nextRelation;
-    } else {
-      nextRelations.splice(relationIndex, 1);
-    }
+  const handleRelationUpdate = (relationIndex, relationUpdater) => {
+    onUpdate(prevNode => {
+      const nextRelations = [...prevNode.relations];
+      const currentRelation = nextRelations[relationIndex];
 
-    onUpdate({
-      ...node,
-      relations: nextRelations
+      const nextRelation = typeof relationUpdater === 'function'
+        ? relationUpdater(currentRelation)
+        : relationUpdater;
+
+      if (nextRelation) {
+        nextRelations[relationIndex] = nextRelation;
+      } else {
+        nextRelations.splice(relationIndex, 1);
+      }
+
+      return { ...prevNode, relations: nextRelations };
     });
   };
 
   const handleActiveAttrValueChange = (newValue) => {
     if (!activeAttrKey || isAddingNew) return;
 
-    onUpdate({
-      ...node,
-      attributes: { ...attributes, [activeAttrKey]: newValue }
-    });
+    onUpdate(prev => ({
+      ...prev,
+      attributes: { ...(prev.attributes || {}), [activeAttrKey]: newValue }
+    }));
   };
 
   const handleDeleteActiveAttribute = () => {
-    const newAttributes = { ...attributes };
-    delete newAttributes[activeAttrKey];
-    onUpdate({ ...node, attributes: newAttributes });
-    const remainingKeys = Object.keys(newAttributes);
-    setActiveAttrKey(remainingKeys.length > 0 ? remainingKeys[0] : '');
+    onUpdate(prev => {
+      const newAttributes = { ...(prev.attributes || {}) };
+      delete newAttributes[activeAttrKey];
+      
+      const remainingKeys = Object.keys(newAttributes);
+      setActiveAttrKey(remainingKeys.length > 0 ? remainingKeys[0] : '');
+      
+      return { ...prev, attributes: newAttributes };
+    });
   };
 
   const handleSelectKey = (event) => {
@@ -162,14 +242,26 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
   const handleConfirmNewAttr = () => {
     const key = newAttrKey.trim();
     if (!key) return;
-    onUpdate({ ...node, attributes: { ...attributes, [key]: '' } });
+
+    onUpdate(prev => ({
+      ...prev,
+      attributes: { ...(prev.attributes || {}), [key]: '' }
+    }));
+    
     setActiveAttrKey(key);
     setNewAttrKey('');
   };
 
   return (
-    <div className="editable-node" data-cy={`feature-node-${path}`}>
+    <div className="editable-node" data-cy={`feature-node-${path}`} ref={setNodeRef} style={style}>
       <div className="node-header" data-cy={`feature-node-header-${path}`}>
+        
+        {!isProtectedNode && (
+          <div className="drag-handle" {...listeners} {...dragAttrs} style={{ cursor: 'grab', marginRight: '8px', color: '#888' }}>
+            <FaGripVertical />
+          </div>
+        )}
+
         {hasRelations ? (
           <button className="icon-btn" onClick={() => setIsExpanded(!isExpanded)} title="Expandir o contraer">
             {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
@@ -244,6 +336,11 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
               <FaPlus />
             </button>
           )}
+          {onCopy && !isProtectedNode && (
+            <button className="icon-btn copy-btn" onClick={onCopy} title="Copiar nodo">
+              <FaCopy />
+            </button>
+          )}
           {!isProtectedNode && (
             <button className="icon-btn delete-btn" onClick={handleDeleteNode} title="Borrar nodo">
               <FaTrash />
@@ -260,8 +357,8 @@ const EditableNode = ({ node, onUpdate, depth, path = "root" }) => {
               path={`${path}-relation-${index}`}
               relation={relation}
               depth={depth}
-              onUpdate={(nextRelation) => handleRelationUpdate(index, nextRelation)}
-              onDelete={() => handleRelationUpdate(index, null)}
+              onUpdate={(updater) => handleRelationUpdate(index, updater)}
+              onDelete={() => handleRelationUpdate(index, () => null)}
             />
           ))}
         </div>
@@ -274,6 +371,21 @@ export default function UVLTreeEditor() {
   const { data: model, setData: setModel, isLoading } = useApi({ endpoint: "/manage-uvl", initialData: createNode() });
   const { showMessage } = useFeedback();
   const navigate = useNavigate();
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const nodoArrastrado = active.data.current?.node;
+    const eliminarNodoOrigen = active.data.current?.eliminarEsteNodo;
+    const insertarEnDestino = over.data.current?.insertarNodoAqui;
+
+    if (eliminarNodoOrigen && insertarEnDestino && nodoArrastrado) {
+       insertarEnDestino(nodoArrastrado);
+      eliminarNodoOrigen();
+    }
+  };
 
   const handleSave = async () => {
     try {
@@ -302,23 +414,25 @@ export default function UVLTreeEditor() {
   }
 
   return (
-    <div className="uvl-tree-editor">
-      <h2>Editor de Estructura UVL</h2>
-      <div className="editor-container">
-        <EditableNode
-          node={model}
-          onUpdate={setModel}
-          depth={0}
-          path="root"
-        />
+    <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
+      <div className="uvl-tree-editor">
+        <h2>Editor de Estructura UVL</h2>
+        <div className="editor-container">
+          <EditableNode
+            node={model}
+            onUpdate={setModel}
+            depth={0}
+            path="root"
+          />
+        </div>
+        <button
+          className="submit-button"
+          data-cy="save-uvl-model"
+          onClick={handleSave}
+        >
+          Guardar Modelo
+        </button>
       </div>
-      <button
-        className="submit-button"
-        data-cy="save-uvl-model"
-        onClick={handleSave}
-      >
-        {'Guardar Modelo'}
-      </button>
-    </div>
+    </DndContext>
   );
 }
