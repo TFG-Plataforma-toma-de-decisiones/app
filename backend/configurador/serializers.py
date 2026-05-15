@@ -21,7 +21,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     def validate_features(self, value):
         service = FlamapyService.get_instance()
         if not service.validate(value,True):
-            raise serializers.ValidationError("Features not valid")
+            raise serializers.ValidationError("Características no válidas")
         return value  
     class Meta:
         model = Project
@@ -121,13 +121,13 @@ class ConfiguratorBranchListSerializer(serializers.ListSerializer):
         branch_types = [item["type"] for item in data]
 
         if len(branch_types) != len(set(branch_types)):
-            raise serializers.ValidationError("There can´t be duplicated branches.")
+            raise serializers.ValidationError("No puede haber ramas duplicadas.")
 
         selected_types = set(branch_types)
         for invalid_pair in INCOMPATIBLE_TYPES:
             if invalid_pair.issubset(selected_types):
                 raise serializers.ValidationError(
-                    f"Invalid branch combination: {', '.join(sorted(invalid_pair))}"
+                    f"Combinación de ramas no válida: {', '.join(sorted(invalid_pair))}"
                 )
 
         return data
@@ -156,7 +156,7 @@ class ConfiguratorBranchSerializer(serializers.Serializer):
             features.append(branch_type)
         if not service.validate(features, is_full=False):
             raise serializers.ValidationError({
-                "features": "The branch is not valid according to UVL model."
+                "features": "La rama no es válida según el modelo UVL."
             })
         return data
 

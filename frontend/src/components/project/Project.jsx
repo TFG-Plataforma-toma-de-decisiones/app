@@ -98,7 +98,7 @@ export default function Project() {
         <h2 className='project-name'>{isNew ? 'Nuevo Proyecto' : 'Proyecto'}</h2>
 
         <div className='input-container'>
-          <label className='label-input'>Name</label>
+          <label className='label-input'>Nombre</label>
           <div className="input-wrapper">
             <input
               className="input-text"
@@ -107,7 +107,7 @@ export default function Project() {
               name="name"
               onChange={(e) => setProperty(index, 'name', e.target.value)}
               disabled={!isAdmin}
-              placeholder="Escribe el name..."
+              placeholder="Escribe el nombre..."
             />
             {getProperty(index, 'name') && isAdmin && (
               <button className="autocompletar-btn" onClick={handleAutocomplete} data-cy="autocomplete-project">
@@ -119,7 +119,7 @@ export default function Project() {
         </div>
 
         <div className='input-container'>
-          <label className='label-input'>Description</label>
+          <label className='label-input'>Descripción</label>
           <div className="input-wrapper">
             <textarea
               className="textarea-input"
@@ -128,13 +128,13 @@ export default function Project() {
               name="description"
               onChange={(e) => setProperty(index, 'description', e.target.value)}
               disabled={!isAdmin}
-              placeholder="Escribe la description..."
+              placeholder="Escribe la descripción..."
             />
           </div>
         </div>
 
         <div className="input-container">
-          <label className='label-input'>Language</label>
+          <label className='label-input'>Lenguaje</label>
           <div className="input-wrapper">
             <input
               list="language-options"

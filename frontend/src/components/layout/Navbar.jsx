@@ -11,7 +11,7 @@ function Navbar() {
       <div className="navbar-container">
         <div className="toolbar">
           <Link to="/" className="logo-link">
-            <span>🚀</span> OSS Configurator
+           OSS Configurator
           </Link>
 
           <div className="nav-links">
@@ -27,7 +27,7 @@ function Navbar() {
             </NavLink>}
             {isAuthenticated ? (
               <button className="action-button" onClick={logout} data-cy="nav-logout">
-                Log out
+                Cerrar sesión
               </button>
             ) : (
               <NavLink to="/login" className="action-button" data-cy="nav-login">

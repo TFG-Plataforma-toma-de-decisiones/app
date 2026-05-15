@@ -48,11 +48,11 @@ function Home() {
       <header className="home-header">
         <div className="header-content">
           <h1 className="home-title">
-            Open Source{' '}
-            <span className="home-highlight">Stack Explorer</span>
+            Explorador de{' '}
+            <span className="home-highlight">Stacks Open Source</span>
           </h1>
           <p className="home-subtitle">
-            Browse, compare, and find the perfect frameworks for your project.
+            Explora, compara y encuentra los frameworks perfectos para tu proyecto.
           </p>
         </div>
         {isAdmin && (

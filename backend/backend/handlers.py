@@ -23,9 +23,9 @@ def _handle_validation_error(exc, response):
                         mensajes = ', '.join([str(e) for e in errors])
                     else:
                         mensajes = str(errors)
-                    errores_formateados.append(f"Element {index + 1} ({field}): {mensajes}")
+                    errores_formateados.append(f"Elemento {index + 1} ({field}): {mensajes}")
             elif isinstance(item_errors, list):
-                errores_formateados.append(f"Element {index + 1}: {', '.join([str(e) for e in item_errors])}")
+                errores_formateados.append(f"Elemento {index + 1}: {', '.join([str(e) for e in item_errors])}")
             elif isinstance(item_errors, str):
                 errores_formateados.append(item_errors)
 
@@ -49,7 +49,7 @@ def _handle_standard_drf_error(exc, response):
     """Formatea otros errores de DRF (401, 403, 404...) bajo la clave 'details'."""
     mensaje = response.data.get('detail', str(exc))
     response.data = {
-        "details": str(mensaje)
+        "detail": str(mensaje)
     }
     return response
 def custom_exception_handler(exc, context):
