@@ -17,6 +17,17 @@
     border-bottom: 2px solid var(--color-divider);
     padding-bottom: 12px;
   }
+
+  .configurator-optional-hint {
+    margin: -12px 0 24px 0;
+    padding: 10px 14px;
+    background-color: var(--color-background-paper);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 4px;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
   
   /* Opcional: Hacer la cabecera del nivel raíz un poco más grande */
   .feature-header.root-header {

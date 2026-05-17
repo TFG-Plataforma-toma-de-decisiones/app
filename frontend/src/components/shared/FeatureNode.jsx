@@ -11,6 +11,12 @@ const RELATION_CONFIG = {
   OPTIONAL: { title: "Características opcionales", controlType: "checkbox" }
 };
 
+const FILTER_RELATION_TITLES = {
+  ALTERNATIVE: "¿Te interesa solo una de estas?",
+  OR: "¿Te interesa alguna de estas?",
+  OPTIONAL: "¿Te interesa alguna de estas?"
+};
+
 const DEFAULT_RELATION_CONFIG = {
   title: null,
   controlType: "checkbox"
@@ -64,14 +70,19 @@ export default function FeatureNode({ node, depth = 0, index = 0, readOnly, full
         const children = relation.children ?? [];
         if (!children.length) return null;
 
-        const { title, controlType } = RELATION_CONFIG[relation.type];
-        
+        const { title: defaultTitle, controlType } = RELATION_CONFIG[relation.type];
+        const title = !fullConfig && FILTER_RELATION_TITLES[relation.type]
+          ? FILTER_RELATION_TITLES[relation.type]
+          : defaultTitle;
+
         return (
           <div
             key={`${node.name}-${relation.type}-${relationIndex}`}
             className={`feature-group ${depth > 0 ? 'feature-group--nested' : ''} ${depth > 1 ? 'feature-group--deep' : ''}`}
           >
-            {!readOnly && title && <h3 className="section-title">{title}</h3>}
+            {!readOnly && title && (
+              <h3 className={`section-title ${!fullConfig ? 'section-title--filter' : ''}`}>{title}</h3>
+            )}
             
             {children.map(child => {
               const isMandatory = controlType === "mandatory";

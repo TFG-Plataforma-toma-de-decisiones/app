@@ -71,7 +71,10 @@ export default function Configurator() {
   return (
     <div className="uvl-configurator configurator-page">
       <h2 className="configurator-main-title">Tipo de Proyecto</h2>
-      
+      <p className="configurator-optional-hint">
+        Todos los filtros son opcionales. Marca solo aquello que te importe; lo demás se considerará indiferente.
+      </p>
+
       {/* Reutilizamos feature-group para que tenga el layout elástico/wrap */}
       <div className="feature-group">
         {trees.map((tree,index) => {

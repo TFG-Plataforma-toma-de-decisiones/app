@@ -18,6 +18,15 @@
   text-transform: uppercase;
 }
 
+.section-title--filter {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  font-style: italic;
+  opacity: 0.85;
+}
+
 /* Desktop and tablet layout */
 
 .feature-group {
