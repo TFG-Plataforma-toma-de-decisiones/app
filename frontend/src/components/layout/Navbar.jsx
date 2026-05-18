@@ -19,9 +19,11 @@ function Navbar() {
               Inicio
             </NavLink>
 
-            <NavLink to="/recomendador" data-cy="nav-recommender" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
-              Recomendador
-            </NavLink>
+            {!isAdmin && (
+              <NavLink to="/recomendador" data-cy="nav-recommender" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>
+                Recomendador
+              </NavLink>
+            )}
             {isAdmin && <NavLink to="/uvl-model" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} data-cy="nav-model">
               Modelo uvl
             </NavLink>}

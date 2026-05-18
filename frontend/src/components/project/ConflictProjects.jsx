@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo, useState } from 'react';
 import useApi from '../../hooks/useApi';
 import useAction from '../../hooks/useAction';
 import ProjectCard from './ProjectCard';
@@ -7,18 +6,19 @@ import ProjectDraftForm from './ProjectDraftForm';
 import './ConflictProjects.css';
 import FeatureTreesProvider from '../../context/FeatureTreesContext';
 import LoadingSpinner from '../shared/LoadingSpinner';
+
 export default function ConflictProjects() {
-  const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = useState(null);
   const { data: uvlModel, isLoading: isLoadingModel } = useApi({ endpoint: "/manage-uvl", initialData: {} });
   const {
     data: invalidProjects,
-    setData:setInvalidProjects,
+    setData: setInvalidProjects,
     refetch: refetchDraft,
     isLoading: isLoadingDraft
   } = useApi({ endpoint: "/projects/draft", initialData: [] });
   const { run, isLoading } = useAction();
-  const initialDraftTrees=useMemo(()=>[{features:[]}],[])
+  const initialDraftTrees = useMemo(() => [{ features: [] }], []);
+
   async function handleSave(projectData) {
     if (!selectedProject) {
       return;
@@ -30,18 +30,8 @@ export default function ConflictProjects() {
     });
     if (data) {
       await refetchDraft();
+      setSelectedProject(null);
     }
-  }
-  useEffect(()=>{
-    if(invalidProjects.length===0){
-      setSelectedProject(null)
-      return ;
-    }
-    setSelectedProject(invalidProjects[0])
-  },[setSelectedProject,invalidProjects])
-
-  async function handleDeleteSuccess() {
-    await refetchDraft();
   }
 
   async function handleConfirm() {
@@ -67,13 +57,14 @@ export default function ConflictProjects() {
       </div>
     );
   }
+
   return (
     <div className="conflicts-page">
       <div className="conflicts-header">
         <div>
           <h1 className="conflicts-title">Conflictos del modelo UVL</h1>
           <p className="conflicts-subtitle">
-            {invalidProjects.length >0
+            {invalidProjects.length > 0
               ? `Hay ${invalidProjects.length} proyecto(s) inválido(s). Corrige sus features o márcalos para borrar antes de confirmar el borrador.`
               : 'Todos los proyectos ya son válidos. Puedes confirmar el borrador cuando quieras.'}
           </p>
@@ -82,52 +73,47 @@ export default function ConflictProjects() {
           <button className="secondary-button" onClick={handleDiscard} disabled={isLoading} data-cy="discard-draft">
             Descartar borrador
           </button>
-          <button className="submit-button" onClick={handleConfirm} disabled={invalidProjects.length>0 || isLoading} data-cy="confirm-draft">
+          <button className="submit-button" onClick={handleConfirm} disabled={invalidProjects.length > 0 || isLoading} data-cy="confirm-draft">
             Confirmar cambios
           </button>
         </div>
       </div>
 
-      <div className="conflicts-layout">
-        <aside className="conflicts-sidebar">
-          <div className="conflicts-sidebar-header">
-            <h2>Proyectos en conflicto</h2>
-            <span className={`conflicts-count ${invalidProjects.length===0 ? 'ready' : ''}`}>
-              {invalidProjects.length}
-            </span>
-          </div>
-
-          <div className="conflicts-list">
-            {invalidProjects.map(project => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onClick={() => setSelectedProject(project)}
-                deleteEndpoint={`projects/${project.id}/draft`}
-                setProjects={setInvalidProjects}
-              />
-            ))}
-
-            {invalidProjects.length===0 && (
-              <div className="conflicts-ready">
-                <h3>Sin conflictos pendientes</h3>
-                <p>Ya puedes confirmar el nuevo UVL y persistir todos los cambios del borrador.</p>
-              </div>
-            )}
-          </div>
-        </aside>
-
-        <section className="conflicts-editor">
-        <FeatureTreesProvider initialTrees={initialDraftTrees}>
-          <ProjectDraftForm
-            project={selectedProject}
-            uvlModel={uvlModel}
-            onSave={handleSave}
-            isLoading={isLoading}
-          />
-          </FeatureTreesProvider>
-        </section>
+      <div className="conflicts-sidebar-header">
+        <h2>Proyectos en conflicto</h2>
+        <span className={`conflicts-count ${invalidProjects.length === 0 ? 'ready' : ''}`}>
+          {invalidProjects.length}
+        </span>
       </div>
+
+      <div className="conflicts-list">
+        {invalidProjects.map(project => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onClick={() => setSelectedProject(project)}
+            deleteEndpoint={`projects/${project.id}/draft`}
+            setProjects={setInvalidProjects}
+          />
+        ))}
+
+        {invalidProjects.length === 0 && (
+          <div className="conflicts-ready">
+            <h3>Sin conflictos pendientes</h3>
+            <p>Ya puedes confirmar el nuevo UVL y persistir todos los cambios del borrador.</p>
+          </div>
+        )}
+      </div>
+
+      <FeatureTreesProvider initialTrees={initialDraftTrees}>
+        <ProjectDraftForm
+          project={selectedProject}
+          uvlModel={uvlModel}
+          onSave={handleSave}
+          onClose={() => setSelectedProject(null)}
+          isLoading={isLoading}
+        />
+      </FeatureTreesProvider>
     </div>
   );
 }

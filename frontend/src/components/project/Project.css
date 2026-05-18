@@ -7,6 +7,73 @@
   position: relative;
 }
 
+.draft-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.draft-modal-box {
+  position: relative;
+  width: 95vw;
+  max-width: 1600px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background-color: var(--color-background-default);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.draft-modal-box .form-container {
+  border: none;
+  border-radius: 0;
+  padding: 32px 32px 32px 32px;
+}
+
+.draft-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  color: var(--color-text-secondary);
+  transition: color 0.2s;
+  padding: 4px;
+  z-index: 1;
+}
+
+.draft-modal-close:hover {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 960px) {
+  .draft-modal-overlay {
+    padding: 0;
+  }
+
+  .draft-modal-box {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .draft-modal-box .form-container {
+    padding: 16px;
+  }
+}
+
 .project-name {
   font-size: 1.5rem;
   font-weight: bold;

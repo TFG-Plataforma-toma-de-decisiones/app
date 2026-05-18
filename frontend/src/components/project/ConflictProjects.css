@@ -36,18 +36,6 @@
     flex-wrap: wrap;
   }
   
-  .conflicts-layout {
-    display: grid;
-    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
-    gap: 24px;
-    align-items: start;
-  }
-  
-  .conflicts-sidebar,
-  .conflicts-editor {
-    min-width: 0;
-  }
-  
   .conflicts-sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -143,9 +131,5 @@
   @media (max-width: 960px) {
     .conflicts-header {
       flex-direction: column;
-    }
-  
-    .conflicts-layout {
-      grid-template-columns: 1fr;
     }
   }

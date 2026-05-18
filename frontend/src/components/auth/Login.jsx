@@ -22,9 +22,9 @@ export default function Login() {
         <div className="page-container">
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="login-header">
-                    <h1 className="login-title">Bienvenido</h1>
+                    <h1 className="login-title">Acceso de administrador</h1>
                     <p className="login-subtitle">
-                        Accede a tu cuenta para configurar proyectos
+                        Introduce tus credenciales para acceder al panel de administración.
                     </p>
                 </div>
                 <input

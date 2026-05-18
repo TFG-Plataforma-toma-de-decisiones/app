@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MdClose } from 'react-icons/md';
 import './Project.css';
 import FeatureNode from '../shared/FeatureNode';
 import { useFeatureTrees } from '../../hooks/useFeatureTrees';
@@ -13,6 +14,7 @@ export default function ProjectDraftForm({
   project,
   uvlModel,
   onSave,
+  onClose,
   isLoading,
 }) {
   const { setTrees, trees, getProperty } = useFeatureTrees();
@@ -84,22 +86,26 @@ export default function ProjectDraftForm({
   }, [project, uvlModel, setTrees]);
 
   if (!project) {
-    return (
-      <div className="form-container">
-        <h2 className="project-name">Resolución de conflictos</h2>
-        <p className="project-description">
-          No quedan proyectos inválidos. Si el borrador ya está correcto, puedes
-          confirmarlo.
-        </p>
-      </div>
-    );
+    return null;
   }
 
   const hasConflicts = conflictInfo.nonExistent.length > 0 || conflictInfo.removed.length > 0;
 
   return (
-    <div className="form-container">
-      <h2 className="project-name">Proyecto en conflicto</h2>
+    <div className="draft-modal-overlay">
+      <div className="draft-modal-box">
+        {onClose && (
+          <button
+            type="button"
+            className="draft-modal-close"
+            onClick={onClose}
+            aria-label="Cerrar"
+          >
+            <MdClose />
+          </button>
+        )}
+        <div className="form-container">
+          <h2 className="project-name">Proyecto en conflicto</h2>
 
       <div className="input-container">
         <label className="label-input">Name</label>
@@ -157,6 +163,8 @@ export default function ProjectDraftForm({
         >
           {isLoading ? 'Guardando...' : 'Guardar features'}
         </button>
+      </div>
+        </div>
       </div>
     </div>
   );

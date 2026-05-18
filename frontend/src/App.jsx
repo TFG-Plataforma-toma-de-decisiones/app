@@ -22,15 +22,17 @@ function App() {
         <Routes>
           {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
-          <Route 
-            path="/recomendador" 
-            element={
-              <FeatureTreesProvider initialTrees={types.map((t) => ({features: [], type: t,languages:[]}))} key="configurator">
-                <Configurator />
-              </FeatureTreesProvider>
-            } 
-          />
-          
+          {!isAdmin && (
+            <Route
+              path="/recomendador"
+              element={
+                <FeatureTreesProvider initialTrees={types.map((t) => ({features: [], type: t,languages:[]}))} key="configurator">
+                  <Configurator />
+                </FeatureTreesProvider>
+              }
+            />
+          )}
+
           {!isAuthenticated && (
             <Route path="/login" element={<Login />} />
           )}

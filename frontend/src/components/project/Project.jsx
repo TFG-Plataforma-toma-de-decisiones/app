@@ -153,7 +153,8 @@ export default function Project() {
         </div>
 
         <div className="input-container">
-          <label className='label-input'>Proyectos Compatibles</label>
+          {isAdmin && <label className='label-input'>Reestricciones de compatibilidad con proyectos (para librerías)</label>}
+          {((getProperty(index, "compatible_projects") || []).length || isAdmin) && <label className='label-input'>Proyectos Compatibles</label>}
           <div className="input-wrapper">
             {!isAdmin ? (
               <div className="chips-container">
@@ -161,9 +162,6 @@ export default function Project() {
                   ?.map(p => (
                     <span key={p} className="chip chip-selected readonly-chip">{p}</span>
                   ))}
-                {!(getProperty(index, "compatible_projects") || []).length && (
-                  <span className="no-data-text">Ningún proyecto seleccionado</span>
-                )}
               </div>
             ) : (
               <div className="chips-container clickable-chips">
