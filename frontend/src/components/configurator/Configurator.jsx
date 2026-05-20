@@ -17,6 +17,7 @@ export default function Configurator() {
   const [comments,setComments]=useState("")
   const [isSwotModalOpen, setSwotModalOpen] = useState(false);
   const [selectedRecommendations, setSelectedRecommendations] = useState({});
+  const [submittedTypes, setSubmittedTypes] = useState([]);
 
   const incompatibleTypes = [
     ["Full Stack", "Frontend"], 
@@ -43,6 +44,7 @@ export default function Configurator() {
   }
   async function handleSubmit() {
     const body=trees.filter((t,index)=>isActive(index,getNode(uvlModel,t.type)))
+    setSubmittedTypes(body.map(t=>t.type))
     await refetch({overrideBody:body})
     setSelectedRecommendations({})
   }
@@ -148,32 +150,37 @@ export default function Configurator() {
       >
         {isLoadingRecommendations ? 'Buscando...' : 'Obtener recomendación'}
       </button>
-      {recommendations?.length===0 &&
+      {recommendations!=null && submittedTypes.length===0 &&
         <div className="no-results-message">
           <p>No se ha encontrado ningún proyecto según las restricciones.</p>
         </div>
       }
-      {Object.entries(groupedRecommendations).map(([type,recommendations])=>(
-        <div className="type-container">
+      {recommendations!=null && submittedTypes.map(type=>{
+        const typeRecommendations=groupedRecommendations[type]||[]
+        return (
+          <div className="type-container" key={type}>
             <h2>{type}</h2>
-            {recommendations.map(recommendation=>(
-              <div className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)} data-cy={`recommendation-${recommendation.project}`}>
-                <h2>{recommendation.project}</h2>
-                <div className="libraries-container">
-                  {recommendation.libraries.map(l=>(
-                    <span>
-                      {l}
-                    </span>
-                  ))}
-                </div>
+            {typeRecommendations.length===0 ? (
+              <div className="no-results-message">
+                <p>No se ha encontrado ningún proyecto compatible para este tipo según las restricciones.</p>
               </div>
-            ))}
-            
-
-        </div>
-        
-        
-      ))}
+            ) : (
+              typeRecommendations.map(recommendation=>(
+                <div key={recommendation.project} className={`project-container ${selectedRecommendations[type]===recommendation ? 'selected' : ''}`} onClick={()=>handleSelectReccomendation(recommendation)} data-cy={`recommendation-${recommendation.project}`}>
+                  <h2>{recommendation.project}</h2>
+                  <div className="libraries-container">
+                    {recommendation.libraries.map(l=>(
+                      <span key={l}>
+                        {l}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )
+      })}
       
       {recommendations?.length > 0 && 
       <>

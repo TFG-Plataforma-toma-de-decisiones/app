@@ -235,6 +235,17 @@
   font-weight: 500;
   color: var(--color-text-secondary); /* Un color más tenue para indicar que está vacío */
 }
+
+.type-container .no-results-message {
+  margin-top: 0;
+  padding: 16px 0;
+  background-color: transparent;
+  border: none;
+}
+
+.type-container .no-results-message p {
+  color: var(--color-primary);
+}
 .textarea-comments {
   width: 100%;
   min-height: 120px; /* Esto define la altura inicial de la caja grande */
