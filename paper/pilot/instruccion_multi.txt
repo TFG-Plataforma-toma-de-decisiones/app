@@ -1,0 +1,19 @@
+You are helping a development team choose the technology stack for a new project.
+Recommend stacks made of open-source frameworks and libraries that satisfy ALL
+the requirements below. Include every stack you consider a suitable option for
+the team to compare. If the requirements cannot be satisfied together, say so
+instead of recommending stacks.
+
+Answer only with this JSON:
+{
+  "stacks": [
+    {
+      "framework": "<main framework>",
+      "libraries": ["<library>", "..."],
+      "coverage": [{"requirement": "<requirement>", "covered_by": "<framework or library>"}]
+    }
+  ],
+  "issues": "<any conflict or problem with the requirements, or empty>"
+}
+
+Requirements:

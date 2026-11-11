@@ -6,6 +6,11 @@ class SWOTAnalysis(BaseModel):
     opportunities: List[str] = Field(description="Oportunidades de mejora futura, escalabilidad, o beneficios que aporta al contexto del proyecto.")
     weaknesses: List[str] = Field(description="Puntos débiles, carencias, fricciones arquitectónicas o problemas de acoplamiento.")
     threats: List[str] = Field(description="Riesgos externos, problemas de mantenimiento a largo plazo, curva de aprendizaje o desafíos del ecosistema.")
+class ExclusiveLibraryFeature(BaseModel):
+    feature: str = Field(description="Identificador exacto de la característica en el modelo UVL.")
+    library: str = Field(description="Nombre oficial de la librería exclusiva del framework que la cubre.")
+
+
 class OSSProjectDetails(BaseModel):
     name: str = Field(
         description="Nombre oficial de la tecnología o proyecto Open Source (ej. Django, React, PostgreSQL)."
@@ -78,6 +83,19 @@ class OSSProjectDetails(BaseModel):
             "7. La existencia de `compatible_projects` no implica que las features de la librería deban "
             "atribuirse al proyecto base.\n"
             "8. Si la tecnología no es una librería, devuelve []."
+        )
+    )
+
+    exclusive_library_features: List[ExclusiveLibraryFeature] = Field(
+        default_factory=list,
+        description=(
+            "Características que este framework solo obtiene mediante una librería exclusiva de él. "
+            "Estas características NO deben aparecer en `features`.\n"
+            "REGLAS:\n"
+            "1. Incluye solo librerías creadas para este framework (ej. Flask-JWT-Extended para Flask).\n"
+            "2. No incluyas librerías genéricas del lenguaje (ej. Celery no es exclusiva de Django).\n"
+            "3. Usa identificadores exactos del modelo UVL en `feature`.\n"
+            "4. Si la tecnología es una librería, devuelve []."
         )
     )
 

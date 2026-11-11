@@ -62,7 +62,7 @@ features
 									"Kafka" { label 'Kafka'}
 							"InCacheQueues" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.'}
 								mandatory
-									"Redis" { label 'Redis'}
+									"RedisQueue" { label 'Redis'}
 				optional
 					"CacheSupport-1" { label 'Caché', description 'Soporte para almacenar datos temporales y acelerar operaciones frecuentes.'}
 						or
@@ -202,7 +202,7 @@ features
 									"Kafka-3" { label 'Kafka'}
 							"InCacheQueues-3" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.'}
 								mandatory
-									"Redis-5" { label 'Redis'}
+									"RedisQueue-5" { label 'Redis'}
 			"Backend Library" { label 'Librería backend'}
 				alternative
 					"DatabaseIntegration-4" { label 'Base de datos', description 'Librerías para integrar persistencia o acceso a datos.'}
@@ -240,7 +240,7 @@ features
 									"Kafka-4" { label 'Kafka'}
 							"InCacheQueues-4" { label 'Colas en caché', description 'Colas o backends de trabajo apoyados en sistemas en memoria o caché.'}
 								mandatory
-									"Redis-6" { label 'Redis'}
+									"RedisQueue-6" { label 'Redis'}
 					"CacheSupport-4" { label 'Caché', description 'Librerías para cachear datos o respuestas.'}
 						or
 							"Redis-4" { label 'Redis'}

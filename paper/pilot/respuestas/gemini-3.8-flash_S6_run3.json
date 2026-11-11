@@ -1,0 +1,9 @@
+{
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "date": "2026-10-12",
+  "scenario": "S6",
+  "run": 3,
+  "prompt": "You are helping a development team choose the technology stack for a new project.\nRecommend ONE stack made of open-source frameworks and libraries that satisfies\nALL the requirements below. If the requirements cannot be satisfied together,\nsay so instead of recommending a stack.\n\nAnswer only with this JSON:\n{\n  \"framework\": \"<main framework>\",\n  \"libraries\": [\"<library>\", \"...\"],\n  \"coverage\": [{\"requirement\": \"<requirement>\", \"covered_by\": \"<framework or library>\"}],\n  \"issues\": \"<any conflict or problem with the requirements, or empty>\"\n}\n\nRequirements:\n- Backend service written in Java.\n- Exposes a REST API.\n- Event streaming with Kafka.\n- Stores data in a graph database through an OGM.\n- Dependency injection as part of the framework architecture.\n- Role-based authorisation.\n",
+  "answer": "{\n  \"framework\": \"Spring Boot\",\n  \"libraries\": [\n    \"Spring Web\",\n    \"Spring for Apache Kafka\",\n    \"Spring Data Neo4j\",\n    \"Spring Security\"\n  ],\n  \"coverage\": [\n    {\n      \"requirement\": \"Backend service written in Java\",\n      \"covered_by\": \"Spring Boot\"\n    },\n    {\n      \"requirement\": \"Exposes a REST API\",\n      \"covered_by\": \"Spring Web\"\n    },\n    {\n      \"requirement\": \"Event streaming with Kafka\",\n      \"covered_by\": \"Spring for Apache Kafka\"\n    },\n    {\n      \"requirement\": \"Stores data in a graph database through an OGM\",\n      \"covered_by\": \"Spring Data Neo4j\"\n    },\n    {\n      \"requirement\": \"Dependency injection as part of the framework architecture\",\n      \"covered_by\": \"Spring Boot\"\n    },\n    {\n      \"requirement\": \"Role-based authorisation\",\n      \"covered_by\": \"Spring Security\"\n    }\n  ],\n  \"issues\": \"\"\n}"
+}

@@ -1,0 +1,9 @@
+{
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "date": "2026-10-12",
+  "scenario": "H2",
+  "run": 2,
+  "prompt": "You are helping a development team choose the technology stack for a new project.\nRecommend ONE stack made of open-source frameworks and libraries that satisfies\nALL the requirements below. If the requirements cannot be satisfied together,\nsay so instead of recommending a stack.\n\nAnswer only with this JSON:\n{\n  \"framework\": \"<main framework>\",\n  \"libraries\": [\"<library>\", \"...\"],\n  \"coverage\": [{\"requirement\": \"<requirement>\", \"covered_by\": \"<framework or library>\"}],\n  \"issues\": \"<any conflict or problem with the requirements, or empty>\"\n}\n\nRequirements:\n- Backend service exposing a REST API, in any language.\n- The main framework must be distributed under the BSD license.\n- Authentication with JWT.\n- Real-time communication with clients over WebSockets.\n",
+  "answer": "{\n  \"framework\": \"Flask\",\n  \"libraries\": [\n    \"Flask-SocketIO\",\n    \"Flask-JWT-Extended\"\n  ],\n  \"coverage\": [\n    {\n      \"requirement\": \"Backend service exposing a REST API, in any language.\",\n      \"covered_by\": \"Flask\"\n    },\n    {\n      \"requirement\": \"The main framework must be distributed under the BSD license.\",\n      \"covered_by\": \"Flask\"\n    },\n    {\n      \"requirement\": \"Authentication with JWT.\",\n      \"covered_by\": \"Flask-JWT-Extended\"\n    },\n    {\n      \"requirement\": \"Real-time communication with clients over WebSockets.\",\n      \"covered_by\": \"Flask-SocketIO\"\n    }\n  ],\n  \"issues\": \"\"\n}"
+}

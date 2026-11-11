@@ -24,8 +24,17 @@ INSTRUCCIONES:
 - Si una capacidad pertenece a un proyecto separado del ecosistema, esa capacidad NO debe incluirse en `features` del proyecto base. En ese caso debe modelarse en el proyecto/librería separado correspondiente.
 - La existencia de una librería compatible NO convierte automáticamente esa capacidad en una feature del proyecto base.
 - En caso de duda, usa esta regla:
-  - si lo modelarías como proyecto aparte en el catálogo, NO lo atribuyas al proyecto base;
+  - si lo modelarías como proyecto aparte en el catálogo, NO lo atribuyas al proyecto base y si hay alguna librería común para el ecosistema de ese framework y que esté desarrollada para ese framework lo incluyes en exclusive_library_features;
   - si forma parte de la plataforma oficial principal del proyecto y no lo modelas aparte, SÍ puedes atribuirlo.
+
+3.c. REGLA DE CARACTERÍSTICAS CUBIERTAS POR LIBRERÍAS EXCLUSIVAS (campo `exclusive_library_features`):
+- Sé conservador con `features`: incluye solo lo que el proyecto ofrece por sí mismo. No incluyas una característica porque sea habitual conseguirla en su ecosistema.
+- Si el proyecto es un framework y una característica solo se obtiene con una librería exclusiva de ese framework, NO la pongas en `features`: añádela a `exclusive_library_features` indicando la característica y la librería que la cubre.
+- Una librería es exclusiva de un framework cuando está creada para él y no se usa fuera de él. Ejemplos: Flask-JWT-Extended para Flask (JWT), Django Channels para Django (WebSockets).
+- Si la librería es genérica del lenguaje, NO la añadas a `exclusive_library_features` ni pongas la característica en `features`. Ejemplo: Celery cubre las colas de tareas en Python, pero no es exclusiva de Django, por lo que no debe aparecer en Django de ninguna forma.
+- La librería indicada puede no existir todavía en la base de datos; en ese caso usa su nombre oficial y no inventes librerías.
+- Al quitar una característica de `features`, quita también las características padre que se queden sin ningún hijo seleccionado, para que `features` siga siendo una configuración válida.
+- Si la tecnología es una librería, devuelve `exclusive_library_features` vacío.
 
 4. Si la tecnología identificada es una librería ("Backend Library" o "Frontend Library"), debes completar también el campo `compatible_projects`:
    - Debe contener una lista de nombres de proyectos existentes en la base de datos con los que la librería es específicamente compatible.

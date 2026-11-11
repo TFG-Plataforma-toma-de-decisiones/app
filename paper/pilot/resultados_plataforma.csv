@@ -1,0 +1,11 @@
+scenario,framework,libraries,nonexistent,reqs_total,reqs_covered,incompatible,contradiction_detected,notes
+S1,Django Rest Framework,Django Channels;Celery,,6,,,,
+S1,Flask,Celery;SQLAlchemy,,6,,,,
+S2,NestJS,Bull;Mongoose,,5,,,,
+S3,React,React Router;Zustand;MUI;react-i18next,,6,,,,
+S4,React Native,,,4,,,,
+S5,Django (Full Stack),,,5,,,,
+S5,Laravel,,,5,,,,
+S6,Spring Boot,,,6,,,,
+S7,(none),,,3,0,,,No Go framework in the catalogue
+S8,(rejected),,,,,,yes,HTTP 400 - SAT check

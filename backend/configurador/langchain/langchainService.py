@@ -22,7 +22,12 @@ class LangchainService:
         return self.generate_llm_response(project_data, SWOTAnalysis, PROMPT_SWOT)
         
     def autocomplete_project(self, project_data):
-        return self.generate_llm_response(project_data, OSSProjectDetails, PROMPT_AUTOCOMPLETE)
+        result = self.generate_llm_response(project_data, OSSProjectDetails, PROMPT_AUTOCOMPLETE)
+        if "exclusive_library_features" in result:
+            result["exclusive_library_features"] = {
+                item["feature"]: item["library"] for item in result["exclusive_library_features"]
+            }
+        return result
 class MockLangchainService:
     def generate_swot_analysis(self, project_data):
         return {
@@ -39,7 +44,8 @@ class MockLangchainService:
             "description": "Descripcion generica autocompletada en prueba.",
             "features": ["Project", "Backend", "ApiStyle", "Rest", "ORM-01"],
             "confidence_level": 0.95,
-            "compatible_projects":["Django"]
+            "compatible_projects":["Django"],
+            "exclusive_library_features":{"JWT":"Flask-JWT-Extended"}
         }
 def get_langchain_service():
     if getattr(settings, 'TESTING_ENVIRONMENT', False):

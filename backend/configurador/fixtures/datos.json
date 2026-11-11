@@ -6,7 +6,7 @@
         "name": "Django (Full Stack)",
         "description": "Django usado como framework full stack con renderizado en servidor, carga de datos en servidor, ORM, migraciones, autenticación y panel de administración integrados.",
         "language": 1,
-        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"BSD-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"FullStackFormAbstractions\"]",
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"BSD-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"FullStackFormAbstractions\", \"CacheSupport-3\", \"Redis-3\", \"Memcached-3\"]",
         "compatible_projects": []
     }
 },
@@ -17,7 +17,7 @@
         "name": "Django Rest Framework",
         "description": "Django Rest Framework (DRF) es un potente y flexible conjunto de herramientas para construir APIs web RESTful en el framework Django. Simplifica drásticamente el desarrollo de APIs al proporcionar serializadores, vistas genéricas, viewsets, routers, y mecanismos de autenticación y permisos, permitiendo a los desarrolladores crear APIs robustas y escalables con menos código.",
         "language": 1,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\"]",
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"BSD-1\", \"AuthenticationSupport\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"GenericCRUDAbstractions\"]",
         "compatible_projects": []
     }
 },
@@ -39,7 +39,7 @@
         "name": "NestJS",
         "description": "Framework backend para Node.js/TypeScript con arquitectura modular, inyección de dependencias, validación y soporte oficial para OpenAPI y WebSockets.",
         "language": 2,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"GraphQL\", \"MIT-1\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]",
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"GraphQL\", \"MIT-1\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\", \"AuthenticationSupport\", \"JWT\"]",
         "compatible_projects": []
     }
 },
@@ -226,7 +226,7 @@
         "name": "Bull",
         "description": "Bull es una robusta librería de colas de trabajos para Node.js, respaldada por Redis, diseñada para el procesamiento confiable de tareas en segundo plano. Ofrece características como trabajos retrasados, trabajos repetibles, control de concurrencia y manejo de fallos, lo que la hace ideal para gestionar tareas que requieren ejecución asíncrona y persistencia.",
         "language": 2,
-        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"Redis-6\"]",
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"RedisQueue-6\"]",
         "compatible_projects": []
     }
 },
@@ -237,7 +237,7 @@
         "name": "Sidekiq",
         "description": "Sidekiq es un framework de procesamiento de trabajos en segundo plano para aplicaciones Ruby. Permite la ejecución asíncrona de tareas que consumen mucho tiempo, como el envío de correos electrónicos, la generación de informes o el procesamiento de imágenes, fuera del ciclo de solicitud-respuesta principal de la aplicación web. Utiliza Redis como su almacén de datos para gestionar colas de trabajos, lo que proporciona persistencia y escalabilidad. Es conocido por su alto rendimiento, su capacidad para manejar un gran volumen de trabajos y su facilidad de integración con aplicaciones Rails.",
         "language": 5,
-        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"Redis-6\"]",
+        "features": "[\"Project\", \"Backend Library\", \"TaskQueueSupport-4\", \"InCacheQueues-4\", \"RedisQueue-6\"]",
         "compatible_projects": []
     }
 },
@@ -248,7 +248,7 @@
         "name": "Flask",
         "description": "Flask es un microframework web ligero para Python, diseñado para construir aplicaciones web de manera rápida y sencilla. Proporciona las herramientas esenciales para el desarrollo web, como enrutamiento, manejo de solicitudes y respuestas, y soporte para plantillas, sin imponer dependencias o estructuras de proyecto complejas. Su diseño modular permite a los desarrolladores elegir las bibliotecas y herramientas que mejor se adapten a sus necesidades, lo que lo hace ideal para APIs RESTful, microservicios y aplicaciones web de tamaño pequeño a mediano.",
         "language": 1,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\", \"AuthenticationSupport\", \"JWT\", \"SessionAuth\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"RealtimeCommunicationSupport\", \"WebSockets\", \"OpenAPIDocumentationSupport\"]",
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"License-1\", \"REST\", \"BSD-1\"]",
         "compatible_projects": []
     }
 },
@@ -270,7 +270,7 @@
         "name": "React Native",
         "description": "React Native es un framework de código abierto desarrollado por Facebook para construir aplicaciones móviles nativas multiplataforma (iOS y Android) utilizando JavaScript y la biblioteca React. Permite a los desarrolladores escribir código una sola vez y desplegarlo en ambas plataformas, aprovechando componentes de interfaz de usuario nativos para ofrecer un rendimiento y una experiencia de usuario auténticos, en lugar de vistas web incrustadas. Su arquitectura se basa en el principio de 'learn once, write anywhere', facilitando la reutilización de conocimientos de desarrollo web en el ámbito móvil.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"SPA\", \"CSR\", \"MIT-2\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"QueryCaching\", \"GlobalState-2\", \"i18nInternationalization-2\", \"Mobile\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"SPA\", \"CSR\", \"MIT-2\", \"Mobile\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
         "compatible_projects": []
     }
 },
@@ -292,7 +292,7 @@
         "name": "Laravel",
         "description": "Laravel es un framework de aplicación web de código abierto escrito en PHP, diseñado para el desarrollo de aplicaciones web siguiendo el patrón arquitectónico modelo-vista-controlador (MVC). Ofrece una sintaxis elegante y expresiva, herramientas robustas para tareas comunes como enrutamiento, autenticación, sesiones y caché, y una potente capa de abstracción de base de datos (Eloquent ORM). Su ecosistema incluye herramientas como Artisan CLI, Mix para compilación de assets, y soporte para colas de tareas, facilitando el desarrollo rápido y escalable.",
         "language": 8,
-        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"NestedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\", \"FullStackFormAbstractions\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"AdminPanel\", \"CacheSupport-3\", \"Redis-3\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\", \"TaskQueueSupport-3\", \"InCacheQueues-3\", \"Redis-5\"]",
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"License-3\", \"SSR-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"NestedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"FullStackFormAbstractions\", \"DatabaseIntegration-3\", \"ORM-3\", \"AuthenticationBuiltIn\", \"CacheSupport-3\", \"Redis-3\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\", \"TaskQueueSupport-3\", \"InCacheQueues-3\", \"RedisQueue-5\", \"Memcached-3\", \"CloudNativeQueues-3\", \"AWSSQS-3\"]",
         "compatible_projects": []
     }
 },
@@ -410,8 +410,8 @@
     "model": "configurador.project",
     "pk": 45,
     "fields": {
-        "name": "MongoDB Go Driver",
-        "description": "El MongoDB Go Driver es el controlador oficial de MongoDB para el lenguaje de programación Go. Proporciona una API idiomática para que las aplicaciones Go interactúen con bases de datos MongoDB, permitiendo operaciones CRUD, agregaciones, transacciones y otras funcionalidades avanzadas de MongoDB. Facilita la conexión, gestión de sesiones y mapeo de documentos BSON a estructuras Go.",
+        "name": "mgm",
+        "description": "ODM para MongoDB en Go (Mongo Go Models), basado en el driver oficial.",
         "language": 10,
         "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ODM-4\"]",
         "compatible_projects": []
@@ -446,7 +446,7 @@
         "name": "Expo",
         "description": "Expo es un framework y una plataforma de herramientas de código abierto que simplifica el desarrollo de aplicaciones nativas universales utilizando JavaScript y React. Permite a los desarrolladores crear, construir y desplegar aplicaciones para iOS, Android y la web desde una única base de código, abstrayendo gran parte de la complejidad de la configuración de entornos nativos y la gestión de dependencias. Proporciona un conjunto de APIs y componentes preconstruidos que facilitan el acceso a las funcionalidades del dispositivo, así como servicios para la compilación en la nube y la publicación de actualizaciones over-the-air.",
         "language": 2,
-        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web+Mobile\", \"SPA\", \"CSR\", \"MIT-2\", \"RoutingSupport\", \"ClientSideRouting\", \"FileBasedRouting\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"ApplicationArchitecture\", \"RenderingModel\", \"License-2\", \"StylingApproach\", \"Web+Mobile\", \"SPA\", \"CSR\", \"MIT-2\", \"RoutingSupport\", \"ClientSideRouting\", \"FileBasedRouting\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\"]",
         "compatible_projects": []
     }
 },
@@ -457,7 +457,7 @@
         "name": "Spring Boot",
         "description": "Spring Boot es un framework de código abierto basado en Java que simplifica la creación de aplicaciones Spring independientes y listas para producción. Prioriza la convención sobre la configuración, permitiendo a los desarrolladores construir rápidamente microservicios y aplicaciones web robustas, escalables y seguras con un mínimo esfuerzo de configuración inicial. Incluye servidores embebidos, monitoreo de salud, métricas y configuración externalizada, facilitando el despliegue y la gestión de aplicaciones.",
         "language": 4,
-        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"ODM-1\", \"OGM-1\", \"TaskQueueSupport\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"EventStreaming\", \"Kafka\", \"InCacheQueues\", \"Redis\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\"]",
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"Apache-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"BuiltInJWTAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"ODM-1\", \"OGM-1\", \"TaskQueueSupport\", \"OpenStandardQueues\", \"RabbitMQ\", \"ActiveMQ\", \"EventStreaming\", \"Kafka\", \"InCacheQueues\", \"RedisQueue\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\", \"OpenAPIDocumentationSupport\", \"GenericCRUDAbstractions\", \"RealtimeCommunicationSupport\", \"WebSockets\"]",
         "compatible_projects": []
     }
 },
@@ -528,6 +528,120 @@
     }
 },
 {
+    "model": "configurador.project",
+    "pk": 92,
+    "fields": {
+        "name": "PyJWT",
+        "description": "PyJWT es una librería de Python que implementa la especificación JSON Web Token (JWT). Permite codificar, decodificar y verificar tokens JWT de forma segura, soportando varios algoritmos de firma. Es una herramienta fundamental para implementar mecanismos de autenticación y autorización basados en tokens en aplicaciones Python, proporcionando las primitivas criptográficas necesarias para trabajar con JWTs.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"JWT-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 93,
+    "fields": {
+        "name": "Flask-SocketIO",
+        "description": "Flask-SocketIO es una extensión para el framework web Flask que facilita la integración de comunicación bidireccional en tiempo real utilizando el protocolo WebSocket. Permite a las aplicaciones Flask manejar eventos de Socket.IO, lo que es ideal para funcionalidades como chats, notificaciones en vivo y paneles de control en tiempo real, proporcionando una capa de abstracción sobre WebSockets.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"RealtimeCommunicationSupport-4\", \"WebSockets-4\"]",
+        "compatible_projects": [
+            30
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 94,
+    "fields": {
+        "name": "Flask-JWT-Extended",
+        "description": "Flask-JWT-Extended es una extensión para el microframework web Flask que proporciona soporte para la autenticación basada en JSON Web Tokens (JWT). Facilita la creación, gestión y verificación de JWTs, incluyendo características como tokens de acceso y refresco, listas negras de tokens y protección de rutas, integrándose de forma nativa con las aplicaciones Flask.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"JWT-4\"]",
+        "compatible_projects": [
+            30
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 95,
+    "fields": {
+        "name": "Svelte",
+        "description": "Svelte es un framework de JavaScript de código abierto para construir interfaces de usuario interactivas. A diferencia de otros frameworks que realizan la mayor parte de su trabajo en el navegador en tiempo de ejecución, Svelte compila el código de los componentes en JavaScript vainilla altamente optimizado durante la fase de construcción. Esto resulta en paquetes de menor tamaño y un rendimiento superior, ya que no hay un \"virtual DOM\" ni un framework de tiempo de ejecución que cargar. Su enfoque se centra en la reactividad intrínseca y la simplicidad en la escritura de componentes.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"StylingApproach\", \"StylesheetBasedStyling\", \"GlobalState-2\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 96,
+    "fields": {
+        "name": "Blazor",
+        "description": "Blazor es un framework web de código abierto desarrollado por Microsoft que permite a los desarrolladores crear interfaces de usuario web interactivas utilizando C# y .NET en lugar de JavaScript. Soporta modelos de renderizado tanto del lado del cliente (Blazor WebAssembly) como del lado del servidor (Blazor Server), facilitando el desarrollo full-stack con un único lenguaje y un ecosistema unificado.",
+        "language": 7,
+        "features": "[\"Project\", \"Frontend\", \"Platform\", \"Web\", \"ApplicationArchitecture\", \"SPA\", \"RenderingModel\", \"CSR\", \"License-2\", \"MIT-2\", \"StylingApproach\", \"ProgrammaticStyling\", \"StylesheetBasedStyling\", \"RoutingSupport\", \"ClientSideRouting\", \"FormSupport\", \"FormStateManagement\", \"Validation\", \"DataFetchingSupport\", \"GlobalState-2\", \"i18nInternationalization-2\", \"PWAFeatures\", \"OfflineSupport\", \"InstallableApp\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 97,
+    "fields": {
+        "name": "Astro",
+        "description": "Astro es un moderno framework web diseñado para construir sitios web rápidos y centrados en el contenido. Utiliza una \"Arquitectura de Islas\" para entregar páginas HTML-first con JavaScript mínimo por defecto, permitiendo la hidratación selectiva de componentes interactivos. Soporta la integración de múltiples frameworks de UI (como React, Vue, Svelte) y ofrece capacidades para la Generación de Sitios Estáticos (SSG) y el Renderizado del Lado del Servidor (SSR), junto con enrutamiento basado en archivos y carga de datos en el servidor. Su objetivo principal es optimizar el rendimiento y la experiencia de desarrollo para proyectos web ricos en contenido.",
+        "language": 2,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"SSG-3\", \"License-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"FileBasedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 98,
+    "fields": {
+        "name": "Symfony",
+        "description": "Symfony es un framework PHP de código abierto para el desarrollo de aplicaciones web robustas, APIs y microservicios. Se distingue por su arquitectura modular basada en componentes reutilizables, su adherencia a los estándares web y su alto rendimiento. Proporciona un conjunto completo de herramientas y funcionalidades para la gestión de peticiones HTTP, enrutamiento, seguridad, persistencia de datos y más, facilitando la creación de aplicaciones escalables y mantenibles.",
+        "language": 8,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\", \"AuthenticationSupport\", \"JWT\", \"OAuth2\", \"Basic\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInAuthentication\", \"Authorization\", \"Roles\", \"Permissions\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"DatabaseIntegration-1\", \"ORM-1\", \"TaskQueueSupport\", \"OpenStandardQueues\", \"RabbitMQ\", \"InCacheQueues\", \"RedisQueue\", \"CacheSupport-1\", \"Redis-1\", \"Memcached-1\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 100,
+    "fields": {
+        "name": "Fastify",
+        "description": "Fastify es un framework web de alto rendimiento y baja sobrecarga para Node.js, diseñado para construir APIs y microservicios eficientes y escalables. Se centra en la experiencia del desarrollador y la extensibilidad a través de un potente sistema de plugins, ofreciendo validación basada en esquemas y un enrutamiento robusto.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\", \"AuthenticationSupport\", \"JWT\", \"SessionAuth\", \"AuthenticationAbstractions\", \"BuiltInJWTAuthentication\", \"DependencyInjection\", \"ValidationSupport\", \"RequestValidation\", \"SchemaValidation\", \"OpenAPIDocumentationSupport\", \"RealtimeCommunicationSupport\", \"WebSockets\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 101,
+    "fields": {
+        "name": "Axum",
+        "description": "Axum es un framework web para Rust, diseñado para construir servicios web y APIs de alto rendimiento. Se basa en componentes del ecosistema Tokio y Tower, como Hyper, para ofrecer una experiencia de desarrollo ergonómica, modular y segura, aprovechando las capacidades asíncronas de Rust y su sistema de tipos para garantizar la robustez de las aplicaciones.",
+        "language": 11,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"GraphQL\", \"gRPC\", \"License-1\", \"MIT-1\", \"DependencyInjection\", \"RealtimeCommunicationSupport\", \"WebSockets\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 102,
+    "fields": {
+        "name": "Phoenix",
+        "description": "Phoenix es un framework web full-stack escrito en Elixir, conocido por su alto rendimiento, tolerancia a fallos y capacidades en tiempo real, aprovechando la Máquina Virtual de Erlang (BEAM). Proporciona herramientas robustas para construir aplicaciones web y APIs escalables, incluyendo enrutamiento, plantillas, integración con bases de datos y comunicación en tiempo real a través de WebSockets.",
+        "language": 12,
+        "features": "[\"Project\", \"Full Stack\", \"RenderingModel-3\", \"SSR-3\", \"License-3\", \"MIT-3\", \"FullStackRoutingSupport\", \"NestedRouting-3\", \"DataLoadingSupport\", \"ServerSideDataFetching-3\", \"ServerInteractionAbstractions\", \"UITriggeredServerActions-3\", \"FullStackFormAbstractions\", \"DatabaseIntegration-3\", \"ORM-3\", \"RealtimeCommunicationSupport-3\", \"WebSockets-3\"]",
+        "compatible_projects": []
+    }
+},
+{
     "model": "configurador.language",
     "pk": 1,
     "fields": {
@@ -588,6 +702,220 @@
     "pk": 10,
     "fields": {
         "name": "Go"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 11,
+    "fields": {
+        "name": "Rust"
+    }
+},
+{
+    "model": "configurador.language",
+    "pk": 12,
+    "fields": {
+        "name": "Elixir"
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 103,
+    "fields": {
+        "name": "Simple JWT",
+        "description": "Librería de autenticación JWT para Django REST Framework.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"JWT-4\"]",
+        "compatible_projects": [
+            2
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 104,
+    "fields": {
+        "name": "Django OAuth Toolkit",
+        "description": "Proveedor OAuth2 para Django, con integración para Django REST Framework.",
+        "language": 1,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"OAuth2-4\"]",
+        "compatible_projects": [
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 105,
+    "fields": {
+        "name": "Echo",
+        "description": "Framework web minimalista de alto rendimiento para Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 106,
+    "fields": {
+        "name": "React Hook Form",
+        "description": "Librería de gestión del estado y la validación de formularios para React y React Native.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"FormSupport-5\", \"FormStateManagement-5\", \"Validation-5\"]",
+        "compatible_projects": [
+            9,
+            32,
+            84
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 107,
+    "fields": {
+        "name": "Gin",
+        "description": "Framework web de alto rendimiento para Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 108,
+    "fields": {
+        "name": "chi",
+        "description": "Router ligero y componible para construir servicios HTTP en Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 109,
+    "fields": {
+        "name": "Utopia",
+        "description": "Microframework HTTP para PHP.",
+        "language": 8,
+        "features": "[\"Project\", \"Backend\", \"APIStyle\", \"REST\", \"License-1\", \"MIT-1\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 110,
+    "fields": {
+        "name": "golang-jwt",
+        "description": "Implementación de JSON Web Tokens para Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"JWT-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 111,
+    "fields": {
+        "name": "GORM",
+        "description": "ORM para Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend Library\", \"DatabaseIntegration-4\", \"ORM-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 112,
+    "fields": {
+        "name": "go-redis",
+        "description": "Cliente de Redis para Go, utilizable como caché.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend Library\", \"CacheSupport-4\", \"Redis-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 113,
+    "fields": {
+        "name": "Gorilla WebSocket",
+        "description": "Implementación del protocolo WebSocket para Go.",
+        "language": 10,
+        "features": "[\"Project\", \"Backend Library\", \"RealtimeCommunicationSupport-4\", \"WebSockets-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 114,
+    "fields": {
+        "name": "jsonwebtoken",
+        "description": "Implementación de JSON Web Tokens para Node.js.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"JWT-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 115,
+    "fields": {
+        "name": "class-validator",
+        "description": "Validación de datos basada en decoradores.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"ValidationSupport-4\", \"RequestValidation-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 116,
+    "fields": {
+        "name": "Zod",
+        "description": "Validación de datos basada en esquemas para TypeScript.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"ValidationSupport-4\", \"SchemaValidation-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 117,
+    "fields": {
+        "name": "openid-client",
+        "description": "Cliente de OAuth 2 y OpenID Connect para JavaScript.",
+        "language": 2,
+        "features": "[\"Project\", \"Backend Library\", \"AuthenticationSupport-4\", \"OAuth2-4\"]",
+        "compatible_projects": []
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 118,
+    "fields": {
+        "name": "Vue Router",
+        "description": "Enrutador oficial de Vue.js.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"RoutingSupport-5\", \"ClientSideRouting-5\"]",
+        "compatible_projects": [
+            10
+        ]
+    }
+},
+{
+    "model": "configurador.project",
+    "pk": 119,
+    "fields": {
+        "name": "SvelteKit",
+        "description": "Marco de aplicaciones para Svelte con enrutamiento basado en archivos.",
+        "language": 2,
+        "features": "[\"Project\", \"Frontend Library\", \"RoutingSupport-5\", \"FileBasedRouting-5\"]",
+        "compatible_projects": [
+            95
+        ]
     }
 }
 ]

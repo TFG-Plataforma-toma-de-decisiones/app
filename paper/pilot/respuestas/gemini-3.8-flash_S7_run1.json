@@ -1,0 +1,9 @@
+{
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "date": "2026-10-12",
+  "scenario": "S7",
+  "run": 1,
+  "prompt": "You are helping a development team choose the technology stack for a new project.\nRecommend ONE stack made of open-source frameworks and libraries that satisfies\nALL the requirements below. If the requirements cannot be satisfied together,\nsay so instead of recommending a stack.\n\nAnswer only with this JSON:\n{\n  \"framework\": \"<main framework>\",\n  \"libraries\": [\"<library>\", \"...\"],\n  \"coverage\": [{\"requirement\": \"<requirement>\", \"covered_by\": \"<framework or library>\"}],\n  \"issues\": \"<any conflict or problem with the requirements, or empty>\"\n}\n\nRequirements:\n- Backend service written in Go.\n- Exposes a REST API.\n- Stores data in MongoDB through an ODM.\n",
+  "answer": "{\n  \"framework\": \"Gin\",\n  \"libraries\": [\n    \"Qmgo\",\n    \"MongoDB Go Driver\"\n  ],\n  \"coverage\": [\n    {\n      \"requirement\": \"Backend service written in Go\",\n      \"covered_by\": \"Gin\"\n    },\n    {\n      \"requirement\": \"Exposes a REST API\",\n      \"covered_by\": \"Gin\"\n    },\n    {\n      \"requirement\": \"Stores data in MongoDB through an ODM\",\n      \"covered_by\": \"Qmgo\"\n    }\n  ],\n  \"issues\": \"\"\n}"
+}

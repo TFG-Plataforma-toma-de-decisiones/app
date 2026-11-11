@@ -1,0 +1,428 @@
+{
+  "model": {
+    "features": 171,
+    "leaves": 114,
+    "max_depth": 4,
+    "mean_leaf_depth": 3.08,
+    "relations": {
+      "mandatory": 18,
+      "optional": 44,
+      "alternative": 10,
+      "or": 26
+    },
+    "cross_tree_constraints": 0,
+    "configurations": "1972636841",
+    "configurations_sci": "1.973e+09",
+    "branches": {
+      "Backend": {
+        "features": 48,
+        "optional": 11,
+        "groups": 11,
+        "decision_points": 22,
+        "configurations": "1879048192"
+      },
+      "Frontend": {
+        "features": 34,
+        "optional": 13,
+        "groups": 6,
+        "decision_points": 19,
+        "configurations": "691200"
+      },
+      "Full Stack": {
+        "features": 41,
+        "optional": 17,
+        "groups": 6,
+        "decision_points": 23,
+        "configurations": "92897280"
+      },
+      "Backend Library": {
+        "features": 33,
+        "optional": 0,
+        "groups": 9,
+        "decision_points": 9,
+        "configurations": "155"
+      },
+      "Frontend Library": {
+        "features": 14,
+        "optional": 3,
+        "groups": 3,
+        "decision_points": 6,
+        "configurations": "14"
+      }
+    }
+  },
+  "catalogue": {
+    "projects": 74,
+    "frameworks": 30,
+    "libraries": 44,
+    "languages": 11,
+    "invalid_annotations": [],
+    "libraries_with_links": 12
+  },
+  "repetitions": 100,
+  "scenarios": {
+    "S1": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Django Rest Framework",
+          "libraries": [
+            "Django Channels",
+            "Simple JWT",
+            "Celery"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "FastAPI",
+          "libraries": [
+            "Celery",
+            "SQLAlchemy",
+            "PyJWT"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Flask",
+          "libraries": [
+            "Flask-SocketIO",
+            "Flask-JWT-Extended",
+            "Celery",
+            "SQLAlchemy"
+          ]
+        }
+      ],
+      "n_stacks": 3,
+      "requested": 5,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.181,
+      "match_ms_median": 0.142
+    },
+    "S2": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "NestJS",
+          "libraries": [
+            "Bull",
+            "Mongoose"
+          ]
+        }
+      ],
+      "n_stacks": 1,
+      "requested": 4,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.156,
+      "match_ms_median": 0.092
+    },
+    "S3": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "React",
+          "libraries": [
+            "React Router",
+            "Zustand",
+            "MUI",
+            "react-i18next"
+          ]
+        }
+      ],
+      "n_stacks": 1,
+      "requested": 6,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.189,
+      "match_ms_median": 0.182
+    },
+    "S4": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "React Native",
+          "libraries": [
+            "React Hook Form",
+            "TanStack Query"
+          ]
+        }
+      ],
+      "n_stacks": 1,
+      "requested": 4,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.179,
+      "match_ms_median": 0.173
+    },
+    "S6": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Spring Boot",
+          "libraries": []
+        }
+      ],
+      "n_stacks": 1,
+      "requested": 5,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.14,
+      "match_ms_median": 0.032
+    },
+    "S7": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Echo",
+          "libraries": [
+            "mgm"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Gin",
+          "libraries": [
+            "mgm"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "chi",
+          "libraries": [
+            "mgm"
+          ]
+        }
+      ],
+      "n_stacks": 3,
+      "requested": 2,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.176,
+      "match_ms_median": 0.055
+    },
+    "S8": {
+      "sat_valid": false,
+      "stacks": [],
+      "n_stacks": 0,
+      "requested": 3,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.31,
+      "match_ms_median": 0.0
+    },
+    "H1": {
+      "sat_valid": true,
+      "stacks": [],
+      "n_stacks": 0,
+      "requested": 15,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.179,
+      "match_ms_median": 0.192
+    },
+    "H2": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Django Rest Framework",
+          "libraries": [
+            "Django Channels",
+            "Simple JWT"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Flask",
+          "libraries": [
+            "Flask-SocketIO",
+            "Flask-JWT-Extended"
+          ]
+        }
+      ],
+      "n_stacks": 2,
+      "requested": 4,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.186,
+      "match_ms_median": 0.223
+    },
+    "H2b": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Spring Boot",
+          "libraries": []
+        }
+      ],
+      "n_stacks": 1,
+      "requested": 4,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.173,
+      "match_ms_median": 0.197
+    },
+    "H3": {
+      "sat_valid": true,
+      "stacks": [],
+      "n_stacks": 0,
+      "requested": 6,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.174,
+      "match_ms_median": 0.223
+    },
+    "H5": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Ruby on Rails (API Mode)",
+          "libraries": [
+            "Sidekiq",
+            "Mongoid"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "React Native",
+          "libraries": [
+            "i18next",
+            "Redux"
+          ]
+        }
+      ],
+      "n_stacks": 2,
+      "requested": 6,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.33,
+      "match_ms_median": 0.17
+    },
+    "P1a": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Django Rest Framework",
+          "libraries": [
+            "Django Channels",
+            "Simple JWT",
+            "Celery"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "FastAPI",
+          "libraries": [
+            "Celery",
+            "SQLAlchemy",
+            "PyJWT"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Flask",
+          "libraries": [
+            "Flask-SocketIO",
+            "Flask-JWT-Extended",
+            "Celery",
+            "SQLAlchemy"
+          ]
+        }
+      ],
+      "n_stacks": 3,
+      "requested": 5,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.202,
+      "match_ms_median": 0.147
+    },
+    "P1b": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Django Rest Framework",
+          "libraries": [
+            "Django Channels",
+            "Simple JWT",
+            "Celery"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "FastAPI",
+          "libraries": [
+            "Celery",
+            "SQLAlchemy",
+            "PyJWT"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Flask",
+          "libraries": [
+            "Flask-SocketIO",
+            "Flask-JWT-Extended",
+            "Celery",
+            "SQLAlchemy"
+          ]
+        }
+      ],
+      "n_stacks": 3,
+      "requested": 5,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.164,
+      "match_ms_median": 0.126
+    },
+    "P1c": {
+      "sat_valid": true,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Django Rest Framework",
+          "libraries": [
+            "Django Channels",
+            "Simple JWT",
+            "Celery"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "FastAPI",
+          "libraries": [
+            "Celery",
+            "SQLAlchemy",
+            "PyJWT"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Flask",
+          "libraries": [
+            "Flask-SocketIO",
+            "Flask-JWT-Extended",
+            "Celery",
+            "SQLAlchemy"
+          ]
+        }
+      ],
+      "n_stacks": 3,
+      "requested": 5,
+      "all_checks_pass": true,
+      "distinct_outputs": 1,
+      "sat_ms_median": 0.236,
+      "match_ms_median": 0.173
+    }
+  }
+}

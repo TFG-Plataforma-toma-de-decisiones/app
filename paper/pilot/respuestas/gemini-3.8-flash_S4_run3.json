@@ -1,0 +1,9 @@
+{
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "date": "2026-10-12",
+  "scenario": "S4",
+  "run": 3,
+  "prompt": "You are helping a development team choose the technology stack for a new project.\nRecommend ONE stack made of open-source frameworks and libraries that satisfies\nALL the requirements below. If the requirements cannot be satisfied together,\nsay so instead of recommending a stack.\n\nAnswer only with this JSON:\n{\n  \"framework\": \"<main framework>\",\n  \"libraries\": [\"<library>\", \"...\"],\n  \"coverage\": [{\"requirement\": \"<requirement>\", \"covered_by\": \"<framework or library>\"}],\n  \"issues\": \"<any conflict or problem with the requirements, or empty>\"\n}\n\nRequirements:\n- Frontend for a mobile-only application (no web version).\n- Form state management.\n- Form validation.\n- Data fetching with query caching.\n",
+  "answer": "{\n  \"framework\": \"React Native\",\n  \"libraries\": [\n    \"react-hook-form\",\n    \"zod\",\n    \"@tanstack/react-query\"\n  ],\n  \"coverage\": [\n    {\n      \"requirement\": \"Frontend for a mobile-only application (no web version).\",\n      \"covered_by\": \"React Native\"\n    },\n    {\n      \"requirement\": \"Form state management.\",\n      \"covered_by\": \"react-hook-form\"\n    },\n    {\n      \"requirement\": \"Form validation.\",\n      \"covered_by\": \"zod\"\n    },\n    {\n      \"requirement\": \"Data fetching with query caching.\",\n      \"covered_by\": \"@tanstack/react-query\"\n    }\n  ],\n  \"issues\": \"\"\n}"
+}

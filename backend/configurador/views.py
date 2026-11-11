@@ -51,7 +51,7 @@ def get_my_user(request):
 def get_recommendation(request):
     serializer=ConfiguratorBranchSerializer(data=request.data, many=True)
     serializer.is_valid(raise_exception=True)
-    projects = list(Project.objects.all().prefetch_related("compatible_projects"))
+    projects = list(Project.objects.order_by("pk").prefetch_related("compatible_projects"))
     libraries_by_type = {
         "Frontend": [p for p in projects if "Frontend Library" in p.features],
         "Backend": [p for p in projects if "Backend Library" in p.features],

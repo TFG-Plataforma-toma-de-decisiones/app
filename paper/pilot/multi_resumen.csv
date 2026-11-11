@@ -1,0 +1,18 @@
+scenario,answers,options_mean,options_range,jaccard_runs,frameworks_total,platform_coverage,frameworks
+H1,9,2.0,2-2,1.0,2,1.0,Django REST Framework (9); FastAPI (9)
+H2,9,3.0,2-4,0.56,7,0.94,Flask (9); Django REST Framework (8); Gorilla Mux (3); Hapi (3); Yii (2); Sanic (1); Starlette (1)
+H2b,9,3.2,2-4,0.59,10,1.0,Spring Boot (9); Quarkus (7); Micronaut (4); Tornado (3); go-restful (1); AIOHTTP (1); Actix Web (1); LoopBack (1); Revel (1); Falcon (1)
+H3,9,3.0,3-3,0.82,6,0.67,Flutter (9); Ionic (8); Expo (6); React Native (2); Quasar (1); React (1)
+H4,9,2.0,1-3,0.78,4,0.33,Django (9); Laravel (3); Ruby on Rails (3); Frappe Framework (3)
+H5,9,2.0,1-3,0.62,4,1.0,Ruby on Rails (9); Sinatra (6); Hanami (2); Grape (1)
+P1a,9,2.6,2-3,0.93,3,0.78,Django REST Framework (9); FastAPI (9); Flask (5)
+P1b,9,2.9,2-3,0.87,4,0.89,Django REST Framework (9); FastAPI (9); Flask (7); Litestar (1)
+P1c,9,2.7,2-3,0.85,3,0.83,Django REST Framework (9); FastAPI (9); Flask (6)
+S1,9,2.8,2-3,0.8,4,0.83,Django REST Framework (9); FastAPI (9); Flask (6); Litestar (1)
+S2,9,2.7,2-3,1.0,3,1.0,NestJS (9); Express (9); Fastify (6)
+S3,9,3.2,3-4,0.9,5,1.0,Vue.js (9); Angular (9); React (9); Svelte (1); SvelteKit (1)
+S4,9,2.0,2-2,1.0,2,1.0,React Native (9); Flutter (9)
+S5,9,2.3,1-3,0.74,4,0.78,Django (9); Laravel (5); Ruby on Rails (5); Frappe Framework (2)
+S6,9,2.8,1-3,0.85,3,1.0,Spring Boot (9); Quarkus (8); Micronaut (8)
+S7,9,2.9,1-4,0.72,4,,Gin (9); Echo (8); Fiber (7); Chi (2)
+S8,9,0.0,0-0,1.0,0,,

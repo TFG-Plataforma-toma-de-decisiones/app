@@ -1,0 +1,685 @@
+{
+  "questions_per_branch": {
+    "Backend": 13,
+    "Frontend": 13,
+    "Full Stack": 12,
+    "Backend Library": 7,
+    "Frontend Library": 6
+  },
+  "apps": [
+    {
+      "app": "n8n",
+      "branch": "Backend",
+      "language": "JavaScript/TypeScript",
+      "real": "Express.js",
+      "real_in_catalogue": true,
+      "capabilities": 8,
+      "expressible": 8,
+      "not_expressible": [],
+      "returned": [],
+      "real_returned": false,
+      "blockers": [
+        "Redis-1",
+        "OpenAPIDocumentationSupport"
+      ],
+      "questions": 13,
+      "questions_touched": 8,
+      "stacks": []
+    },
+    {
+      "app": "n8n",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "Vue.js",
+      "real_in_catalogue": true,
+      "capabilities": 5,
+      "expressible": 5,
+      "not_expressible": [],
+      "returned": [
+        "Angular",
+        "React",
+        "Vue.js"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 5,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Angular",
+          "libraries": [
+            "Redux"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "React",
+          "libraries": [
+            "React Router",
+            "Zustand",
+            "react-i18next"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "Vue.js",
+          "libraries": [
+            "Vue Router",
+            "i18next",
+            "Redux"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "open-webui",
+      "branch": "Backend",
+      "language": "Python",
+      "real": "FastAPI",
+      "real_in_catalogue": true,
+      "capabilities": 7,
+      "expressible": 7,
+      "not_expressible": [],
+      "returned": [
+        "FastAPI"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 6,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "FastAPI",
+          "libraries": [
+            "SQLAlchemy",
+            "PyJWT"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "open-webui",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "Svelte",
+      "real_in_catalogue": true,
+      "capabilities": 4,
+      "expressible": 4,
+      "not_expressible": [],
+      "returned": [
+        "Svelte"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 4,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Svelte",
+          "libraries": [
+            "SvelteKit",
+            "i18next"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "immich",
+      "branch": "Backend",
+      "language": "JavaScript/TypeScript",
+      "real": "NestJS",
+      "real_in_catalogue": true,
+      "capabilities": 8,
+      "expressible": 7,
+      "not_expressible": [
+        "kysely (query builder)"
+      ],
+      "returned": [
+        "Fastify",
+        "NestJS"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 6,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "NestJS",
+          "libraries": [
+            "Bull",
+            "openid-client"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Fastify",
+          "libraries": [
+            "Bull",
+            "openid-client"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "immich",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "Svelte",
+      "real_in_catalogue": true,
+      "capabilities": 4,
+      "expressible": 4,
+      "not_expressible": [],
+      "returned": [
+        "Svelte"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 4,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Svelte",
+          "libraries": [
+            "SvelteKit",
+            "TanStack Query",
+            "i18next"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "Stirling-PDF",
+      "branch": "Backend",
+      "language": "Java",
+      "real": "Spring Boot",
+      "real_in_catalogue": true,
+      "capabilities": 6,
+      "expressible": 5,
+      "not_expressible": [
+        "SAML (spring-security-saml2)"
+      ],
+      "returned": [
+        "Spring Boot"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 4,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Spring Boot",
+          "libraries": []
+        }
+      ]
+    },
+    {
+      "app": "Stirling-PDF",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "React",
+      "real_in_catalogue": true,
+      "capabilities": 5,
+      "expressible": 5,
+      "not_expressible": [],
+      "returned": [
+        "Angular",
+        "React",
+        "Vue.js"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 5,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Angular",
+          "libraries": [
+            "TanStack Query"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "React",
+          "libraries": [
+            "React Router",
+            "react-i18next",
+            "TanStack Query"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "Vue.js",
+          "libraries": [
+            "Vue Router",
+            "TanStack Query",
+            "i18next"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "uptime-kuma",
+      "branch": "Backend",
+      "language": "JavaScript/TypeScript",
+      "real": "Express.js",
+      "real_in_catalogue": true,
+      "capabilities": 4,
+      "expressible": 4,
+      "not_expressible": [],
+      "returned": [
+        "Express.js",
+        "Fastify",
+        "NestJS"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 4,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "NestJS",
+          "libraries": [
+            "Prisma"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Fastify",
+          "libraries": [
+            "Prisma"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Express.js",
+          "libraries": [
+            "Prisma",
+            "Socket.IO",
+            "Zod"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "uptime-kuma",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "Vue.js",
+      "real_in_catalogue": true,
+      "capabilities": 4,
+      "expressible": 4,
+      "not_expressible": [],
+      "returned": [
+        "Angular",
+        "React",
+        "Vue.js"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 4,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Angular",
+          "libraries": []
+        },
+        {
+          "type": "Frontend",
+          "project": "React",
+          "libraries": [
+            "React Router",
+            "react-i18next"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "Vue.js",
+          "libraries": [
+            "Vue Router",
+            "i18next"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "coolify",
+      "branch": "Full Stack",
+      "language": "PHP",
+      "real": "Laravel",
+      "real_in_catalogue": true,
+      "capabilities": 7,
+      "expressible": 5,
+      "not_expressible": [
+        "OAuth login (laravel/socialite)",
+        "API docs (zircote/swagger-php)"
+      ],
+      "returned": [
+        "Laravel"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 12,
+      "questions_touched": 5,
+      "stacks": [
+        {
+          "type": "Full Stack",
+          "project": "Laravel",
+          "libraries": []
+        }
+      ]
+    },
+    {
+      "app": "memos",
+      "branch": "Backend",
+      "language": "Go",
+      "real": "(gRPC gateway, no framework)",
+      "real_in_catalogue": false,
+      "capabilities": 3,
+      "expressible": 3,
+      "not_expressible": [],
+      "returned": [],
+      "real_returned": false,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 2,
+      "stacks": []
+    },
+    {
+      "app": "memos",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "React",
+      "real_in_catalogue": true,
+      "capabilities": 5,
+      "expressible": 5,
+      "not_expressible": [],
+      "returned": [
+        "Angular",
+        "React",
+        "Vue.js"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 5,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Angular",
+          "libraries": [
+            "TanStack Query"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "React",
+          "libraries": [
+            "React Router",
+            "react-i18next",
+            "TanStack Query"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "Vue.js",
+          "libraries": [
+            "Vue Router",
+            "TanStack Query",
+            "i18next"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "gitea",
+      "branch": "Backend",
+      "language": "Go",
+      "real": "chi",
+      "real_in_catalogue": true,
+      "capabilities": 4,
+      "expressible": 4,
+      "not_expressible": [],
+      "returned": [
+        "Echo",
+        "Gin",
+        "chi"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 4,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Echo",
+          "libraries": [
+            "golang-jwt",
+            "GORM",
+            "go-redis"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Gin",
+          "libraries": [
+            "golang-jwt",
+            "GORM",
+            "go-redis"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "chi",
+          "libraries": [
+            "golang-jwt",
+            "GORM",
+            "go-redis"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "appwrite",
+      "branch": "Backend",
+      "language": "PHP",
+      "real": "Utopia",
+      "real_in_catalogue": true,
+      "capabilities": 1,
+      "expressible": 1,
+      "not_expressible": [],
+      "returned": [
+        "Symfony",
+        "Utopia"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 1,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Symfony",
+          "libraries": []
+        },
+        {
+          "type": "Backend",
+          "project": "Utopia",
+          "libraries": []
+        }
+      ]
+    },
+    {
+      "app": "new-api",
+      "branch": "Backend",
+      "language": "Go",
+      "real": "Gin",
+      "real_in_catalogue": true,
+      "capabilities": 5,
+      "expressible": 5,
+      "not_expressible": [],
+      "returned": [
+        "Echo",
+        "Gin",
+        "chi"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 5,
+      "stacks": [
+        {
+          "type": "Backend",
+          "project": "Echo",
+          "libraries": [
+            "golang-jwt",
+            "GORM",
+            "go-redis",
+            "Gorilla WebSocket"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "Gin",
+          "libraries": [
+            "golang-jwt",
+            "GORM",
+            "go-redis",
+            "Gorilla WebSocket"
+          ]
+        },
+        {
+          "type": "Backend",
+          "project": "chi",
+          "libraries": [
+            "golang-jwt",
+            "GORM",
+            "go-redis",
+            "Gorilla WebSocket"
+          ]
+        }
+      ]
+    },
+    {
+      "app": "new-api",
+      "branch": "Frontend",
+      "language": "JavaScript/TypeScript",
+      "real": "React",
+      "real_in_catalogue": true,
+      "capabilities": 8,
+      "expressible": 8,
+      "not_expressible": [],
+      "returned": [
+        "Angular",
+        "React"
+      ],
+      "real_returned": true,
+      "blockers": [],
+      "questions": 13,
+      "questions_touched": 7,
+      "stacks": [
+        {
+          "type": "Frontend",
+          "project": "Angular",
+          "libraries": [
+            "TanStack Query",
+            "Redux"
+          ]
+        },
+        {
+          "type": "Frontend",
+          "project": "React",
+          "libraries": [
+            "React Hook Form",
+            "React Router",
+            "Zustand",
+            "react-i18next",
+            "TanStack Query"
+          ]
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "S1",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 5
+    },
+    {
+      "scenario": "S2",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 4
+    },
+    {
+      "scenario": "S3",
+      "branch": "Frontend",
+      "questions": 13,
+      "questions_touched": 6
+    },
+    {
+      "scenario": "S4",
+      "branch": "Frontend",
+      "questions": 13,
+      "questions_touched": 3
+    },
+    {
+      "scenario": "S6",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 5
+    },
+    {
+      "scenario": "S7",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 2
+    },
+    {
+      "scenario": "H1",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 10
+    },
+    {
+      "scenario": "H2",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 4
+    },
+    {
+      "scenario": "H2b",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 4
+    },
+    {
+      "scenario": "H3",
+      "branch": "Frontend",
+      "questions": 13,
+      "questions_touched": 5
+    },
+    {
+      "scenario": "H5",
+      "branch": "Backend",
+      "questions": 13,
+      "questions_touched": 3
+    },
+    {
+      "scenario": "H5",
+      "branch": "Frontend",
+      "questions": 13,
+      "questions_touched": 3
+    }
+  ]
+}

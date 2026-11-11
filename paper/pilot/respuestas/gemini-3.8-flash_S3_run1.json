@@ -1,0 +1,9 @@
+{
+  "model": "gemini-3.8-flash",
+  "model_version": "gemini-3.8-flash",
+  "date": "2026-10-12",
+  "scenario": "S3",
+  "run": 1,
+  "prompt": "You are helping a development team choose the technology stack for a new project.\nRecommend ONE stack made of open-source frameworks and libraries that satisfies\nALL the requirements below. If the requirements cannot be satisfied together,\nsay so instead of recommending a stack.\n\nAnswer only with this JSON:\n{\n  \"framework\": \"<main framework>\",\n  \"libraries\": [\"<library>\", \"...\"],\n  \"coverage\": [{\"requirement\": \"<requirement>\", \"covered_by\": \"<framework or library>\"}],\n  \"issues\": \"<any conflict or problem with the requirements, or empty>\"\n}\n\nRequirements:\n- Web frontend written in JavaScript or TypeScript.\n- Single-page application (SPA).\n- Client-side routing.\n- Global state management.\n- Internationalisation (i18n).\n- Theming support (e.g., light/dark themes) through a component library.\n",
+  "answer": "{\n  \"framework\": \"React\",\n  \"libraries\": [\n    \"react-router-dom\",\n    \"zustand\",\n    \"react-i18next\",\n    \"@mui/material\"\n  ],\n  \"coverage\": [\n    {\n      \"requirement\": \"Web frontend written in JavaScript or TypeScript\",\n      \"covered_by\": \"React\"\n    },\n    {\n      \"requirement\": \"Single-page application (SPA)\",\n      \"covered_by\": \"React\"\n    },\n    {\n      \"requirement\": \"Client-side routing\",\n      \"covered_by\": \"react-router-dom\"\n    },\n    {\n      \"requirement\": \"Global state management\",\n      \"covered_by\": \"zustand\"\n    },\n    {\n      \"requirement\": \"Internationalisation (i18n)\",\n      \"covered_by\": \"react-i18next\"\n    },\n    {\n      \"requirement\": \"Theming support (e.g., light/dark themes) through a component library\",\n      \"covered_by\": \"@mui/material\"\n    }\n  ],\n  \"issues\": \"\"\n}"
+}

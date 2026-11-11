@@ -1,0 +1,9 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "model_version": "gemini-3.1-pro-preview",
+  "date": "2026-10-12",
+  "scenario": "P1b",
+  "run": 3,
+  "prompt": "You are helping a development team choose the technology stack for a new project.\nRecommend ONE stack made of open-source frameworks and libraries that satisfies\nALL the requirements below. If the requirements cannot be satisfied together,\nsay so instead of recommending a stack.\n\nAnswer only with this JSON:\n{\n  \"framework\": \"<main framework>\",\n  \"libraries\": [\"<library>\", \"...\"],\n  \"coverage\": [{\"requirement\": \"<requirement>\", \"covered_by\": \"<framework or library>\"}],\n  \"issues\": \"<any conflict or problem with the requirements, or empty>\"\n}\n\nRequirements:\n- Language: Python\n- API style: REST\n- Persistence: relational database accessed through an ORM\n- Authentication: JSON Web Tokens\n- Asynchronous jobs: RabbitMQ\n- Real-time: WebSockets\n",
+  "answer": "{\n  \"framework\": \"FastAPI\",\n  \"libraries\": [\n    \"SQLAlchemy\",\n    \"PyJWT\",\n    \"Celery\"\n  ],\n  \"coverage\": [\n    {\n      \"requirement\": \"Language: Python\",\n      \"covered_by\": \"FastAPI\"\n    },\n    {\n      \"requirement\": \"API style: REST\",\n      \"covered_by\": \"FastAPI\"\n    },\n    {\n      \"requirement\": \"Persistence: relational database accessed through an ORM\",\n      \"covered_by\": \"SQLAlchemy\"\n    },\n    {\n      \"requirement\": \"Authentication: JSON Web Tokens\",\n      \"covered_by\": \"PyJWT\"\n    },\n    {\n      \"requirement\": \"Asynchronous jobs: RabbitMQ\",\n      \"covered_by\": \"Celery\"\n    },\n    {\n      \"requirement\": \"Real-time: WebSockets\",\n      \"covered_by\": \"FastAPI\"\n    }\n  ],\n  \"issues\": \"\"\n}"
+}

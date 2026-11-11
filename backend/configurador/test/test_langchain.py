@@ -40,6 +40,16 @@ class LangchainServiceTests(TestCase):
             PROMPT_AUTOCOMPLETE,
         )
         self.assertEqual(result, {"language": "Python"})
+    @patch.object(LangchainService, "generate_llm_response")
+    def test_autocomplete_project_exclusive_library_features_as_dict(self, mock_generate_llm_response):
+        mock_generate_llm_response.return_value = {
+            "exclusive_library_features": [{"feature": "JWT", "library": "Flask-JWT-Extended"}]
+        }
+
+        result = self.service.autocomplete_project({"name": "Flask"})
+
+        self.assertEqual(result["exclusive_library_features"], {"JWT": "Flask-JWT-Extended"})
+
     @patch("configurador.langchain.langchainService.init_chat_model")
     def test_generate_llm_response(self, mock_init_chat_model):
         mock_model = MagicMock()

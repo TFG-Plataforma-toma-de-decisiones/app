@@ -23,6 +23,7 @@ export default function Project() {
     const isNew = id === "new"
     const { showMessage } = useFeedback()
     const [projectLoaded, setProjectLoaded] = useState(isNew)
+    const [exclusiveLibraryFeatures, setExclusiveLibraryFeatures] = useState({})
 
     const CONFIDENCE_THRESHOLDS = [
       {
@@ -76,7 +77,10 @@ export default function Project() {
         statusEndpointBase: "/autocomplete-status",
         method: "POST",
         body: trees[0],
-        updateState: (data => setTrees([data.project])),
+        updateState: (data => {
+          setTrees([data.project])
+          setExclusiveLibraryFeatures(data.project.exclusive_library_features || {})
+        }),
       })
       if (!data) return;
       const confScore = data.confidence_score
@@ -188,6 +192,19 @@ export default function Project() {
             )}
           </div>
         </div>
+
+        {isAdmin && Object.keys(exclusiveLibraryFeatures).length > 0 && (
+          <div className="input-container" data-cy="exclusive-library-features">
+            <label className='label-input'>Características cubiertas por librerías exclusivas (revisar)</label>
+            <div className="input-wrapper">
+              <div className="chips-container">
+                {Object.entries(exclusiveLibraryFeatures).map(([feature, library]) => (
+                  <span key={feature} className="chip chip-selected readonly-chip">{feature} → {library}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         <FeatureNode
           node={uvlModel}
